@@ -1,0 +1,34 @@
+#pragma once
+#include "stbEntity.h"
+
+namespace stb
+{
+	using namespace enums;
+	
+	class GameObject;
+
+	class Component : public Entity
+	{
+	public:
+		Component(eComponentType type);
+		~Component();
+
+		virtual void Initialize();
+		virtual void Update();
+		virtual void LateUpdate();
+		virtual void Render(HDC hdc);
+
+		void SetOwner(GameObject* gameObject) { mGameObject = gameObject; }
+		GameObject* GetOwner() { return mGameObject; }
+		eComponentType GetType() { return mType;}
+
+	private:
+		GameObject* mGameObject;
+		enums::eComponentType mType;
+
+
+	};
+
+}
+
+
