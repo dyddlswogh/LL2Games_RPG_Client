@@ -4,6 +4,7 @@
 #include "stbAnimator.h"
 #include "stbTransform.h"
 #include "stbRender.h"
+#include "stbD2DRenderer.h"
 
 
 #define M_TIME stb::SingletonBase<stb::Time>::getInstance()
@@ -159,6 +160,37 @@ namespace stb
 
 
     }
+
+
+	void Animation::Render(stbD2DRenderer& renderer)
+	{
+		if (mTexture == nullptr)
+			return;
+
+		ID2D1Bitmap* bitmap = mTexture->GetD2DBitmap();
+		if (bitmap == nullptr)
+			return;
+
+		GameObject* gameObj = mAnimator->GetOwner();
+		Transform* tr = gameObj->GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+		Vector2 scale = tr->GetScale();
+
+		if (render::mainCamera)
+			pos = render::mainCamera->CalculatePosition(pos);
+
+		Sprite sprite = mAnimationSheet[mIndex];
+
+		float destX = pos.x - (sprite.size.x / 2.0f) + sprite.offset.x;
+		float destY = pos.y - (sprite.size.y / 2.0f) + sprite.offset.y;
+		float destW = sprite.size.x * scale.x;
+		float destH = sprite.size.y * scale.y;
+
+		renderer.DrawSprite(bitmap,
+			destX, destY, destW, destH,
+			sprite.leftTop.x, sprite.leftTop.y,
+			sprite.size.x, sprite.size.y);
+	}
 
     void Animation::CreateAnimation(const std::wstring& name
         , Texture* spriteTexture

@@ -3,6 +3,8 @@
 #include "stbEntity.h"
 #include "stbLayer.h"
 
+class stbD2DRenderer;
+
 
 namespace stb
 {
@@ -16,6 +18,7 @@ namespace stb
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render(HDC hdc);
+		virtual void Render(stbD2DRenderer& renderer);
 
 		virtual void OnExit();
 		virtual void OnEnter();

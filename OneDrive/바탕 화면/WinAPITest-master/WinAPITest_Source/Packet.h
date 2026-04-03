@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <cstdint>
+#include <vector>
 
 #define BUFFER_SIZE 1024
 #define WM_SOCKET_RECEIVE (WM_USER + 100)

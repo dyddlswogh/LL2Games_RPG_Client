@@ -1,5 +1,6 @@
 #include "MovePacketHandler.h"
 #include "stbNetworkConfig.h"
+#include "stbOtherPlayerManager.h"
 
 
 
@@ -13,7 +14,7 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
 
         if (payloadSize < sizeof(uint16_t))
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] ÆäÀÌ·Îµå Å©±â ºÎÁ·\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] í˜ì´ë¡œë“œ í¬ê¸° ë¶€ì¡±\n");
             return;
         }
 
@@ -23,25 +24,25 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
 
         if (offset + len1 > payloadSize)
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] playerID ±æÀÌ ÃÊ°ú\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] playerID ê¸¸ì´ ì´ˆê³¼\n");
             return;
         }
 
         std::string charId(data + offset, len1);
         offset += len1;
-        //LOG("[ÀÌµ¿ ÆĞÅ¶] playerID: " << charId << "\n");
+        //LOG("[ì´ë™ íŒ¨í‚·] playerID: " << charId << "\n");
 
-        // ³» Ä³¸¯ÅÍ ID¿Í °°À¸¸é ¹«½Ã (ÀÚ±â ÀÚ½Å)
+        // ë‚´ ìºë¦­í„° IDì™€ ê°™ìœ¼ë©´ ë¬´ì‹œ (ìê¸° ìì‹ )
         if (charId == stb::NetworkConfig::GetCharacterId())
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] ³» Ä³¸¯ÅÍ ¹«½Ã\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] ë‚´ ìºë¦­í„° ë¬´ì‹œ\n");
             return;
         }
 
         // 2. xPos
         if (offset + sizeof(uint16_t) > payloadSize)
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] xPos Çì´õ ºÎÁ·\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] xPos í—¤ë” ë¶€ì¡±\n");
             return;
         }
 
@@ -50,18 +51,18 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
 
         if (offset + len2 > payloadSize)
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] xPos ±æÀÌ ÃÊ°ú\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] xPos ê¸¸ì´ ì´ˆê³¼\n");
             return;
         }
 
         std::string xStr(data + offset, len2);
         offset += len2;
-        //LOG("[ÀÌµ¿ ÆĞÅ¶] xPos: " << xStr << "\n");
+        //LOG("[ì´ë™ íŒ¨í‚·] xPos: " << xStr << "\n");
 
         // 3. yPos
         if (offset + sizeof(uint16_t) > payloadSize)
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] yPos Çì´õ ºÎÁ·\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] yPos í—¤ë” ë¶€ì¡±\n");
             return;
         }
 
@@ -70,18 +71,18 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
 
         if (offset + len3 > payloadSize)
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] yPos ±æÀÌ ÃÊ°ú\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] yPos ê¸¸ì´ ì´ˆê³¼\n");
             return;
         }
 
         std::string yStr(data + offset, len3);
         offset += len3;
-        //LOG("[ÀÌµ¿ ÆĞÅ¶] yPos: " << yStr << "\n");
+        //LOG("[ì´ë™ íŒ¨í‚·] yPos: " << yStr << "\n");
 
         // 4. speed
         if (offset + sizeof(uint16_t) > payloadSize)
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] speed Çì´õ ºÎÁ·\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] speed í—¤ë” ë¶€ì¡±\n");
             return;
         }
 
@@ -90,25 +91,25 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
 
         if (offset + len4 > payloadSize)
         {
-            //LOG("[ÀÌµ¿ ÆĞÅ¶] speed ±æÀÌ ÃÊ°ú\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] speed ê¸¸ì´ ì´ˆê³¼\n");
             return;
         }
 
         std::string speedStr(data + offset, len4);
-        //LOG("[ÀÌµ¿ ÆĞÅ¶] speed: " << speedStr << "\n");
+        //LOG("[ì´ë™ íŒ¨í‚·] speed: " << speedStr << "\n");
 
         float x = (float)atof(xStr.c_str());
         float y = (float)atof(yStr.c_str());
         float speed = (float)atof(speedStr.c_str());
 
-        // LOG("[ÀÌµ¿ ¼º°ø!] Char " << charId << " -> (" << x << ", " << y << ") speed: " << speed << "\n");
+        // LOG("[ì´ë™ ì„±ê³µ!] Char " << charId << " -> (" << x << ", " << y << ") speed: " << speed << "\n");
 
-        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î À§Ä¡ ¾÷µ¥ÀÌÆ®
-        auto otherPlayerMgr = OtherPlayerManager::getInstance();
+        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
+        auto otherPlayerMgr = stb::OtherPlayerManager::getInstance();
         if (otherPlayerMgr != nullptr)
         {
-            // LOG("[ÀÌµ¿ ÆĞÅ¶] OtherPlayerManager ¾÷µ¥ÀÌÆ® ½ÃÀÛ\n");
-            // SetTargetPosition »ç¿ë (ºÎµå·¯¿î ÀÌµ¿)
+            // LOG("[ì´ë™ íŒ¨í‚·] OtherPlayerManager ì—…ë°ì´íŠ¸ ì‹œì‘\n");
+            // SetTargetPosition ì‚¬ìš© (ë¶€ë“œëŸ¬ìš´ ì´ë™)
             auto it = otherPlayerMgr->GetPlayers().find(charId);
             if (it != otherPlayerMgr->GetPlayers().end() && it->second != nullptr)
             {
@@ -116,26 +117,25 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
             }
             else
             {
-                // Ã³À½ º¸´Â ÇÃ·¹ÀÌ¾î¸é »ı¼º
+                // ì²˜ìŒ ë³´ëŠ” í”Œë ˆì´ì–´ë©´ ìƒì„±
                 otherPlayerMgr->UpdatePlayer(charId, x, y);
             }
-            // LOG("[ÀÌµ¿ ÆĞÅ¶] OtherPlayerManager ¾÷µ¥ÀÌÆ® ¿Ï·á\n");
+            // LOG("[ì´ë™ íŒ¨í‚·] OtherPlayerManager ì—…ë°ì´íŠ¸ ì™„ë£Œ\n");
         }
         else
         {
-           // LOG("[ÀÌµ¿ ÆĞÅ¶] OtherPlayerManager°¡ nullptr!\n");
+           // LOG("[ì´ë™ íŒ¨í‚·] OtherPlayerManagerê°€ nullptr!\n");
         }
     }
     catch (const std::exception& e)
     {
-        std::string msg = "[ÀÌµ¿ ÆĞÅ¶] ¿¹¿Ü ¹ß»ı: ";
+        std::string msg = "[ì´ë™ íŒ¨í‚·] ì˜ˆì™¸ ë°œìƒ: ";
         msg += e.what();
         msg += "\n";
         //LOG(msg);
     }
     catch (...)
     {
-        //LOG("[ÀÌµ¿ ÆĞÅ¶] ¾Ë ¼ö ¾ø´Â ¿¹¿Ü ¹ß»ı\n");
+        //LOG("[ì´ë™ íŒ¨í‚·] ì•Œ ìˆ˜ ì—†ëŠ” ì˜ˆì™¸ ë°œìƒ\n");
     }
-}
 }

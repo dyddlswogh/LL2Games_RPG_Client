@@ -1,6 +1,8 @@
 #pragma once
 #include "stbEntity.h"
 
+class stbD2DRenderer;
+
 namespace stb
 {
 	using namespace enums;
@@ -17,6 +19,7 @@ namespace stb
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render(HDC hdc);
+		virtual void Render(stbD2DRenderer& renderer);
 
 		void SetOwner(GameObject* gameObject) { mGameObject = gameObject; }
 		GameObject* GetOwner() { return mGameObject; }

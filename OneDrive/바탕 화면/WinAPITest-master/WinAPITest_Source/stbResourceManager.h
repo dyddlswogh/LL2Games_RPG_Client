@@ -9,7 +9,7 @@ namespace stb
 
 		ResourceManager();
 		~ResourceManager();
-		// Ã£±â / ·Îµå / Ãß°¡ 
+		// Ã£ï¿½ï¿½ / ï¿½Îµï¿½ / ï¿½ß°ï¿½ 
 		template <typename T>
 		T* Find(const std::wstring& name)
 		{
@@ -26,8 +26,8 @@ namespace stb
 		template<typename T>
 		T* Load(const std::wstring& name, const std::wstring& path)
 		{
-			// Á¤Àû ¸â¹ö ÇÔ¼öÀÎ °æ¿ì ¾î¶² Å¬·¡½ºÀÇ ÇÔ¼öÀÎÁö ¸ðÈ£ÇÔÀÌ ¹ß»ýÇÒ ¼ö ÀÖ±â ‹š¹®¿¡ Àû¾îÁÖ´Â°Ô ÁÁ´Ù.
-			// ÇÏÁö¸¸ ³ª´Â ½Ì±ÛÅæÀ¸·Î ¸¸µé¾î¼­ »ç¿ëÇÒ °ÍÀÌ±â ¶§¹®¿¡ ±»ÀÌ ÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½î¶² Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			T* resource = Find<T>(name);
 
 			if (resource != nullptr)
@@ -52,19 +52,14 @@ namespace stb
 		
 		void Insert(const std::wstring& name, Resource* resource)
 		{
-			// ¸®¼Ò½º ÀÌ¸§ÀÌ ¾ÈÀûÇô ÀÖ´Â °æ¿ì¿Í ¸®¼Ò½º°¡ nullptrÀÎ °æ¿ì ¾È³ÖÀ½
 			if (name == L"")
-			{
 				return;
-			}
-
 			if (resource == nullptr)
-			{
 				return;
-			}
-
 			mResources.insert(make_pair(name, resource));
 		}
+
+		void LoadAllD2D(stbD2DRenderer& renderer);
 
 
 

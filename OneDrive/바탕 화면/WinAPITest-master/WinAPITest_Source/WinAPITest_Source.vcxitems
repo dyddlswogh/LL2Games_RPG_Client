@@ -31,6 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCollider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbD2DRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbDontDestroyOnLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbEnums.h" />
@@ -73,6 +74,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCollider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbD2DRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbDontDestroyOnLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbGameObject.cpp" />

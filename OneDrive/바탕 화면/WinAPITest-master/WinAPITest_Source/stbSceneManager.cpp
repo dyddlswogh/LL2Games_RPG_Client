@@ -1,5 +1,6 @@
 #include "stbSceneManager.h"
 #include "stbDontDestroyOnLoad.h"
+#include "stbD2DRenderer.h"
 
 namespace stb
 {
@@ -53,6 +54,12 @@ namespace stb
 	{
 		mActiveScene->Render(hdc);
 		mDontDestroyOnLoad->Render(hdc);
+	}
+
+	void SceneManager::Render(stbD2DRenderer& renderer)
+	{
+		mActiveScene->Render(renderer);
+		mDontDestroyOnLoad->Render(renderer);
 	}
 
 	std::vector<GameObject*> SceneManager::GetGameObjects(eLayerType layer)

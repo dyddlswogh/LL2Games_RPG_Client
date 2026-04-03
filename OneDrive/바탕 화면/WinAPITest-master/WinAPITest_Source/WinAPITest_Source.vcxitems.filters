@@ -95,6 +95,7 @@
       <Filter>Packet</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbD2DRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -209,6 +210,7 @@
       <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbD2DRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

@@ -1,3 +1,4 @@
+#include "stbD2DRenderer.h"
 #include "stbTexture.h"
 #include "stbResourceManager.h"
 #include "stbApplication.h"
@@ -145,6 +146,20 @@ namespace stb
 		}
 
 		return S_OK;
+	}
+
+	void Texture::LoadD2D(stbD2DRenderer& renderer)
+	{
+		if (mD2DBitmap)
+			return;
+
+		HRESULT hr = renderer.CreateBitmapFromFile(GetPath().c_str(), &mD2DBitmap);
+		if (FAILED(hr))
+		{
+			wchar_t msg[512];
+			swprintf_s(msg, L"[Texture] D2D 비트맵 로드 실패: %s\n", GetPath().c_str());
+			OutputDebugStringW(msg);
+		}
 	}
 
 }

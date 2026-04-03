@@ -1,5 +1,5 @@
 #include "stbScene.h"
-
+#include "stbD2DRenderer.h"
 
 namespace stb
 {
@@ -62,6 +62,19 @@ namespace stb
 			}
 
 			layer->Render(hdc);
+		}
+	}
+
+	void Scene::Render(stbD2DRenderer& renderer)
+	{
+		for (const auto& layer : mLayers)
+		{
+			if (layer == nullptr)
+			{
+				continue;
+			}
+
+			layer->Render(renderer);
 		}
 	}
 

@@ -5,6 +5,7 @@
 #include "stbSceneManager.h"
 #include "stbCollider.h"
 #include "stbTransform.h"
+#include "stbD2DRenderer.h"
 
 #define M_SceneManager stb::SingletonBase<stb::SceneManager>::getInstance()
 
@@ -43,6 +44,11 @@ namespace stb
 
 	void CollisionManager::Render(HDC hdc)
 	{
+	}
+
+	void CollisionManager::Render(stbD2DRenderer& renderer)
+	{
+
 	}
 
 	void CollisionManager::Clear()

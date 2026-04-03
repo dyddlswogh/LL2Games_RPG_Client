@@ -1,5 +1,6 @@
 #include "stbLayer.h"
 #include "stbLayer.h"
+#include "stbD2DRenderer.h"
 
 namespace stb
 {
@@ -62,6 +63,19 @@ namespace stb
 			}
 
 			gameObj->Render(hdc);
+		}
+	}
+
+	void Layer::Render(stbD2DRenderer& renderer) 
+	{
+		for (const auto& gameObj : mGameObjects)
+		{
+			if (gameObj == nullptr)
+			{
+				continue;
+			}
+
+			gameObj->Render(renderer);
 		}
 	}
 

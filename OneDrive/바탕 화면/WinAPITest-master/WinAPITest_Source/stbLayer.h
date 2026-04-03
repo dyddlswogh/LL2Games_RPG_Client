@@ -2,6 +2,7 @@
 #include "stbEntity.h"
 #include "stbGameObject.h"
 
+class stbD2DRenderer;
 
 namespace stb 
 {
@@ -15,6 +16,7 @@ namespace stb
 		void Update();
 		void LateUpdate();
 		void Render(HDC hdc);
+		void Render(stbD2DRenderer& renderer);
 
 		void AddGameObject(GameObject* gameObject);
 		const std::vector<GameObject*> GetGameObjects() { return mGameObjects; }

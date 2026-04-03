@@ -48,6 +48,7 @@ namespace stb
 		void Update() override; 
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
+		void Render(stbD2DRenderer& renderer) override;
 
 		void CreateAnimation(const std::wstring& name
 			, Texture* spriteTexture

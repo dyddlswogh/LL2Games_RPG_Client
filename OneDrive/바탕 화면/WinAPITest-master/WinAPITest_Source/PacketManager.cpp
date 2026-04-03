@@ -16,12 +16,12 @@ bool PacketManager::RegisterAllHandlers()
 {
 	auto networkManager = stb::NetworkManager::getInstance();
 
-	// ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì›€ì§ìž„ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_PLAYER_MOVE,
 		[](const ParsedPacket& pkt)
 		{
 			MovePacketHandler::Execute(pkt);
 		});
 
-	//
+	return true;
 }

@@ -1,8 +1,8 @@
-
 #pragma once
 #include "CommonInclude.h"
 #include "stbComponent.h"
 
+class stbD2DRenderer;
 
 namespace stb
 {
@@ -12,15 +12,12 @@ namespace stb
 		GameObject();
 		~GameObject();
 
-		// 템플릿을 활용해 여러 컴포넌트들을 게임 오브젝트에 추가 하는 함수
 		template <typename T>
 		T* AddComponent()
 		{
 			T* component = new T();
 			component->SetOwner(this);
-
 			mComponents[(UINT)component->GetType()] = component;
-
 			return component;
 		}
 
@@ -34,7 +31,6 @@ namespace stb
 				if (component)
 					break;
 			}
-
 			return component;
 		}
 
@@ -42,16 +38,13 @@ namespace stb
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render(HDC hdc);
+		virtual void Render(stbD2DRenderer& renderer);
 
 		void SetLayerType(eLayerType type) { mLayerType = type; }
-		eLayerType GetLayerType() {return mLayerType; }
-	private:
+		eLayerType GetLayerType() { return mLayerType; }
 
-		// 게임 오브젝트가 필요한 기능들인 컴포넌트들을 들고 있기 위해 Vector로 저장
+	private:
 		std::vector<Component*> mComponents;
 		eLayerType mLayerType;
-
 	};
-
 }
-

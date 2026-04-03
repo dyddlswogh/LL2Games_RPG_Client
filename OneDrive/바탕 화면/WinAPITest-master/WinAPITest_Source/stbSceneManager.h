@@ -3,6 +3,8 @@
 #include "stbSingletonBase.h"
 #include "stbScene.h"
 
+class stbD2DRenderer;
+
 namespace stb
 {
 	class SceneManager : public SingletonBase<SceneManager>
@@ -11,7 +13,6 @@ namespace stb
 		SceneManager();
 		~SceneManager();
 
-		// scene 만들기
 		template <typename T>
 		Scene* CreateScene(const std::wstring& name)
 		{
@@ -19,15 +20,14 @@ namespace stb
 			scene->SetName(name);
 			mActiveScene = scene;
 			scene->Initialize();
-
 			mScenes.insert(std::make_pair(name, scene));
 			return scene;
 		}
 
-
 		void Initialize();
 		void Update();
 		void Render(HDC hdc);
+		void Render(stbD2DRenderer& renderer);
 
 		Scene* LoadScene(const std::wstring& name);
 		Scene* GetActiveScene() { return mActiveScene; }
@@ -35,13 +35,10 @@ namespace stb
 		Scene* GetDontDestroyOnLoad() { return mDontDestroyOnLoad; }
 
 		std::vector<GameObject*> GetGameObjects(eLayerType layer);
-		
+
 	private:
-		// 씬들을 map을 통해 가지고 있고 현재 실행중인 씬만 화면에 출력
 		std::map<std::wstring, Scene*> mScenes;
 		Scene* mActiveScene;
 		Scene* mDontDestroyOnLoad;
-
 	};
 }
-

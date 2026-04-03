@@ -30,15 +30,21 @@ namespace stb
 
 	void Application::Initialize(HWND hWnd, UINT width, UINT height)
 	{
-		adjustWindowRect(hWnd, width, height);
-		createBuffer(width, height);
+		bool result = m_Renderer.Initialize(hWnd);
 
+		if (!result)
+		{
+			MessageBox(hWnd, L"Renderer Initialize Failed", L"Error", MB_OK);
+		}
+
+		mHwnd = hWnd;
+		mWidth = width;
+		mHeight = height;
 
 		M_INPUT->Initialize();
 		M_TIME->Initialize();
 		M_COLMANAGER->Initailzie();
 		M_SCENEMANAGER->Initialize();
-		
 	}
 
 	void Application::Run()
@@ -57,13 +63,15 @@ namespace stb
 
 	void Application::Render()
 	{
-		ClearRenderTarget();
+		m_Renderer.BeginFrame();
+		m_Renderer.Clear(D2D1::ColorF(0.1f, 0.1f, 0.1f, 1.0f));
+
+		M_TIME->Render(m_Renderer);
+		M_SCENEMANAGER->Render(m_Renderer);
+		M_COLMANAGER->Render(m_Renderer);
 
 
-		M_TIME->Render(mBackHDC);
-		M_COLMANAGER->Render(mBackHDC);
-		M_SCENEMANAGER->Render(mBackHDC);
-		copyDC(mBackHDC, mHdc);
+		m_Renderer.EndFrame();
 	}
 
 	void Application::Destroy()
@@ -78,17 +86,21 @@ namespace stb
 	void Application::adjustWindowRect(HWND hWnd, UINT width, UINT height)
 	{
 		mHwnd = hWnd;
-		mHdc = GetDC(hWnd);
+	
 
-		RECT rect = { 0,0, width, height };
-		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+		RECT rect = { 0,0, static_cast<LONG>(width), static_cast<LONG>(height)};
 
-		mWidth = rect.right - rect.left;
-		mHeight = rect.bottom - rect.top;
+		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
-		SetWindowPos(mHwnd, nullptr, 0, 0, mWidth, mHeight, 0);
+		UINT windowWidth = rect.right - rect.left;
+		UINT windowHeight = rect.bottom - rect.top;
+
+		SetWindowPos(mHwnd, nullptr, 0, 0, windowWidth, windowHeight, SWP_NOMOVE);
 
 		ShowWindow(mHwnd, true);
+
+		mWidth = width;
+		mHeight = height;
 
 	}
 

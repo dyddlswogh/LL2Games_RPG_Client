@@ -1,6 +1,7 @@
 #include "stbAnimator.h"
 #include "stbTransform.h"
 #include "stbResourceManager.h"
+#include "stbD2DRenderer.h"
 #include <filesystem>
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
@@ -56,10 +57,13 @@ namespace stb
 	void Animator::Render(HDC hdc)
 	{
 		if (mActiveAnimation)
-		{
-			//  ÇöÀç È°¼ºÈ­µÈ ¾Ö´Ï¸ÞÀÌ¼Ç Render
 			mActiveAnimation->Render(hdc);
-		}
+	}
+
+	void Animator::Render(stbD2DRenderer& renderer)
+	{
+		if (mActiveAnimation)
+			mActiveAnimation->Render(renderer);
 	}
 
 	void Animator::CreateAnimation(const std::wstring& name
@@ -91,7 +95,7 @@ namespace stb
 
 	}
 
-	// ÇöÀç ÀÌ¹ÌÁö¿¡¼­ y °ªÀº °í·ÁÇÏÁö ¾Ê°í x°ª¸¸ °í·ÁÇØ¼­ ¾Ö´Ï¸ÞÀÌ¼ÇÀ» ¸¸µç´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ y ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ xï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 	void Animator::CreateAnimationByFolder(const std::wstring& name
 		, const std::wstring& path
 		, Vector2 offset, float duration)

@@ -3,6 +3,8 @@
 #include "CommonInclude.h"
 #include "stbCollider.h"
 
+class stbD2DRenderer;
+
 namespace stb
 {
 	union ColliderID
@@ -26,6 +28,7 @@ namespace stb
 		void Update();
 		void LateUpdate();
 		void Render(HDC hdc);
+		void Render(stbD2DRenderer& renderer);
 		void Clear();
 
 		void CollisionLayerCheck(eLayerType left, eLayerType right, bool enable);

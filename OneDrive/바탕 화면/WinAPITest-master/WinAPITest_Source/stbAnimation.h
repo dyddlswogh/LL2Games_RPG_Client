@@ -2,6 +2,8 @@
 #include "stbResource.h"
 #include "stbTexture.h"
 
+class stbD2DRenderer;
+
 namespace stb
 {
 	using namespace math;
@@ -32,6 +34,7 @@ namespace stb
 
 		void Update();
 		void Render(HDC hdc);
+		void Render(stbD2DRenderer& renderer);
 
 		void CreateAnimation(const std::wstring& name
 			, Texture* spriteTexture

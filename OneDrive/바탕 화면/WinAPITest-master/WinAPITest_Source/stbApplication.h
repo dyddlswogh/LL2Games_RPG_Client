@@ -1,6 +1,7 @@
 #pragma once
 #include "CommonInclude.h"
 #include "stbSingletonBase.h"
+#include "stbD2DRenderer.h"
 
 namespace stb
 {
@@ -10,7 +11,7 @@ namespace stb
 		Application();
 		~Application();
 
-		// À©µµ¿ìÀÇ »çÀÌÁî¿Í ÇÚµéÀ» ¹Ş¾Æ¿Â´Ù.
+		// ìœˆë„ìš°ì˜ ì‚¬ì´ì¦ˆì™€ í•¸ë“¤ì„ ë°›ì•„ì˜¨ë‹¤.
 		void Initialize(HWND hWnd, UINT width, UINT height);
 		void Run();
 		void Update();
@@ -22,14 +23,14 @@ namespace stb
 		HDC GetHDC() { return mHdc; }
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
+		stbD2DRenderer& GetRenderer() { return m_Renderer; }
 
 	private:
 		void ClearRenderTarget();
 		void adjustWindowRect(HWND hWnd, UINT width, UINT height);
 		void createBuffer(UINT width, UINT height);
 		void copyDC(HDC source, HDC dest);
-		// ÀÌ°ÍÀú°Í ½ÃµµÇÏ´Ù°¡ ¾ÈµÇ¸é º¸±â 
-		// ¶óÀÌºê·¯¸® Æú´õ¿¡´Â ¿ÀºêÁ§Æ® ÆÄÀÏÀÌ ÀÖ¾ú´Ù.
+	
 
 	private:
 		HWND mHwnd;
@@ -38,16 +39,9 @@ namespace stb
 		HBITMAP mBackBuffer;
 		UINT mWidth;
 		UINT mHeight;
-		//class GameObject* Player;
+		
+		stbD2DRenderer m_Renderer;
 
-
-		// ´õºí ¹öÆÛ¸µ ±¸Çö 
-		/*
-		À©µµ¿ìÀÇ Å©±â ¸¸Å­ bitmap ¸¸µé¾î¼­ Render ÇØÁÖ°í ¿ø·¡ HDC¿¡ º¹»ç
-		À©µµ¿ìÀÇ Å©±â¸¦ ¹Ì¸® °¡Áö°í ¿Â´Ù.
-
-
-		*/
 
 
 	};

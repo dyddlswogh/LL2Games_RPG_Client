@@ -1,6 +1,7 @@
 #pragma once
 #include "stbSingletonBase.h"
 #include "CommonInclude.h"
+#include "stbD2DRenderer.h"
 
 namespace stb
 {
@@ -13,18 +14,19 @@ namespace stb
 		void Initialize();
 		void Update();
 		void Render(HDC hdc);
+		void Render(stbD2DRenderer& renderer);
 
 		float GetDeltaTime() { return deltaTime; }
 
 	private:
-		// ÇÁ·Î±×·¥ ½ÃÀÛ ÇÒ ¶§ cpu Áøµ¿¼ö ¹Ş¾Æ¿À´Â º¯¼ö ÇÏ³ª / ÇöÀç Áøµ¿ ¹Ş´Â º¯¼ö / 
+		// í”„ë¡œê·¸ë¨ ì‹œì‘ í•  ë•Œ cpu ì§„ë™ìˆ˜ ë°›ì•„ì˜¤ëŠ” ë³€ìˆ˜ í•˜ë‚˜ / í˜„ì¬ ì§„ë™ ë°›ëŠ” ë³€ìˆ˜ / 
 
 		LARGE_INTEGER cpu_frequency;
 		LARGE_INTEGER startTime;
 		LARGE_INTEGER currTime;
 		float deltaTime;
 		// DeltaTime
-		// (startTime - currTime) / cpu Áøµ¿¼ö
+		// (startTime - currTime) / cpu ì§„ë™ìˆ˜
 		// 
 
 	};

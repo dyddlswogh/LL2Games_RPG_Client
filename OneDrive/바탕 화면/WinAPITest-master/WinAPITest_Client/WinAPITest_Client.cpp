@@ -1,8 +1,9 @@
-﻿// WinAPIReview_Engine.cpp : 애플리케이션에 대한 진입점을 정의합니다.
+// WinAPIReview_Engine.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
 #include "framework.h"
 #include "WinAPITest_Client.h"
+
 
 #include "..\\WinAPITest_Source\\stbApplication.h"
 #include "..\\WinAPITest_lib\\stbLoadScenes.h"
@@ -162,7 +163,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         hInstance,
         nullptr
     );
-
+    CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
     APP->Initialize(hWnd, width, height);
 
     if (!hWnd)

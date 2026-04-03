@@ -1,5 +1,6 @@
 #include "stbComponent.h"
 #include "stbGameObject.h"
+#include "stbD2DRenderer.h"
 
 namespace stb
 {
@@ -28,6 +29,11 @@ namespace stb
 	}
 
 	void Component::Render(HDC hdc)
+	{
+
+	}
+
+	void Component::Render(stbD2DRenderer& renderer)
 	{
 
 	}
