@@ -148,6 +148,9 @@ namespace stb
 		return S_OK;
 	}
 
+	/*
+		이미 읽어온 이미지들을 화면에 그릴 수 있게 미리 ID2D1Bitmap을 만들어두는 것
+	*/
 	void Texture::LoadD2D(stbD2DRenderer& renderer)
 	{
 		if (mD2DBitmap)

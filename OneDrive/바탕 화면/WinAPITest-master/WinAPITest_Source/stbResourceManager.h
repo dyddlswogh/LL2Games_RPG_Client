@@ -9,7 +9,7 @@ namespace stb
 
 		ResourceManager();
 		~ResourceManager();
-		// ã�� / �ε� / �߰� 
+		
 		template <typename T>
 		T* Find(const std::wstring& name)
 		{
@@ -26,8 +26,6 @@ namespace stb
 		template<typename T>
 		T* Load(const std::wstring& name, const std::wstring& path)
 		{
-			// ���� ��� �Լ��� ��� � Ŭ������ �Լ����� ��ȣ���� �߻��� �� �ֱ� ������ �����ִ°� ����.
-			// ������ ���� �̱������� ���� ����� ���̱� ������ ���� �� �ʿ�� ����.
 			T* resource = Find<T>(name);
 
 			if (resource != nullptr)

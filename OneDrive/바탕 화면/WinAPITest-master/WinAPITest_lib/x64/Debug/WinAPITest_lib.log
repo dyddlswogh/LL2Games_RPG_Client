@@ -1,38 +1,25 @@
-﻿  stbApplication.cpp
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbApplication.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-  (소스 파일 '../WinAPITest_Source/stbApplication.cpp'을(를) 컴파일하는 중)
+﻿  MovePacketHandler.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MovePacketHandler.cpp(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Packet.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/MovePacketHandler.cpp'을(를) 컴파일하는 중)
   
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '../WinAPITest_Source/stbApplication.cpp'을(를) 컴파일하는 중)
+  (소스 파일 '../WinAPITest_Source/MovePacketHandler.cpp'을(를) 컴파일하는 중)
   
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '../WinAPITest_Source/stbApplication.cpp'을(를) 컴파일하는 중)
+  (소스 파일 '../WinAPITest_Source/MovePacketHandler.cpp'을(를) 컴파일하는 중)
   
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbD2DRenderer.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-  (소스 파일 '../WinAPITest_Source/stbApplication.cpp'을(를) 컴파일하는 중)
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkConfig.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/MovePacketHandler.cpp'을(를) 컴파일하는 중)
   
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbTime.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-  (소스 파일 '../WinAPITest_Source/stbApplication.cpp'을(를) 컴파일하는 중)
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbOtherPlayerManager.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/MovePacketHandler.cpp'을(를) 컴파일하는 중)
   
-  stbCollisionManager.cpp
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '../WinAPITest_Source/stbCollisionManager.cpp'을(를) 컴파일하는 중)
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Changes.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/MovePacketHandler.cpp'을(를) 컴파일하는 중)
   
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '../WinAPITest_Source/stbCollisionManager.cpp'을(를) 컴파일하는 중)
-  
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbD2DRenderer.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
-  (소스 파일 '../WinAPITest_Source/stbCollisionManager.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,34): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,34): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,54): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,54): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,74): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,74): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,94): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbCollisionManager.cpp(217,94): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  코드를 생성하고 있습니다...
+PacketParse.obj : warning LNK4006: "public: static class std::optional<struct ParsedPacket> __cdecl PacketParser::Parse(class std::vector<char,class std::allocator<char> > &)" (?Parse@PacketParser@@SA?AV?$optional@UParsedPacket@@@std@@AEAV?$vector@DV?$allocator@D@std@@@3@@Z)이(가) PacketParser.obj에 이미 정의되어 있습니다. 초 정의가 무시됩니다.
+PacketParse.obj : warning LNK4006: "public: static class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl PacketParser::MakeBody(class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > const &)" (?MakeBody@PacketParser@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@3@@Z)이(가) PacketParser.obj에 이미 정의되어 있습니다. 초 정의가 무시됩니다.
+PacketParse.obj : warning LNK4006: "public: static class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl PacketParser::MakePacket(unsigned short,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?MakePacket@PacketParser@@SA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@GAEBV23@@Z)이(가) PacketParser.obj에 이미 정의되어 있습니다. 초 정의가 무시됩니다.
   WinAPITest_lib.vcxproj -> C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\x64\Debug\WinAPITest_lib.lib

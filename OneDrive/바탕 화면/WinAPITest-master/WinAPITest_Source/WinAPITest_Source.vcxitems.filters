@@ -94,8 +94,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbD2DRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp">
+      <Filter>Packet\PlayerPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PacketParse.cpp">
+      <Filter>Packet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -209,8 +214,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketManager.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbD2DRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h">
+      <Filter>Packet\PlayerPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

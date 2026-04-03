@@ -57,6 +57,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoxCollider2D.cpp" />
@@ -64,6 +65,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MySocket.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PacketParse.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbAnimation.cpp" />

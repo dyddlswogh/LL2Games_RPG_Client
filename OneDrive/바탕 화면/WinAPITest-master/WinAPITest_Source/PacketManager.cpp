@@ -23,5 +23,12 @@ bool PacketManager::RegisterAllHandlers()
 			MovePacketHandler::Execute(pkt);
 		});
 
+
+	//networkManager->RegisterHandler(PKT_PLAYER_USE_ITEM,
+	//	[](const ParsedPacket& pkt)
+	//	{
+	//
+	//	})
+
 	return true;
 }
