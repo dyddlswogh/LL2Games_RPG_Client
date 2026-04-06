@@ -4,6 +4,7 @@
 #include "stbResourceManager.h"
 #include "stbTexture.h"
 #include "stbTime.h"
+#include "stbD2DRenderer.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_Time stb::SingletonBase<stb::Time>::getInstance()
@@ -72,6 +73,12 @@ namespace stb
         GameObject::Render(hdc);
     }
 
+    void OtherPlayer::Render(stbD2DRenderer& renderer)
+    {
+        GameObject::Render(renderer);
+    }
+
+
     void OtherPlayer::UpdatePosition(float x, float y)
     {
         Transform* tr = GetComponent<Transform>();
@@ -81,9 +88,10 @@ namespace stb
         }
     }
 
-    void OtherPlayer::SetTargetPosition(float x, float y)
+    void OtherPlayer::SetTargetPosition(float x, float y, float speed)
     {
         mTargetPosition = Vector2(x, y);
+        mTargetSpeed = speed;
         mHasTarget = true;
     }
 

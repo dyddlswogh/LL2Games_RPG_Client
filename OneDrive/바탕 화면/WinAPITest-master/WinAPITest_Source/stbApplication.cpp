@@ -64,7 +64,7 @@ namespace stb
 	void Application::Render()
 	{
 		m_Renderer.BeginFrame();
-		m_Renderer.Clear(D2D1::ColorF(0.1f, 0.1f, 0.1f, 1.0f));
+		m_Renderer.Clear(D2D1::ColorF(255.f, 255.1f, 255.1f, 255.0f));
 
 		M_TIME->Render(m_Renderer);
 		M_SCENEMANAGER->Render(m_Renderer);

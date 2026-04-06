@@ -7,6 +7,7 @@
 #include "stbTexture.h"
 #include "stbEnums.h"
 
+
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 
 namespace stb
@@ -20,14 +21,31 @@ namespace stb
         Clear();
     }
 
-    void OtherPlayerManager::UpdatePlayer(const std::string& charId, float x, float y)
+    bool OtherPlayerManager::HandleMovePacket(OtherPlayerMove& otherPlayerMove)
     {
-        // ì´ë¯¸ ì¡´ì¬í•˜ëŠ” í”Œë ˆì´ì–´ì¸ì§€ í™•ì¸
+        auto it = mPlayers.find(otherPlayerMove.playerId);
+        if (it != mPlayers.end() && it->second != nullptr)
+        {
+            it->second->SetTargetPosition(otherPlayerMove.xPos, otherPlayerMove.yPos, otherPlayerMove.speed);
+        }
+        else
+        {
+            // Ã³À½ º¸´Â ÇÃ·¹ÀÌ¾î¸é »ı¼º
+            UpdatePlayer(otherPlayerMove.playerId, otherPlayerMove.xPos, otherPlayerMove.yPos);
+        }
+
+        return true;
+        
+    }
+
+    bool OtherPlayerManager::UpdatePlayer(const std::string& charId, float x, float y)
+    {
+        // ÀÌ¹Ì Á¸ÀçÇÏ´Â ÇÃ·¹ÀÌ¾îÀÎÁö È®ÀÎ
         auto it = mPlayers.find(charId);
         
         if (it != mPlayers.end())
         {
-            // ê¸°ì¡´ í”Œë ˆì´ì–´ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
+            // ±âÁ¸ ÇÃ·¹ÀÌ¾î À§Ä¡ ¾÷µ¥ÀÌÆ®
             if (it->second != nullptr)
             {
                 it->second->UpdatePosition(x, y);
@@ -35,24 +53,25 @@ namespace stb
         }
         else
         {
-            // ìƒˆë¡œìš´ í”Œë ˆì´ì–´ ìƒì„±
+            // »õ·Î¿î ÇÃ·¹ÀÌ¾î »ı¼º
             OtherPlayer* player = object::Instantiate<OtherPlayer>(enums::eLayerType::Player, Vector2(x, y));
             if (player == nullptr)
             {
-                OutputDebugStringA("í”Œë ˆì´ì–´ ìƒì„± ì‹¤íŒ¨!\n");
-                return;
+                OutputDebugStringA("ÇÃ·¹ÀÌ¾î »ı¼º ½ÇÆĞ!\n");
+                return false;
             }
 
             player->SetCharacterId(charId);
             
-            // Transform ì„¤ì •
+            // Transform ¼³Á¤
             Transform* tr = player->GetComponent<Transform>();
             if (tr != nullptr)
             {
                 tr->SetPosition(Vector2(x, y));
             }
             
-            // DamonKnight í…ìŠ¤ì²˜ ì‚¬ìš©
+            // DamonKnight ÅØ½ºÃ³ »ç¿ë
+            // Áö±İÀº DamonKnight·Î ÅëÀÏÇÏ°í ÀÖÁö¸¸ ³ªÁß¿¡´Â ¹ŞÀº Á¤º¸¸¦ ¹ÙÅÁÀ¸·Î ±×·ÁÁöµµ·Ï ¼öÁ¤ ÇÊ¿ä
             Texture* knightTex = M_REMANAGER->Find<Texture>(L"DamonKnight");
             if (knightTex != nullptr)
             {
@@ -64,25 +83,16 @@ namespace stb
                 }
             }
 
-            // Sword
-            Texture* swordTex = M_REMANAGER->Find<Texture>(L"TwoHandSword");
-            if (swordTex != nullptr)
-            {
-                GameObject* swordObj = object::Instantiate<GameObject>(enums::eLayerType::Player, Vector2(x - 15.0f, y + 7.0f));
-                Animator* swordAnim = swordObj->AddComponent<Animator>();
-                swordAnim->CreateAnimation(L"OtherRun", swordTex, Vector2(0.0f, 0.0f), Vector2(110.0f, 96.0f), Vector2(-21.5f, -9.0f), 3, 0.3f);
-                swordAnim->PlayAnimation(L"OtherRun", true);
-                player->AddFollower(swordObj, Vector2(-15.0f, 7.0f));
-            }
-            
-            // ëª…ì‹œì ìœ¼ë¡œ Initialize í˜¸ì¶œ
+     
+            // ¸í½ÃÀûÀ¸·Î Initialize È£Ãâ
             player->Initialize();
             
             mPlayers[charId] = player;
             
-            std::string msg = "ë‹¤ë¥¸ í”Œë ˆì´ì–´ ìƒì„±: ID=" + charId + " at (" + std::to_string((int)x) + ", " + std::to_string((int)y) + ")\n";
+            std::string msg = "´Ù¸¥ ÇÃ·¹ÀÌ¾î »ı¼º: ID=" + charId + " at (" + std::to_string((int)x) + ", " + std::to_string((int)y) + ")\n";
             OutputDebugStringA(msg.c_str());
         }
+        return true;
     }
 
     void OtherPlayerManager::RemovePlayer(const std::string& charId)
@@ -96,9 +106,10 @@ namespace stb
             }
             mPlayers.erase(it);
             
-            std::string msg = "ë‹¤ë¥¸ í”Œë ˆì´ì–´ ì œê±°: " + charId + "\n";
+            std::string msg = "´Ù¸¥ ÇÃ·¹ÀÌ¾î Á¦°Å: " + charId + "\n";
             OutputDebugStringA(msg.c_str());
         }
+
     }
 
     void OtherPlayerManager::Clear()
@@ -112,4 +123,6 @@ namespace stb
         }
         mPlayers.clear();
     }
+
+    
 }

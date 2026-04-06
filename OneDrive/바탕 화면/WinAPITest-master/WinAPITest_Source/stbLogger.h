@@ -51,6 +51,8 @@ namespace stb
             OutputDebugStringA(msg.c_str());
         }
 
+     
+
         static void Close()
         {
             if (GetLogFile().is_open())

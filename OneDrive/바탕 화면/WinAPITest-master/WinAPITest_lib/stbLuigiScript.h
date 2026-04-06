@@ -1,5 +1,5 @@
 #pragma once
-#include "stbScript.h"
+#include "..\\WinAPITest_Source\\stbScript.h"
 
 namespace stb
 {

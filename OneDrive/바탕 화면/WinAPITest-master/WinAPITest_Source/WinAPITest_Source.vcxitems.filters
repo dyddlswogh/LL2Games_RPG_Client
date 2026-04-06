@@ -88,9 +88,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)IPacketHandler.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHandler.cpp">
-      <Filter>Packet\PlayerPacket</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
@@ -208,9 +205,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IPacketHandler.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHandler.h">
-      <Filter>Packet\PlayerPacket</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketManager.h">
       <Filter>Packet</Filter>
     </ClInclude>
@@ -219,6 +213,7 @@
       <Filter>Packet\PlayerPacket</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PacketData.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

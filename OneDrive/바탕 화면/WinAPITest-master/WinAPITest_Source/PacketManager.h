@@ -1,19 +1,14 @@
 #pragma once
 #include "CommonInclude.h"
-#include "Packet.h"
-#include "stbNetworkManager.h"
-#include "MovePacketHandler.h"
+#include "stbSingletonBase.h"
 
-class PacketManager 
+class PacketManager : public stb::SingletonBase<PacketManager>
 {
 public:
-	static PacketManager* getInstance();
-
+	PacketManager() {};
+	~PacketManager() {};
 	bool RegisterAllHandlers();
 
-
 private:
-	static PacketManager* m_instance;
-
 };
 

@@ -1,8 +1,8 @@
 #pragma once
-#include "..//WinAPITest_Source//stbResourceManager.h"
-#include "..//WinAPITest_Source//stbTexture.h"
-#include "..//WinAPITest_Source//stbApplication.h"
-#include "..//WinAPITest_Source//stbD2DRenderer.h"
+#include "..\\WinAPITest_Source\\stbResourceManager.h"
+#include "..\\WinAPITest_Source\\stbTexture.h"
+#include "..\\WinAPITest_Source\\stbApplication.h"
+#include "..\\WinAPITest_Source\\stbD2DRenderer.h"
 
 #define RESOURCEMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 

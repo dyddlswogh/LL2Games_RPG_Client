@@ -70,7 +70,7 @@ namespace stb
 		renderer.DrawTextString(
 			str,
 			D2D1::RectF(0.0f, 0.0f, 200.0f, 40.0f),
-			D2D1::ColorF(D2D1::ColorF::White),
+			D2D1::ColorF(D2D1::ColorF::Black),
 			false);
 	}
 }

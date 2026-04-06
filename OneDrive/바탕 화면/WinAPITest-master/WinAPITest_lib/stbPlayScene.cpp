@@ -10,13 +10,14 @@
 #include "stbCamera.h"
 #include "stbAnimator.h"
 #include "stbRender.h"
-#include "stbLuigi.h"
-#include "stbLuigiScript.h"
+#include "PacketManager.h"
 #include "stbNetworkDebug.h"
 #include "stbLogger.h"
+
 #include "stbApplication.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
+#define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
 
 namespace stb
 {
@@ -38,7 +39,7 @@ namespace stb
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
 		Transform* tr = mPlayer->AddComponent<Transform>();
-		//int charId = atoi(stb::NetworkConfig::GetCharacterId());
+		int charId = atoi(stb::NetworkConfig::GetCharacterId());
 		//if (charId < 1 || charId > 4) charId = 1;
 		//float startX = 500.0f - (110.0f * 4);	
 		//float posX = startX + (charId - 1) * 110.0f;
@@ -62,7 +63,7 @@ namespace stb
 		LOG("========== Client Start (ID: " << stb::NetworkConfig::GetCharacterId() << ") ==========\n");
 
 		HWND hWnd = stb::Application::getInstance()->GetHWND();
-		stb::RegisterAllHandlers();
+		M_PKMANAGER->RegisterAllHandlers();
 		LOG("========== Network Connect Start ==========\n");
 		stb::InitializeNetworkDebug(hWnd);
 	}

@@ -1,8 +1,8 @@
 #pragma once
+#include "CommonInclude.h"
 #include "stbSingletonBase.h"
 #include "stbOtherPlayer.h"
-#include <map>
-#include <string>
+#include "PacketData.h"
 
 namespace stb
 {
@@ -13,8 +13,10 @@ namespace stb
         OtherPlayerManager();
         ~OtherPlayerManager();
 
+        bool HandleMovePacket(OtherPlayerMove& otherPlayerMove);
+
         // 다른 플레이어 추가 또는 업데이트
-        void UpdatePlayer(const std::string& charId, float x, float y);
+        bool UpdatePlayer(const std::string& charId, float x, float y);
 
         // 다른 플레이어 제거
         void RemovePlayer(const std::string& charId);

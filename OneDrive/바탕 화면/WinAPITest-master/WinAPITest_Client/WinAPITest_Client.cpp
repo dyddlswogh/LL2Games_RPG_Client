@@ -1,9 +1,12 @@
-// WinAPIReview_Engine.cpp : ì• í”Œë¦¬ì¼€ì´ì…˜ì— ëŒ€í•œ ì§„ì…ì ì„ ì •ì˜í•©ë‹ˆë‹¤.
+// WinAPIReview_Engine.cpp : ¾ÖÇÃ¸®ÄÉÀÌ¼Ç¿¡ ´ëÇÑ ÁøÀÔÁ¡À» Á¤ÀÇÇÕ´Ï´Ù.
 //
 
 #include "framework.h"
 #include "WinAPITest_Client.h"
-
+#include <Windows.h>
+#include <cwchar>
+#include <cstdio>
+#include <fstream>
 
 #include "..\\WinAPITest_Source\\stbApplication.h"
 #include "..\\WinAPITest_lib\\stbLoadScenes.h"
@@ -12,6 +15,8 @@
 #include "..\\WinAPITest_Source\\stbNetworkConfig.h"
 #include "..\\WinAPITest_Source\\stbNetworkDebug.h"
 #include "..\\WinAPITest_Source\\Packet.h"
+#include "..\\WinAPITest_Source\\\stbLogger.h"
+#include "..\\WinAPITest_Source\\\ChannelInitPacketHandler.h"
 
 #define APP stb::SingletonBase<stb::Application>::getInstance()
 
@@ -20,15 +25,12 @@ Gdiplus::GdiplusStartupInput gdiplus;
 
 #define MAX_LOADSTRING 100
 
+// Àü¿ª º¯¼ö:
+HINSTANCE hInst;                                // ÇöÀç ÀÎ½ºÅÏ½ºÀÔ´Ï´Ù.
+WCHAR szTitle[MAX_LOADSTRING];                  // Á¦¸ñ Ç¥½ÃÁÙ ÅØ½ºÆ®ÀÔ´Ï´Ù.
+WCHAR szWindowClass[MAX_LOADSTRING];            // ±âº» Ã¢ Å¬·¡½º ÀÌ¸§ÀÔ´Ï´Ù.
 
-
-
-// ì „ì—­ ë³€ìˆ˜:
-HINSTANCE hInst;                                // í˜„ì¬ ì¸ìŠ¤í„´ìŠ¤ì…ë‹ˆë‹¤.
-WCHAR szTitle[MAX_LOADSTRING];                  // ì œëª© í‘œì‹œì¤„ í…ìŠ¤íŠ¸ì…ë‹ˆë‹¤.
-WCHAR szWindowClass[MAX_LOADSTRING];            // ê¸°ë³¸ ì°½ í´ë˜ìŠ¤ ì´ë¦„ì…ë‹ˆë‹¤.
-
-// ì´ ì½”ë“œ ëª¨ë“ˆì— í¬í•¨ëœ í•¨ìˆ˜ì˜ ì„ ì–¸ì„ ì „ë‹¬í•©ë‹ˆë‹¤:
+// ÀÌ ÄÚµå ¸ğµâ¿¡ Æ÷ÇÔµÈ ÇÔ¼öÀÇ ¼±¾ğÀ» Àü´ŞÇÕ´Ï´Ù:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -44,29 +46,33 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: ì—¬ê¸°ì— ì½”ë“œë¥¼ ì…ë ¥í•©ë‹ˆë‹¤
+    // TODO: ¿©±â¿¡ ÄÚµå¸¦ ÀÔ·ÂÇÕ´Ï´Ù
 
-    // ëª…ë ¹ì¤„ ì¸ìë¡œ ìºë¦­í„° ID ì„¤ì •
+
+    // ¸í·ÉÁÙ ÀÎÀÚ·Î Ä³¸¯ÅÍ ID ¼³Á¤
     if (lpCmdLine && wcslen(lpCmdLine) > 0)
     {
-        // ìœ ë‹ˆì½”ë“œë¥¼ ë©€í‹°ë°”ì´íŠ¸ë¡œ ë³€í™˜
+      
+
+        // À¯´ÏÄÚµå¸¦ ¸ÖÆ¼¹ÙÀÌÆ®·Î º¯È¯
         WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, stb::g_CharacterId, sizeof(stb::g_CharacterId), NULL, NULL);
         
         char msg[128];
-        sprintf_s(msg, "ìºë¦­í„° ID ì„¤ì •: %s\n", stb::g_CharacterId);
+        sprintf_s(msg, "Ä³¸¯ÅÍ ID ¼³Á¤: %s\n", stb::g_CharacterId);
         OutputDebugStringA(msg);
+        LOG("%s\n", msg);
     }
     else
     {
-        OutputDebugStringA("ìºë¦­í„° ID: 1 (ê¸°ë³¸ê°’)\n");
+        OutputDebugStringA("Ä³¸¯ÅÍ ID: 1 (±âº»°ª)\n");
     }
 
-    // ì „ì—­ ë¬¸ìì—´ì„ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
+    // Àü¿ª ¹®ÀÚ¿­À» ÃÊ±âÈ­ÇÕ´Ï´Ù.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_WINAPITESTCLIENT, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
-    // ì• í”Œë¦¬ì¼€ì´ì…˜ ì´ˆê¸°í™”ë¥¼ ìˆ˜í–‰í•©ë‹ˆë‹¤:
+    // ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÃÊ±âÈ­¸¦ ¼öÇàÇÕ´Ï´Ù:
     if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
@@ -76,7 +82,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    // ê¸°ë³¸ ë©”ì‹œì§€ ë£¨í”„ì…ë‹ˆë‹¤:
+    // ±âº» ¸Ş½ÃÁö ·çÇÁÀÔ´Ï´Ù:
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -92,7 +98,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             }
         }
         else
-            // ê²Œì„ ë¡œì§ ì‹¤í–‰ êµ¬ì—­
+            // °ÔÀÓ ·ÎÁ÷ ½ÇÇà ±¸¿ª
         {
            APP->Run();
         }
@@ -104,9 +110,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 //
-//  í•¨ìˆ˜: MyRegisterClass()
+//  ÇÔ¼ö: MyRegisterClass()
 //
-//  ìš©ë„: ì°½ í´ë˜ìŠ¤ë¥¼ ë“±ë¡í•©ë‹ˆë‹¤.
+//  ¿ëµµ: Ã¢ Å¬·¡½º¸¦ µî·ÏÇÕ´Ï´Ù.
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
@@ -130,18 +136,18 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 }
 
 //
-//   í•¨ìˆ˜: InitInstance(HINSTANCE, int)
+//   ÇÔ¼ö: InitInstance(HINSTANCE, int)
 //
-//   ìš©ë„: ì¸ìŠ¤í„´ìŠ¤ í•¸ë“¤ì„ ì €ì¥í•˜ê³  ì£¼ ì°½ì„ ë§Œë“­ë‹ˆë‹¤.
+//   ¿ëµµ: ÀÎ½ºÅÏ½º ÇÚµéÀ» ÀúÀåÇÏ°í ÁÖ Ã¢À» ¸¸µì´Ï´Ù.
 //
-//   ì£¼ì„:
+//   ÁÖ¼®:
 //
-//        ì´ í•¨ìˆ˜ë¥¼ í†µí•´ ì¸ìŠ¤í„´ìŠ¤ í•¸ë“¤ì„ ì „ì—­ ë³€ìˆ˜ì— ì €ì¥í•˜ê³ 
-//        ì£¼ í”„ë¡œê·¸ë¨ ì°½ì„ ë§Œë“  ë‹¤ìŒ í‘œì‹œí•©ë‹ˆë‹¤.
+//        ÀÌ ÇÔ¼ö¸¦ ÅëÇØ ÀÎ½ºÅÏ½º ÇÚµéÀ» Àü¿ª º¯¼ö¿¡ ÀúÀåÇÏ°í
+//        ÁÖ ÇÁ·Î±×·¥ Ã¢À» ¸¸µç ´ÙÀ½ Ç¥½ÃÇÕ´Ï´Ù.
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-    hInst = hInstance; // ì¸ìŠ¤í„´ìŠ¤ í•¸ë“¤ì„ ì „ì—­ ë³€ìˆ˜ì— ì €ì¥í•©ë‹ˆë‹¤.
+    hInst = hInstance; // ÀÎ½ºÅÏ½º ÇÚµéÀ» Àü¿ª º¯¼ö¿¡ ÀúÀåÇÕ´Ï´Ù.
 
     const UINT width = 1000;
     const UINT height = 1000;
@@ -176,7 +182,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
     Gdiplus::GdiplusStartup(&gpToken, &gdiplus, NULL);
 
-    // ìƒì„±í•œ ì”¬ Load
+    // »ı¼ºÇÑ ¾À Load
     stb::LoadResource();
     stb::LoadScene();
 
@@ -185,13 +191,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 }
 
 //
-//  í•¨ìˆ˜: WndProc(HWND, UINT, WPARAM, LPARAM)
+//  ÇÔ¼ö: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
-//  ìš©ë„: ì£¼ ì°½ì˜ ë©”ì‹œì§€ë¥¼ ì²˜ë¦¬í•©ë‹ˆë‹¤.
+//  ¿ëµµ: ÁÖ Ã¢ÀÇ ¸Ş½ÃÁö¸¦ Ã³¸®ÇÕ´Ï´Ù.
 //
-//  WM_COMMAND  - ì• í”Œë¦¬ì¼€ì´ì…˜ ë©”ë‰´ë¥¼ ì²˜ë¦¬í•©ë‹ˆë‹¤.
-//  WM_PAINT    - ì£¼ ì°½ì„ ê·¸ë¦½ë‹ˆë‹¤.
-//  WM_DESTROY  - ì¢…ë£Œ ë©”ì‹œì§€ë¥¼ ê²Œì‹œí•˜ê³  ë°˜í™˜í•©ë‹ˆë‹¤.
+//  WM_COMMAND  - ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ¸Ş´º¸¦ Ã³¸®ÇÕ´Ï´Ù.
+//  WM_PAINT    - ÁÖ Ã¢À» ±×¸³´Ï´Ù.
+//  WM_DESTROY  - Á¾·á ¸Ş½ÃÁö¸¦ °Ô½ÃÇÏ°í ¹İÈ¯ÇÕ´Ï´Ù.
 //
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -201,7 +207,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_COMMAND:
     {
         int wmId = LOWORD(wParam);
-        // ë©”ë‰´ ì„ íƒì„ êµ¬ë¬¸ ë¶„ì„í•©ë‹ˆë‹¤:
+        // ¸Ş´º ¼±ÅÃÀ» ±¸¹® ºĞ¼®ÇÕ´Ï´Ù:
         switch (wmId)
         {
         case IDM_ABOUT:
@@ -219,40 +225,41 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
-        // TODO: ì—¬ê¸°ì— hdcë¥¼ ì‚¬ìš©í•˜ëŠ” ê·¸ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤...
+        // TODO: ¿©±â¿¡ hdc¸¦ »ç¿ëÇÏ´Â ±×¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù...
 
         EndPaint(hWnd, &ps);
     }
     break;
     case WM_SOCKET_RECEIVE:
     {
-        // ì†Œì¼“ ì´ë²¤íŠ¸ í™•ì¸
+        // ¼ÒÄÏ ÀÌº¥Æ® È®ÀÎ
         int event = WSAGETSELECTEVENT(lParam);
         int error = WSAGETSELECTERROR(lParam);
 
         if (event == FD_READ && error == 0)
         {
-            // ì„œë²„ë¡œë¶€í„° ë°ì´í„° ìˆ˜ì‹ 
-            // OutputDebugStringA("[FD_READ] ë°ì´í„° ìˆ˜ì‹  ì¤‘...\n"); // ë¡œê·¸ ì£¼ì„ ì²˜ë¦¬
+            // ¼­¹ö·ÎºÎÅÍ µ¥ÀÌÅÍ ¼ö½Å
+            // OutputDebugStringA("[FD_READ] µ¥ÀÌÅÍ ¼ö½Å Áß...\n"); // ·Î±× ÁÖ¼® Ã³¸®
             stb::NetworkManager::getInstance()->ProcessReceivedData();
         }
         else if (event == FD_CLOSE)
         {
-            // ì„œë²„ ì—°ê²° ëŠê¹€
+            // ¼­¹ö ¿¬°á ²÷±è
             stb::NetworkManager::getInstance()->Disconnect();
         }
         else if (event == FD_CONNECT)
         {
             if (error == 0)
             {
-                // ì—°ê²° ì„±ê³µ - ì±„ë„ ì¸ì¦ íŒ¨í‚· ì „ì†¡
-                OutputDebugStringA("ì„œë²„ ì—°ê²° ì„±ê³µ! ì±„ë„ ì¸ì¦ ì‹œì‘...\n");
-                stb::SendChannelAuth();
+                // ¿¬°á ¼º°ø - Ã¤³Î ÀÎÁõ ÆĞÅ¶ Àü¼Û
+                OutputDebugStringA("¼­¹ö ¿¬°á ¼º°ø! Ã¤³Î ÀÎÁõ ½ÃÀÛ...\n");
+                ChannelInitPacketHandler::SendChannelAuth();
+                //stb::SendChannelAuth();
             }
             else
             {
-                // ì—°ê²° ì‹¤íŒ¨
-                OutputDebugStringA("ì„œë²„ ì—°ê²° ì‹¤íŒ¨!\n");
+                // ¿¬°á ½ÇÆĞ
+                OutputDebugStringA("¼­¹ö ¿¬°á ½ÇÆĞ!\n");
                 stb::NetworkManager::getInstance()->Disconnect();
             }
         }
@@ -268,7 +275,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 
-// ì •ë³´ ëŒ€í™” ìƒìì˜ ë©”ì‹œì§€ ì²˜ë¦¬ê¸°ì…ë‹ˆë‹¤.
+// Á¤º¸ ´ëÈ­ »óÀÚÀÇ ¸Ş½ÃÁö Ã³¸®±âÀÔ´Ï´Ù.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);

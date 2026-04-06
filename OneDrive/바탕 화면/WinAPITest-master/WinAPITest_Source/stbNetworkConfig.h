@@ -20,6 +20,7 @@ namespace stb
         
         // 캐릭터 ID (명령줄 인자로 설정됨)
         static const char* GetCharacterId() { return g_CharacterId; }
+
         
         // 맵 ID
         static constexpr const char* MAP_ID = "100000000";

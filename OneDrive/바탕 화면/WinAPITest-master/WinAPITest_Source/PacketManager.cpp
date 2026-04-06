@@ -1,22 +1,21 @@
 #include "PacketManager.h"
-
-PacketManager* PacketManager::m_instance = nullptr;
-
-PacketManager* PacketManager::getInstance()
-{
-	if (m_instance == nullptr)
-	{
-		m_instance = new PacketManager();
-	}
-
-	return m_instance;
-}
+#include "Packet.h"
+#include "stbNetworkManager.h"
+#include "MovePacketHandler.h"
+#include "ChannelInitPacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
 	auto networkManager = stb::NetworkManager::getInstance();
 
-	// í”Œë ˆì´ì–´ ì›€ì§ìž„ í•¸ë“¤ëŸ¬ ë“±ë¡
+	// ÇÃ·¹ÀÌ¾î Á¢¼Ó ÇÚµé·¯ µî·Ï
+	networkManager->RegisterHandler(PKT_CHANNEL_AUTH,
+		[](const ParsedPacket& pkt)
+		{
+			ChannelInitPacketHandler::Execute(pkt);
+		});
+
+	// ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ ÇÚµé·¯ µî·Ï
 	networkManager->RegisterHandler(PKT_PLAYER_MOVE,
 		[](const ParsedPacket& pkt)
 		{
@@ -24,11 +23,7 @@ bool PacketManager::RegisterAllHandlers()
 		});
 
 
-	//networkManager->RegisterHandler(PKT_PLAYER_USE_ITEM,
-	//	[](const ParsedPacket& pkt)
-	//	{
-	//
-	//	})
+
 
 	return true;
 }

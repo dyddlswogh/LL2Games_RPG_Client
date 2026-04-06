@@ -1,7 +1,9 @@
 #pragma once
+#include "CommonInclude.h"
 #include "stbGameObject.h"
-#include <string>
-#include <vector>
+
+
+class stbD2DRenderer;
 
 namespace stb
 {
@@ -15,12 +17,13 @@ namespace stb
         void Update() override;
         void LateUpdate() override;
         void Render(HDC hdc) override;
+        void Render(stbD2DRenderer& renderer) override;
 
         void SetCharacterId(const std::string& id) { mCharacterId = id; }
         std::string GetCharacterId() const { return mCharacterId; }
 
         void UpdatePosition(float x, float y);
-        void SetTargetPosition(float x, float y);
+        void SetTargetPosition(float x, float y, float speed);
 
         void AddFollower(GameObject* obj, Vector2 offset)
         {
@@ -32,6 +35,7 @@ namespace stb
 
         std::string mCharacterId;
         Vector2 mTargetPosition;
+        float mTargetSpeed;
         bool mHasTarget;
         float mInterpolationSpeed;
 
