@@ -95,8 +95,17 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp">
       <Filter>Packet\PlayerPacket</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PacketParse.cpp">
-      <Filter>Packet</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Inventory.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Item.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.cpp">
+      <Filter>Packet\PlayerPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.cpp">
+      <Filter>Packet\PlayerPacket</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp">
+      <Filter>Packet\PlayerPacket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +223,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Inventory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Item.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.h">
+      <Filter>Packet\PlayerPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.h">
+      <Filter>Packet\PlayerPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemPacketHandler.h">
+      <Filter>Packet\PlayerPacket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
