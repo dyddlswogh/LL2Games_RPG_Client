@@ -1,5 +1,6 @@
 #include "PacketParser.h"
 #include "Packet.h"
+#include "StringConvert.h"
 
 
 std::string PacketParser::MakeBody(const std::vector<std::string>& datas)
@@ -97,6 +98,52 @@ bool PacketParser::ParseLengthPrefixedString(
     // 4. extract value
     outValue.assign(payload + offset, value_len);
     offset += value_len;
+
+    return true;
+}
+
+bool PacketParser::ParseNextIntField(const char* data, size_t payloadSize, size_t& offset, int& outValue, std::string& errMsg)
+{
+    std::string temp;
+
+    if (!PacketParser::ParseLengthPrefixedString(
+        data,
+        payloadSize,
+        offset,
+        temp,
+        errMsg))
+    {
+        return false;
+    }
+
+    if (!Convert::StringToInt(temp, outValue))
+    {
+        errMsg = "StringToInt failed: " + temp;
+        return false;
+    }
+
+    return true;
+}
+
+bool PacketParser::ParseNextFloatField(const char* data, size_t payloadSize, size_t& offset, float& outValue, std::string& errMsg)
+{
+    std::string temp;
+
+    if (!PacketParser::ParseLengthPrefixedString(
+        data,
+        payloadSize,
+        offset,
+        temp,
+        errMsg))
+    {
+        return false;
+    }
+
+    if (!Convert::StringToFloat(temp, outValue))
+    {
+        errMsg = "StringToFloat failed: " + temp;
+        return false;
+    }
 
     return true;
 }

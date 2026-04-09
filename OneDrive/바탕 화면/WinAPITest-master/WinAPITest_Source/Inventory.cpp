@@ -11,12 +11,11 @@ Inventory::Inventory(InventoryMetaInfo inventoryMetaInfo)
 	for (int i = 0; i < m_maxSlot; i++)
 	{
 		m_slots[i].slotPos = i + 1;
-		m_slots[i].isEnable = (i <= m_current_slot_size);
 	}
 }
 
 
-InventorySlot* Inventory::FindSlot(int slotPos)
+InventoryItemInfo* Inventory::FindSlot(int slotPos)
 {
 	auto it = m_slots.find(slotPos);
 
@@ -36,10 +35,27 @@ bool Inventory::SetSlot(int slotPos, int itemId, int itemCount)
 	{
 		return false;
 	}
-	
+
+	it->second.inventoryType = m_inventoryType;
 	it->second.slotPos = slotPos;
 	it->second.itemId = itemId;
 	it->second.itemCount = itemCount;
+
+	return true;
+}
+
+bool Inventory::SetSlot(InventoryItemInfo itemInfo)
+{
+	auto it = m_slots.find(itemInfo.slotPos);
+
+	if (it == m_slots.end())
+	{
+		return false;
+	}
+	it->second.inventoryType = m_inventoryType;
+	it->second.slotPos = itemInfo.slotPos;
+	it->second.itemId = itemInfo.itemId;
+	it->second.itemCount = itemInfo.itemCount;
 
 	return true;
 }

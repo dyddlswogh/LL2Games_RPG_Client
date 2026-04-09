@@ -13,11 +13,13 @@
 #include "PacketManager.h"
 #include "stbNetworkDebug.h"
 #include "stbLogger.h"
+#include "PlayerManager.h"
 
 #include "stbApplication.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
+#define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
 namespace stb
 {
@@ -46,6 +48,7 @@ namespace stb
 		tr->SetPosition(Vector2(300.0f, 300.0f));
 
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
+		M_PLMANAGER->SetLocalPlayer(mPlayer);
 
 		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
 		Animator* spartaAnim = mPlayer->AddComponent<Animator>();

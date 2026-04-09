@@ -11,9 +11,8 @@ public:
 	static void Execute(const ParsedPacket& pkt);
 	static void HandleInventoryMetaInfo(const ParsedPacket& pkt);
 	static void HandleInventoryItemInfo(const ParsedPacket& pkt);
-	static bool ReadIntValue(STRInventoryMetaInfo& str_inventoryMetaInfo, InventoryMetaInfo& inventoryMetaInfo);
 	static void MoveInventoryItem();
-
+	static bool ParseNextIntField(const char* data, size_t payloadSize, size_t& offset, int& outValue, std::string& errMsg);
 private:
 
 };

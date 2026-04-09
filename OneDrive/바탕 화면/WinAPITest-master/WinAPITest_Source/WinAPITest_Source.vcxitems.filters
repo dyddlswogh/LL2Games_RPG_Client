@@ -77,8 +77,6 @@
       <Filter>Packet</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MySocket.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)stbOtherPlayer.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)stbOtherPlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbNetworkConfig.cpp">
       <Filter>Networking</Filter>
     </ClCompile>
@@ -93,20 +91,40 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)stbD2DRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp">
-      <Filter>Packet\PlayerPacket</Filter>
+      <Filter>PacketHandler\Player</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Inventory.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Item.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.cpp">
-      <Filter>Packet\PlayerPacket</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerDataPacketHandler.cpp">
+      <Filter>PacketHandler\Player</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.cpp">
-      <Filter>Packet\PlayerPacket</Filter>
+      <Filter>PacketHandler\Inventory</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp">
-      <Filter>Packet\PlayerPacket</Filter>
+      <Filter>PacketHandler\Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.cpp">
+      <Filter>PacketHandler\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Inventory.cpp">
+      <Filter>Game\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp">
+      <Filter>Game\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Item.cpp">
+      <Filter>Game\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbOtherPlayer.cpp">
+      <Filter>Game\OtherPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbOtherPlayerManager.cpp">
+      <Filter>Game\OtherPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stat.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ItemDataManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -197,8 +215,6 @@
       <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MySocket.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)stbOtherPlayer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)stbOtherPlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbNetworkManager.h">
       <Filter>Networking</Filter>
     </ClInclude>
@@ -218,23 +234,46 @@
       <Filter>Packet</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbD2DRenderer.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h">
-      <Filter>Packet\PlayerPacket</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketData.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Inventory.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Item.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.h">
-      <Filter>Packet\PlayerPacket</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h">
+      <Filter>PacketHandler\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerDataPacketHandler.h">
+      <Filter>PacketHandler\Player</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.h">
-      <Filter>Packet\PlayerPacket</Filter>
+      <Filter>PacketHandler\Inventory</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemPacketHandler.h">
-      <Filter>Packet\PlayerPacket</Filter>
+      <Filter>PacketHandler\Inventory</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.h">
+      <Filter>PacketHandler\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Inventory.h">
+      <Filter>Game\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h">
+      <Filter>Game\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Item.h">
+      <Filter>Game\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbOtherPlayer.h">
+      <Filter>Game\OtherPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbOtherPlayerManager.h">
+      <Filter>Game\OtherPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stat.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)playerInfo.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemDataManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -294,8 +333,49 @@
     <Filter Include="Networking">
       <UniqueIdentifier>{1adb0a26-3a18-477e-a881-aa10d945648c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Packet\PlayerPacket">
-      <UniqueIdentifier>{fa6920c9-5ed8-48b9-813e-ca6a5ff2b4cd}</UniqueIdentifier>
+    <Filter Include="PacketHandler">
+      <UniqueIdentifier>{ed910821-24bc-475c-afbd-7cf44705b094}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PacketHandler\Player">
+      <UniqueIdentifier>{0b701016-6fed-44e2-9303-351fe53b607b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\Inventory">
+      <UniqueIdentifier>{02daf034-c258-461b-846a-e5ad5bd943a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{69c55557-7a45-4f08-aec5-35a11a3b3135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{7cb8ff96-1a60-46f9-aa76-f34b1f5b6579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Inventory">
+      <UniqueIdentifier>{8a2889c2-9a98-4914-831b-3cbbcb65675a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\OtherPlayer">
+      <UniqueIdentifier>{46e46f2d-f0db-42d2-9250-8a4f18524d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{414a85f0-560e-498a-8d4e-26040d77a076}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Items">
+      <UniqueIdentifier>{6dd1b1f4-4fab-4f92-87c5-3709ec6add18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Items\Potions">
+      <UniqueIdentifier>{ee5b8a63-6283-4aeb-83e7-c588f8c1d4ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Maps">
+      <UniqueIdentifier>{a4039ae0-f254-40e0-b361-874c5558270e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)2000000.json">
+      <Filter>Data\Items\Potions</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)2000001.json">
+      <Filter>Data\Items\Potions</Filter>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)100000000.json">
+      <Filter>Data\Maps</Filter>
+    </None>
   </ItemGroup>
 </Project>

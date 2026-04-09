@@ -15,97 +15,119 @@ void InventoryPacketHandler::MoveInventoryItem()
 
 void InventoryPacketHandler::HandleInventoryMetaInfo(const ParsedPacket& pkt)
 {
-	try
-	{
-		size_t offset = 0;
-		size_t payloadSize = pkt.payload.size();
-		std::string errMsg;
-		std::string debugMsg = "payloadSize :" + payloadSize;
-		OutputDebugStringA(debugMsg.c_str());
+    try
+    {
+        size_t offset = 0;
+        const char* data = pkt.payload.c_str();
+        size_t payloadSize = pkt.payload.size();
+        std::string errMsg;
 
-		if (payloadSize < sizeof(uint16_t))
-		{
-			//LOG("[??? ???] ????ε? ??? ????\n");
-			return;
-		}
-
-		std::string str_metaInfoSize;
-
-		// 아이템 메타 정보 개수 
-		if (!PacketParser::ParseLengthPrefixedString(
-            pkt.payload.c_str(),
-            payloadSize,
-            offset,
-            str_metaInfoSize,
-            errMsg
-        ))
+        int metaInfoSize = 0;
+        if (!PacketParser::ParseNextIntField(data, payloadSize, offset, metaInfoSize, errMsg))
         {
-            // 로그 출력 필요
-            return;
+            throw std::runtime_error(errMsg);
         }
 
-		auto inventoryManager = InventoryManager::getInstance();
-		int metaInfoSize = 0;
+        auto inventoryManager = InventoryManager::getInstance();
 
-		if(!Convert::StringToInt(str_metaInfoSize, metaInfoSize))
-		{
-			// 로그 출력 필요
-			return;
-		}
+        for (int i = 0; i < metaInfoSize; i++)
+        {
+            InventoryMetaInfo inventoryMetaInfo;
 
-		for(int i =0; i< metaInfoSize; i++)
-		{
-			STRInventoryMetaInfo str_inventoryMetaInfo;
-			InventoryMetaInfo inventoryMetaInfo;
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, inventoryMetaInfo.inventoryType, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
 
-			if(!ReadIntValue(str_inventoryMetaInfo, inventoryMetaInfo))
-			{
-				//에러 로그 필요
-				return;
-			}
-			
-			if(!inventoryManager->CreateInventory(inventoryMetaInfo))
-			{
-				//에러 로그 필요
-				return;
-			}
-		}
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, inventoryMetaInfo.max_slots, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
 
-	}
-	catch (...)
-	{
-		// 에러 로그 필요
-	}
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, inventoryMetaInfo.currnet_slots_size, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            if (!inventoryManager->CreateInventory(inventoryMetaInfo))
+            {
+                throw std::runtime_error("CreateInventory Failed");
+            }
+        }
+        OutputDebugStringA("Inventory Create Sucess\n");
+    }
+    catch (const std::exception& e)
+    {
+        OutputDebugStringA(e.what());
+        OutputDebugStringA("\n");
+    }
+    catch (...)
+    {
+        OutputDebugStringA("예상치 못한 에러 발생\n");
+    }
 }
 
 void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
 {
-	try
-	{
+    /*
+    inventoryType, itemId, itemCount, slotPos
+    */
+    try
+    {
+        size_t offset = 0;
+        const char* data = pkt.payload.c_str();
+        size_t payloadSize = pkt.payload.size();
+        std::string errMsg;
 
-	}
-	catch(...)
-	{
-		// 에러 로그 필요
-	}
+        int metaInfoSize = 0;
+        if (!PacketParser::ParseNextIntField(data, payloadSize, offset, metaInfoSize, errMsg))
+        {
+            throw std::runtime_error(errMsg);
+        }
+
+        auto inventoryManager = InventoryManager::getInstance();
+
+        for (int i = 0; i < metaInfoSize; i++)
+        {
+            InventoryItemInfo ItemInfo;
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, ItemInfo.inventoryType, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, ItemInfo.itemId, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, ItemInfo.itemCount, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, ItemInfo.slotPos, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            auto inventory = inventoryManager->GetInventory(ItemInfo.inventoryType);
+            
+            if (!inventory->SetSlot(ItemInfo))
+            {
+                throw std::runtime_error("Inventory SetSlot Failed");
+            }
+        }
+        OutputDebugStringA("Item register Sucess\n");
+    }
+    catch (const std::exception& e)
+    {
+        OutputDebugStringA(e.what());
+        OutputDebugStringA("\n");
+    }
+    catch (...)
+    {
+        OutputDebugStringA("예상치 못한 에러 발생\n");
+    }
 }
 
-bool InventoryPacketHandler::ReadIntValue(STRInventoryMetaInfo& str_inventoryMetaInfo, InventoryMetaInfo& inventoryMetaInfo)
-{
-	if(!Convert::StringToInt(str_inventoryMetaInfo.inventoryType, inventoryMetaInfo.inventoryType))
-	{
-		return false;
-	}
-
-	if(!Convert::StringToInt(str_inventoryMetaInfo.max_slots, inventoryMetaInfo.max_slots))
-	{
-		return false;
-	}
-	
-	if(!Convert::StringToInt(str_inventoryMetaInfo.current_slots_size, inventoryMetaInfo.currnet_slots_size))
-	{
-		return false;
-	}
-
-	return true;
-}

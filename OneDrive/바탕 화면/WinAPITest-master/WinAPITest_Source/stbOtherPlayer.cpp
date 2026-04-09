@@ -15,7 +15,7 @@ namespace stb
         : mCharacterId("")
         , mTargetPosition(Vector2::Zero)
         , mHasTarget(false)
-        , mInterpolationSpeed(800.0f) // 500 -> 800ìœ¼ë¡œ ì¦ê°€ (ë” ë¹ ë¥´ê²Œ ë”°ë¼ê°)
+        , mInterpolationSpeed(800.0f) // 500 -> 800À¸·Î Áõ°¡ (´õ ºü¸£°Ô µû¶ó°¨)
     {
     }
 
@@ -32,7 +32,7 @@ namespace stb
     {
         GameObject::Update();
         
-        // ëª©í‘œ ìœ„ì¹˜ê°€ ìˆìœ¼ë©´ ë¶€ë“œëŸ½ê²Œ ì´ë™
+        // ¸ñÇ¥ À§Ä¡°¡ ÀÖÀ¸¸é ºÎµå·´°Ô ÀÌµ¿
         if (mHasTarget)
         {
             Transform* tr = GetComponent<Transform>();
@@ -42,10 +42,10 @@ namespace stb
                 Vector2 direction = mTargetPosition - currentPos;
                 float distance = direction.length();
                 
-                if (distance > 0.5f) // ëª©í‘œì— ê±°ì˜ ë„ë‹¬í•˜ì§€ ì•Šì•˜ìœ¼ë©´
+                if (distance > 0.5f) // ¸ñÇ¥¿¡ °ÅÀÇ µµ´ŞÇÏÁö ¾Ê¾ÒÀ¸¸é
                 {
-                    // Lerp ë°©ì‹: ê±°ë¦¬ì— ë¹„ë¡€í•´ì„œ ë¶€ë“œëŸ½ê²Œ ì´ë™
-                    float lerpFactor = 10.0f * M_Time->GetDeltaTime(); // ì´ˆë‹¹ 10ë°° ì†ë„ë¡œ ë”°ë¼ê°
+                    // Lerp ¹æ½Ä: °Å¸®¿¡ ºñ·ÊÇØ¼­ ºÎµå·´°Ô ÀÌµ¿
+                    float lerpFactor = 10.0f * M_Time->GetDeltaTime(); // ÃÊ´ç 10¹è ¼Óµµ·Î µû¶ó°¨
                     if (lerpFactor > 1.0f) lerpFactor = 1.0f;
                     
                     Vector2 newPos = currentPos + direction * lerpFactor;
@@ -54,7 +54,7 @@ namespace stb
                 }
                 else
                 {
-                    // ëª©í‘œì— ë„ë‹¬
+                    // ¸ñÇ¥¿¡ µµ´Ş
                     tr->SetPosition(mTargetPosition);
                     SyncFollowers(mTargetPosition);
                     mHasTarget = false;

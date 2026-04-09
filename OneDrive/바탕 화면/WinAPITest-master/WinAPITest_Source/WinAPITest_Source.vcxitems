@@ -22,12 +22,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Item.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemDataManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MySocket.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Packet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketParser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerDataPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)playerInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Stat.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -73,10 +78,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Item.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ItemDataManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MySocket.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketParser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerDataPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Stat.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbApplication.cpp" />
@@ -108,5 +117,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)100000000.json" />
+    <None Include="$(MSBuildThisFileDirectory)2000000.json" />
+    <None Include="$(MSBuildThisFileDirectory)2000001.json" />
   </ItemGroup>
 </Project>

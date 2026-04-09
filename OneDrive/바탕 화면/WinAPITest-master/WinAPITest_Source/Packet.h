@@ -17,24 +17,41 @@ struct PacketHeader
 #pragma pack(pop)
 
 enum PACKET_TYPE : uint16_t {
-    PKT_LOGIN = 0x01,
-    PKT_REGISTER = 0x02,
-    PKT_CHAT_INIT = 0x03,
-    PKT_CHAT = 0x04,
-    PKT_INIT_WORLD = 0x05,
-    PKT_SELECT_CHARACTER = 0x06,
-    PKT_SELECT_CHANNEL = 0x07,
-    PKT_INIT_CHANNEL = 0x08,
-    PKT_CHANNEL_AUTH = 0x09,      // Ï±ÑÎÑê Ïù∏Ï¶ù (Ï∫êÎ¶≠ÌÑ∞ ID Ï†ÑÏÜ°)
-    PKT_ENTER_MAP = 0x0A,          // Îßµ ÏûÖÏû• (Ï∫êÎ¶≠ÌÑ∞ ID, Îßµ ID)
-    PKT_PLAYER_MOVE = 0x0B,        // ÌîåÎ†àÏù¥Ïñ¥ Ïù¥Îèô (x, y, speed)
-    PKT_PLAYER_ATTACK = 0x0C,
-    PKT_PLAYER_ONDAMAGED = 0x0D,
-    PKT_PLAYER_USE_ITEM = 0x0E,
-    PKT_MONSTER_MOVE = 0x0F,
-    PKT_MONSTER_ONDAMAGED = 0x10,
-    PKT_STAT_VIEW = 0x1000,
-    PKT_STAT_UP,
+    // 0x0001 ~ 0x001F : ∑Œ±◊¿Œ / ø˘µÂ
+    PKT_LOGIN               = 0x0001,
+    PKT_REGISTER            = 0x0002,
+    PKT_CHAT_INIT           = 0x0003,
+    PKT_CHAT                = 0x0004,
+    PKT_INIT_WORLD          = 0x0005,
+    PKT_SELECT_CHARACTER    = 0x0006,
+    PKT_SELECT_CHANNEL      = 0x0007,
+    PKT_INIT_CHANNEL        = 0x0008,
+    PKT_CHANNEL_AUTH        = 0x0009,
+    PKT_ENTER_MAP           = 0x000A,
+
+    // 0x0020 ~ 0x003F : «√∑π¿ÃæÓ
+    PKT_PLAYER_MOVE         = 0x0020,
+    PKT_PLAYER_ATTACK       = 0x0021,
+    PKT_PLAYER_ONDAMAGED    = 0x0022,
+    PKT_PLAYER_USE_ITEM     = 0x0023,
+    PKT_PLAYER_INFO         = 0x0024,
+    PKT_PLAYER_STAT         = 0x0025,
+
+    // 0x0040 ~ 0x005F : ∏ÛΩ∫≈Õ
+    PKT_MONSTER_MOVE        = 0x0040,
+    PKT_MONSTER_ONDAMAGED   = 0x0041,
+
+    // 0x0060 ~ 0x007F : µÂ∑”
+    PKT_DROPITEMS           = 0x0060,
+    PKT_REMOVEITEMS         = 0x0061,
+
+    // 0x0080 ~ 0x009F : ¿Œ∫•≈‰∏Æ
+    PKT_INVENTORY_META_INFO = 0x0080,
+    PKT_INVENTORY_ITEM_INFO = 0x0081,
+
+    // 0x1000 ~ : ≈◊Ω∫∆Æ / UI / ∆Øºˆ
+    PKT_STAT_VIEW           = 0x1000,
+    PKT_STAT_UP             = 0x1001
 };
 
 struct ParsedPacket

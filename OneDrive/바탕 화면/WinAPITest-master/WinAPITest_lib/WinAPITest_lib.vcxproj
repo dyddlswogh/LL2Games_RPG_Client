@@ -21,15 +21,11 @@
   <ItemGroup>
     <ClInclude Include="stbLoadResource.h" />
     <ClInclude Include="stbLoadScenes.h" />
-    <ClInclude Include="stbLuigi.h" />
-    <ClInclude Include="stbLuigiScript.h" />
     <ClInclude Include="stbPlayer.h" />
     <ClInclude Include="stbPlayerScript.h" />
     <ClInclude Include="stbPlayScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stbLuigi.cpp" />
-    <ClCompile Include="stbLuigiScript.cpp" />
     <ClCompile Include="stbPlayer.cpp" />
     <ClCompile Include="stbPlayerScript.cpp" />
     <ClCompile Include="stbPlayScene.cpp" />
@@ -96,6 +92,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -114,6 +111,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -132,6 +130,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -150,6 +149,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -162,4 +162,12 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ItemGroup>
+    <ClInclude Update="C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\%27">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Update="C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PlayerDataPacketHandler.h">
+      <FileType>Document</FileType>
+    </ClInclude>
+  </ItemGroup>
 </Project>

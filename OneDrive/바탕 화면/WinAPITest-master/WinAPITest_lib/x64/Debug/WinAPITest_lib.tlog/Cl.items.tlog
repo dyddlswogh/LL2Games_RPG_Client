@@ -1,5 +1,3 @@
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\stbLuigi.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbLuigi.obj
-C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\stbLuigiScript.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbLuigiScript.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\stbPlayer.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbPlayer.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\stbPlayerScript.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbPlayerScript.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\stbPlayScene.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbPlayScene.obj
@@ -10,10 +8,14 @@ C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Invent
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\InventoryPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\InventoryPacketHandler.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\IPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\IPacketHandler.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Item.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\Item.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\ItemDataManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\ItemDataManager.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MovePacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MovePacketHandler.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MySocket.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PacketManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PacketManager.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PacketParser.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PacketParser.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PlayerDataPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PlayerDataPacketHandler.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PlayerManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PlayerManager.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Stat.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\Stat.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimation.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbAnimation.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbAnimator.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbApplication.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbApplication.obj

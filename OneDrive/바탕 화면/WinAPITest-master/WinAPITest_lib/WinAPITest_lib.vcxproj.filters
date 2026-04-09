@@ -10,12 +10,6 @@
     <ClInclude Include="stbPlayerScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="stbLuigiScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="stbLuigi.h">
-      <Filter>Content</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stbPlayScene.cpp" />
@@ -24,12 +18,6 @@
     </ClCompile>
     <ClCompile Include="stbPlayerScript.cpp">
       <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="stbLuigiScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="stbLuigi.cpp">
-      <Filter>Content</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

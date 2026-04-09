@@ -1,8 +1,13 @@
 #include "stbPlayer.h"
+#include "InventoryManager.h"
 
 
 namespace stb
 {
+	Player::Player() : m_inven(InventoryManager::getInstance())
+	{
+
+	}
 	void Player::Initialize()
 	{
 		GameObject::Initialize();
@@ -22,6 +27,21 @@ namespace stb
 	{
 		GameObject::Render(hdc);
 	}
+
+	void Player::SetStat(BaseStat baseStat, DerivedStat derived, int cur_hp, int cur_mp, int remainAp)
+	{
+		m_stat.SetStat(baseStat, derived, cur_hp, cur_mp, remainAp);
+	}
+
+	void Player::SetPlayerInfo(PlayerIdentity playeridentity, PlayerProfile playerProfile, PlayerLocation playerlocation)
+	{
+		m_playerIdentity = playeridentity;
+		m_playerProfile = playerProfile;
+		m_playerLocation = playerlocation;
+
+	}
+
+
 
 }
 
