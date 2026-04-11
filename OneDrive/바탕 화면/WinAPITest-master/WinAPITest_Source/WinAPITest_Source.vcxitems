@@ -20,9 +20,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Inventory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IPacketHandler.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Item.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemDataManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemUseService.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MySocket.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Packet.h" />
@@ -69,6 +70,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoxCollider2D.cpp" />
@@ -76,9 +79,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Inventory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IPacketHandler.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Item.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ItemDataManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ItemUseService.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MySocket.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp" />
@@ -117,6 +121,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)100000000.json" />

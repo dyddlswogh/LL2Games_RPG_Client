@@ -1,6 +1,7 @@
 #pragma once
 #include "stbResource.h"
 #include "stbSingletonBase.h"
+#include "stbTexture.h"
 namespace stb
 {
 	class ResourceManager : public SingletonBase<ResourceManager>

@@ -89,7 +89,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp">
       <Filter>Packet</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)stbD2DRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp">
       <Filter>PacketHandler\Player</Filter>
     </ClCompile>
@@ -111,9 +110,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp">
       <Filter>Game\Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Item.cpp">
-      <Filter>Game\Inventory</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)stbOtherPlayer.cpp">
       <Filter>Game\OtherPlayer</Filter>
     </ClCompile>
@@ -123,8 +119,27 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Stat.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ItemDataManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ItemDataManager.cpp">
+      <Filter>Game\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ItemUseService.cpp">
+      <Filter>Game\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerManager.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryUI.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIManager.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbD2DRenderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -233,7 +248,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketManager.h">
       <Filter>Packet</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)stbD2DRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h">
@@ -257,9 +271,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h">
       <Filter>Game\Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Item.h">
-      <Filter>Game\Inventory</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbOtherPlayer.h">
       <Filter>Game\OtherPlayer</Filter>
     </ClInclude>
@@ -272,8 +283,27 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)playerInfo.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ItemDataManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemDataManager.h">
+      <Filter>Game\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ItemUseService.h">
+      <Filter>Game\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerManager.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIManager.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbD2DRenderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -365,6 +395,9 @@
     </Filter>
     <Filter Include="Data\Maps">
       <UniqueIdentifier>{a4039ae0-f254-40e0-b361-874c5558270e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI">
+      <UniqueIdentifier>{8881fa85-db20-453d-8755-ed2b07aa7124}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

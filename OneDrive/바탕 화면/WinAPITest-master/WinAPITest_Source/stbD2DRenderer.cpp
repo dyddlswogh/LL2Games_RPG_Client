@@ -5,17 +5,17 @@ bool stbD2DRenderer::Initialize(HWND hwnd)
     mHwnd = hwnd;
 
     /*
-        D2D1CreateFactory : Direct2dì˜ íŒ©í† ë¦¬ ê°ì²´ë¥¼ ë§Œë“œëŠ” í•¨ìˆ˜
-        Direct2D ë¦¬ì†ŒìŠ¤ë“¤ì„ ë§Œë“¤ê¸° ìœ„í•œ ì¶œë°œì ì„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜
-        ë„í˜•, ë Œë” íƒ€ê²Ÿ, 2D ê·¸ë˜í”½ ìª½ì˜ ì‹œì‘ì ì´ë‹¤.
+        D2D1CreateFactory : Direct2dÀÇ ÆÑÅä¸® °´Ã¼¸¦ ¸¸µå´Â ÇÔ¼ö
+        Direct2D ¸®¼Ò½ºµéÀ» ¸¸µé±â À§ÇÑ Ãâ¹ßÁ¡À» »ı¼ºÇÏ´Â ÇÔ¼ö
+        µµÇü, ·»´õ Å¸°Ù, 2D ±×·¡ÇÈ ÂÊÀÇ ½ÃÀÛÁ¡ÀÌ´Ù.
 
 
         D2D1_FACTORY_TYPE_SINGLE_THREADED :
-        Direct2Dê°€ ë™ê¸°í™”ë¥¼ í•´ì£¼ì§€ ì•ŠëŠ”ë‹¤. ì—¬ëŸ¬ ìŠ¤ë ˆë“œì—ì„œ ì ‘ê·¼í•˜ë©´ ê°œë°œìê°€ ì§ì ‘ ë½ì„ ê±¸ì–´ì•¼ í•œë‹¤.
+        Direct2D°¡ µ¿±âÈ­¸¦ ÇØÁÖÁö ¾Ê´Â´Ù. ¿©·¯ ½º·¹µå¿¡¼­ Á¢±ÙÇÏ¸é °³¹ßÀÚ°¡ Á÷Á¢ ¶ôÀ» °É¾î¾ß ÇÑ´Ù.
 
         D2D1_FACTORY_TYPE_MULIT_THREADED :
-        Direct2Dê°€ íŒ©í† ë¦¬ì™€ ê·¸ íŒ©í† ë¦¬ì—ì„œ ë§Œë“  ê°ì²´ë“¤ì— ëŒ€í•´ ë‚´ë¶€ì ìœ¼ë¡œ ë™ê¸°í™”ë¥¼ ì œê³µí•´ì„œ
-        ì—¬ëŸ¬ ìŠ¤ë ˆë“œì—ì„œ ì•ˆì „í•˜ê²Œ ì ‘ê·¼í•  ìˆ˜ ìˆê²Œ í•´ì¤€ë‹¤.
+        Direct2D°¡ ÆÑÅä¸®¿Í ±× ÆÑÅä¸®¿¡¼­ ¸¸µç °´Ã¼µé¿¡ ´ëÇØ ³»ºÎÀûÀ¸·Î µ¿±âÈ­¸¦ Á¦°øÇØ¼­
+        ¿©·¯ ½º·¹µå¿¡¼­ ¾ÈÀüÇÏ°Ô Á¢±ÙÇÒ ¼ö ÀÖ°Ô ÇØÁØ´Ù.
 
     */
     HRESULT hr = D2D1CreateFactory(
@@ -26,12 +26,12 @@ bool stbD2DRenderer::Initialize(HWND hwnd)
         return false;
 
     /*
-        DWriteCreateFactory : í…ìŠ¤íŠ¸ë¥¼ ë‹¤ë£¨ê³  ê·¸ë¦¬ê¸°ìœ„í•œ DirectWirteì˜ ì¶œë°œì 
-        í°íŠ¸, í…ìŠ¤íŠ¸ ë ˆì´ì•„ì›ƒ, ê¸€ì ë Œë”ë§ ìª½ì˜ ì‹œì‘ì ì´ë‹¤.
+        DWriteCreateFactory : ÅØ½ºÆ®¸¦ ´Ù·ç°í ±×¸®±âÀ§ÇÑ DirectWirteÀÇ Ãâ¹ßÁ¡
+        ÆùÆ®, ÅØ½ºÆ® ·¹ÀÌ¾Æ¿ô, ±ÛÀÚ ·»´õ¸µ ÂÊÀÇ ½ÃÀÛÁ¡ÀÌ´Ù.
 
-        DWRITE_FACTORY_TYPE_SHARED : ì´ íŒ©í† ë¦¬ë¥¼ í”„ë¡œì„¸ìŠ¤ ì „ì²´ì—ì„œ ê³µìœ í•´ì„œ ì‚¬ìš©í•œë‹¤ëŠ” ì˜ë¯¸
+        DWRITE_FACTORY_TYPE_SHARED : ÀÌ ÆÑÅä¸®¸¦ ÇÁ·Î¼¼½º ÀüÃ¼¿¡¼­ °øÀ¯ÇØ¼­ »ç¿ëÇÑ´Ù´Â ÀÇ¹Ì
 
-        DWRITE_FACTORY_TYPE_ISOLATED : ë”°ë¡œ ê²©ë¦¬í•´ì„œ ì‚¬ìš©í•œë‹¤ëŠ” ì˜ë¯¸
+        DWRITE_FACTORY_TYPE_ISOLATED : µû·Î °İ¸®ÇØ¼­ »ç¿ëÇÑ´Ù´Â ÀÇ¹Ì
     */
     hr = DWriteCreateFactory(
         DWRITE_FACTORY_TYPE_SHARED,
@@ -41,8 +41,8 @@ bool stbD2DRenderer::Initialize(HWND hwnd)
         return false;
 
     /*
-    CoCreateInstance : WIC Imaging Factoryë¼ëŠ” COM ê°ì²´ë¥¼ í•˜ë‚˜ ìƒì„±í•´ì„œ m_WicFactoryì— ë„£ì–´ì¤€ë‹¤
-                       WIC ì´ë¯¸ì§€ íŒ©í† ë¦¬ ê°ì²´ë¥¼ ë§Œë“œëŠ”ê²ƒ
+    CoCreateInstance : WIC Imaging Factory¶ó´Â COM °´Ã¼¸¦ ÇÏ³ª »ı¼ºÇØ¼­ m_WicFactory¿¡ ³Ö¾îÁØ´Ù
+                       WIC ÀÌ¹ÌÁö ÆÑÅä¸® °´Ã¼¸¦ ¸¸µå´Â°Í
     */
     hr = CoCreateInstance(
         CLSID_WICImagingFactory,
@@ -64,7 +64,7 @@ bool stbD2DRenderer::Initialize(HWND hwnd)
     return CreateDeviceResources();
 }
 
-// ì¢…ë£Œ / í•´ì œ
+// Á¾·á / ÇØÁ¦
 void stbD2DRenderer::ShutDown()
 {
     DiscardDeviceResources();
@@ -79,7 +79,7 @@ void stbD2DRenderer::ShutDown()
     mHwnd = nullptr;
 }
 
-// í•œ í”„ë ˆì„ ë Œë” ì‹œì‘
+// ÇÑ ÇÁ·¹ÀÓ ·»´õ ½ÃÀÛ
 void stbD2DRenderer::BeginFrame()
 {
     if (!m_RenderTarget)
@@ -124,19 +124,19 @@ bool stbD2DRenderer::LoadBitmap(const std::wstring& filePath)
         return true;
 
     if (!m_RenderTarget)
-        return true; // ë‚˜ì¤‘ì— CreateDeviceResources()ì—ì„œ ë‹¤ì‹œ ìƒì„±
+        return true; // ³ªÁß¿¡ CreateDeviceResources()¿¡¼­ ´Ù½Ã »ı¼º
 
     HRESULT hr = CreateBitmapFromFile(filePath.c_str(), m_Bitmap.ReleaseAndGetAddressOf());
     return SUCCEEDED(hr);
 }
 
-// í…ìŠ¤íŠ¸ ìŠ¤íƒ€ì¼ì„ ë§Œë“œëŠ” í•¨ìˆ˜
+// ÅØ½ºÆ® ½ºÅ¸ÀÏÀ» ¸¸µå´Â ÇÔ¼ö
 bool stbD2DRenderer::CreateTextFormats()
 {
     /*
-    CreateTextFormat : ê¸€ìë¥¼ ì‹¤ì œë¡œ ê·¸ë¦¬ëŠ” í•¨ìˆ˜ê°€ ì•„ë‹ˆë¼, ê¸€ìë¥¼ ì–´ë–¤ ìŠ¤íƒ€ì¼ê³¼ ê·œì¹™ìœ¼ë¡œ ê·¸ë¦´ì§€ ì •í•˜ëŠ” "í…ìŠ¤íŠ¸ í¬ë§· ê°ì²´"ë¥¼ ë§Œë“œëŠ” í•¨ìˆ˜ì´ë‹¤.
+    CreateTextFormat : ±ÛÀÚ¸¦ ½ÇÁ¦·Î ±×¸®´Â ÇÔ¼ö°¡ ¾Æ´Ï¶ó, ±ÛÀÚ¸¦ ¾î¶² ½ºÅ¸ÀÏ°ú ±ÔÄ¢À¸·Î ±×¸±Áö Á¤ÇÏ´Â "ÅØ½ºÆ® Æ÷¸Ë °´Ã¼"¸¦ ¸¸µå´Â ÇÔ¼öÀÌ´Ù.
 
-    text layoutì— ì‚¬ìš©ë˜ëŠ” IDWriteTextFormat ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
+    text layout¿¡ »ç¿ëµÇ´Â IDWriteTextFormat °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
 
 
     */
@@ -177,10 +177,10 @@ bool stbD2DRenderer::CreateTextFormats()
        
 
     /*
-        SetTextAlignmentï¼šê°€ë¡œ ì •ë ¬
-        DWRITE_TEXT_ALIGNMENT_LEADING : ì™¼ìª½ ì •ë ¬
+        SetTextAlignment£º°¡·Î Á¤·Ä
+        DWRITE_TEXT_ALIGNMENT_LEADING : ¿ŞÂÊ Á¤·Ä
 
-        SetParagraphAlignment : ì„¸ë¡œ ì •ë ¬
+        SetParagraphAlignment : ¼¼·Î Á¤·Ä
     */
     m_TitleTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
     m_TitleTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
@@ -203,24 +203,24 @@ bool stbD2DRenderer::CreateDeviceResources()
     const UINT height = static_cast<UINT>(rc.bottom - rc.top);
 
     /*
-        ìœˆë„ìš°(HWND)ì— ì§ì ‘ ê·¸ë¦´ ìˆ˜ ìˆëŠ” Direct2D ë Œë” íƒ€ì¼“ ê°ì²´ë¥¼ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ì´ë‹¤.
-        ì¦‰, ì°½ì— ë Œë”ë§í•˜ëŠ” ID2D1HwndRenderTargetì„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ì´ë‹¤.
+        À©µµ¿ì(HWND)¿¡ Á÷Á¢ ±×¸± ¼ö ÀÖ´Â Direct2D ·»´õ Å¸ÄÏ °´Ã¼¸¦ »ı¼ºÇÏ´Â ÇÔ¼öÀÌ´Ù.
+        Áï, Ã¢¿¡ ·»´õ¸µÇÏ´Â ID2D1HwndRenderTargetÀ» »ı¼ºÇÏ´Â ÇÔ¼öÀÌ´Ù.
 
-        GDI+ì˜ HDCë‘ ë™ì¼í•œ ê²ƒ
+        GDI+ÀÇ HDC¶û µ¿ÀÏÇÑ °Í
 
-        ì¦‰, HWND ì°½ì— ì§ì ‘ ê·¸ë¦´ ìˆ˜ ìˆëŠ” Direct2Dìš© ë„í™”ì§€ë¥¼ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ì´ë‹¤.
+        Áï, HWND Ã¢¿¡ Á÷Á¢ ±×¸± ¼ö ÀÖ´Â Direct2D¿ë µµÈ­Áö¸¦ »ı¼ºÇÏ´Â ÇÔ¼öÀÌ´Ù.
 
-        D2D1::RenderTargetProperties() : ë Œë” íƒ€ì¼“ì˜ ê¸°ë³¸ ì†ì„±
-        ì˜ˆ) - í•˜ë“œì›¨ì–´ ë Œë”ë§ ì“¸ì§€, í”½ì…€ í¬ë©§, DPI ê°™ì€ ë Œë” íƒ€ì¼“ ì „ë°˜ ì„¤ì •ì´ë‹¤.
-        ì•„ë¬´ê²ƒë„ ë„£ì§€ ì•Šìœ¼ë©´ ê¸°ë³¸ê°’ì„ ì‚¬ìš©
+        D2D1::RenderTargetProperties() : ·»´õ Å¸ÄÏÀÇ ±âº» ¼Ó¼º
+        ¿¹) - ÇÏµå¿ş¾î ·»´õ¸µ ¾µÁö, ÇÈ¼¿ Æ÷¸ä, DPI °°Àº ·»´õ Å¸ÄÏ Àü¹İ ¼³Á¤ÀÌ´Ù.
+        ¾Æ¹«°Íµµ ³ÖÁö ¾ÊÀ¸¸é ±âº»°ªÀ» »ç¿ë
 
         D2D1::HwndRenderTargetProperties(mHwnd, D2D1::SizeU(width, height))
-        ìœˆë„ìš° ì „ìš© ì†ì„±ì´ë‹¤.
+        À©µµ¿ì Àü¿ë ¼Ó¼ºÀÌ´Ù.
 
-        ì–´ëŠ ì°½ì— ê·¸ë¦´ ê±´ì§€, ëœë” íƒ€ì¼“ í¬ê¸°
+        ¾î´À Ã¢¿¡ ±×¸± °ÇÁö, ·£´õ Å¸ÄÏ Å©±â
 
-        ëœë” íƒ€ì¼“ì€ í•œ ë²ˆ ë§Œë“¤ì–´ì„œ ê°€ëŠ¥í•œ ì˜¤ë˜ ìœ ì§€í•˜ëŠ”ê²Œ ì„±ëŠ¥ìƒ ì¢‹ë‹¤. ê·¸ë¦¬ê³ 
-        D2DERR_RECRETE_TARGETì´ ë‚˜ì˜¤ë©´ ë‹¤ì‹œ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
+        ·£´õ Å¸ÄÏÀº ÇÑ ¹ø ¸¸µé¾î¼­ °¡´ÉÇÑ ¿À·¡ À¯ÁöÇÏ´Â°Ô ¼º´É»ó ÁÁ´Ù. ±×¸®°í
+        D2DERR_RECRETE_TARGETÀÌ ³ª¿À¸é ´Ù½Ã ¸¸µé¾î¾ß ÇÑ´Ù.
     */
     HRESULT hr = m_D2DFactory->CreateHwndRenderTarget(
         D2D1::RenderTargetProperties(),
@@ -230,12 +230,12 @@ bool stbD2DRenderer::CreateDeviceResources()
         return false;
 
     /*
-    CreateSolidColorBrush : í•œ ê°€ì§€ ìƒ‰ë§Œ ê°€ì§€ëŠ” ë¸ŒëŸ¬ì‹œë¥¼ ë§Œë“ ë‹¤.
+    CreateSolidColorBrush : ÇÑ °¡Áö »ö¸¸ °¡Áö´Â ºê·¯½Ã¸¦ ¸¸µç´Ù.
 
-    ID2D1SolidColorBrush : ë‹¨ìƒ‰ í•œ ê°€ì§€
-    ID2D1LinearGradientBrush : ì§ì„  ë°©í–¥ìœ¼ë¡œ ìƒ‰ì´ ë°”ë€ŒëŠ” ë¸ŒëŸ¬ì‹œ
-    ID2D1RadialGradientBrush : ì›í˜•ìœ¼ë¡œ í¼ì§€ë©´ì„œ ìƒ‰ì´ ë°”ë€ŒëŠ” ë¸ŒëŸ¬ì‹œ
-    ID2D1BitmapBrush : ì´ë¯¸ì§€ íŒ¨í„´ìœ¼ë¡œ ì¹ í•˜ëŠ” ë¸ŒëŸ¬ì‹œ
+    ID2D1SolidColorBrush : ´Ü»ö ÇÑ °¡Áö
+    ID2D1LinearGradientBrush : Á÷¼± ¹æÇâÀ¸·Î »öÀÌ ¹Ù²î´Â ºê·¯½Ã
+    ID2D1RadialGradientBrush : ¿øÇüÀ¸·Î ÆÛÁö¸é¼­ »öÀÌ ¹Ù²î´Â ºê·¯½Ã
+    ID2D1BitmapBrush : ÀÌ¹ÌÁö ÆĞÅÏÀ¸·Î Ä¥ÇÏ´Â ºê·¯½Ã
     */
     hr = m_RenderTarget->CreateSolidColorBrush(
         D2D1::ColorF(D2D1::ColorF::White),
@@ -249,7 +249,7 @@ bool stbD2DRenderer::CreateDeviceResources()
 
     if (!m_BitmapFilePath.empty())
     {
-        // ë¹„íŠ¸ë§µ ë¡œë“œëŠ” ì‹¤íŒ¨í•´ë„ ì•± ì „ì²´ë¥¼ ì£½ì´ì§€ ì•ŠìŒ
+        // ºñÆ®¸Ê ·Îµå´Â ½ÇÆĞÇØµµ ¾Û ÀüÃ¼¸¦ Á×ÀÌÁö ¾ÊÀ½
         CreateBitmapFromFile(m_BitmapFilePath.c_str(), m_Bitmap.ReleaseAndGetAddressOf());
     }
 
@@ -258,13 +258,13 @@ bool stbD2DRenderer::CreateDeviceResources()
 
 void stbD2DRenderer::DiscardDeviceResources()
 {
-    //Resetì€ ComPtrì´ ë“¤ê³  ìˆëŠ” COM ê°ì²´ ì°¸ì¡°ë¥¼ í•´ì œí•œë‹¤..
+    //ResetÀº ComPtrÀÌ µé°í ÀÖ´Â COM °´Ã¼ ÂüÁ¶¸¦ ÇØÁ¦ÇÑ´Ù..
     m_Bitmap.Reset();
     m_Brush.Reset();
     m_RenderTarget.Reset();
 }
 
-// ë¸ŒëŸ¬ì‹œê°€ ë§Œë“¤ì–´ì ¸ ìˆëŠ”ì§€ í™•ì¸í•˜ê³  ì—†ìœ¼ë©´ ìƒˆë¡œ ìƒì„±
+// ºê·¯½Ã°¡ ¸¸µé¾îÁ® ÀÖ´ÂÁö È®ÀÎÇÏ°í ¾øÀ¸¸é »õ·Î »ı¼º
 bool stbD2DRenderer::EnsureBrush()
 {
     if (!m_RenderTarget)
@@ -290,14 +290,14 @@ HRESULT stbD2DRenderer::CreateBitmapFromFile(PCWSTR filePath, ID2D1Bitmap** outB
         return E_FAIL;
 
     /*
-    IWICBitmapDecoder : ì´ë¯¸ì§€ íŒŒì¼ í•´ë…ê¸° ( PNG, JPG, BMP ê°™ì€ íŒŒì¼ì„ ì—´ ìˆ˜ ìˆë‹¤.)
-                        ë‚´ë¶€ ì´ë¯¸ì§€ ë°ì´í„°ë¥¼ ì½ì„ ìˆ˜ ìˆê²Œ ì¤€ë¹„í•¨
+    IWICBitmapDecoder : ÀÌ¹ÌÁö ÆÄÀÏ ÇØµ¶±â ( PNG, JPG, BMP °°Àº ÆÄÀÏÀ» ¿­ ¼ö ÀÖ´Ù.)
+                        ³»ºÎ ÀÌ¹ÌÁö µ¥ÀÌÅÍ¸¦ ÀĞÀ» ¼ö ÀÖ°Ô ÁØºñÇÔ
 
-    IWICBitmapFrameDecode : ì´ë¯¸ì§€ì˜ ì‹¤ì œ í”„ë ˆì„ ë°ì´í„°ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.
+    IWICBitmapFrameDecode : ÀÌ¹ÌÁöÀÇ ½ÇÁ¦ ÇÁ·¹ÀÓ µ¥ÀÌÅÍ¸¦ ³ªÅ¸³½´Ù.
 
-    IWICFormatConverter : ì´ë¯¸ì§€ í”½ì…€ í¬ë©§ ë³€í™˜ê¸°
-                          ì›ë³¸ ì´ë¯¸ì§€ í¬ë©§ì´ D2Dê°€ ë°”ë¡œ ì“°ê¸° ì¢‹ì€ í¬ë©§ì´ ì•„ë‹ ìˆ˜ ìˆê¸° ë•Œë¬¸ì—
-                          ì›ë³¸ í”„ë ˆì„ì„ D2Dê°€ ì¢‹ì•„í•˜ëŠ” í¬ë§·ìœ¼ë¡œ ë³€í™˜í•œë‹¤.
+    IWICFormatConverter : ÀÌ¹ÌÁö ÇÈ¼¿ Æ÷¸ä º¯È¯±â
+                          ¿øº» ÀÌ¹ÌÁö Æ÷¸äÀÌ D2D°¡ ¹Ù·Î ¾²±â ÁÁÀº Æ÷¸äÀÌ ¾Æ´Ò ¼ö ÀÖ±â ¶§¹®¿¡
+                          ¿øº» ÇÁ·¹ÀÓÀ» D2D°¡ ÁÁ¾ÆÇÏ´Â Æ÷¸ËÀ¸·Î º¯È¯ÇÑ´Ù.
 
     */
     ComPtr<IWICBitmapDecoder> decoder;
@@ -305,54 +305,54 @@ HRESULT stbD2DRenderer::CreateBitmapFromFile(PCWSTR filePath, ID2D1Bitmap** outB
     ComPtr<IWICFormatConverter> converter;
 
     /*
-    CreateDecoderFromFilename : ë””ì½”ë”ë¥¼ ìƒì„±í•˜ëŠ” í•¨ìˆ˜
-    png, jpg íŒŒì¼ì„ WICê°€ ì½ì„ ìˆ˜ ì—†ì–´ì„œ ì½ì„ ìˆ˜ ìˆê²Œ ë””ì½”ë”ë¥¼ ìƒì„±í•œë‹¤.
+    CreateDecoderFromFilename : µğÄÚ´õ¸¦ »ı¼ºÇÏ´Â ÇÔ¼ö
+    png, jpg ÆÄÀÏÀ» WIC°¡ ÀĞÀ» ¼ö ¾ø¾î¼­ ÀĞÀ» ¼ö ÀÖ°Ô µğÄÚ´õ¸¦ »ı¼ºÇÑ´Ù.
 
-    ë©”íƒ€ë°ì´í„°ë€?
-    ì´ë¯¸ì§€ íŒŒì¼ì•ˆì— ë“¤ì–´ìˆëŠ” í¬ê¸°, í¬ë©§ ì •ë³´, ìƒ‰ìƒ í”„ë¡œí•„, EXIF ì •ë³´, ê¸°íƒ€ ë¶€ê°€ ì •ë³´ì´ë‹¤.
+    ¸ŞÅ¸µ¥ÀÌÅÍ¶õ?
+    ÀÌ¹ÌÁö ÆÄÀÏ¾È¿¡ µé¾îÀÖ´Â Å©±â, Æ÷¸ä Á¤º¸, »ö»ó ÇÁ·ÎÇÊ, EXIF Á¤º¸, ±âÅ¸ ºÎ°¡ Á¤º¸ÀÌ´Ù.
     */
     HRESULT hr = m_WicFactory->CreateDecoderFromFilename(
         filePath,
         nullptr,
-        GENERIC_READ, // ì½ê¸° ì „ìš©ìœ¼ë¡œ ì—´ê² ë‹¤.
-        WICDecodeMetadataCacheOnLoad, // ë©”íƒ€ ë°ì´í„°ë¥¼ íŒŒì¼ì„ ì—´ ë•Œ ìºì‹œí•œë‹¤.
+        GENERIC_READ, // ÀĞ±â Àü¿ëÀ¸·Î ¿­°Ú´Ù.
+        WICDecodeMetadataCacheOnLoad, // ¸ŞÅ¸ µ¥ÀÌÅÍ¸¦ ÆÄÀÏÀ» ¿­ ¶§ Ä³½ÃÇÑ´Ù.
         decoder.GetAddressOf());
 
 
     if (FAILED(hr))
         return hr;
 
-    // GetFrame : ì‹¤ì œ ì´ë¯¸ì§€ í”„ë ˆì„ì„ ê°€ì ¸ì˜´ GIF ì²˜ëŸ¼ ì›€ì§¤ì´ ì•„ë‹ˆë©´ 0ì„ ë„£ì–´ ì›ë³¸ì„ ê°€ì§€ê³  ì˜¨ë‹¤
+    // GetFrame : ½ÇÁ¦ ÀÌ¹ÌÁö ÇÁ·¹ÀÓÀ» °¡Á®¿È GIF Ã³·³ ¿òÂ©ÀÌ ¾Æ´Ï¸é 0À» ³Ö¾î ¿øº»À» °¡Áö°í ¿Â´Ù
     hr = decoder->GetFrame(0, frame.GetAddressOf());
 
     if (FAILED(hr))
         return hr;
 
-    // CreateFormatConverter : ì»¨ë²„í„°ë¥¼ ìƒì„±
+    // CreateFormatConverter : ÄÁ¹öÅÍ¸¦ »ı¼º
     hr = m_WicFactory->CreateFormatConverter(converter.GetAddressOf());
 
     if (FAILED(hr))
         return hr;
 
     /*
-    Initialize : ì»¨ë²„í„° ì„¤ì • í•¨ìˆ˜
-        frameì— ë“¤ì–´ìˆëŠ” ì›ë³¸ ì´ë¯¸ì§€ë¥¼ dithering ì—†ì´, 32bppPBGRA í˜•ì‹ìœ¼ë¡œ ë³€í™˜í•´ì„œ ì“¸ ìˆ˜ ìˆë„ë¡
-        converterë¥¼ ì„¤ì •
+    Initialize : ÄÁ¹öÅÍ ¼³Á¤ ÇÔ¼ö
+        frame¿¡ µé¾îÀÖ´Â ¿øº» ÀÌ¹ÌÁö¸¦ dithering ¾øÀÌ, 32bppPBGRA Çü½ÄÀ¸·Î º¯È¯ÇØ¼­ ¾µ ¼ö ÀÖµµ·Ï
+        converter¸¦ ¼³Á¤
     */
     hr = converter->Initialize(
         frame.Get(),
         GUID_WICPixelFormat32bppPBGRA,
-        WICBitmapDitherTypeNone, // ë””ë”ë§ ì•ˆí•¨
-        nullptr,                // íŒ”ë ˆíŠ¸ ì§€ì • ì•ˆí•¨
-        0.0f,                   // ì•ŒíŒŒ threshold ì•ˆ ì”€
-        WICBitmapPaletteTypeMedianCut); //íŒ”ë ˆíŠ¸ ë³€í™˜ ë°©ì‹ ê´€ë ¨ ê°’
+        WICBitmapDitherTypeNone, // µğ´õ¸µ ¾ÈÇÔ
+        nullptr,                // ÆÈ·¹Æ® ÁöÁ¤ ¾ÈÇÔ
+        0.0f,                   // ¾ËÆÄ threshold ¾È ¾¸
+        WICBitmapPaletteTypeMedianCut); //ÆÈ·¹Æ® º¯È¯ ¹æ½Ä °ü·Ã °ª
 
     if (FAILED(hr))
         return hr;
 
     /*
     CreateBitmapFromWicBitmap :
-    conveter.Get()ì„ í•˜ë©´ ì›ë³¸ ì´ë¯¸ì§€ë¥¼ ì»¨ë²„í„° ì„¤ì •ì— ë”°ë¼ ë³€í™˜í•œ ê°’ì„ ê°€ì§€ê³  ë¹„íŠ¸ë§µìœ¼ë¡œ ìƒì„±í•´ì„œ outBitmapì— ì €ì¥
+    conveter.Get()À» ÇÏ¸é ¿øº» ÀÌ¹ÌÁö¸¦ ÄÁ¹öÅÍ ¼³Á¤¿¡ µû¶ó º¯È¯ÇÑ °ªÀ» °¡Áö°í ºñÆ®¸ÊÀ¸·Î »ı¼ºÇØ¼­ outBitmap¿¡ ÀúÀå
 
     */
     hr = m_RenderTarget->CreateBitmapFromWicBitmap(
@@ -370,7 +370,7 @@ void stbD2DRenderer::Clear(const D2D1::ColorF& color)
     m_RenderTarget->Clear(color);
 }
 
-// ë¼ì¸ ê·¸ë¦¬ëŠ” í•¨ìˆ˜
+// ¶óÀÎ ±×¸®´Â ÇÔ¼ö
 void stbD2DRenderer::DrawLine(float x1, float y1, float x2, float y2, const D2D1::ColorF& color, float stroke)
 {
     if (!EnsureBrush())
@@ -381,10 +381,10 @@ void stbD2DRenderer::DrawLine(float x1, float y1, float x2, float y2, const D2D1
         D2D1::Point2F(x1, y1),
         D2D1::Point2F(x2, y2),
         m_Brush.Get(),
-        stroke);// strokëŠ” í”½ì…€ ë‘ê»˜ë¥¼ ì˜ë¯¸
+        stroke);// strok´Â ÇÈ¼¿ µÎ²²¸¦ ÀÇ¹Ì
 }
 
-// ì‚¬ê°í˜• í…Œë‘ë¦¬ë¥¼ ê·¸ë¦¬ëŠ” í•¨ìˆ˜
+// »ç°¢Çü Å×µÎ¸®¸¦ ±×¸®´Â ÇÔ¼ö
 void stbD2DRenderer::DrawRect(float x, float y, float w, float h, const D2D1::ColorF& color, float stroke)
 {
     if (!EnsureBrush())
@@ -392,16 +392,16 @@ void stbD2DRenderer::DrawRect(float x, float y, float w, float h, const D2D1::Co
 
     m_Brush->SetColor(color);
     /*
-    DrawRectangle: ì‚¬ê°í˜• ì˜ì—­ì„ ë§Œë“¤ì–´ì„œ ê·¸ í…Œë‘ë¦¬ë¥¼ ë¸ŒëŸ¬ì‹œë¡œ ê·¸ë¦¬ëŠ” í•¨ìˆ˜
-    D2D1::RectF : ì‚¬ê°í˜•ì„ ë§Œë“œëŠ” í•¨ìˆ˜
+    DrawRectangle: »ç°¢Çü ¿µ¿ªÀ» ¸¸µé¾î¼­ ±× Å×µÎ¸®¸¦ ºê·¯½Ã·Î ±×¸®´Â ÇÔ¼ö
+    D2D1::RectF : »ç°¢ÇüÀ» ¸¸µå´Â ÇÔ¼ö
     */
     m_RenderTarget->DrawRectangle(
         D2D1::RectF(x, y, x + w, y + h),
         m_Brush.Get(),
-        stroke); // strokëŠ” í”½ì…€ ë‘ê»˜ë¥¼ ì˜ë¯¸
+        stroke); // strok´Â ÇÈ¼¿ µÎ²²¸¦ ÀÇ¹Ì
 }
 
-// ì‚¬ê°í˜• ë‚´ë¶€ë¥¼ ìƒ‰ìœ¼ë¡œ ì±„ìš°ëŠ” í•¨ìˆ˜
+// »ç°¢Çü ³»ºÎ¸¦ »öÀ¸·Î Ã¤¿ì´Â ÇÔ¼ö
 void stbD2DRenderer::FillRect(float x, float y, float w, float h, const D2D1::ColorF& color)
 {
     if (!EnsureBrush())
@@ -434,7 +434,7 @@ void stbD2DRenderer::FillCircle(float cx, float cy, float radius, const D2D1::Co
     m_RenderTarget->FillEllipse(D2D1::Ellipse(D2D1::Point2F(cx, cy), radius, radius), m_Brush.Get());
 }
 
-// ë¬¸ìì—´ì„ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
+// ¹®ÀÚ¿­À» Ãâ·ÂÇÏ´Â ÇÔ¼ö
 void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, bool titleStyle)
 {
     if (!m_RenderTarget || !EnsureBrush()) 
@@ -462,7 +462,7 @@ void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F&
         m_Brush.Get());
 }
 
-// ë¹„íŠ¸ë§µì„ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
+// ºñÆ®¸ÊÀ» Ãâ·ÂÇÏ´Â ÇÔ¼ö
 void stbD2DRenderer::DrawBitmap(float x, float y, float width, float height, float opacity)
 {
     if (!m_RenderTarget || !m_Bitmap)
@@ -477,6 +477,25 @@ void stbD2DRenderer::DrawBitmap(float x, float y, float width, float height, flo
 
     m_RenderTarget->DrawBitmap(
         m_Bitmap.Get(),
+        destRect,
+        opacity,
+        D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
+}
+
+void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, float x, float y, float width, float height, float opacity)
+{
+    if (!m_RenderTarget || !bitmap)
+        return;
+
+    D2D1_SIZE_F size = bitmap->GetSize();
+
+    if (width <= 0.0f)  width = size.width;
+    if (height <= 0.0f) height = size.height;
+
+    D2D1_RECT_F destRect = D2D1::RectF(x, y, x + width, y + height);
+
+    m_RenderTarget->DrawBitmap(
+        bitmap,
         destRect,
         opacity,
         D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);

@@ -23,6 +23,8 @@ namespace stb
 	private:
 		void Idle();
 		void Move();
+		void Attack();
+		void Jump();
 		void SyncFollowers(Vector2 pos);
 	
 	private:

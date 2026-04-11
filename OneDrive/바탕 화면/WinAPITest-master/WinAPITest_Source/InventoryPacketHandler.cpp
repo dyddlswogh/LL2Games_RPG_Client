@@ -70,7 +70,15 @@ void InventoryPacketHandler::HandleInventoryMetaInfo(const ParsedPacket& pkt)
 void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
 {
     /*
-    inventoryType, itemId, itemCount, slotPos
+     payload.push_back(std::to_string(inventory->GetAllItemInfos().size()));
+
+    for(auto itemInfos : inventory->GetAllItemInfos())
+    {
+        payload.push_back(std::to_string(itemInfos.inventoryType));
+        payload.push_back(std::to_string(itemInfos.itemId));
+        payload.push_back(std::to_string(itemInfos.itemCount));
+        payload.push_back(std::to_string(itemInfos.slotPos));
+    }
     */
     try
     {
@@ -78,15 +86,14 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
         const char* data = pkt.payload.c_str();
         size_t payloadSize = pkt.payload.size();
         std::string errMsg;
-
         int metaInfoSize = 0;
         if (!PacketParser::ParseNextIntField(data, payloadSize, offset, metaInfoSize, errMsg))
         {
             throw std::runtime_error(errMsg);
         }
-
+   
         auto inventoryManager = InventoryManager::getInstance();
-
+ 
         for (int i = 0; i < metaInfoSize; i++)
         {
             InventoryItemInfo ItemInfo;
@@ -96,23 +103,24 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
                 throw std::runtime_error(errMsg);
             }
 
+  
             if (!PacketParser::ParseNextIntField(data, payloadSize, offset, ItemInfo.itemId, errMsg))
             {
                 throw std::runtime_error(errMsg);
             }
+
 
             if (!PacketParser::ParseNextIntField(data, payloadSize, offset, ItemInfo.itemCount, errMsg))
             {
                 throw std::runtime_error(errMsg);
             }
 
+
             if (!PacketParser::ParseNextIntField(data, payloadSize, offset, ItemInfo.slotPos, errMsg))
             {
                 throw std::runtime_error(errMsg);
             }
-
             auto inventory = inventoryManager->GetInventory(ItemInfo.inventoryType);
-            
             if (!inventory->SetSlot(ItemInfo))
             {
                 throw std::runtime_error("Inventory SetSlot Failed");

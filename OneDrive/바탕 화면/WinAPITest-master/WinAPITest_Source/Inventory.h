@@ -9,8 +9,9 @@ public:
 	Inventory(InventoryMetaInfo inventoryMetaInfo);
 	InventoryItemInfo* FindSlot(int slotPos);
 	bool SetSlot(int slotPos, int itemId, int itemCount);
-	bool SetSlot(InventoryItemInfo itemInfo);
+	bool SetSlot(InventoryItemInfo& itemInfo);
 	bool RemoveItem(int slotPos, int count);
+	bool RemoveItem(int slotPos);
 
 	void Clear();
 private:

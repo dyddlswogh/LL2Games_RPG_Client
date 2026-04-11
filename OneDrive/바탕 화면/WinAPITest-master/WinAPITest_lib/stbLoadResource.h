@@ -17,6 +17,7 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"Knight", L"Resources\\Knight.png");
 		RESOURCEMANAGER->Load<Texture>(L"DamonKnight", L"Resources\\damon_kinght.png");
 		RESOURCEMANAGER->Load<Texture>(L"Sparta", L"Resources\\Sparta.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory", L"Resources\\UI\\Inventory_backgrnd.png");
 
 		stbD2DRenderer& renderer = stb::Application::getInstance()->GetRenderer();
 		RESOURCEMANAGER->LoadAllD2D(renderer);

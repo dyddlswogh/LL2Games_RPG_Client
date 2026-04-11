@@ -45,7 +45,7 @@ const Inventory* InventoryManager::GetInventory(int inventoryType) const
 	return &(it->second);
 }
 
-InventorySlot* InventoryManager::FindSlot(int inventoryType, int slotPos)
+InventoryItemInfo* InventoryManager::FindSlot(int inventoryType, int slotPos)
 {
 	auto it = m_inventories.find(inventoryType);
 	

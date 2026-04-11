@@ -37,6 +37,7 @@ public:
 
 	void DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, bool titleStyle = false);
 	void DrawBitmap(float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
+	void DrawBitmap(ID2D1Bitmap* bitmap, float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
 	void DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH,
 		float srcX, float srcY, float srcW, float srcH, float opacity = 1.0f);
 
@@ -63,7 +64,7 @@ private:
 	ComPtr<IDWriteTextFormat> m_TitleTextFormat;
 	ComPtr<IDWriteTextFormat> m_BodyTextFormat;
 
-	// WICì—ì„œ ë””ì½”ë”, í¬ë©§ ì»¨ë²„í„° ê°™ì€ ê±¸ ë§Œë“œëŠ” íŒ©í† ë¦¬
+	// WIC¿¡¼­ µğÄÚ´õ, Æ÷¸ä ÄÁ¹öÅÍ °°Àº °É ¸¸µå´Â ÆÑÅä¸®
 	ComPtr<IWICImagingFactory> m_WicFactory;
 	ComPtr<ID2D1Bitmap> m_Bitmap;
 

@@ -5,8 +5,10 @@
 #include "stbGameObject.h"
 #include "stbNetworkDebug.h"
 
+
 #define M_Input stb::SingletonBase<stb::Input>::getInstance()
 #define M_Time  stb::SingletonBase<stb::Time>::getInstance()
+
 
 namespace stb
 {
@@ -54,35 +56,45 @@ namespace stb
 		Vector2 pos = tr->GetPosition();
 		bool moved = false;
 
-		if (M_Input->GetKey(eKeyCode::Right))
+		if (M_Input->GetAction(eActionCode::MoveRight))
 		{
 			pos.x += 100.0f * M_Time->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetKey(eKeyCode::Left))
+		if (M_Input->GetAction(eActionCode::MoveLeft))
 		{
 			pos.x -= 100.0f * M_Time->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetKey(eKeyCode::Up))
+		if (M_Input->GetAction(eActionCode::MoveUp))
 		{
 			pos.y -= 100.0f * M_Time->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetKey(eKeyCode::Down))
+		if (M_Input->GetAction(eActionCode::MoveDown))
 		{
 			pos.y += 100.0f * M_Time->GetDeltaTime();
 			moved = true;
+		}
+
+		if (M_Input->GetAction(eActionCode::Attack))
+		{
+			Attack();
+		}
+
+		if (M_Input->GetAction(eActionCode::Jump))
+		{
+			Jump();
 		}
 
 		tr->SetPosition(pos);
 
 		SyncFollowers(pos);
 
-		// ì´ë™í–ˆìœ¼ë©´ ì„œë²„ì— íŒ¨í‚· ì „ì†¡ (throttling ì ìš©)
+		// ÀÌµ¿ÇßÀ¸¸é ¼­¹ö¿¡ ÆĞÅ¶ Àü¼Û (throttling Àû¿ë)
 		if (moved)
 		{
 			mNetworkSendTimer += M_Time->GetDeltaTime();
@@ -99,11 +111,21 @@ namespace stb
 		}
 		else
 		{
-			mNetworkSendTimer = 0.0f;  // ë©ˆì¶”ë©´ íƒ€ì´ë¨¸ ë¦¬ì…‹
+			mNetworkSendTimer = 0.0f;  // ¸ØÃß¸é Å¸ÀÌ¸Ó ¸®¼Â
 		}
 	}
 
 	void PlayerScript::Move()
+	{
+
+	}
+
+	void PlayerScript::Attack()
+	{
+
+	}
+
+	void PlayerScript::Jump() 
 	{
 
 	}

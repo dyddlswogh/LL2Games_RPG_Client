@@ -6,7 +6,7 @@
 
 namespace stb
 {
-    // ë‹¤ë¥¸ í”Œë ˆì´ì–´ë“¤ì„ ê´€ë¦¬í•˜ëŠ” ë§¤ë‹ˆì €
+    // ´Ù¸¥ ÇÃ·¹ÀÌ¾îµéÀ» °ü¸®ÇÏ´Â ¸Å´ÏÀú
     class OtherPlayerManager : public SingletonBase<OtherPlayerManager>
     {
     public:
@@ -15,16 +15,16 @@ namespace stb
 
         bool HandleMovePacket(OtherPlayerMove& otherPlayerMove);
 
-        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ ì¶”ê°€ ë˜ëŠ” ì—…ë°ì´íŠ¸
+        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î Ãß°¡ ¶Ç´Â ¾÷µ¥ÀÌÆ®
         bool UpdatePlayer(const std::string& charId, float x, float y);
 
-        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ ì œê±°
+        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î Á¦°Å
         void RemovePlayer(const std::string& charId);
 
-        // ëª¨ë“  í”Œë ˆì´ì–´ ì œê±°
+        // ¸ğµç ÇÃ·¹ÀÌ¾î Á¦°Å
         void Clear();
 
-        // í”Œë ˆì´ì–´ ë§µ ì ‘ê·¼
+        // ÇÃ·¹ÀÌ¾î ¸Ê Á¢±Ù
         std::map<std::string, OtherPlayer*>& GetPlayers() { return mPlayers; }
 
     private:

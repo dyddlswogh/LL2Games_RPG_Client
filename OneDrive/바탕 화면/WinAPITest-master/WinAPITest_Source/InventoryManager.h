@@ -15,7 +15,7 @@ public:
 	Inventory* GetInventory(int inventoryType);
 	const Inventory* GetInventory(int inventoryType) const;
 
-	InventorySlot* FindSlot(int inventoryType, int slotPos);
+	InventoryItemInfo* FindSlot(int inventoryType, int slotPos);
 	//const InventorySlot* FindSlot(int inventoryType, int slotPos) const;
 
 	void Clear();

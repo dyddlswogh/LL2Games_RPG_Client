@@ -104,9 +104,42 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
            throw std::runtime_error("localPlayerStat is nullptr");
        }
 
+       auto inventory = inventoryManager->GetInventory(useItemResult.inventoryType);
+       if (inventory == nullptr)
+       {
+           throw std::runtime_error("inventory is nullptr");
+       }
 
-       
+       auto item = inventory->FindSlot(useItemResult.slotPos);
+       if (item == nullptr)
+       {
+           throw std::runtime_error("item is nullptr");
+       }
 
+       if (item->itemId != useItemResult.item_id)
+       {
+           throw std::runtime_error("item_id mismatch");
+       }
+
+       if (item->itemCount < useItemResult.used_count)
+       {
+           throw std::runtime_error("used_count is bigger than current itemCount");
+       }
+
+       if (useItemResult.remain_count <= 0)
+       {
+           if (!inventory->RemoveItem(useItemResult.slotPos))
+           {
+               throw std::runtime_error("RemoveItem failed");
+           }
+       }
+       else
+       {
+           item->itemCount = useItemResult.remain_count;
+       }
+
+       localPlayerStat->SetCurHp(useItemResult.hp);
+       localPlayerStat->SetCurMp(useItemResult.mp);
 
     }
     catch (std::exception& e)

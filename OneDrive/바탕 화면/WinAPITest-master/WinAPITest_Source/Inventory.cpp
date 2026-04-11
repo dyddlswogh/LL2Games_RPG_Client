@@ -8,9 +8,9 @@ Inventory::Inventory(InventoryMetaInfo inventoryMetaInfo)
 
 	m_slots.reserve(m_maxSlot);
 
-	for (int i = 0; i < m_maxSlot; i++)
+	for (int i = 1; i <= m_maxSlot; i++)
 	{
-		m_slots[i].slotPos = i + 1;
+		m_slots[i].slotPos = i;
 	}
 }
 
@@ -44,7 +44,7 @@ bool Inventory::SetSlot(int slotPos, int itemId, int itemCount)
 	return true;
 }
 
-bool Inventory::SetSlot(InventoryItemInfo itemInfo)
+bool Inventory::SetSlot(InventoryItemInfo& itemInfo)
 {
 	auto it = m_slots.find(itemInfo.slotPos);
 
@@ -52,6 +52,7 @@ bool Inventory::SetSlot(InventoryItemInfo itemInfo)
 	{
 		return false;
 	}
+
 	it->second.inventoryType = m_inventoryType;
 	it->second.slotPos = itemInfo.slotPos;
 	it->second.itemId = itemInfo.itemId;
@@ -81,6 +82,20 @@ bool Inventory::RemoveItem(int slotPos, int count)
 	{
 		m_slots.erase(it);
 	}
+
+	return true;
+}
+
+bool Inventory::RemoveItem(int slotPos)
+{
+	auto it = m_slots.find(slotPos);
+
+	if (it == m_slots.end())
+	{
+		return false;
+	}
+
+	m_slots.erase(it);
 
 	return true;
 }

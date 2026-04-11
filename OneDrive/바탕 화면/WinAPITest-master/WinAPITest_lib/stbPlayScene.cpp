@@ -14,12 +14,14 @@
 #include "stbNetworkDebug.h"
 #include "stbLogger.h"
 #include "PlayerManager.h"
+#include "UIManager.h"
 
 #include "stbApplication.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
 #define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 namespace stb
 {
@@ -50,6 +52,7 @@ namespace stb
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
 		M_PLMANAGER->SetLocalPlayer(mPlayer);
 
+		M_UIMANAGER->Init();
 		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
 		Animator* spartaAnim = mPlayer->AddComponent<Animator>();
 		if (spartaTex != nullptr)
@@ -84,6 +87,12 @@ namespace stb
 	void PlayScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
+	}
+
+	void PlayScene::Render(stbD2DRenderer& renderer)
+	{
+		Scene::Render(renderer);
+		M_UIMANAGER->Render(renderer);
 	}
 
 	void PlayScene::OnExit()
