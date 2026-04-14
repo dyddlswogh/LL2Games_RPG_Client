@@ -304,6 +304,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI_Info.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

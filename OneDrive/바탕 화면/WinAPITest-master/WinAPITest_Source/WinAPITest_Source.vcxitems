@@ -20,6 +20,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Inventory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemDataManager.h" />

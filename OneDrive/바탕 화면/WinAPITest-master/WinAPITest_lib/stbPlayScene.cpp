@@ -77,6 +77,7 @@ namespace stb
 	void PlayScene::Update()
 	{
 		Scene::Update();
+		M_UIMANAGER->Update();
 	}
 
 	void PlayScene::LateUpdate()

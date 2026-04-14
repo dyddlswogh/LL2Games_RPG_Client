@@ -15,6 +15,6 @@ public:
     const ItemData* FindItemData(int itemId) const;
 private:
 
-    std::unordered_map<int, ItemData*> m_itemDatas;
+    std::unordered_map<int, ItemData> m_itemDatas;
 };
 

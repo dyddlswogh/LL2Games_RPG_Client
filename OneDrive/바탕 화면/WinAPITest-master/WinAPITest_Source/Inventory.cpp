@@ -99,3 +99,13 @@ bool Inventory::RemoveItem(int slotPos)
 
 	return true;
 }
+
+std::vector<InventoryItemInfo> Inventory::GetItemInfos()
+{
+	std::vector<InventoryItemInfo> items;
+	for (auto& [pos, item] : m_slots)
+	{
+		items.push_back(item);
+	}
+	return items;
+}

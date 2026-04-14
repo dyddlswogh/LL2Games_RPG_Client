@@ -24,10 +24,9 @@ bool ItemDataManager::PreLoadAll()
         if (m_itemDatas.find(item_id) != m_itemDatas.end())
             continue;
 
-        ItemData* itemData{};
-        if (!LoadJsonFile(entry.path().string(), *itemData))
+        ItemData itemData{};
+        if (!LoadJsonFile(entry.path().string(), itemData))
         {
-            delete itemData;
             return false;
         }
         m_itemDatas.emplace(item_id, itemData);
@@ -58,11 +57,13 @@ bool ItemDataManager::LoadJsonFile(const std::string& path, ItemData& itemData)
     itemData.type = Item::SetItemType(j.at("type").get<std::string>());
     itemData.stackable = j.at("stackable").get<bool>();
     itemData.maxStack = j.at("max_stack").get<int>();
+    itemData.resourceName = j.at("resource_name").get<std::string>();
 
     const auto& ue = j.at("tooltip").at(0);
     
     itemData.hpRestore = ue.at("hp_restore").get<int>();
     itemData.mpRestore = ue.at("mp_restore").get<int>();
+ 
    
     return true;
 }
@@ -74,5 +75,5 @@ const ItemData* ItemDataManager::FindItemData(int itemId) const
     {
         return nullptr;
     }
-    return itemData->second;
+    return &itemData->second;
 }

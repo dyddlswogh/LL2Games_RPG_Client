@@ -13,6 +13,8 @@ public:
 	bool RemoveItem(int slotPos, int count);
 	bool RemoveItem(int slotPos);
 
+	std::vector<InventoryItemInfo> GetItemInfos();
+
 	void Clear();
 private:
 	int m_inventoryType;

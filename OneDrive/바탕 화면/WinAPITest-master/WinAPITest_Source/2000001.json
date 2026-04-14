@@ -5,8 +5,8 @@
   "stackable": true,
   "max_stack": 100,
   "sell_price": 10,
-
- "tooltip": {
+  "resource_name": "Item_Blue_Potion",
+  "tooltip": {
     "hp_restore": 0,
     "mp_restore": 50
   }

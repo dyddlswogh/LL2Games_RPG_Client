@@ -52,7 +52,7 @@ struct ItemData
 	int hpRestore = 0;
 	int mpRestore = 0;
 
-	std::string iconPath;
+	std::string resourceName;
 };
 
 struct UseItemResult {
