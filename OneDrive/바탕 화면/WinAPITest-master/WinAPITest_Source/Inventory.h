@@ -16,6 +16,9 @@ public:
 	std::vector<InventoryItemInfo> GetItemInfos();
 
 	void Clear();
+
+public:
+	int GetInventoryType() { return m_inventoryType; }
 private:
 	int m_inventoryType;
 	int m_maxSlot;

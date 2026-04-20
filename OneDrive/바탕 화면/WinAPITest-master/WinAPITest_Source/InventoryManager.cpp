@@ -28,9 +28,9 @@ Inventory* InventoryManager::GetInventory(int inventoryType)
 
 	if (it == m_inventories.end())
 	{
+		OutputDebugStringA("GetInventory fail\n");
 		return nullptr;
 	}
-
 	return &(it->second);
 }
 

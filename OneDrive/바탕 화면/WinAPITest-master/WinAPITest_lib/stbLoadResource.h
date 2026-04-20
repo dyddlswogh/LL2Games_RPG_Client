@@ -17,15 +17,54 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"Knight", L"Resources\\Knight.png");
 		RESOURCEMANAGER->Load<Texture>(L"DamonKnight", L"Resources\\damon_kinght.png");
 		RESOURCEMANAGER->Load<Texture>(L"Sparta", L"Resources\\Sparta.png");
-		RESOURCEMANAGER->Load<Texture>(L"Inventory", L"Resources\\UI\\Inventory\\Inventory_backgrnd.png");
+
+		/*인벤토리*/
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_normal", L"Resources\\UI\\Inventory\\Inventory_backgrnd.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full", L"Resources\\UI\\Inventory\\Inventory.FullBackgrnd.png");
+
+
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_equip_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.0.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_consume_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.1.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_etc_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.2.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_setup_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.3.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_cash_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.4.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_cosmetic_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.5.png");
+
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_equip_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.0.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_consume_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.1.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_etc_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.2.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_setup_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.3.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_cash_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.4.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_cosmetic_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.5.png");
+
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_equip_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_consume_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.1.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_etc_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.2.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_setup_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.3.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_cash_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.4.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_cosmetic_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.5.png");
+
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_equip_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_consume_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.1.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_etc_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.2.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_setup_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.3.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_cash_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.4.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_cosmetic_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.5.png");
+
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.mouseOver.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_full_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.pressed.0.png");
+
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_min_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_min_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.mouseOver.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_min_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.pressed.0.png");
+
+
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_close_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_close_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.mouseOver.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.pressed.0.png");
+		
+
 
 		RESOURCEMANAGER->Load<Texture>(L"Item_Red_Potion", L"Resources\\Item\\Item_Red_Potion.png");
 

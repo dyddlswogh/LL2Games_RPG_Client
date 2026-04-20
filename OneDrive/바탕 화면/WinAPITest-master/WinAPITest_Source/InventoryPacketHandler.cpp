@@ -3,6 +3,8 @@
 #include "StringConvert.h"
 #include "InventoryManager.h"
 
+#define M_INVENTORYMANAGER stb::SingletonBase<InventoryManager>::getInstance()
+
 void InventoryPacketHandler::Execute(const ParsedPacket& pkt)
 {
 	(void)pkt;
@@ -28,8 +30,6 @@ void InventoryPacketHandler::HandleInventoryMetaInfo(const ParsedPacket& pkt)
             throw std::runtime_error(errMsg);
         }
 
-        auto inventoryManager = InventoryManager::getInstance();
-
         for (int i = 0; i < metaInfoSize; i++)
         {
             InventoryMetaInfo inventoryMetaInfo;
@@ -49,7 +49,7 @@ void InventoryPacketHandler::HandleInventoryMetaInfo(const ParsedPacket& pkt)
                 throw std::runtime_error(errMsg);
             }
 
-            if (!inventoryManager->CreateInventory(inventoryMetaInfo))
+            if (!M_INVENTORYMANAGER->CreateInventory(inventoryMetaInfo))
             {
                 throw std::runtime_error("CreateInventory Failed");
             }
@@ -91,9 +91,7 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
         {
             throw std::runtime_error(errMsg);
         }
-   
-        auto inventoryManager = InventoryManager::getInstance();
- 
+  
         for (int i = 0; i < metaInfoSize; i++)
         {
             InventoryItemInfo ItemInfo;
@@ -120,7 +118,9 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
             {
                 throw std::runtime_error(errMsg);
             }
-            auto inventory = inventoryManager->GetInventory(ItemInfo.inventoryType);
+
+
+            auto inventory = M_INVENTORYMANAGER->GetInventory(ItemInfo.inventoryType);
             if (!inventory->SetSlot(ItemInfo))
             {
                 throw std::runtime_error("Inventory SetSlot Failed");
