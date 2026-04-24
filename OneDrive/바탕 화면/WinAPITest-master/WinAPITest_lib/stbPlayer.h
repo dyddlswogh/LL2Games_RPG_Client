@@ -2,12 +2,19 @@
 #include "..\\WinAPITest_Source\\stbGameObject.h"
 #include "..\\WinAPITest_Source\\Stat.h"
 #include "..\\WinAPITest_Source\\\InventoryManager.h"
-
-
+#include "..\\WinAPITest_Source\\\CombatSystem.h"
+#include "..\\WinAPITest_Source\\\QuickSlotManager.h"
 
 
 namespace stb
 {
+
+	enum class FacingDirection
+	{
+		Left,
+		Right
+	};
+
 	class Player : public GameObject
 	{
 	public:
@@ -32,7 +39,18 @@ namespace stb
 
 		PlayerLocation* GetPlayerLocation() { return &m_playerLocation; }
 
+		CombatSystem* GetCombatSystem() { return &m_combatSystem; }
 
+		// 플레이어의 상태가 Dead인지 확인하는 함수
+		bool IsDead() { return m_playerState == PlayerState::DEAD; };
+
+		// 플레이어의 상태가 Attack인지 확인하는 함수
+		bool IsAttacking() { return m_playerState == PlayerState::ATTACK; }
+
+		QuickSlotManager* GetQuickSlotManager() { return &m_quickSlotManager; }
+
+		void SetFacing(FacingDirection facing) { m_facing = facing; }
+		FacingDirection GetFacing() { return m_facing; }
 	private:
 
 		// 
@@ -48,7 +66,13 @@ namespace stb
 
 		PlayerState m_playerState;
 
+		// 플레이어 전투 시스템
+		CombatSystem  m_combatSystem;
 
+		QuickSlotManager m_quickSlotManager;
+		
+
+		FacingDirection m_facing = FacingDirection::Right;
 	};
 
 }

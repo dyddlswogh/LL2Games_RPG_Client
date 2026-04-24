@@ -5,6 +5,13 @@
 namespace fs = std::filesystem;
 
 
+bool ItemDataManager::Init()
+{
+    if (!PreLoadAll()) return false;
+
+    return true;
+}
+
 bool ItemDataManager::PreLoadAll()
 {
     for (const auto& entry : fs::recursive_directory_iterator(ITEM_PATH))

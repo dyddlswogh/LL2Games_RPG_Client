@@ -3,6 +3,8 @@ C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\stbPlayer
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\stbPlayScene.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbPlayScene.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\BoxCollider2D.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\BoxCollider2D.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\ChannelInitPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\ChannelInitPacketHandler.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\CombatPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\CombatPacketHandler.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\CombatSystem.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\CombatSystem.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Inventory.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\Inventory.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\InventoryManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\InventoryManager.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\InventoryPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\InventoryPacketHandler.obj
@@ -16,6 +18,11 @@ C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Packet
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PacketParser.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PacketParser.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PlayerDataPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PlayerDataPacketHandler.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PlayerManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PlayerManager.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\QuickSlotManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\QuickSlotManager.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\QuickSlotPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\QuickSlotPacketHandler.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\QuickSlotUI.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\QuickSlotUI.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Skill.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\Skill.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\SkillDataManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\SkillDataManager.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Stat.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\Stat.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimation.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbAnimation.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbAnimator.obj
@@ -49,4 +56,5 @@ C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbTim
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbTransform.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\stbTransform.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\itemPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\itemPacketHandler.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\UI.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\UI.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\UILayout.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\UILayout.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\UIManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\UIManager.obj

@@ -4,11 +4,13 @@
 
 class UI;
 class InventoryUI;
+class QuickSlotUI;
 class stbD2DRenderer;
 
 class UIManager : public stb::SingletonBase<UIManager>
 {
 public:
+	UIManager();
 	void Init();
 	void Update();
 	void Render(HDC hdc);
@@ -18,5 +20,6 @@ public:
 
 private:
 	std::vector<UI*> mUIs;
-	InventoryUI* mInventoryUI = nullptr;
+	InventoryUI* m_inventoryUI = nullptr;
+	QuickSlotUI* m_quickslotUI = nullptr;
 };

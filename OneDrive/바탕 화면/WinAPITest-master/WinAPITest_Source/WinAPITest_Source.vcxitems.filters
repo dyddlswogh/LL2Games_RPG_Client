@@ -128,9 +128,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerManager.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryUI.cpp">
-      <Filter>Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIManager.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
@@ -139,6 +136,33 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp">
       <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CombatSystem.cpp">
+      <Filter>Game\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CombatPacketHandler.cpp">
+      <Filter>PacketHandler\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Skill.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SkillDataManager.cpp">
+      <Filter>Game\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)QuickSlotPacketHandler.cpp">
+      <Filter>PacketHandler\QuickSlot</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UILayout.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)QuickSlotUI.cpp">
+      <Filter>Game\UI\QuickSlot</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryUI.cpp">
+      <Filter>Game\UI\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)QuickSlotManager.cpp">
+      <Filter>Game\UI\QuickSlot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,9 +316,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerManager.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI.h">
-      <Filter>Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UIManager.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
@@ -304,8 +325,38 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI_Info.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem.h">
+      <Filter>Game\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CombatPacketHandler.h">
+      <Filter>PacketHandler\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Skill.h">
+      <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SkillDataManager.h">
+      <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Skill_Info.h">
+      <Filter>Game\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotPacketHandler.h">
+      <Filter>PacketHandler\QuickSlot</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UILayout.h">
       <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotUI.h">
+      <Filter>Game\UI\QuickSlot</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI.h">
+      <Filter>Game\UI\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryUI_Info.h">
+      <Filter>Game\UI\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotManager.h">
+      <Filter>Game\UI\QuickSlot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -402,16 +453,32 @@
     <Filter Include="Game\UI">
       <UniqueIdentifier>{8881fa85-db20-453d-8755-ed2b07aa7124}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)2000000.json">
-      <Filter>Data\Items\Potions</Filter>
-    </None>
-    <None Include="$(MSBuildThisFileDirectory)2000001.json">
-      <Filter>Data\Items\Potions</Filter>
-    </None>
-    <None Include="$(MSBuildThisFileDirectory)100000000.json">
-      <Filter>Data\Maps</Filter>
-    </None>
+    <Filter Include="Game\Combat">
+      <UniqueIdentifier>{102913f8-c615-40c5-812b-1f53355c6376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\Combat">
+      <UniqueIdentifier>{cd5c69df-ba1a-4ef7-9479-f1549dc9d292}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Skill">
+      <UniqueIdentifier>{8ea868ce-c7e2-4ec7-857e-cc67a646205d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Skills">
+      <UniqueIdentifier>{3196e70c-a8e2-4a74-a2bc-fa5308d6f6f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Skills\Archer">
+      <UniqueIdentifier>{ee0789f3-d254-4bf7-9726-2d270101d7d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data\Skills\Knight">
+      <UniqueIdentifier>{7f654c57-26cd-44ee-9ad8-599832ac5da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\QuickSlot">
+      <UniqueIdentifier>{5e5b9ca9-abfb-42c5-b625-511a3ee3a48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\QuickSlot">
+      <UniqueIdentifier>{c9ac1339-377f-484e-bf6e-c13c16de2caa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\Inventory">
+      <UniqueIdentifier>{6b8abb50-0b6f-491e-a3ad-a3d634a0d2f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

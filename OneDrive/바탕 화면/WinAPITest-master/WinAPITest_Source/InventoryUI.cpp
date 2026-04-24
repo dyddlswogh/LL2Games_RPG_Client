@@ -25,6 +25,8 @@ void InventoryUI::Init()
     CreateSlots();
 
     UpdateInventoryByType();
+
+    mActive = false;
 }
 
 void InventoryUI::Init_InventoryTab()
@@ -486,7 +488,7 @@ void InventoryUI::HandleMouseClick(int mouseX, int mouseY)
         std::string msg = std::to_string(slotIndex) + "\n";
         OutputDebugStringA(msg.c_str());
     }
-    }
+}
 
 bool InventoryUI::HandleTabClick(int mouseX, int mouseY)
 {

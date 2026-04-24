@@ -4,10 +4,13 @@
 #include "stbTime.h"
 #include "stbGameObject.h"
 #include "stbNetworkDebug.h"
+#include "..\\WinAPITest_lib\\stbPlayer.h"
+#include "PlayerManager.h"
 
 
-#define M_Input stb::SingletonBase<stb::Input>::getInstance()
-#define M_Time  stb::SingletonBase<stb::Time>::getInstance()
+#define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
+#define M_TIME  stb::SingletonBase<stb::Time>::getInstance()
+#define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
 
 namespace stb
@@ -16,6 +19,7 @@ namespace stb
 		: mNetworkSendTimer(0.0f)
 		, mHead(nullptr)
 		, mSword(nullptr)
+		, m_player (nullptr)
 	{
 
 	}
@@ -56,36 +60,36 @@ namespace stb
 		Vector2 pos = tr->GetPosition();
 		bool moved = false;
 
-		if (M_Input->GetAction(eActionCode::MoveRight))
+		if (M_INPUT->GetAction(eActionCode::MoveRight))
 		{
-			pos.x += 100.0f * M_Time->GetDeltaTime();
+			pos.x += 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::MoveLeft))
+		if (M_INPUT->GetAction(eActionCode::MoveLeft))
 		{
-			pos.x -= 100.0f * M_Time->GetDeltaTime();
+			pos.x -= 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::MoveUp))
+		if (M_INPUT->GetAction(eActionCode::MoveUp))
 		{
-			pos.y -= 100.0f * M_Time->GetDeltaTime();
+			pos.y -= 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::MoveDown))
+		if (M_INPUT->GetAction(eActionCode::MoveDown))
 		{
-			pos.y += 100.0f * M_Time->GetDeltaTime();
+			pos.y += 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::Attack))
+		if (M_INPUT->GetAction(eActionCode::Attack))
 		{
 			Attack();
 		}
 
-		if (M_Input->GetAction(eActionCode::Jump))
+		if (M_INPUT->GetAction(eActionCode::Jump))
 		{
 			Jump();
 		}
@@ -97,7 +101,7 @@ namespace stb
 		// 이동했으면 서버에 패킷 전송 (throttling 적용)
 		if (moved)
 		{
-			mNetworkSendTimer += M_Time->GetDeltaTime();
+			mNetworkSendTimer += M_TIME->GetDeltaTime();
 			
 			if (mNetworkSendTimer >= NETWORK_SEND_INTERVAL)
 			{
@@ -122,6 +126,13 @@ namespace stb
 
 	void PlayerScript::Attack()
 	{
+		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+
+		if (player != nullptr)
+		{
+			player->GetCombatSystem()->TryAttack(1000);
+		}
+
 
 	}
 

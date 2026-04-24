@@ -2,6 +2,7 @@
 #include "PacketParser.h"
 #include "stbNetworkManager.h"
 #include "PlayerManager.h"
+#include "CombatPacketHandler.h"
 
 #define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
@@ -12,18 +13,7 @@ void ItemPacketHandler::Execute(const ParsedPacket& pkt)
 
 void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
 {
-    /*
-    useItem_Info.push_back(std::to_string(result.result));
-    useItem_Info.push_back(std::to_string(result.errcode));
-    useItem_Info.push_back(std::to_string(result.inventoryType));
-    useItem_Info.push_back(std::to_string(result.slotPos));
-    useItem_Info.push_back(std::to_string(result.item_id));
-    useItem_Info.push_back(std::to_string(result.used_count));
-    useItem_Info.push_back(std::to_string(result.remain_count));
-    useItem_Info.push_back(std::to_string(result.hp));
-    useItem_Info.push_back(std::to_string(result.mp));
-    
-    */
+  
     try
     {
         size_t offset = 0;
@@ -152,6 +142,7 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
         OutputDebugStringA("예상치 못한 에러입니다.\n\n");
     }
 }
+
 
 void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
 {

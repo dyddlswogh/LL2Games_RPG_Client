@@ -6,10 +6,12 @@
   "max_stack": 100,
   "sell_price": 10,
   "resource_name": "Item_Blue_Potion",
-  "tooltip": {
-    "hp_restore": 0,
-    "mp_restore": 50
-  }
+  "tooltip": [
+    {
+      "hp_restore": 0,
+      "mp_restore": 50
+    }
+  ]
 }
 
 

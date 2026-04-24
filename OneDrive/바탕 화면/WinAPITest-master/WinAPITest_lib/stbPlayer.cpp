@@ -1,12 +1,13 @@
 #include "stbPlayer.h"
 #include "InventoryManager.h"
+#include "stbPlayerScript.h"
 
 
 namespace stb
 {
-	Player::Player() : m_inven(InventoryManager::getInstance())
+	Player::Player() : m_inven(InventoryManager::getInstance()), m_playerState(PlayerState::IDLE)
 	{
-
+	
 	}
 	void Player::Initialize()
 	{

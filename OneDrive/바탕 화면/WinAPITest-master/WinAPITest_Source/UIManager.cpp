@@ -1,13 +1,24 @@
 #include "UIManager.h"
 #include "stbD2DRenderer.h"
 #include "InventoryUI.h"
+#include "QuickSlotUI.h"
+
+UIManager::UIManager()
+{
+	m_inventoryUI = new InventoryUI();
+	m_quickslotUI = new QuickSlotUI();
+}
 
 void UIManager::Init()
 {
-	mInventoryUI = new InventoryUI();
-	mInventoryUI->Init();
+	m_inventoryUI->Init();
+	m_quickslotUI->Init();
 
-	mUIs.push_back(mInventoryUI);
+
+	mUIs.push_back(m_inventoryUI);
+	mUIs.push_back(m_quickslotUI);
+
+
 	char msg[128];
 	sprintf_s(msg, "UI count = %zu\n", mUIs.size());
 	OutputDebugStringA(msg);
@@ -43,6 +54,6 @@ void UIManager::Render(stbD2DRenderer& renderer)
 
 void UIManager::ToggleInventory()
 {
-	if (mInventoryUI != nullptr)
-		mInventoryUI->Toggle();
+	if (m_inventoryUI != nullptr)
+		m_inventoryUI->Toggle();
 }

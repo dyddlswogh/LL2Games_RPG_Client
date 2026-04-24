@@ -5,7 +5,7 @@ class stbD2DRenderer;
 class UI
 {
 public:
-	UI() { mActive = false; };
+	UI() { mActive = true; };
 	virtual ~UI() {};
 
 	virtual void Init();

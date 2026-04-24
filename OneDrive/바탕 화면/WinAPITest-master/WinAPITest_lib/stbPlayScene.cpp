@@ -50,6 +50,7 @@ namespace stb
 		tr->SetPosition(Vector2(300.0f, 300.0f));
 
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
+		playerScript->SetOwner(mPlayer);
 		M_PLMANAGER->SetLocalPlayer(mPlayer);
 
 		M_UIMANAGER->Init();

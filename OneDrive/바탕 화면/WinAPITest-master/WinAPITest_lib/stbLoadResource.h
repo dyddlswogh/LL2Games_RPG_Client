@@ -64,8 +64,10 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_close_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.mouseOver.0.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.pressed.0.png");
 		
-
-
+		// 퀵슬롯 리소스
+		RESOURCEMANAGER->Load<Texture>(L"quickslot_background", L"Resources\\UI\\quickslot\\quickSlot.backgrnd.png");
+		//RESOURCEMANAGER->Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\quickslot\\quickSlot.backgrnd.png");
+		// 아이템 리소스
 		RESOURCEMANAGER->Load<Texture>(L"Item_Red_Potion", L"Resources\\Item\\Item_Red_Potion.png");
 
 		stbD2DRenderer& renderer = stb::Application::getInstance()->GetRenderer();

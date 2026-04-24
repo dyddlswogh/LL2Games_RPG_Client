@@ -3,12 +3,17 @@
 #include "stbTime.h"
 #include "stbSceneManager.h"
 #include "stbCollisionManager.h"
+#include "ItemDataManager.h"
+#include "SkillDataManager.h"
+
 
 
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
 #define M_TIME stb::SingletonBase<stb::Time>::getInstance()
 #define M_SCENEMANAGER stb::SingletonBase<stb::SceneManager>::getInstance()
 #define M_COLMANAGER stb::SingletonBase<stb::CollisionManager>::getInstance()
+#define M_ITEMDATAMANAGER stb::SingletonBase<ItemDataManager>::getInstance()
+#define M_SKILLDATAMANAGER stb::SingletonBase<SkillDataManager>::getInstance()
 
 
 namespace stb
@@ -45,6 +50,11 @@ namespace stb
 		M_TIME->Initialize();
 		M_COLMANAGER->Initailzie();
 		M_SCENEMANAGER->Initialize();
+		
+		// Json 파일 실행 시 미리 읽어오기
+
+		M_ITEMDATAMANAGER->Init();
+		M_SKILLDATAMANAGER->Init();
 	}
 
 	void Application::Run()

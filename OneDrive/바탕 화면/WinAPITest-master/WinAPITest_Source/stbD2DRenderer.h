@@ -44,6 +44,8 @@ public:
 	bool HasBitmap() const;
 	HRESULT CreateBitmapFromFile(PCWSTR filePath, ID2D1Bitmap** outBitmap);
 
+public:
+	D2D1_SIZE_F GetRenderTargetSize() const;
 private:
 	bool CreateTextFormats();
 	bool CreateDeviceResources();
