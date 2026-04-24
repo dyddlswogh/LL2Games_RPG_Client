@@ -1,0 +1,16 @@
+#pragma once
+
+#include "IPacketHandler.h"
+#include "CommonInclude.h"
+#include "Packet.h"
+
+
+class PlayerDataPacketHandler : public IPacketHandler
+{
+public:
+	static void HandleLocalPlayerInfo(const ParsedPacket& pkt);
+	static void HandleLocalPlayerStat(const ParsedPacket& pkt);
+
+private:
+};
+

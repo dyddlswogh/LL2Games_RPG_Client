@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="stbLoadScenes.h" />
+    <ClInclude Include="stbLoadResource.h" />
+    <ClInclude Include="stbPlayScene.h" />
+    <ClInclude Include="stbPlayer.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="stbPlayerScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stbPlayScene.cpp" />
+    <ClCompile Include="stbPlayer.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
+    <ClCompile Include="stbPlayerScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Content">
+      <UniqueIdentifier>{4d2696ef-8e62-47ba-b96c-b383adbb0b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{98befc76-1d72-4d3c-80db-018c8e0d0144}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

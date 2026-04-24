@@ -1,0 +1,37 @@
+#pragma once
+#include <string>
+
+namespace stb
+{
+    // 전역 변수 선언
+    extern char g_CharacterId[32];
+
+    // 네트워크 설정
+    // 서버 IP와 포트를 여기서 변경하세요!
+    struct NetworkConfig
+    {
+        // ========== 여기를 수정하세요! ==========
+        
+        // 외부 서버 IP 주소 (예시)
+        static constexpr const char* SERVER_IP = "100.99.220.45";  // 실제 서버 IP로 변경!
+       
+        // 서버 포트
+        static constexpr int SERVER_PORT = 1234;  // 서버 포트에 맞게 변경
+        
+        // 캐릭터 ID (명령줄 인자로 설정됨)
+        static const char* GetCharacterId() { return g_CharacterId; }
+
+        
+        // 맵 ID
+        static constexpr const char* MAP_ID = "100000000";
+        
+        // ==============================
+        
+        // 자동 연결 여부 (false로 하면 수동으로 연결해야 함)
+        static constexpr bool AUTO_CONNECT = true;
+        
+        // 재연결 시도 횟수
+        static constexpr int RECONNECT_ATTEMPTS = 3;
+    };
+}
+
