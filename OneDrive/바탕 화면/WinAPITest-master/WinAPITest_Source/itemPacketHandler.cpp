@@ -127,6 +127,7 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
        {
            item->itemCount = useItemResult.remain_count;
        }
+       OutputDebugStringA("아이템 사용 완료\n");
 
        localPlayerStat->SetCurHp(useItemResult.hp);
        localPlayerStat->SetCurMp(useItemResult.mp);
@@ -151,9 +152,11 @@ void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
     data.push_back(std::to_string(inventoryitemInfo->inventoryType));
     data.push_back(std::to_string(inventoryitemInfo->slotPos));
     data.push_back(std::to_string(inventoryitemInfo->itemId));
-    data.push_back(std::to_string(inventoryitemInfo->itemCount));
+    data.push_back(std::to_string(inventoryitemInfo->useCount));
 
+    std::string DebugMsg = "Use_Count :" + std::to_string(inventoryitemInfo->useCount) + "\n";
 
+    OutputDebugStringA(DebugMsg.c_str());
     // 패킷 생성 및 전송
     std::string body = PacketParser::MakeBody(data);
     std::string packet = PacketParser::MakePacket(PKT_PLAYER_USE_ITEM, body);

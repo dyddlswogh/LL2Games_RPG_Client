@@ -149,8 +149,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-    const UINT width = 1000;
-    const UINT height = 1000;
+    const UINT width = 1366;
+    const UINT height = 768;
 
     //#define CreateWindowW(lpClassName, lpWindowName, dwStyle, x, y,\
     //nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)\

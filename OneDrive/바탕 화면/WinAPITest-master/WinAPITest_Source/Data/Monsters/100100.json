@@ -1,0 +1,39 @@
+{
+  "monster_id": 100100,
+  "name": "Green Slime",
+
+    "animations": [{
+    "idle": {
+      "path": "Monster/100100/stand",
+      "frame_count": 1,
+      "delay_ms": 150
+    },
+    "move": {
+      "path": "Monster/100100/move",
+      "frame_count": 5,
+      "delay_ms": 120
+    },
+    "hit": {
+      "path": "Monster/100100/hit",
+      "frame_count": 1,
+      "delay_ms": 100
+    },
+    "die": {
+      "path": "Monster/100100/die",
+      "frame_count": 8,
+      "delay_ms": 120
+    }
+  }],
+
+  "render": [{
+    "width": 64,
+    "height": 64,
+    "origin": { "x": 32, "y": 48 }
+  }],
+
+  "ui": [{
+    "hp_bar_offset": { "x": 0, "y": -45 }
+  }],
+
+  "moveSpeed": 10
+}

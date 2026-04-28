@@ -1,14 +1,19 @@
 #include "stbInput.h"
 #include "UIManager.h"
+#include "PlayerManager.h"
+
+#define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 namespace stb
 {
 	int ASCII[(UINT)eKeyCode::EnumsEnd] =
 	{
+		'F1','F2','F3','F4','F5','F6','F7','F8','F9','F10','F11','F12',
+		'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
 		'Z', 'X', 'C', 'V', 'B', 'N', 'M',
 		VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN,
-		VK_LBUTTON, VK_MBUTTON, VK_RBUTTON, VK_SPACE,
+		VK_LBUTTON, VK_MBUTTON, VK_RBUTTON, VK_SPACE, VK_LMENU, VK_LCONTROL,
 	};
 
 	Input::Input()
@@ -32,8 +37,6 @@ namespace stb
 		{
 			UpdateKeys(key);
 		}
-
-		ProcessKeyBindings();
 	}
 
 	void Input::UpdateKeys(Key& key)
@@ -84,18 +87,19 @@ namespace stb
 
 
 		// 기본 액션 바인딩
-		m_keyBindings[eKeyCode::Space] = { eBindType::Action, (int)eActionCode::Jump };
-		m_keyBindings[eKeyCode::A] = { eBindType::Action, (int)eActionCode::Attack };
-		m_keyBindings[eKeyCode::E] = { eBindType::Action, (int)eActionCode::Interact };
+		m_keyBindings[eKeyCode::LALT] = { eBindType::Action, (int)eActionCode::Jump };
+		m_keyBindings[eKeyCode::LCONTROL] = { eBindType::Action, (int)eActionCode::Attack };
+		m_keyBindings[eKeyCode::SPACE] = { eBindType::Action, (int)eActionCode::Interact };
 		m_keyBindings[eKeyCode::I] = { eBindType::Action, (int)eActionCode::Inventory };
 		m_keyBindings[eKeyCode::K] = { eBindType::Action, (int)eActionCode::SkillWindow };
+
 
 		// 예시
 		// m_keyBindings[eKeyCode::Q] = { eBindType::Skill, 1001001 };
 		// m_keyBindings[eKeyCode::R] = { eBindType::Item, 2000000 };
 	}
 
-	void Input::ProcessKeyBindings()
+	bool Input::GetPressedBind(KeyBindInfo& outBindInfo)
 	{
 		for (int i = 0; i < (UINT)eKeyCode::EnumsEnd; i++)
 		{
@@ -108,67 +112,13 @@ namespace stb
 			if (it == m_keyBindings.end())
 				continue;
 
-			ExecuteBind(it->second);
+			outBindInfo = it->second;
+			return true;
 		}
+
+		return false;
 	}
 
-	void Input::ExecuteBind(const KeyBindInfo& bindInfo)
-	{
-		switch (bindInfo.type)
-		{
-		case eBindType::Action:
-			ExecuteAction((eActionCode)bindInfo.value);
-			break;
-		case eBindType::Skill:
-			// TODO : 스킬 사용 요청
-			// SkillManager::GetInstance()->UseSkill(bindInfo.value);
-			OutputDebugStringA("Skill Execute\n");
-			break;
-		case eBindType::Item:
-			// TODO : 아이템 사용 요청
-			// ItemManager::GetInstance()->UseItem(bindInfo.value);
-			OutputDebugStringA("Item Execute\n");
-			break;
-		case eBindType::UI:
-			OutputDebugStringA("UI Execute\n");
-			break;
-		default:
-			break;
-		}
-	}
-
-	void Input::ExecuteAction(eActionCode action)
-	{
-		switch (action)
-		{
-		case eActionCode::Interact:
-			OutputDebugStringA("Action : Interact\n");
-			// TODO : 상호작용 요청
-			break;
-		case eActionCode::Attack:
-			OutputDebugStringA("Action : Attack\n");
-			// TODO : 점프 처리
-			break;
-		case eActionCode::Jump:
-			OutputDebugStringA("Action : Jump\n");
-			// TODO : 점프 처리
-			break;
-
-		case eActionCode::Inventory:
-			OutputDebugStringA("Action : Inventory\n");
-			UIManager::getInstance()->ToggleInventory();
-			// TODO : 인벤토리 UI 열기
-			break;
-
-		case eActionCode::SkillWindow:
-			OutputDebugStringA("Action : SkillWindow\n");
-			// TODO : 스킬창 UI 열기
-			break;
-
-		default:
-			break;
-		}
-	}
 
 	void Input::BindKey(eKeyCode code, const KeyBindInfo& bindInfo)
 	{

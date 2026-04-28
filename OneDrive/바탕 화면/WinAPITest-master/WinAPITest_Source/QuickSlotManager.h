@@ -1,5 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
+#include "stbInput.h"
 
 
 enum class QuickSlotType
@@ -22,22 +23,28 @@ struct QuickSlotData
 class QuickSlotManager
 {
 public:
-    void Init(int slotCount);
+    void Init();
+    void Update();
+
+    void ClearSlot(int slotIndex);
+    void UseSlot(int slotIndex);
+public:
     void SetSlot(QuickSlotData& quickSlotData);
     void SetSlotSkill(int slotIndex, int skillId);
     void SetSlotItem(int slotIndex, int inventoryType, int slotPos);
-    void ClearSlot(int slotIndex);
 
     const QuickSlotData* GetSlot(int slotIndex) const;
-    void UseSlot(int slotIndex);
+   
 
 public:
    
 
+
 private:
     std::vector<QuickSlotData> m_slots;
 
- 
+private:
+    static constexpr int m_maxSlotCount = 32;
 
 };
 

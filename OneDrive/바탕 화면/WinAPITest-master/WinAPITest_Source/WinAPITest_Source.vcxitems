@@ -19,6 +19,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)HealthBarUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Inventory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.h" />
@@ -27,6 +28,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemDataManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemUseService.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Monster.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MySocket.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Packet.h" />
@@ -88,6 +93,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatSystem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)HealthBarUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Inventory.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryPacketHandler.cpp" />
@@ -95,6 +101,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)IPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ItemDataManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ItemUseService.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Monster.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MonsterManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MonsterPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MySocket.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp" />

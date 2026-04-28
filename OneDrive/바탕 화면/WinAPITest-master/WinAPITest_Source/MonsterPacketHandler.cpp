@@ -1,0 +1,92 @@
+#include "MonsterPacketHandler.h"
+#include "PacketParser.h"
+#include "MonsterInfo.h"
+#include "MonsterManager.h"
+
+#define M_MONSTERMANAGER stb::SingletonBase<MonsterManager>::getInstance()
+
+
+void MonsterPacketHandler::HandleS2C_SpawnMonster(const ParsedPacket& pkt)
+{
+	try
+	{
+		size_t offset = 0;
+		const char* data = pkt.payload.c_str();
+		size_t payloadSize = pkt.payload.size();
+		std::string errMsg;
+
+		int monsterSize = 0;
+
+		// Packet 사이즈를 받아온다
+		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSize, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		for (size_t i = 0; i < monsterSize; i++)
+		{
+			MonsterSpawnInfo monsterSpawnInfo{};
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSpawnInfo.monsterId, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSpawnInfo.instanceId, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterSpawnInfo.x, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterSpawnInfo.y, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSpawnInfo.dir, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSpawnInfo.curHp, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSpawnInfo.maxHp, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			int state = 0;
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, state, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			monsterData.state = Monster::SetState(state);
+
+
+		}
+
+
+	}
+	catch (const std::exception& e)
+	{
+		OutputDebugStringA("[HandleLocalPlayerInfo] ");
+		OutputDebugStringA(e.what());
+		OutputDebugStringA("\n");
+	}
+	catch (...)
+	{
+		OutputDebugStringA("예상치 못한 에러가 발생했습니다.");
+	}
+}
+
+void MonsterPacketHandler::HandleS2C_MonsterMove(const ParsedPacket& pkt)
+{
+}

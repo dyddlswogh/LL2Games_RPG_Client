@@ -8,9 +8,15 @@ Inventory::Inventory(InventoryMetaInfo inventoryMetaInfo)
 
 	m_slots.reserve(m_maxSlot);
 
-	for (int i = 1; i <= m_maxSlot; i++)
+	for (int i = 0; i < m_maxSlot; i++)
 	{
-		m_slots[i].slotPos = i;
+		InventoryItemInfo info{};
+		info.inventoryType = m_inventoryType;
+		info.slotPos = i;
+		info.itemId = 0;
+		info.itemCount = 0;
+
+		m_slots.emplace(i, info);
 	}
 }
 
@@ -46,14 +52,10 @@ bool Inventory::SetSlot(int slotPos, int itemId, int itemCount)
 
 bool Inventory::SetSlot(InventoryItemInfo& itemInfo)
 {
-	if (itemInfo.itemId != 0)
+
+	if (itemInfo.itemId == 0)
 	{
-		std::string msg;
-		msg = "[SetSlot] this=" + std::to_string((uintptr_t)this)
-			+ " slotPos=" + std::to_string(itemInfo.slotPos)
-			+ " itemId=" + std::to_string(itemInfo.itemId)
-			+ " itemCount=" + std::to_string(itemInfo.itemCount) + "\n";
-		OutputDebugStringA(msg.c_str());
+		return true; // ºó ½½·ÔÀº ¹«½Ã
 	}
 
 	auto it = m_slots.find(itemInfo.slotPos);
@@ -72,7 +74,8 @@ bool Inventory::SetSlot(InventoryItemInfo& itemInfo)
 	{
 		
 		std::string msg;
-		msg = "[SetSlot After] slotPos=" + std::to_string(it->second.slotPos)
+		msg = "[m_slot Pos] =" + std::to_string(itemInfo.slotPos)
+			+ " [SetSlot After] slotPos=" + std::to_string(it->second.slotPos)
 			+ " itemId=" + std::to_string(it->second.itemId)
 			+ " itemCount=" + std::to_string(it->second.itemCount) + "\n";
 		OutputDebugStringA(msg.c_str());
@@ -124,10 +127,20 @@ bool Inventory::RemoveItem(int slotPos)
 std::vector<InventoryItemInfo> Inventory::GetItemInfos()
 {
 	std::vector<InventoryItemInfo> items;
+	std::string msg;
+	msg = "[SetSlot] this=" + std::to_string((uintptr_t)this) + "\n";
+	OutputDebugStringA(msg.c_str());
+
 	for (auto& [pos, item] : m_slots)
 	{
 		if (item.itemId != 0 && item.itemCount > 0)
+		{
+			std::string DebugMsg = "Item ID [" + std::to_string(item.itemId) +"]" + "\n";
+			OutputDebugStringA(DebugMsg.c_str());
+			DebugMsg = "Item SlotPos [" + std::to_string(item.slotPos) + "]" + "\n";
+			OutputDebugStringA(DebugMsg.c_str());
 			items.push_back(item);
+		}
 	}
 	return items;
 }

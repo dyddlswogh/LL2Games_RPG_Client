@@ -12,6 +12,7 @@ namespace stb
 	void Player::Initialize()
 	{
 		GameObject::Initialize();
+		m_quickSlotManager.Init();
 	}
 
 	void Player::Update()

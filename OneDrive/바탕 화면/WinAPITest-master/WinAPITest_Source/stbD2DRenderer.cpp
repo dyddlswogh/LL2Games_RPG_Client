@@ -501,6 +501,19 @@ void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, float x, float y, float wid
         D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
 }
 
+void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity)
+{
+    if (bitmap == nullptr) return;
+
+    m_RenderTarget->DrawBitmap(
+        bitmap,
+        destRect,
+        opacity,
+        D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
+        srcRect
+    );
+}
+
 bool stbD2DRenderer::HasBitmap() const
 {
     return m_Bitmap != nullptr;

@@ -49,9 +49,13 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
     // 기준 해상도 대비 UI 전체 스케일
-    float scaleX = rtSize.width / 1000.0f;
-    float scaleY = rtSize.height / 1000.0f;
+
+   
+    float scaleX = rtSize.width / 1366.0f;
+    float scaleY = rtSize.height / 768.0f;
     float scale = min(scaleX, scaleY);
+
+    m_scale = scale;
 
     int drawWidth = (int)(BASE_BG_WIDTH * scale);
     int drawHeight = (int)(BASE_BG_HEIGHT * scale);
@@ -97,34 +101,38 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
     );
 }
 
-// 나중에 다시 맞춰야함
 void QuickSlotUI::CreateSlotRect()
 {
     m_slotRects.clear();
     m_slotRects.reserve(SLOT_COUNT);
 
-    float scaleX = (float)m_UIRect.width / BASE_BG_WIDTH;
-    float scaleY = (float)m_UIRect.height / BASE_BG_HEIGHT;
+    float ratioX = (float)m_UIRect.width / BASE_BG_WIDTH;
+    float ratioY = (float)m_UIRect.height / BASE_BG_HEIGHT;
 
-    int startX = m_UIRect.x + (int)(BASE_START_X * scaleX);
-    int startY = m_UIRect.y + (int)(BASE_START_Y * scaleY);
+    float startX = m_UIRect.x + BASE_START_X * ratioX;
+    float startY = m_UIRect.y + BASE_START_Y * ratioY;
 
-    int slotWidth = (int)(BASE_SLOT_WIDTH * scaleX);
-    int slotHeight = (int)(BASE_SLOT_HEIGHT * scaleY);
+    float slotWidth = BASE_SLOT_WIDTH * ratioX;
+    float slotHeight = BASE_SLOT_HEIGHT * ratioY;
 
-    int gapX = (int)(BASE_GAP_X * scaleX);
-    int gapY = (int)(BASE_GAP_Y * scaleY);
+    float gapX = BASE_GAP_X * ratioX;
+    float gapY = BASE_GAP_Y * ratioY;
 
     for (int i = 0; i < SLOT_COUNT; ++i)
     {
         int col = i % SLOT_COLS;
         int row = i / SLOT_COLS;
 
+        float left = startX + col * (slotWidth + gapX);
+        float top = startY + row * (slotHeight + gapY);
+        float right = left + slotWidth;
+        float bottom = top + slotHeight;
+
         UIRect rect;
-        rect.x = startX + col * (slotWidth + gapX);
-        rect.y = startY + row * (slotHeight + gapY);
-        rect.width = slotWidth;
-        rect.height = slotHeight;
+        rect.x = (int)roundf(left);
+        rect.y = (int)roundf(top);
+        rect.width = (int)roundf(right) - rect.x;
+        rect.height = (int)roundf(bottom) - rect.y;
 
         m_slotRects.push_back(rect);
     }
@@ -139,10 +147,24 @@ int QuickSlotUI::GetSlotIndexByPoint(int mouseX, int mouseY)
         if (mouseX >= rect.x && mouseX <= rect.x + rect.width &&
             mouseY >= rect.y && mouseY <= rect.y + rect.height)
         {
+            std::string DebugMsg;
+            DebugMsg = std::to_string(i) + " QuickSlot Click \n";
+            OutputDebugStringA(DebugMsg.c_str());
             return i;
         }
     }
 
     return -1;
+}
+
+void QuickSlotUI::HandleClickSlot(int slotIndex)
+{
+    stb::eKeyCode key = m_quickSlotKeys[slotIndex];
+
+    stb::KeyBindInfo bind;
+    //if (!M_INPUT->GetBindInfo(key, bind))
+    //    return;
+    //
+    //player->ExecuteBind(bind);
 }
 

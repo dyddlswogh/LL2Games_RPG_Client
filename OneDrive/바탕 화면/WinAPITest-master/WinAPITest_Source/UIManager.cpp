@@ -2,21 +2,24 @@
 #include "stbD2DRenderer.h"
 #include "InventoryUI.h"
 #include "QuickSlotUI.h"
+#include "HealthBarUI.h"
 
 UIManager::UIManager()
 {
 	m_inventoryUI = new InventoryUI();
 	m_quickslotUI = new QuickSlotUI();
+	m_healthBarUI = new HealthBarUI();
 }
 
 void UIManager::Init()
 {
 	m_inventoryUI->Init();
 	m_quickslotUI->Init();
-
+	m_healthBarUI->Init();
 
 	mUIs.push_back(m_inventoryUI);
 	mUIs.push_back(m_quickslotUI);
+	mUIs.push_back(m_healthBarUI);
 
 
 	char msg[128];

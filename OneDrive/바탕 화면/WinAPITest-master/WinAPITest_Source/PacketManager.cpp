@@ -5,6 +5,7 @@
 #include "ChannelInitPacketHandler.h"
 #include "InventoryPacketHandler.h"
 #include "PlayerDataPacketHandler.h"
+#include "ItemPacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -50,6 +51,13 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			MovePacketHandler::Execute(pkt);
+		});
+
+	// 플레이어 아이템 사용 핸들러 등록
+	networkManager->RegisterHandler(PKT_PLAYER_USE_ITEM,
+		[](const ParsedPacket& pkt)
+		{
+			ItemPacketHandler::HandleUseItemResult(pkt);
 		});
 
 

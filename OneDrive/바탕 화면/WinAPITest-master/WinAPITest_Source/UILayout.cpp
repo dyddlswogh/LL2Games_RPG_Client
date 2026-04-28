@@ -42,6 +42,12 @@ UIRect UILayout::CalcRect(
         rc.x = (windowWidth - uiWidth) / 2 + offsetX;
         rc.y = (windowHeight - uiHeight) / 2 + offsetY;
         break;
+
+    case UIAnchor::CenterBottom:
+        rc.x = (windowWidth - uiWidth) / 2 + offsetX;
+        rc.y = windowHeight - uiHeight - offsetY;
+        break;
+
     }
 
     rc.x = std::max(0, rc.x);

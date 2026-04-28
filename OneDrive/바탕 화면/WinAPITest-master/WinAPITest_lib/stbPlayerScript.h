@@ -33,6 +33,9 @@ namespace stb
 		void Move();
 		void Attack();
 		void Jump();
+		void HandleInput();
+		void ExecuteBind(const KeyBindInfo& bindInfo);
+		void ExecuteAction(eActionCode action);
 		void SyncFollowers(Vector2 pos);
 	
 	private:

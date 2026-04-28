@@ -6,11 +6,14 @@
 #include "stbNetworkDebug.h"
 #include "..\\WinAPITest_lib\\stbPlayer.h"
 #include "PlayerManager.h"
+#include "QuickSlotManager.h"
+#include "UIManager.h"
 
 
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
 #define M_TIME  stb::SingletonBase<stb::Time>::getInstance()
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 
 namespace stb
@@ -37,13 +40,14 @@ namespace stb
 	void PlayerScript::Update()
 	{
 		Idle();
+		HandleInput();
 	}	
 		
 	void PlayerScript::LateUpdate()
 	{
 
 	}	
-		
+		 
 	void PlayerScript::Render(HDC hdc)
 	{
 
@@ -140,6 +144,76 @@ namespace stb
 	{
 
 	}
+
+	void PlayerScript::HandleInput()
+	{
+		KeyBindInfo bindInfo;
+
+		if (M_INPUT->GetPressedBind(bindInfo))
+		{
+			ExecuteBind(bindInfo);
+		}
+	}
+
+	void PlayerScript::ExecuteBind(const KeyBindInfo& bindInfo)
+	{
+		switch (bindInfo.type)
+		{
+		case eBindType::Action:
+			ExecuteAction((eActionCode)bindInfo.value);
+			break;
+		case eBindType::Skill:
+			// TODO : 스킬 사용 요청
+			// SkillManager::GetInstance()->UseSkill(bindInfo.value);
+			OutputDebugStringA("Skill Execute\n");
+			break;
+		case eBindType::Item:
+			// TODO : 아이템 사용 요청
+			// ItemManager::GetInstance()->UseItem(bindInfo.value);
+			OutputDebugStringA("Item Execute\n");
+			break;
+		case eBindType::UI:
+			OutputDebugStringA("UI Execute\n");
+			break;
+		default:
+			break;
+		}
+	}
+
+	void PlayerScript::ExecuteAction(eActionCode action)
+	{
+		switch (action)
+		{
+		case eActionCode::Interact:
+			OutputDebugStringA("Action : Interact\n");
+			// TODO : 상호작용 요청
+			break;
+		case eActionCode::Attack:
+			OutputDebugStringA("Action : Attack\n");
+			// TODO : 점프 처리
+			break;
+		case eActionCode::Jump:
+			OutputDebugStringA("Action : Jump\n");
+			// TODO : 점프 처리
+			break;
+
+		case eActionCode::Inventory:
+			OutputDebugStringA("Action : Inventory\n");
+			UIManager::getInstance()->ToggleInventory();
+			// TODO : 인벤토리 UI 열기
+			break;
+
+		case eActionCode::SkillWindow:
+			OutputDebugStringA("Action : SkillWindow\n");
+			// TODO : 스킬창 UI 열기
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	
 
 	void PlayerScript::SyncFollowers(Vector2 pos)
 	{

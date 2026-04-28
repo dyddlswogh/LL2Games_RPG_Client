@@ -7,7 +7,9 @@ enum class UIAnchor
     TopRight,
     BottomLeft,
     BottomRight,
-    Center
+    Center,
+    CenterBottom,
+
 };
 
 struct UIRect

@@ -164,6 +164,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)QuickSlotManager.cpp">
       <Filter>Game\UI\QuickSlot</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HealthBarUI.cpp">
+      <Filter>Game\UI\HealthBar</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MonsterPacketHandler.cpp">
+      <Filter>PacketHandler\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Monster.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MonsterManager.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -358,6 +370,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotManager.h">
       <Filter>Game\UI\QuickSlot</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HealthBarUI.h">
+      <Filter>Game\UI\HealthBar</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterPacketHandler.h">
+      <Filter>PacketHandler\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Monster.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterManager.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterInfo.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -479,6 +506,15 @@
     </Filter>
     <Filter Include="Game\UI\Inventory">
       <UniqueIdentifier>{6b8abb50-0b6f-491e-a3ad-a3d634a0d2f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\HealthBar">
+      <UniqueIdentifier>{92649307-e1d0-42a9-a1a2-c84d9da3cd2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\Monster">
+      <UniqueIdentifier>{b9ba809f-d6fb-4310-9e54-d565d7376453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Monster">
+      <UniqueIdentifier>{584f26f0-87b4-44d4-bec5-26595ceaa54e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

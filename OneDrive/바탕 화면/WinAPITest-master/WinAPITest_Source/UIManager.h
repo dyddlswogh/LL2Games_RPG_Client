@@ -5,7 +5,9 @@
 class UI;
 class InventoryUI;
 class QuickSlotUI;
+class HealthBarUI;
 class stbD2DRenderer;
+
 
 class UIManager : public stb::SingletonBase<UIManager>
 {
@@ -22,4 +24,5 @@ private:
 	std::vector<UI*> mUIs;
 	InventoryUI* m_inventoryUI = nullptr;
 	QuickSlotUI* m_quickslotUI = nullptr;
+	HealthBarUI* m_healthBarUI = nullptr;
 };

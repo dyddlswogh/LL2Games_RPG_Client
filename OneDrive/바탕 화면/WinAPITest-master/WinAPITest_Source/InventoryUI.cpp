@@ -6,6 +6,7 @@
 #include "stbApplication.h"
 #include "InventoryManager.h"
 #include "ItemDataManager.h"
+#include "ItemPacketHandler.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
@@ -168,7 +169,7 @@ void InventoryUI::Update()
 
     if (M_INPUT->GetKeyDown(stb::eKeyCode::LButton))
     {
-        HandleMouseClick(pt.x, pt.y);
+        HandleLMouseClick(pt.x, pt.y);
     }
 
     if (M_INPUT->GetKey(stb::eKeyCode::LButton))
@@ -179,6 +180,11 @@ void InventoryUI::Update()
     if (M_INPUT->GetKeyUp(stb::eKeyCode::LButton))
     {
         HandleMouseUp();
+    }
+
+    if (M_INPUT->GetKeyDown(stb::eKeyCode::RButton))
+    {
+        HandleRMouseClick(pt.x, pt.y);
     }
 }
 
@@ -241,11 +247,10 @@ void InventoryUI::RenderSlotItem(stbD2DRenderer& renderer)
 
   
         const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(slot.itemId);
-        //OutputDebugStringA(itemData->name.c_str());
+       
         if (itemData == nullptr)
             continue;
 
-        OutputDebugStringA("RednerSlotItem\n");
         std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
         stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
         if (texture == nullptr)
@@ -270,36 +275,30 @@ void InventoryUI::RenderSlotItem(stbD2DRenderer& renderer)
 
 void InventoryUI::UpdateInventoryByType()
 {
+    
     Inventory* inventory = M_INVENTORYMANAGER->GetInventory((int)m_currentType);
     if (inventory == nullptr)
         return;
 
     const std::vector<InventoryItemInfo>& items = inventory->GetItemInfos();
 
-    auto it = inventory->FindSlot(1);
-    if (it != nullptr)
-    {
-        std::string msg;
-        msg = "[Before Loop] slot1 itemId=" + std::to_string(it->itemId)
-            + " itemCount=" + std::to_string(it->itemCount) + "\n";
-        OutputDebugStringA(msg.c_str());
-    }
+    std::string DebugMsg;
 
-    for (auto& slot : m_slots)
-    {
-        slot.itemId = 0;
-        slot.itemCount = 0;
-    }
+    DebugMsg = "Inventory Type : " + std::to_string((int)m_currentType) + "\n";
 
+    OutputDebugStringA(DebugMsg.c_str());
+
+    ClearSlots();
     for (const auto& item : items)
     {
-        int slotIndex = item.slotPos - 1;
+        int slotIndex = item.slotPos;
 
         if (slotIndex < 0 || slotIndex >= (int)m_slots.size())
             continue;
       
         m_slots[slotIndex].itemId = item.itemId;
         m_slots[slotIndex].itemCount = item.itemCount;
+        
     }
 }
 
@@ -471,7 +470,16 @@ void InventoryUI::UpdateSlots()
     }
 }
 
-void InventoryUI::HandleMouseClick(int mouseX, int mouseY)
+void InventoryUI::ClearSlots()
+{
+    for (auto& slot : m_slots)
+    {
+        slot.itemId = 0;
+        slot.itemCount = 0;
+    }
+}
+
+void InventoryUI::HandleLMouseClick(int mouseX, int mouseY)
 {
     if (HandleInventoryClick(mouseX, mouseY))
         return;
@@ -487,6 +495,28 @@ void InventoryUI::HandleMouseClick(int mouseX, int mouseY)
     {
         std::string msg = std::to_string(slotIndex) + "\n";
         OutputDebugStringA(msg.c_str());
+
+        // 클릭 시 상호작용 추가 예정
+    }
+}
+
+void InventoryUI::HandleRMouseClick(int mouseX, int mouseY)
+{
+    int slotIndex = GetClickedSlotIndex(mouseX, mouseY);
+    if (slotIndex != -1)
+    {
+        std::string msg = std::to_string(slotIndex) + "\n";
+        OutputDebugStringA(msg.c_str());
+
+        Inventory* inven = M_INVENTORYMANAGER->GetInventory(static_cast<int>(m_currentType));
+
+        InventoryItemInfo* itemInfo = inven->FindSlot(slotIndex);
+        if (itemInfo == nullptr)
+            return;
+        
+        itemInfo->useCount = 1;
+
+        ItemPacketHandler::SendUseItem(itemInfo);
     }
 }
 
