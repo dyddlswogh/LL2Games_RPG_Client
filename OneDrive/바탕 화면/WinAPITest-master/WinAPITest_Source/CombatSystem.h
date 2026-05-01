@@ -6,6 +6,12 @@ namespace stb
 	class Player;
 }
 
+enum class AttackDirection : int
+{
+	Left = -1,
+	Right = 1
+};
+
 class CombatSystem
 {
 public:
@@ -15,7 +21,9 @@ public:
 	void SetPlayer(stb::Player* player) { m_player = player; }
 
 	bool TryAttack(int skillId);
+	bool TryBasicAttack();
 	bool CanAttack(int skillId);
+	bool CanBasicAttack();
 
 private:
 	stb::Player* m_player;

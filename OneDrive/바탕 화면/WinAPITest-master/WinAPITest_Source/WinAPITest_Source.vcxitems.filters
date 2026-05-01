@@ -176,6 +176,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MonsterManager.cpp">
       <Filter>Game\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MonsterScript.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MonsterDataManager.cpp">
+      <Filter>Game\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -385,6 +391,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MonsterInfo.h">
       <Filter>Game\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterScript.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MonsterDataManager.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimationInfo.h">
+      <Filter>Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Util.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -515,6 +534,9 @@
     </Filter>
     <Filter Include="Game\Monster">
       <UniqueIdentifier>{584f26f0-87b4-44d4-bec5-26595ceaa54e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{dec7ebc8-619d-4c7d-808d-7998b4f436ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -36,17 +36,22 @@ void MonsterPacketHandler::HandleS2C_SpawnMonster(const ParsedPacket& pkt)
 				throw std::runtime_error(errMsg);
 			}
 
-			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterSpawnInfo.x, errMsg))
+			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterSpawnInfo.pos.x, errMsg))
 			{
 				throw std::runtime_error(errMsg);
 			}
 
-			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterSpawnInfo.y, errMsg))
+			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterSpawnInfo.pos.y, errMsg))
 			{
 				throw std::runtime_error(errMsg);
 			}
 
 			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSpawnInfo.dir, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSpawnInfo.moveSpeed, errMsg))
 			{
 				throw std::runtime_error(errMsg);
 			}
@@ -68,8 +73,95 @@ void MonsterPacketHandler::HandleS2C_SpawnMonster(const ParsedPacket& pkt)
 				throw std::runtime_error(errMsg);
 			}
 
-			monsterData.state = Monster::SetState(state);
+			monsterSpawnInfo.state = monster::SetState(state);
 
+			M_MONSTERMANAGER->SpawnMonster(monsterSpawnInfo);
+		}
+
+
+	}
+	catch (const std::exception& e)
+	{
+		OutputDebugStringA("[HandleS2C_SpawnMonster] ");
+		OutputDebugStringA(e.what());
+		OutputDebugStringA("\n");
+	}
+	catch (...)
+	{
+		OutputDebugStringA("예상치 못한 에러가 발생했습니다.");
+		OutputDebugStringA("\n");
+	}
+}
+
+void MonsterPacketHandler::HandleS2C_MonsterMove(const ParsedPacket& pkt)
+{
+	/*
+ payload.push_back(std::to_string(monster->GetInstanceId()));          // monster instanceid
+		payload.push_back(std::to_string(static_cast<int>(monster->GetState())));
+		payload.push_back(std::to_string(monster->GetDir()));
+		payload.push_back(std::to_string(monster->GetPos().xPos));
+		payload.push_back(std::to_string(monster->GetPos().yPos));
+		payload.push_back(std::to_string(monster->GetCurrentHP()));
+		payload.push_back(std::to_string(monster->GetMaxHP()));
+// 테스트용 로그
+	*/
+
+	try
+	{
+		size_t offset = 0;
+		const char* data = pkt.payload.c_str();
+		size_t payloadSize = pkt.payload.size();
+		std::string errMsg;
+
+		int monsterSize = 0;
+
+		// Packet 사이즈를 받아온다
+		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSize, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		for (size_t i = 0; i < monsterSize; i++)
+		{
+			MonsterUpdateInfo monsterUpdateInfo{};
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterUpdateInfo.instanceId, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			int state = 0;
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, state, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+			monsterUpdateInfo.state = monster::SetState(state);
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterUpdateInfo.dir, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterUpdateInfo.pos.x, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextFloatField(data, payloadSize, offset, monsterUpdateInfo.pos.y, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterUpdateInfo.curHp, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterUpdateInfo.maxHp, errMsg))
+			{
+				throw std::runtime_error(errMsg);
+			}
+
+			M_MONSTERMANAGER->ApplyServerUpdate(monsterUpdateInfo);
 
 		}
 
@@ -77,16 +169,14 @@ void MonsterPacketHandler::HandleS2C_SpawnMonster(const ParsedPacket& pkt)
 	}
 	catch (const std::exception& e)
 	{
-		OutputDebugStringA("[HandleLocalPlayerInfo] ");
+		OutputDebugStringA("[HandleS2C_MonsterMove] ");
 		OutputDebugStringA(e.what());
 		OutputDebugStringA("\n");
 	}
 	catch (...)
 	{
 		OutputDebugStringA("예상치 못한 에러가 발생했습니다.");
+		OutputDebugStringA("\n");
 	}
-}
 
-void MonsterPacketHandler::HandleS2C_MonsterMove(const ParsedPacket& pkt)
-{
 }

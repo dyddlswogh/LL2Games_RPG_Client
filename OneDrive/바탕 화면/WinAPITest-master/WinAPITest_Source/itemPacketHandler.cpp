@@ -157,9 +157,6 @@ void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
     std::string DebugMsg = "Use_Count :" + std::to_string(inventoryitemInfo->useCount) + "\n";
 
     OutputDebugStringA(DebugMsg.c_str());
-    // 패킷 생성 및 전송
-    std::string body = PacketParser::MakeBody(data);
-    std::string packet = PacketParser::MakePacket(PKT_PLAYER_USE_ITEM, body);
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_USE_ITEM, data);
     OutputDebugStringA("[PKT_PLAYER_USE_ITEM 전송 완료]\n\n");

@@ -13,6 +13,11 @@ C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Invent
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\IPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\IPacketHandler.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\ItemDataManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\ItemDataManager.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\ItemUseService.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\ItemUseService.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\Monster.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\Monster.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MonsterDataManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MonsterDataManager.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MonsterManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MonsterManager.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MonsterPacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MonsterPacketHandler.obj
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MonsterScript.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MonsterScript.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MovePacketHandler.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MovePacketHandler.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\MySocket.obj
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\PacketManager.cpp;C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_lib\x64\Debug\PacketManager.obj

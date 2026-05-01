@@ -95,7 +95,7 @@ namespace stb
 
 	}
 
-	// ���� �̹������� y ���� �������� �ʰ� x���� �����ؼ� �ִϸ��̼��� �����.
+
 	void Animator::CreateAnimationByFolder(const std::wstring& name
 		, const std::wstring& path
 		, Vector2 offset, float duration)
@@ -142,6 +142,35 @@ namespace stb
 
 	}
 
+	void Animator::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 offset, float duration)
+	{
+		if (frames.empty())
+		{
+			std::string DebugMsg = "Frame is Empty \n";
+			OutputDebugStringA(DebugMsg.c_str());
+			return;
+		}
+			
+
+		Animation* animation = FindAnimation(name);
+		if (animation != nullptr)
+			return;
+
+		std::wstring DebugMsg = L"Animation Name : " + name + L"\n";
+		OutputDebugStringW(DebugMsg.c_str());
+
+		animation = new Animation();
+		animation->SetName(name);
+		animation->CreateFrameAnimation(name, frames, offset, duration);
+		animation->SetAnimator(this);
+
+		Events* events = new Events();
+
+		mAnimations.insert(std::make_pair(name, animation));
+		mEvents.insert(std::make_pair(name, events));
+	}
+
+	
 
 	Animation* Animator::FindAnimation(const std::wstring& name)
 	{
@@ -160,6 +189,8 @@ namespace stb
 
 		if (animation == nullptr)
 		{
+			DebugMsg = "animation is nullptr \n";
+			OutputDebugStringA(DebugMsg.c_str());
 			return;
 		}
 

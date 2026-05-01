@@ -2,26 +2,40 @@
 #include "CommonInclude.h"
 #include "MonsterInfo.h"
 #include "stbMath.h"
+#include "stbGameObject.h"
+#include "stbTransform.h"
+#include "stbAnimator.h"
+#include "BoxCollider2D.h"
+#include "MonsterScript.h"
+#include "CombatSystem_Info.h"
 
 class stbD2DRenderer;
 
-class Monster
+class Monster : public stb::GameObject
 {
 public:
-    void Init(int instanceId, int templateId, const stb::math::Vector2 & pos, int hp, int maxHp);
+    void Initialize() override;
+    void InitFromSpawn(const MonsterSpawnInfo& info);
     void Update(float deltaTime);
     void Render(stbD2DRenderer& renderer);
 
     void SetState(MonsterState state);
     void SetPosition(float x, float y);
+    void SetAnimation();
     void OnDamaged(int damage, int curHp, bool dead);
     void OnMove(float x, float y, int dir);
 
+    void ResetFromSpawnInfo(const MonsterSpawnInfo& info);
+    void ApplyServerUpdate(const MonsterUpdateInfo& info);
+    void ApplyAttackResult(const AttackResult& result);
+public:
     int GetInstanceId() const { return m_instanceId; }
+    int GetMoveSpeed() const { return m_moveSpeed; }
+    bool IsDead() { return m_isDead; }
 
 private:
     int m_instanceId = 0;   // 서버 개체 ID
-    int m_templateId = 0;   // 몬스터 종류 ID
+    int m_monsterId = 0;   // 몬스터 종류 ID
 
     stb::math::Vector2 m_pos{};
     stb::math::Vector2 m_targetPos{};     // 서버 이동 패킷 받은 위치
@@ -30,9 +44,20 @@ private:
     int m_curHp = 0;
     int m_maxHp = 0;
 
+    bool m_isDead = false;
+    bool m_isDeathAnimationFinished = false;
     MonsterState m_state = MonsterState::E_Idle;
 
-    //MonsterResource* m_resource = nullptr;
-   // AnimationPlayer m_animator;
+    int m_moveSpeed;
+
+private:
+    stb::Transform* m_transform;
+    stb::Animator* m_animator;
+    stb::BoxCollider2D* m_collider;
+
+    std::wstring m_currentAnimation;
+    MonsterScript* m_script;
+
+    std::string DebugMsg;
 };
 

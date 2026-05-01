@@ -15,6 +15,8 @@
 #include "stbLogger.h"
 #include "PlayerManager.h"
 #include "UIManager.h"
+#include "MonsterManager.h"
+#include "stbTime.h"
 
 #include "stbApplication.h"
 
@@ -22,6 +24,8 @@
 #define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
 #define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
+#define M_MONSTERAMANGER stb::SingletonBase<MonsterManager>::getInstance()
+#define M_TIME	stb::SingletonBase<stb::Time>::getInstance()
 
 namespace stb
 {
@@ -70,12 +74,16 @@ namespace stb
 		M_PKMANAGER->RegisterAllHandlers();
 		LOG("========== Network Connect Start ==========\n");
 		stb::InitializeNetworkDebug(hWnd);
+
+
+		M_MONSTERAMANGER->Init();
 	}
 
 	void PlayScene::Update()
 	{
 		Scene::Update();
 		M_UIMANAGER->Update();
+		M_MONSTERAMANGER->Update(M_TIME->GetDeltaTime());
 	}
 
 	void PlayScene::LateUpdate()
@@ -92,6 +100,7 @@ namespace stb
 	{
 		Scene::Render(renderer);
 		M_UIMANAGER->Render(renderer);
+		M_MONSTERAMANGER->Render(renderer);
 	}
 
 	void PlayScene::OnExit()

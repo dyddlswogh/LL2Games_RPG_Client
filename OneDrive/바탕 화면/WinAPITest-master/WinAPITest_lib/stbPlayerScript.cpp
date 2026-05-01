@@ -134,9 +134,8 @@ namespace stb
 
 		if (player != nullptr)
 		{
-			player->GetCombatSystem()->TryAttack(1000);
+			player->GetCombatSystem()->TryBasicAttack();
 		}
-
 
 	}
 

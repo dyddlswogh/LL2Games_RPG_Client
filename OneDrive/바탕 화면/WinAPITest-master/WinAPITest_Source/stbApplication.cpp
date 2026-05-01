@@ -5,6 +5,7 @@
 #include "stbCollisionManager.h"
 #include "ItemDataManager.h"
 #include "SkillDataManager.h"
+#include "MonsterDataManager.h"
 
 
 
@@ -14,6 +15,7 @@
 #define M_COLMANAGER stb::SingletonBase<stb::CollisionManager>::getInstance()
 #define M_ITEMDATAMANAGER stb::SingletonBase<ItemDataManager>::getInstance()
 #define M_SKILLDATAMANAGER stb::SingletonBase<SkillDataManager>::getInstance()
+#define M_MONSTERDATAMANAGER stb::SingletonBase<MonsterDataManager>::getInstance()
 
 
 namespace stb
@@ -55,6 +57,7 @@ namespace stb
 
 		M_ITEMDATAMANAGER->Init();
 		M_SKILLDATAMANAGER->Init();
+		M_MONSTERDATAMANAGER->Init();
 	}
 
 	void Application::Run()

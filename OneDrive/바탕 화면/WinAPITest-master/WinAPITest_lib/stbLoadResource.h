@@ -4,6 +4,9 @@
 #include "..\\WinAPITest_Source\\stbApplication.h"
 #include "..\\WinAPITest_Source\\stbD2DRenderer.h"
 
+
+
+
 #define RESOURCEMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 
 namespace stb
@@ -77,16 +80,11 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.mp.layer_0.png");
 		RESOURCEMANAGER->Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
 
-		// 초록 슬라임 
-		RESOURCEMANAGER->Load<Texture>(L"GreenSlime_Move0", L"Resources\\Monster\\Green_Slime\\move.0.png");
-		RESOURCEMANAGER->Load<Texture>(L"GreenSlime_Move1", L"Resources\\Monster\\Green_Slime\\move.1.png");
-		RESOURCEMANAGER->Load<Texture>(L"GreenSlime_Move2", L"Resources\\Monster\\Green_Slime\\move.2.png");
-		RESOURCEMANAGER->Load<Texture>(L"GreenSlime_Move3", L"Resources\\Monster\\Green_Slime\\move.3.png");
-		RESOURCEMANAGER->Load<Texture>(L"GreenSlime_Move4", L"Resources\\Monster\\Green_Slime\\move.4.png");
+		// 몬스터 이미지 로드
+		RESOURCEMANAGER->LoadMonsterTextures();
 
-		RESOURCEMANAGER->Load<Texture>(L"GreenSlime_Stand", L"Resources\\Monster\\Green_Slime\\stand.0.png");
-		RESOURCEMANAGER->Load<Texture>(L"GreenSlime_hit", L"Resources\\Monster\\Green_Slime\\hit1.0.png");
 		stbD2DRenderer& renderer = stb::Application::getInstance()->GetRenderer();
 		RESOURCEMANAGER->LoadAllD2D(renderer);
 	}
+
 }

@@ -47,16 +47,16 @@ namespace stb
 
     void Animation::Render(HDC hdc)
     {
-		OutputDebugStringA("[Animation::Render] í˜¸ì¶œë¨\n");
+		OutputDebugStringA("[Animation::Render] È£ÃâµÊ\n");
 
 		if (mTexture == nullptr)
 		{
-			OutputDebugStringA("[Animation::Render] mTexture == nullptr, ë¦¬í„´\n");
+			OutputDebugStringA("[Animation::Render] mTexture == nullptr, ¸®ÅÏ\n");
 			return;
 		}
-		OutputDebugStringA("[Animation::Render] í…ìŠ¤ì²˜ ìžˆìŒ, ê·¸ë¦¬ê¸° ì‹œë„\n");
+		OutputDebugStringA("[Animation::Render] ÅØ½ºÃ³ ÀÖÀ½, ±×¸®±â ½Ãµµ\n");
 
-		// ê°’ í™•ì¸ìš© - í•œ ë²ˆë§Œ ì¶œë ¥
+		// °ª È®ÀÎ¿ë - ÇÑ ¹ø¸¸ Ãâ·Â
 		static bool once = false;
 		if (!once)
 		{
@@ -164,11 +164,7 @@ namespace stb
 
 	void Animation::Render(stbD2DRenderer& renderer)
 	{
-		if (mTexture == nullptr)
-			return;
-
-		ID2D1Bitmap* bitmap = mTexture->GetD2DBitmap();
-		if (bitmap == nullptr)
+		if (mAnimationSheet.empty())
 			return;
 
 		GameObject* gameObj = mAnimator->GetOwner();
@@ -181,15 +177,28 @@ namespace stb
 
 		Sprite sprite = mAnimationSheet[mIndex];
 
+		Texture* renderTexture = sprite.texture != nullptr
+			? sprite.texture
+			: mTexture;
+
+		if (renderTexture == nullptr)
+			return;
+
+		ID2D1Bitmap* bitmap = renderTexture->GetD2DBitmap();
+		if (bitmap == nullptr)
+			return;
+
 		float destX = pos.x - (sprite.size.x / 2.0f) + sprite.offset.x;
 		float destY = pos.y - (sprite.size.y / 2.0f) + sprite.offset.y;
 		float destW = sprite.size.x * scale.x;
 		float destH = sprite.size.y * scale.y;
 
-		renderer.DrawSprite(bitmap,
+		renderer.DrawSprite(
+			bitmap,
 			destX, destY, destW, destH,
 			sprite.leftTop.x, sprite.leftTop.y,
-			sprite.size.x, sprite.size.y);
+			sprite.size.x, sprite.size.y
+		);
 	}
 
     void Animation::CreateAnimation(const std::wstring& name
@@ -213,6 +222,26 @@ namespace stb
             mAnimationSheet.push_back(sprite);
         }
     }
+
+	void Animation::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 offset, float duration)
+	{
+		mTexture = nullptr;
+
+		for (Texture* tex : frames)
+		{
+			if (tex == nullptr)
+				continue;
+
+			Sprite sprite = {};
+			sprite.texture = tex;
+			sprite.leftTop = Vector2(0.0f, 0.0f);
+			sprite.size = Vector2((float)tex->GetWidth(), (float)tex->GetHeight());
+			sprite.offset = offset;
+			sprite.duration = duration;
+
+			mAnimationSheet.emplace_back(sprite);
+		}
+	}
 
     void Animation::Reset()
     {

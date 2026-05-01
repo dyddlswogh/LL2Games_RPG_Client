@@ -17,6 +17,8 @@ namespace stb
 			Vector2 size;
 			Vector2 offset;
 			float duration;
+			Texture* texture = nullptr;
+
 
 			Sprite()
 				: leftTop(Vector2::Zero)
@@ -42,6 +44,12 @@ namespace stb
 			, Vector2 size
 			, Vector2 offset
 			, UINT spriteLength
+			, float duration
+		);
+
+		void CreateFrameAnimation(const std::wstring& name
+			, const std::vector<Texture*>& frames
+			, Vector2 offset
 			, float duration
 		);
 

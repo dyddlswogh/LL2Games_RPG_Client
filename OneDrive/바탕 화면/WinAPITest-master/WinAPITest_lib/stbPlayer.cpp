@@ -43,6 +43,12 @@ namespace stb
 
 	}
 
+	void Player::PlayAttackAnimation(int skillId)
+	{
+
+
+	}
+
 
 
 }

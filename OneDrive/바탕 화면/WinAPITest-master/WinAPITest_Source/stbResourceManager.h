@@ -59,8 +59,7 @@ namespace stb
 		}
 
 		void LoadAllD2D(stbD2DRenderer& renderer);
-
-
+		void LoadMonsterTextures();
 
 	private:
 		std::map<std::wstring, Resource*> mResources;
