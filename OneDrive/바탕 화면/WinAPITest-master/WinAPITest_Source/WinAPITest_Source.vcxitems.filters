@@ -182,6 +182,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MonsterDataManager.cpp">
       <Filter>Game\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradePacketHandler.cpp">
+      <Filter>PacketHandler\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp">
+      <Filter>Game\UI\Trade</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -404,6 +410,18 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Trade_Info.h">
+      <Filter>Game\UI\Trade</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeManager.h">
+      <Filter>Game\Trade</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradePacketHandler.h">
+      <Filter>PacketHandler\Trade</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeUI.h">
+      <Filter>Game\UI\Trade</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -537,6 +555,15 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{dec7ebc8-619d-4c7d-808d-7998b4f436ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\Trade">
+      <UniqueIdentifier>{b74031fa-dd80-44b8-bc2c-0aa9fd82da30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Trade">
+      <UniqueIdentifier>{278053c3-8a64-4933-a4b5-fe2b309f80f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\Trade">
+      <UniqueIdentifier>{fa536bfa-a44c-4ff3-b8ff-6fc1d25f2e19}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

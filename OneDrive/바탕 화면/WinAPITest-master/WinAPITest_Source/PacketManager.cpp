@@ -7,6 +7,7 @@
 #include "PlayerDataPacketHandler.h"
 #include "ItemPacketHandler.h"
 #include "MonsterPacketHandler.h"
+#include "TradePacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -73,6 +74,13 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			MonsterPacketHandler::HandleS2C_MonsterMove(pkt);
+		});
+
+	// 교환 신청 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_REQUEST,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeRequest(pkt);
 		});
 
 	return true;

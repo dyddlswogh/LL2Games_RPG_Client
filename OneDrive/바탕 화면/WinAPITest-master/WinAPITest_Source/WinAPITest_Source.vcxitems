@@ -88,6 +88,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradePacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Trade_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UILayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIManager.h" />
@@ -154,6 +158,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradePacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UILayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIManager.cpp" />
