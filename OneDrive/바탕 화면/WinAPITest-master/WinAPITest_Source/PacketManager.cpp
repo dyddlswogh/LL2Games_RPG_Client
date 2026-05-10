@@ -7,6 +7,7 @@
 #include "PlayerDataPacketHandler.h"
 #include "ItemPacketHandler.h"
 #include "MonsterPacketHandler.h"
+#include "CombatPacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -73,6 +74,12 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			MonsterPacketHandler::HandleS2C_MonsterMove(pkt);
+		});
+
+	networkManager->RegisterHandler(PKT_MONSTER_ONDAMAGED,
+		[](const ParsedPacket& pkt)
+		{
+			CombatPacketHandler::HandleAttackResult(pkt);
 		});
 
 	return true;

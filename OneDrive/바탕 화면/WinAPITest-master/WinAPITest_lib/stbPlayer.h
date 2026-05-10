@@ -56,6 +56,7 @@ namespace stb
 
 		// 플레이어의 상태가 Attack인지 확인하는 함수
 		bool IsAttacking() { return m_playerState == PlayerState::ATTACK; }
+		PlayerState GetState() { return m_playerState; }
 		void SetState(PlayerState state) { m_playerState = state; }
 
 		QuickSlotManager* GetQuickSlotManager() { return &m_quickSlotManager; }
@@ -67,8 +68,8 @@ namespace stb
 		WeaponType GetWeaponType() { return m_weaponType; }
 	private:
 		WeaponType m_weaponType = WeaponType::None;
-	private:
 
+	private:
 		// 
 		Stat m_stat;
 		InventoryManager* m_inven;
@@ -88,6 +89,8 @@ namespace stb
 		QuickSlotManager m_quickSlotManager;
 		
 		FacingDirection m_facing = FacingDirection::Right;
+
+
 	};
 
 }

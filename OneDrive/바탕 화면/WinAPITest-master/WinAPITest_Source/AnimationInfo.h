@@ -1,6 +1,14 @@
 #pragma once
 #include <string>
 #include "stbMath.h"
+
+struct AnimationEventInfo
+{
+	std::string start;
+	std::string complete;
+	std::string end;
+};
+
 struct AnimationInfo
 {
 	std::string anim_name;
@@ -8,6 +16,8 @@ struct AnimationInfo
 	std::string path;
 	int frame_count;
 	int delay_ms;
+
+	AnimationEventInfo animationEvent;
 };
 
 struct RenderInfo
@@ -16,3 +26,4 @@ struct RenderInfo
 	int height;
 	stb::math::Vector2 origin = stb::math::Vector2::Zero;
 };
+

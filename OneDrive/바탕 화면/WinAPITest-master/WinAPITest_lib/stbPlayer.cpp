@@ -7,7 +7,7 @@ namespace stb
 {
 	Player::Player() : m_inven(InventoryManager::getInstance()), m_playerState(PlayerState::IDLE)
 	{
-	
+		m_combatSystem.SetOwner(this);
 	}
 	void Player::Initialize()
 	{

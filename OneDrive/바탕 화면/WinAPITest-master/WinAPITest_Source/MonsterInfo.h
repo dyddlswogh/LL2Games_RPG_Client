@@ -39,6 +39,7 @@ struct MonsterUpdateInfo
 	MonsterState state;
 };
 
+
 struct MonsterData
 {
 	int monster_id = 0;

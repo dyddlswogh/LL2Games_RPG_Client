@@ -33,12 +33,21 @@ bool CombatSystem::TryAttack(int skillId)
 bool CombatSystem::TryBasicAttack()
 {
     if (m_player == nullptr)
+    {
+        DebugMsg = "m_player is nullptr \n";
+        OutputDebugStringA(DebugMsg.c_str());
         return false;
-
+        
+    }
+      
     if (!CanBasicAttack())
+    {
+        DebugMsg = "Cant Basic Attack\n";
+        OutputDebugStringA(DebugMsg.c_str());
         return false;
-
-    AttackDirection dir = AttackDirection::Right;
+    }
+       
+    AttackDirection dir = AttackDirection::Left;
 
     if (m_player->GetFacing() == stb::FacingDirection::Left)
         dir = AttackDirection::Left;
@@ -52,14 +61,29 @@ bool CombatSystem::TryBasicAttack()
 
 bool CombatSystem::CanAttack(int skillId)
 {
+  
     if (m_player == nullptr)
+    {
+        DebugMsg = "m_player is nullptr \n";
+        OutputDebugStringA(DebugMsg.c_str());
         return false;
-
+    }
+        
     if (m_player->IsDead())
+    {
+        DebugMsg = "player is Dead \n";
+        OutputDebugStringA(DebugMsg.c_str());
         return false;
+    }
+       
 
     if (m_player->IsAttacking())
+    {
+        DebugMsg = "player is Attacking \n";
+        OutputDebugStringA(DebugMsg.c_str());
         return false;
+    }
+       
 
     // 스킬 쿨타임 여부 확인 추가 필요
     return true;
@@ -70,12 +94,18 @@ bool CombatSystem::CanBasicAttack()
     if (m_player == nullptr)
         return false;
 
-    if (m_player->IsDead())
+    PlayerState state = m_player->GetState();
+
+    if (state == PlayerState::STUNNED)
         return false;
 
-    if (m_player->IsAttacking())
+    if (state == PlayerState::DEAD)
         return false;
 
+    if (state == PlayerState::ATTACK)
+        return false;
+
+    // IDLE, MOVE는 공격 가능
     return true;
 }
 

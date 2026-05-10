@@ -22,7 +22,9 @@ namespace stb
 		: mNetworkSendTimer(0.0f)
 		, mHead(nullptr)
 		, mSword(nullptr)
-		, m_player (nullptr)
+		, m_player(nullptr)
+		, mAttackTimer(0.0f)
+		, mAttackDuration(0.35f)
 	{
 
 	}
@@ -39,8 +41,18 @@ namespace stb
 		
 	void PlayerScript::Update()
 	{
-		Idle();
+		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+
+		if (player != nullptr && player->GetState() == PlayerState::ATTACK)
+		{
+			Idle(false);          // 이동은 처리하되 상태는 바꾸지 않음
+			UpdateAttackState();  // 공격 종료 시간 체크
+			return;
+		}
+
+		Idle(true);
 		HandleInput();
+		HandleCombatInput();
 	}	
 		
 	void PlayerScript::LateUpdate()
@@ -53,13 +65,37 @@ namespace stb
 
 	}
 
-	void PlayerScript::Idle()
+	void PlayerScript::UpdateAttackState()
+	{
+		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+
+		if (player == nullptr)
+			return;
+
+		mAttackTimer += M_TIME->GetDeltaTime();
+
+		if (mAttackTimer < mAttackDuration)
+			return;
+
+		mAttackTimer = 0.0f;
+
+		if (IsMoveInputPressed())
+		{
+			player->SetState(PlayerState::MOVE);
+			OutputDebugStringA("Attack End -> Move\n");
+		}
+		else
+		{
+			player->SetState(PlayerState::IDLE);
+			OutputDebugStringA("Attack End -> Idle\n");
+		}
+	}
+
+	void PlayerScript::Idle(bool changeState)
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (tr == nullptr)
-		{
 			return;
-		}
 
 		Vector2 pos = tr->GetPosition();
 		bool moved = false;
@@ -88,25 +124,26 @@ namespace stb
 			moved = true;
 		}
 
-		if (M_INPUT->GetAction(eActionCode::Attack))
-		{
-			Attack();
-		}
-
-		if (M_INPUT->GetAction(eActionCode::Jump))
-		{
-			Jump();
-		}
-
 		tr->SetPosition(pos);
+
+		if (changeState)
+		{
+			stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+			if (player != nullptr)
+			{
+				if (moved)
+					player->SetState(PlayerState::MOVE);
+				else
+					player->SetState(PlayerState::IDLE);
+			}
+		}
 
 		SyncFollowers(pos);
 
-		// 이동했으면 서버에 패킷 전송 (throttling 적용)
 		if (moved)
 		{
 			mNetworkSendTimer += M_TIME->GetDeltaTime();
-			
+
 			if (mNetworkSendTimer >= NETWORK_SEND_INTERVAL)
 			{
 				auto netMgr = stb::NetworkManager::getInstance();
@@ -114,12 +151,13 @@ namespace stb
 				{
 					stb::SendPlayerMove(pos.x, pos.y, 100.0f);
 				}
+
 				mNetworkSendTimer = 0.0f;
 			}
 		}
 		else
 		{
-			mNetworkSendTimer = 0.0f;  // 멈추면 타이머 리셋
+			mNetworkSendTimer = 0.0f;
 		}
 	}
 
@@ -132,9 +170,21 @@ namespace stb
 	{
 		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
 
-		if (player != nullptr)
+		if (player == nullptr)
+			return;
+
+		if (player->GetCombatSystem() == nullptr)
+			return;
+
+		if (player->GetState() == PlayerState::ATTACK)
+			return;
+
+		if (player->GetCombatSystem()->TryBasicAttack())
 		{
-			player->GetCombatSystem()->TryBasicAttack();
+			player->SetState(PlayerState::ATTACK);
+			mAttackTimer = 0.0f;
+
+			OutputDebugStringA("Player Attack Start\n");
 		}
 
 	}
@@ -151,6 +201,14 @@ namespace stb
 		if (M_INPUT->GetPressedBind(bindInfo))
 		{
 			ExecuteBind(bindInfo);
+		}
+	}
+
+	void PlayerScript::HandleCombatInput()
+	{
+		if (M_INPUT->GetActionDown(eActionCode::Attack))
+		{
+			Attack();
 		}
 	}
 
@@ -187,21 +245,16 @@ namespace stb
 			OutputDebugStringA("Action : Interact\n");
 			// TODO : 상호작용 요청
 			break;
-		case eActionCode::Attack:
-			OutputDebugStringA("Action : Attack\n");
-			// TODO : 점프 처리
-			break;
 		case eActionCode::Jump:
+			Jump();
 			OutputDebugStringA("Action : Jump\n");
 			// TODO : 점프 처리
 			break;
-
 		case eActionCode::Inventory:
 			OutputDebugStringA("Action : Inventory\n");
 			UIManager::getInstance()->ToggleInventory();
 			// TODO : 인벤토리 UI 열기
 			break;
-
 		case eActionCode::SkillWindow:
 			OutputDebugStringA("Action : SkillWindow\n");
 			// TODO : 스킬창 UI 열기
@@ -226,6 +279,14 @@ namespace stb
 			Transform* tr = mSword->GetComponent<Transform>();
 			if (tr) tr->SetPosition(Vector2(pos.x - 15.0f, pos.y + 7.0f));
 		}
+	}
+
+	bool PlayerScript::IsMoveInputPressed() const
+	{
+		return M_INPUT->GetAction(eActionCode::MoveRight) ||
+			M_INPUT->GetAction(eActionCode::MoveLeft) ||
+			M_INPUT->GetAction(eActionCode::MoveUp) ||
+			M_INPUT->GetAction(eActionCode::MoveDown);
 	}
 
 }

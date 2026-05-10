@@ -14,6 +14,7 @@ namespace stb
 
 		void Initialize() override;
 		void Update() override;
+		
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 	
@@ -29,18 +30,24 @@ namespace stb
 		void SetPlayer(stb::Player* player) { m_player = player; }
 
 	private:
-		void Idle();
+		void UpdateAttackState();
+		void Idle(bool changeState = true);
 		void Move();
 		void Attack();
 		void Jump();
 		void HandleInput();
+		void HandleCombatInput();
 		void ExecuteBind(const KeyBindInfo& bindInfo);
 		void ExecuteAction(eActionCode action);
 		void SyncFollowers(Vector2 pos);
+
+		bool IsMoveInputPressed() const;
 	
 	private:
 		float mNetworkSendTimer;
 		const float NETWORK_SEND_INTERVAL = 0.03f;
+		float mAttackTimer;
+		float mAttackDuration;
 		GameObject* mHead;
 		GameObject* mSword;
 

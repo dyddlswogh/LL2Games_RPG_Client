@@ -29,6 +29,7 @@ void Monster::InitFromSpawn(const MonsterSpawnInfo& info)
 	SetAnimation();
 
 	SetState(MonsterState::E_Move);
+	BindAnimationEvents();
 }
 
 void Monster::Update(float deltaTime)
@@ -70,6 +71,8 @@ void Monster::SetState(MonsterState state)
 	if (m_state == state)
 		return;
 
+	m_state = state;
+
 	switch (state)
 	{
 		case MonsterState::E_Idle : 
@@ -91,7 +94,9 @@ void Monster::SetState(MonsterState state)
 	{
 		DebugMsg ="current State : " + std::to_string(static_cast<int>(m_state)) + "\n";
 		OutputDebugStringA(DebugMsg.c_str());
-		animator->PlayAnimation(m_currentAnimation, true);
+		bool isLoop = false;
+		if (m_currentAnimation != L"die") isLoop = true;
+		animator->PlayAnimation(m_currentAnimation, isLoop);
 		OutputDebugStringA("Monster PlayAnimation \n");
 	}
 
@@ -112,11 +117,6 @@ void Monster::SetAnimation()
 		return;
 	}
 		
-
-	stb::Animator* animator = GetComponent<stb::Animator>();
-	if (animator == nullptr)
-		return;
-
 	for (const AnimationInfo& info : data->animations)
 	{
 		std::vector<stb::Texture*> frames;
@@ -139,13 +139,40 @@ void Monster::SetAnimation()
 		DebugMsg = "frame size :" + std::to_string(frames.size()) + "\n";
 		OutputDebugStringA(DebugMsg.c_str());
 
-		animator->CreateFrameAnimation(
+		m_animator->CreateFrameAnimation(
 			utils::StringToWString(info.anim_name),
 			frames,
 			data->renderInfo.origin,
 			0.2f
 		);
+
+		stb::Animator::EventNames eventNames;
+
+		eventNames.startEventName = utils::StringToWString(info.animationEvent.start);
+		eventNames.completeEventName = utils::StringToWString(info.animationEvent.complete);
+		eventNames.endEventName = utils::StringToWString(info.animationEvent.end);
+
+		m_animator->SetAnimationEventNames(utils::StringToWString(info.anim_name), eventNames);	
 	}
+}
+void Monster::BindAnimationEvents()
+{
+	m_animator->RegisterEvent(L"MonsterHitEnd", [this]()
+		{
+			OutputDebugStringA("MonsterHitEnd event called\n");
+			if (m_state != MonsterState::E_Die)
+			{
+				SetState(MonsterState::E_Idle);
+			}
+		});
+
+	m_animator->RegisterEvent(L"MonsterDieEnd", [this]()
+		{
+			OutputDebugStringA("MonsterDieEnd event called\n");
+
+			m_isDeathAnimationFinished = true;
+
+		});
 }
 void Monster::OnDamaged(int damage, int curHp, bool dead)
 {
@@ -177,6 +204,7 @@ void Monster::ApplyAttackResult(const AttackResult& result)
 	if (result.isDead)
 	{
 		SetState(MonsterState::E_Die);
+		// 죽었을 때 처리 해야함
 		return;
 	}
 

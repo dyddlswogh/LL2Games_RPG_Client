@@ -19,13 +19,20 @@
       "path": "Monster/100100/hit",
       "frame_prefix": "hit1.",
       "frame_count": 1,
-      "delay_ms": 100
+      "delay_ms": 100,
+      "event" : {
+        "end" : "MonsterHitEnd"
+      }
     },
     "die": {
       "path": "Monster/100100/die",
       "frame_prefix": "die1.",
       "frame_count": 8,
-      "delay_ms": 120
+      "delay_ms": 120,
+      "events" : {
+        "start" : "MonsterDieStart",
+        "complete" : "MonsterDieEnd"
+      }
     }
   },
 

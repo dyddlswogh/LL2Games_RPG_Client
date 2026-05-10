@@ -403,7 +403,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Util.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h">
+      <Filter>PacketHandler\Combat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">

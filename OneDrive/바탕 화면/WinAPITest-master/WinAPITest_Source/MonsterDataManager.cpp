@@ -75,6 +75,16 @@ bool MonsterDataManager::LoadJsonFile(const std::string& path, MonsterData& mons
         info.frame_count = animJson.value("frame_count", 1);
         info.delay_ms = animJson.value("delay_ms", 150);
 
+        if (animJson.contains("events"))
+        {
+            const auto& events = animJson.at("events");
+
+            info.animationEvent.start = events.value("start", "");
+            info.animationEvent.complete = events.value("complete", "");
+            info.animationEvent.end = events.value("end", "");
+        }
+        
+
         monsterData.animations.emplace_back(info);
     }
    

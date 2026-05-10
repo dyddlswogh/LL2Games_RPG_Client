@@ -22,6 +22,7 @@ public:
     void SetState(MonsterState state);
     void SetPosition(float x, float y);
     void SetAnimation();
+    void BindAnimationEvents();
     void OnDamaged(int damage, int curHp, bool dead);
     void OnMove(float x, float y, int dir);
 

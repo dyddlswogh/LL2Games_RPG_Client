@@ -36,6 +36,7 @@ enum PACKET_TYPE : uint16_t {
     PKT_PLAYER_USE_ITEM     = 0x0023,
     PKT_PLAYER_INFO         = 0x0024,
     PKT_PLAYER_STAT         = 0x0025,
+    PKT_PLAYER_SKILLLIST    = 0x0026,
     PKT_PLAYER_BASIC_ATTACK = 0x0027,
 
     // 0x0040 ~ 0x005F : ∏ÛΩ∫≈Õ
