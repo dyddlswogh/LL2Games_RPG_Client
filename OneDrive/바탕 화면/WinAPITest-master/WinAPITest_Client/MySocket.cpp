@@ -1,11 +1,8 @@
 //#include "pch.h"
 
 #include "MySocket.h"
-#include "CLogin.h"
-//#include "UTIL.h"
-//#include "PacketFactory.h"
 
-CMySocket::CMySocket(CLogin* pDlg, e_Status eStatus) : m_loginDlg(pDlg)
+CMySocket::CMySocket(CDialogEx* pDlg, e_Status eStatus) : m_dlg(pDlg)
 //CMySocket::CMySocket()
 {
     m_bConnect = FALSE;
@@ -24,15 +21,17 @@ void CMySocket::OnReceive(int nErrorCode)
         //회원가입
         if (m_bRegister)
         {
-            m_loginDlg->m_pRegDlg->OnRegister(buf.c_str(), len);
+            CLogin* pLoginDlg = (CLogin*)m_dlg;
+            pLoginDlg->m_pRegDlg->OnRegister(buf.c_str(), len);
             return;
         }
         
         //로그인
         if (m_bLoginPhase)
         {
+            CLogin* pLoginDlg = (CLogin*)m_dlg;
             m_bLoginPhase = FALSE;
-            m_loginDlg->OnLogin(buf.c_str(), len);
+            pLoginDlg->OnLogin(buf.c_str(), len);
             return;
         }
 
@@ -70,7 +69,10 @@ void CMySocket::OnConnect(int nErrorCode)
         }
 
         if (m_bLoginPhase)
-            m_loginDlg->OnSocketConnect(m_bConnect);
+        {
+            CLogin* pLoginDlg = (CLogin*)m_dlg;
+            pLoginDlg->OnSocketConnect(m_bConnect);
+        }
         CAsyncSocket::OnConnect(nErrorCode);
 }
 

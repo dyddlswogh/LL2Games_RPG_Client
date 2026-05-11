@@ -20,6 +20,7 @@
 
 #include <afxwin.h>
 #include "CLogin.h"
+#include "CWorld.h"
 #include "MySocket.h"
 
 #define APP stb::SingletonBase<stb::Application>::getInstance()
@@ -72,7 +73,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
-    
+
+    //캐릭터 선택
+    CWorld worldDlg;
+    if (worldDlg.DoModal() != IDOK)
+    {
+        return FALSE;
+    }
 
 
     // 명령줄 인자로 캐릭터 ID 설정

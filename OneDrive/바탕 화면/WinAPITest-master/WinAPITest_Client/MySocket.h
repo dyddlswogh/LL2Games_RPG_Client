@@ -3,18 +3,20 @@
 #include <afxsock.h>
 #include <vector>
 #include "CLogin.h"
+#include "CWorld.h"
 //class CchatClientDlg;
 
 enum e_Status
 {
     E_LOGIN = 0,
+    E_WORLD,
     E_CHAT,
 };
 
 class CMySocket : public CAsyncSocket {
 
 public:
-    CMySocket(CLogin* pDlg, e_Status eStatus = E_LOGIN);
+    CMySocket(CDialogEx* pDlg, e_Status eStatus = E_LOGIN);
     ~CMySocket();
 
 public:
@@ -28,7 +30,7 @@ public:
     bool SendPacket(const std::string& packet);
 
 public:
-    CLogin* m_loginDlg;
+    CDialogEx* m_dlg;
 
     std::vector<char> m_recvBuff;
 

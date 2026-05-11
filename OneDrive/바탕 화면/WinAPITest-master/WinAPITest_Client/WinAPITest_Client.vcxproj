@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="CLogin.h" />
     <ClInclude Include="CRegister.h" />
+    <ClInclude Include="CWorld.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MySocket.h" />
     <ClInclude Include="Resource.h" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="CLogin.cpp" />
     <ClCompile Include="CRegister.cpp" />
+    <ClCompile Include="CWorld.cpp" />
     <ClCompile Include="MySocket.cpp" />
     <ClCompile Include="WinAPITest_Client.cpp" />
   </ItemGroup>

@@ -11,6 +11,9 @@
     <Filter Include="SOCKET">
       <UniqueIdentifier>{7819c39f-6987-46e0-8d14-5e3ebb4a4727}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WORLD">
+      <UniqueIdentifier>{4d041b01-2293-41c3-9ffa-9d940aa70182}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -25,6 +28,9 @@
     </ClInclude>
     <ClInclude Include="MySocket.h">
       <Filter>SOCKET</Filter>
+    </ClInclude>
+    <ClInclude Include="CWorld.h">
+      <Filter>WORLD</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="MySocket.cpp">
       <Filter>SOCKET</Filter>
+    </ClCompile>
+    <ClCompile Include="CWorld.cpp">
+      <Filter>WORLD</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
