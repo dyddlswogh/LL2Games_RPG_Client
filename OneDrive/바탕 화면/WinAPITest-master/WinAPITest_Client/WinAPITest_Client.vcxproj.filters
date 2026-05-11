@@ -5,12 +5,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="LOGIN">
+      <UniqueIdentifier>{1f13a140-d025-4286-a239-153fe5096971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SOCKET">
+      <UniqueIdentifier>{7819c39f-6987-46e0-8d14-5e3ebb4a4727}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WinAPITest_Client.h" />
+    <ClInclude Include="CLogin.h">
+      <Filter>LOGIN</Filter>
+    </ClInclude>
+    <ClInclude Include="CRegister.h">
+      <Filter>LOGIN</Filter>
+    </ClInclude>
+    <ClInclude Include="MySocket.h">
+      <Filter>SOCKET</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WinAPITest_Client.rc">
@@ -27,5 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinAPITest_Client.cpp" />
+    <ClCompile Include="CLogin.cpp">
+      <Filter>LOGIN</Filter>
+    </ClCompile>
+    <ClCompile Include="CRegister.cpp">
+      <Filter>LOGIN</Filter>
+    </ClCompile>
+    <ClCompile Include="MySocket.cpp">
+      <Filter>SOCKET</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

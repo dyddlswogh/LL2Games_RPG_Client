@@ -18,6 +18,10 @@
 #include "..\\WinAPITest_Source\\\stbLogger.h"
 #include "..\\WinAPITest_Source\\\ChannelInitPacketHandler.h"
 
+#include <afxwin.h>
+#include "CLogin.h"
+#include "MySocket.h"
+
 #define APP stb::SingletonBase<stb::Application>::getInstance()
 
 ULONG_PTR gpToken;
@@ -47,6 +51,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: 여기에 코드를 입력합니다
+
+    //MFC초기화
+    if (!AfxWinInit(hInstance, hPrevInstance, lpCmdLine, nCmdShow))
+    {
+        MessageBoxA(NULL, "MFC 초기화 실패", "Error", MB_OK);
+        return FALSE;
+    }
+
+    if (!AfxSocketInit())
+    {
+        MessageBoxA(NULL, "Socket 초기화 실패", "Error", MB_OK);
+        return FALSE;
+    }
+
+
+    //로그인
+    CLogin logDlg;
+    if (logDlg.DoModal() != IDOK)
+    {
+        return FALSE;
+    }
+    
 
 
     // 명령줄 인자로 캐릭터 ID 설정
