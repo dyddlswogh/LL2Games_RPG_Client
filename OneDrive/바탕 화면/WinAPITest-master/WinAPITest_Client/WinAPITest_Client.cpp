@@ -43,6 +43,10 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 //로그인 아이디
 std::string g_account_id;
+//채널 포트
+std::string g_channel_port;
+//로그인 캐릭터 아이디
+std::string g_char_id;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -76,7 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
-    //캐릭터 선택
+    //캐릭터, 채널 선택
     CWorld worldDlg;
     if (worldDlg.DoModal() != IDOK)
     {
@@ -84,26 +88,35 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     //test
-    return TRUE;
-
-
-    // 명령줄 인자로 캐릭터 ID 설정
-    if (lpCmdLine && wcslen(lpCmdLine) > 0)
     {
-      
+        CString strCharId, strChannelPort;
+        strCharId = CString(g_char_id.c_str());
+        strChannelPort = CString(g_channel_port.c_str());
+        CString strTmp;
+        strTmp.Format(_T("캐릭터[%s] 채널port[%s]"), strCharId, strChannelPort);
+        AfxMessageBox(strTmp);
+    }
 
-        // 유니코드를 멀티바이트로 변환
-        WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, stb::g_CharacterId, sizeof(stb::g_CharacterId), NULL, NULL);
-        
-        char msg[128];
-        sprintf_s(msg, "캐릭터 ID 설정: %s\n", stb::g_CharacterId);
-        OutputDebugStringA(msg);
-        LOG("%s\n", msg);
-    }
-    else
-    {
-        OutputDebugStringA("캐릭터 ID: 1 (기본값)\n");
-    }
+    strcpy(stb::g_CharacterId, g_char_id.c_str());
+    stb::g_ChannelPort = atoi(g_channel_port.c_str());
+
+    //// 명령줄 인자로 캐릭터 ID 설정
+    //if (lpCmdLine && wcslen(lpCmdLine) > 0)
+    //{
+    //  
+
+    //    // 유니코드를 멀티바이트로 변환
+    //    WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, stb::g_CharacterId, sizeof(stb::g_CharacterId), NULL, NULL);
+    //    
+    //    char msg[128];
+    //    sprintf_s(msg, "캐릭터 ID 설정: %s\n", stb::g_CharacterId);
+    //    OutputDebugStringA(msg);
+    //    LOG("%s\n", msg);
+    //}
+    //else
+    //{
+    //    OutputDebugStringA("캐릭터 ID: 1 (기본값)\n");
+    //}
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
