@@ -40,6 +40,81 @@ namespace UTIL
 
 		return result;
 	}
+
+	static std::string AnsiToUTF8(const std::string& ansiStr)
+	{
+		// 1. ANSI(CP_ACP → 보통 CP949) → UTF-16
+		int wideLen = MultiByteToWideChar(
+			CP_ACP,
+			0,
+			ansiStr.c_str(),
+			-1,
+			nullptr,
+			0
+		);
+
+		std::wstring wideStr;
+		wideStr.resize(wideLen);
+
+		MultiByteToWideChar(
+			CP_ACP,
+			0,
+			ansiStr.c_str(),
+			-1,
+			&wideStr[0],
+			wideLen
+		);
+
+		// 2. UTF-16 → UTF-8
+		int utf8Len = WideCharToMultiByte(
+			CP_UTF8,
+			0,
+			wideStr.c_str(),
+			-1,
+			nullptr,
+			0,
+			nullptr,
+			nullptr
+		);
+
+		std::string utf8Str;
+		utf8Str.resize(utf8Len - 1);
+
+		WideCharToMultiByte(
+			CP_UTF8,
+			0,
+			wideStr.c_str(),
+			-1,
+			&utf8Str[0],
+			utf8Len,
+			nullptr,
+			nullptr
+		);
+
+		return utf8Str;
+	}
+
+	static std::vector<std::string> ParsePayload(const CString& str)
+	{
+		std::vector<std::string> values;
+
+		if (str.IsEmpty())
+			return values;
+
+		CString temp = str;
+		int pos = 0;
+
+		while (true)
+		{
+			CString token = temp.Tokenize(L"$", pos);
+			if (token.IsEmpty() && pos == -1)
+				break;
+
+			values.emplace_back(CT2A(token));
+		}
+
+		return values;
+	}
 };
 
 CWorld::CWorld(CWnd* pParent /*=nullptr*/)
@@ -63,6 +138,8 @@ void CWorld::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_EDIT_CHARLIST, m_editCharList);
+	DDX_Control(pDX, IDC_EDIT_WORLD_CHARID, m_editCharId);
+	DDX_Control(pDX, IDC_EDIT_WORLD_CHANNELID, m_editChannelId);
 }
 
 BOOL CWorld::connect()
@@ -76,6 +153,7 @@ BOOL CWorld::connect()
 
 
 BEGIN_MESSAGE_MAP(CWorld, CDialogEx)
+	ON_BN_CLICKED(ID_BUTTON_WORLD_ENTER, &CWorld::OnBnClickedButtonEnter)
 END_MESSAGE_MAP()
 
 
@@ -91,6 +169,9 @@ BOOL CWorld::OnInitDialog()
 
 	m_editID.SetWindowTextW(_T("admin1"));
 	m_editPasswd.SetWindowTextW(_T("1111"));*/
+
+	m_editCharId.SetWindowText(_T("1")); //캐릭터id
+	m_editChannelId.SetWindowText(_T("ch01")); //채널id
 
 	if (m_bConnect == FALSE)
 		connect();
@@ -278,9 +359,130 @@ err:
 	return rc;
 }
 
+//채널 접속버튼 클릭
+void CWorld::OnBnClickedButtonEnter()
+{
+	CString strCharId;
+	CString strChannelId;
+	m_editCharId.GetWindowTextW(strCharId);
+	m_editChannelId.GetWindowTextW(strChannelId);
+
+	/*std::vector<std::string> payload;
+	payload = UTIL::ParsePayload(strChannelId);*/
+
+
+	m_pSock->m_status = E_WORLD_CHANNEL_SELECT;
+
+	std::string body, pkt;
+
+	std::vector<std::string> datas;
+	datas.push_back(std::string(CStringA(strChannelId)));
+	//body = PacketParser::MakeBody(payload);
+	body = PacketParser::MakeBody(datas);
+	pkt = PacketParser::MakePacket(PKT_SELECT_CHANNEL, body);
+
+
+	//std::string utf8Packet = UTIL::AnsiToUTF8(pkt);
+	//m_pSock->SendPacket(utf8Packet);
+	m_pSock->SendPacket(pkt);
+}
+
+
+int CWorld::OnChannelSelect(const char* recvBuff, const int recvLen)
+{
+	int i;
+	char* context = NULL;
+	char* pLine = NULL;
+	int rc = EXIT_FAILURE;
+	size_t offset = 0;
+	std::string errMsg;
+	CString strCharList;
+
+	std::string sBuff;
+	std::vector<char> vBuff;
+	CString wideValue;
+
+	sBuff.append(recvBuff, recvLen);
+	vBuff.insert(vBuff.end(), sBuff.begin(), sBuff.end());
+	auto pkt = PacketParser::Parse(vBuff);
+	if (!pkt.has_value())
+	{
+		return -1;
+	}
+
+	std::string status, channel_ip, channel_port;
+
+	//status
+	if (!PacketParser::ParseLengthPrefixedString(
+		pkt->payload.c_str(),
+		pkt->payload.size(),
+		offset,
+		status,
+		errMsg))
+	{
+		//더이상 없으면 중단
+		//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
+		rc = -1;
+		goto err;
+	}
+
+	if (status == "nok")
+	{
+		rc = -1;
+		goto err;
+	}
+
+	//ip
+	if (!PacketParser::ParseLengthPrefixedString(
+		pkt->payload.c_str(),
+		pkt->payload.size(),
+		offset,
+		channel_ip,
+		errMsg))
+	{
+		//더이상 없으면 중단
+		//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
+		rc = -1;
+		goto err;
+	}
+
+	//port
+	if (!PacketParser::ParseLengthPrefixedString(
+		pkt->payload.c_str(),
+		pkt->payload.size(),
+		offset,
+		channel_port,
+		errMsg))
+	{
+		//더이상 없으면 중단
+		//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
+		rc = -1;
+		goto err;
+	}
 
 
 
+	rc = EXIT_SUCCESS;
+err:
+
+	if (rc != EXIT_SUCCESS)
+	{
+		AfxMessageBox(_T("실패"));
+	}
+	else
+	{
+		CString strTmp;
+		CString wideValueIp = UTIL::Utf8ToCString(channel_ip);
+		CString wideValuePort = UTIL::Utf8ToCString(channel_port);
+		strTmp.Format(_T("Channel Select 성공 IP[%s], PORT[%s]"), wideValueIp, wideValuePort);
+		AfxMessageBox(strTmp);
+		//this->CharacterList(); //캐릭터 선택
+		//m_pSock->m_bWorldPhase = FALSE; //로그인 끝
+		//EndDialog(IDOK);
+	}
+
+	return rc;
+}
 //
 ////로그인 버튼 클릭
 //void CWorld::OnBnClickedButtonLogin()

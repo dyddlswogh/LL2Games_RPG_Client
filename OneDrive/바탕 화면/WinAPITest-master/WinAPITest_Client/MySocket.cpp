@@ -52,6 +52,15 @@ void CMySocket::OnReceive(int nErrorCode)
             pWorldDlg->OnCharacterList(buf.c_str(), len);
             break;
         }
+
+        //채널선택
+        case E_WORLD_CHANNEL_SELECT:
+        {
+            CWorld* pWorldDlg = (CWorld*)m_dlg;
+            pWorldDlg->OnChannelSelect(buf.c_str(), len);
+            break;
+        }
+
         }
        
 

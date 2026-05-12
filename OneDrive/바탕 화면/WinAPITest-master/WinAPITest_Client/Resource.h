@@ -20,7 +20,10 @@
 #define IDD_WORLD                       129
 #define IDC_EDIT1                       1000
 #define IDC_EDIT_CHARLIST               1000
+#define IDC_EDIT_WORLD_CHARID           1001
+#define IDC_EDIT_WORLD_CHANNELID        1002
 #define IDC_EDIT_HOST                   1003
+#define ID_BUTTON_WORLD_ENTER           1003
 #define IDC_EDIT_PORT                   1004
 #define IDC_EDIT_ID                     1005
 #define IDC_EDIT_PASSWD                 1006
@@ -36,7 +39,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

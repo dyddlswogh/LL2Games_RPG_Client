@@ -33,6 +33,8 @@ public:
 	BOOL m_bConnect;
 	
 	CEdit m_editCharList;
+	CEdit m_editCharId;
+	CEdit m_editChannelId;
 
 	virtual BOOL OnInitDialog();
 
@@ -46,6 +48,9 @@ public:
 	//Receive
 	int OnInitWorld(const char* recvBuff, const int recvLen);
 	int OnCharacterList(const char* recvBuff, const int recvLen);
+	int OnChannelSelect(const char* recvBuff, const int recvLen);
+
+	afx_msg void OnBnClickedButtonEnter();
 
 private:
 	std::string m_account_id;

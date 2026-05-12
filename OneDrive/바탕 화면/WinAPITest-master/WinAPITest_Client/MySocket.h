@@ -12,6 +12,7 @@ enum e_Status
     E_REGISTER,
     E_WORLD_INIT,
     E_WORLD_CHAR_LIST,
+    E_WORLD_CHANNEL_SELECT,
     E_WORLD_CHAR_SELECT,
 };
 
