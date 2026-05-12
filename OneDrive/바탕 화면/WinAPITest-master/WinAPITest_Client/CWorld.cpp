@@ -14,6 +14,11 @@
 
 //로그인 아이디
 extern std::string g_account_id;
+//채널 포트
+extern std::string g_channel_port;
+//로그인 캐릭터 아이디
+extern std::string g_char_id;
+
 
 // CWorld 대화 상자
 
@@ -370,7 +375,9 @@ void CWorld::OnBnClickedButtonEnter()
 	/*std::vector<std::string> payload;
 	payload = UTIL::ParsePayload(strChannelId);*/
 
-
+	//캐릭터 아이디 전역변수 등록
+	g_char_id = CStringA(strCharId);
+	
 	m_pSock->m_status = E_WORLD_CHANNEL_SELECT;
 
 	std::string body, pkt;
@@ -479,6 +486,12 @@ err:
 		//this->CharacterList(); //캐릭터 선택
 		//m_pSock->m_bWorldPhase = FALSE; //로그인 끝
 		//EndDialog(IDOK);
+
+		//채널 포트 전역변수 등록
+		g_channel_port = CStringA(wideValuePort);
+
+		//다이얼로그 종료
+		EndDialog(IDOK);
 	}
 
 	return rc;
