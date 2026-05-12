@@ -175,6 +175,21 @@ bool stbD2DRenderer::CreateTextFormats()
         return false;
     }
        
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"Tahoma",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        12.0f,
+        L"ko-kr",
+        m_SmallTextFormat.GetAddressOf());
+
+    if (FAILED(hr))
+    {
+        OutputDebugString(L"Create title text format failed\n");
+        return false;
+    }
 
     /*
         SetTextAlignment：가로 정렬
@@ -187,6 +202,9 @@ bool stbD2DRenderer::CreateTextFormats()
 
     m_BodyTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
     m_BodyTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+
+    m_SmallTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+    m_SmallTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 
     return true;
 }
@@ -435,7 +453,7 @@ void stbD2DRenderer::FillCircle(float cx, float cy, float radius, const D2D1::Co
 }
 
 // 문자열을 출력하는 함수
-void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, bool titleStyle)
+void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, TextStyle TextStyle)
 {
     if (!m_RenderTarget || !EnsureBrush()) 
     {
@@ -444,14 +462,27 @@ void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F&
     }
        
 
-    IDWriteTextFormat* textFormat = titleStyle ? m_TitleTextFormat.Get() : m_BodyTextFormat.Get();
+    IDWriteTextFormat* textFormat = nullptr;
+
+    switch (TextStyle)
+    {
+    case TextStyle::Title:
+        textFormat = m_TitleTextFormat.Get();
+        break;
+
+    case TextStyle::Small:
+        textFormat = m_SmallTextFormat.Get();
+        break;
+
+    case TextStyle::Body:
+    default:
+        textFormat = m_BodyTextFormat.Get();
+        break;
+    }
 
     if (!textFormat)
-    {
-        //OutputDebugString(L"DrawTextString : TextFormat is null\n");
         return;
-    }
-        
+ 
 
     m_Brush->SetColor(color);
     m_RenderTarget->DrawTextW(

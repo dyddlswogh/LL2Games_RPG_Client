@@ -14,6 +14,14 @@
 
 using Microsoft::WRL::ComPtr;
 
+
+enum class TextStyle
+{
+	Body,
+	Title,
+	Small
+};
+
 class stbD2DRenderer
 {
 public:
@@ -35,7 +43,7 @@ public:
 	void DrawCircle(float cx, float cy, float radius, const D2D1::ColorF& color, float stroke = 1.0f);
 	void FillCircle(float cx, float cy, float radius, const D2D1::ColorF& color);
 
-	void DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, bool titleStyle = false);
+	void DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, TextStyle TextStyle = TextStyle::Title);
 	void DrawBitmap(float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
 	void DrawBitmap(ID2D1Bitmap* bitmap, float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
 	void DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity);
@@ -66,7 +74,7 @@ private:
 	ComPtr<IDWriteFactory> m_DWriteFactory;
 	ComPtr<IDWriteTextFormat> m_TitleTextFormat;
 	ComPtr<IDWriteTextFormat> m_BodyTextFormat;
-
+	ComPtr<IDWriteTextFormat> m_SmallTextFormat;
 	// WIC에서 디코더, 포멧 컨버터 같은 걸 만드는 팩토리
 	ComPtr<IWICImagingFactory> m_WicFactory;
 	ComPtr<ID2D1Bitmap> m_Bitmap;

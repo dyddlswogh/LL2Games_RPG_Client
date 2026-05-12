@@ -48,6 +48,13 @@ bool PacketManager::RegisterAllHandlers()
 			InventoryPacketHandler::HandleInventoryItemInfo(pkt);
 		});
 
+	// 플레이어 인벤토리 핸들러 등록
+	networkManager->RegisterHandler(PKT_INVENTORY_ITEM_MOVE,
+		[](const ParsedPacket& pkt)
+		{
+			InventoryPacketHandler::HandleInventoryMoveItem(pkt);
+		});
+
 	// 플레이어 움직임 핸들러 등록
 	networkManager->RegisterHandler(PKT_PLAYER_MOVE,
 		[](const ParsedPacket& pkt)
@@ -76,6 +83,7 @@ bool PacketManager::RegisterAllHandlers()
 			MonsterPacketHandler::HandleS2C_MonsterMove(pkt);
 		});
 
+	// 몬스터 데미지 핸들러 등록
 	networkManager->RegisterHandler(PKT_MONSTER_ONDAMAGED,
 		[](const ParsedPacket& pkt)
 		{

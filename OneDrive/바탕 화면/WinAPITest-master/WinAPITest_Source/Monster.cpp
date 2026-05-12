@@ -169,7 +169,6 @@ void Monster::BindAnimationEvents()
 	m_animator->RegisterEvent(L"MonsterDieEnd", [this]()
 		{
 			OutputDebugStringA("MonsterDieEnd event called\n");
-
 			m_isDeathAnimationFinished = true;
 
 		});
@@ -183,16 +182,33 @@ void Monster::OnMove(float x, float y, int dir)
 	
 }
 
+// 몬스터패킷 핸들러에서 바로 호출하는 함수
 void Monster::ApplyServerUpdate(const MonsterUpdateInfo& info)
 {
+	bool wasDead = (m_state == MonsterState::E_Die && m_isDeathAnimationFinished);
 	m_targetPos = info.pos;
-
 
 	m_dir = info.dir;
 	//m_moveSpeed = info.moveSpeed;
 	m_curHp = info.curHp;
 	m_maxHp = info.maxHp;
 
+	if (wasDead && info.curHp > 0 && info.state != MonsterState::E_Die)
+	{
+		m_isDeathAnimationFinished = false;
+
+		// 위치도 바로 스폰 위치로 맞추는 게 좋음
+		m_transform->SetPosition(info.pos);
+		m_targetPos = info.pos;
+
+		// 이전 상태가 Die라서 SetState가 꼬이지 않게 강제 초기화
+		m_state = MonsterState::E_NONE;
+		SetState(MonsterState::E_Idle);
+
+		return;
+	}
+	DebugMsg = "Monster InstanceID " + std::to_string(m_instanceId) + " Monster State : "+std::to_string(static_cast<int>(info.state)) + "\n";
+	OutputDebugStringA(DebugMsg.c_str());
 	SetState(info.state);
 }
 
@@ -209,6 +225,20 @@ void Monster::ApplyAttackResult(const AttackResult& result)
 	}
 
 	SetState(MonsterState::E_Hit);
+}
+
+void Monster::RespawnFromServer(const MonsterUpdateInfo& info)
+{
+	m_isDeathAnimationFinished = false;
+	m_isDead = false;
+
+	m_curHp = info.curHp;
+	m_maxHp = info.maxHp;
+
+	m_pos= info.pos;;
+	m_targetPos = m_pos;
+
+	SetState(MonsterState::E_Idle);
 }
 
 void Monster::ResetFromSpawnInfo(const MonsterSpawnInfo& info)

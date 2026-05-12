@@ -59,12 +59,12 @@ namespace monster
 	{
 		switch (state)
 		{
-		case 1: return MonsterState::E_Idle;
-		case 2: return MonsterState::E_Patrol;
-		case 3: return MonsterState::E_Chase;
-		case 4: return MonsterState::E_Move;
-		case 5: return MonsterState::E_Die;
-		case 6: return MonsterState::E_Hit;
+		case 0: return MonsterState::E_Idle;
+		case 1: return MonsterState::E_Patrol;
+		case 2: return MonsterState::E_Chase;
+		case 3: return MonsterState::E_Move;
+		case 4: return MonsterState::E_Die;
+		case 5: return MonsterState::E_Hit;
 		default: return MonsterState::E_NONE;
 		}
 	}

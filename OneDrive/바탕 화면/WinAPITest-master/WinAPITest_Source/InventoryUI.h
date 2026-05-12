@@ -22,7 +22,8 @@ public:
 	void RenderMenuButtons(stbD2DRenderer& renderer);
 	void RenderButtons(stbD2DRenderer& renderer);
 	void RenderSlotItem(stbD2DRenderer& renderer);
-
+	void RenderDraggingItem(stbD2DRenderer& renderer);
+	void UpdateInventoryByType();
 private:
 	void CreateSlots();
 	void UpdateSlots();
@@ -41,12 +42,13 @@ private:
 
 	bool IsPointInSlot(const InventorySlotUI& slot, int mouseX, int mouseY);
 	bool IsPointInRect(const RECT& tabRect, int mouseX, int mouseY);
-	void UpdateInventoryByType();
+	
 	int  GetClickedSlotIndex(int mouseX, int mouseY);
 	
 
 	void HandleMouseUp();
 	void HandleDragging(int mouseX, int mouseY);
+	void SwapInventorySlot(int fromSlotIndex, int toSlotIndex);
 
 	void ExpandInventory();
 	void ReduceInventory();
@@ -70,10 +72,18 @@ private:
 
 	InventoryType m_currentType;
 
-	bool m_isDragging;
+	bool m_isInventoryDragging = false;	// 인벤토리 창 드래그용
+	bool m_isItemDragging = false; // 인벤토리 내 아이템 드래그 용
 	bool m_isExpand = false;
 	int m_dragOffsetX;
 	int m_dragOffsetY;
+
+	int m_dragStartSlotIndex;
+	int m_dragCurrentMouseX;
+	int m_dragCurrentMouseY;
+	int m_dragItemId;
+	int m_dragItemCount;
+
 private:
 	int m_inventoryImgPosX = 300;
 	int m_inventoryImgPosY = 100;
@@ -128,16 +138,6 @@ private:
 	InventoryButton m_closeButton;
 
 	std::unordered_map<int, InventoryTabButton> m_tabs;
-	/*
-	 int startX = 30;      // 인벤토리 배경 기준 첫 슬롯 x
-   int startY = 100;      // 인벤토리 배경 기준 첫 슬롯 y
-   int slotWidth = 42;
-   int slotHeight = 40;
-   int gapX = 4;
-   int gapY = 6;
-   int cols = 4;
-   int maxSlotCount = 32;
-	
-	*/
+
 };
 

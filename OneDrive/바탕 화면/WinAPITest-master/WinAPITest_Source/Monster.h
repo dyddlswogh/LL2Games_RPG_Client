@@ -29,6 +29,7 @@ public:
     void ResetFromSpawnInfo(const MonsterSpawnInfo& info);
     void ApplyServerUpdate(const MonsterUpdateInfo& info);
     void ApplyAttackResult(const AttackResult& result);
+    void RespawnFromServer(const MonsterUpdateInfo& info);
 public:
     int GetInstanceId() const { return m_instanceId; }
     int GetMoveSpeed() const { return m_moveSpeed; }

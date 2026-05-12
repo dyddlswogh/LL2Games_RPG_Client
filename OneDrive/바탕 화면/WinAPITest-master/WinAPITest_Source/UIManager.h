@@ -19,7 +19,8 @@ public:
 	void Render(stbD2DRenderer& renderer);
 
 	void ToggleInventory();
-
+public:
+	InventoryUI* GetInventoryUI() { return m_inventoryUI; }
 private:
 	std::vector<UI*> mUIs;
 	InventoryUI* m_inventoryUI = nullptr;
