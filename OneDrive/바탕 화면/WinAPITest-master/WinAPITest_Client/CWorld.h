@@ -31,18 +31,22 @@ public:
 	BOOL connect();
 
 	BOOL m_bConnect;
-	CEdit m_editHost;
-	CEdit m_editPort;
-	CString m_strHost;
-	CString m_strPort;
+	
+	CEdit m_editCharList;
 
-	CEdit m_editPasswd;
-	CEdit m_editID;
-	CString m_strID;
-	afx_msg void OnBnClickedButtonLogin();
-	afx_msg void OnBnClickedButtonRegister();
 	virtual BOOL OnInitDialog();
+
 	void OnSocketConnect(BOOL bConnect);
-	int Login();
-	int OnLogin(const char *recvBuf, const int recvLen);
+
+	//Send
+	int InitWorld();
+	int CharacterList();
+
+
+	//Receive
+	int OnInitWorld(const char* recvBuff, const int recvLen);
+	int OnCharacterList(const char* recvBuff, const int recvLen);
+
+private:
+	std::string m_account_id;
 };

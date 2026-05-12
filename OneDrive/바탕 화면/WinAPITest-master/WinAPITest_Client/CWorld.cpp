@@ -10,26 +10,48 @@
 #include "..\\WinAPITest_Source\\PacketParser.h"
 //#include "..\\WinAPITest_Source\\MySocket.h"
 #include "MySocket.h"
+//#include "UTIL.h"
 
+//로그인 아이디
+extern std::string g_account_id;
 
 // CWorld 대화 상자
 
 IMPLEMENT_DYNAMIC(CWorld, CDialogEx)
 
+namespace UTIL
+{
+	static CString Utf8ToCString(const std::string& utf8)
+	{
+		int len = MultiByteToWideChar(
+			CP_UTF8, 0,
+			utf8.c_str(), (int)utf8.size(),
+			nullptr, 0
+		);
+
+		CString result;
+		wchar_t* buf = result.GetBuffer(len);
+		MultiByteToWideChar(
+			CP_UTF8, 0,
+			utf8.c_str(), (int)utf8.size(),
+			buf, len
+		);
+		result.ReleaseBuffer(len);
+
+		return result;
+	}
+};
+
 CWorld::CWorld(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_WORLD, pParent)
 {
-	m_strHost = _T("");
-	m_strPort = _T("");
 	m_bConnect = FALSE;
-	m_pSock = new CMySocket(this, E_WORLD);
+	m_pSock = new CMySocket(this, E_WORLD_INIT);
 	m_pRegDlg = new CRegister(m_pSock);
 }
 
 CWorld::CWorld(CMySocket* sock, CWnd* pParent /*=nullptr*/) : m_pSock(sock), CDialogEx(IDD_WORLD, pParent), m_bConnect(FALSE)
 {
-	m_strHost = _T("");
-	m_strPort = _T("");
 	m_pRegDlg = new CRegister(m_pSock);
 }
 
@@ -40,13 +62,14 @@ CWorld::~CWorld()
 void CWorld::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT_CHARLIST, m_editCharList);
 }
 
 BOOL CWorld::connect()
 {
 	BOOL bRet;
-	CString strHost = _T("5000");
-	CString strPort = _T("5000");
+	CString strHost = _T("100.114.42.54");
+	CString strPort = _T("5500");
 	
 	return m_pSock->connect(strHost, atoi(CT2A(strPort)));
 }
@@ -78,75 +101,63 @@ BOOL CWorld::OnInitDialog()
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-int CWorld::Login()
+void CWorld::OnSocketConnect(BOOL bConnect)
+{
+	if (bConnect)
+	{
+		m_bConnect = TRUE;
+		this->InitWorld();
+	}
+}
+
+
+int CWorld::InitWorld()
 {
 	int rc = EXIT_FAILURE;
-	char* buff = NULL;
-	int nBuffLen = 0;
-	int nSendLen = 0;
-	CString strID, strPasswd;
+
+	m_pSock->m_status = E_WORLD_INIT;
+
 	std::vector<std::string> datas;
 	std::string body, pkt;
 
-	m_editID.GetWindowText(strID);
-	m_editPasswd.GetWindowText(strPasswd);
-
-	nBuffLen = strID.GetLength() + strPasswd.GetLength() + 10;
-	buff = (char*)calloc(nBuffLen, sizeof(char));
-	if (buff == NULL)
-	{
-		AfxMessageBox(_T("메모리 할당 실패"));
-		goto err;
-	}
-	//nSendLen = sprintf_s(buff, nBuffLen, "%s$%s$", CStringA(strID), CStringA(strPasswd));
-	//PacketUtility::SendPacket(m_pSock, PKT_LOGIN, std::string(buff));
-
-	datas.push_back(std::string((CStringA(strID))));
-	datas.push_back(std::string((CStringA(strPasswd))));
-
+	datas.push_back(g_account_id);
 	body = PacketParser::MakeBody(datas);
-	pkt = PacketParser::MakePacket(PKT_LOGIN, body);
+	pkt = PacketParser::MakePacket(PKT_INIT_WORLD, body);
 
 	m_pSock->SendPacket(pkt);
-	
-	m_editID.GetWindowText(m_strID);
+
 	rc = EXIT_SUCCESS;
 err:
-	free(buff);
-	buff = NULL;
 
 	return rc;
 }
 
-int CWorld::OnLogin(const char * recvBuff, const int recvLen)
+int CWorld::OnInitWorld(const char* recvBuff, const int recvLen)
 {
-	int i;
-	char* context = NULL;
-	char* pLine = NULL;
 	int rc = EXIT_FAILURE;
 
-	
-	//m_pSock->Receive(recvBuff, 2048);
-	{ char szTmp[2058]; sprintf_s(szTmp, sizeof(szTmp), "gunoo22_TEST recvBuff[%s]", recvBuff); OutputDebugStringA(szTmp); }
+	size_t offset = 0;
+	std::string status, errMsg;
+	std::string sBuff;
+	std::vector<char> vBuff;
 
-	if (recvLen == 0)
-		goto err;
-
-	for (pLine = strtok_s((char *)recvBuff, "$", &context), i = 0; pLine; pLine = strtok_s(NULL, "$", &context), i++)
+	sBuff.append(recvBuff, recvLen);
+	vBuff.insert(vBuff.end(), sBuff.begin(), sBuff.end());
+	auto pkt = PacketParser::Parse(vBuff);
+	if (!pkt.has_value())
 	{
-		switch (i)
-		{
-		case 0:
-			if (!strcmp(pLine, "NOK"))
-			{
-				CString strTmp;
-				pLine = strtok_s(NULL, "$", &context);
-				strTmp.Format(_T("로그인 실패: %s"), CString(pLine));
-				AfxMessageBox(strTmp);
-				goto err;
-			}
-			break;
-		}
+		return -1;
+	}
+
+	PacketParser::ParseLengthPrefixedString(pkt->payload.c_str(), pkt->payload.size(), offset, status, errMsg);
+
+	if (status == "nok")
+	{
+		CString strTmp;
+		PacketParser::ParseLengthPrefixedString(recvBuff, recvLen, offset, status, errMsg);
+		strTmp.Format(_T("World 초기화 실패: %s"), CString(status.c_str()));
+		AfxMessageBox(strTmp);
+		goto err;
 	}
 
 	rc = EXIT_SUCCESS;
@@ -154,62 +165,140 @@ err:
 
 	if (rc != EXIT_SUCCESS)
 	{
-		AfxMessageBox(_T("로그인 실패: 회원가입을 하세요"));
+		//AfxMessageBox(_T("로그인 실패: 회원가입을 하세요"));
 	}
 	else
 	{
-		AfxMessageBox(_T("로그인 성공"));
-		m_pSock->m_bLoginPhase = FALSE; //로그인 끝
-		EndDialog(IDOK);
+		AfxMessageBox(_T("World 성공"));
+		this->CharacterList(); //캐릭터 선택
+		//m_pSock->m_bWorldPhase = FALSE; //로그인 끝
+		//EndDialog(IDOK);
 	}
 
 	return rc;
 }
 
-void CWorld::OnSocketConnect(BOOL bConnect)
+int CWorld::CharacterList()
 {
-	if (bConnect)
+	int rc = EXIT_FAILURE;
+
+	m_pSock->m_status = E_WORLD_CHAR_LIST;
+
+	std::vector<std::string> datas;
+	std::string body, pkt;
+
+	body = PacketParser::MakeBody({});
+	pkt = PacketParser::MakePacket(PKT_SELECT_CHARACTER, body);
+
+	m_pSock->SendPacket(pkt);
+	
+	rc = EXIT_SUCCESS;
+err:
+
+	return rc;
+}
+
+int CWorld::OnCharacterList(const char* recvBuff, const int recvLen)
+{
+	int i;
+	char* context = NULL;
+	char* pLine = NULL;
+	int rc = EXIT_FAILURE;
+	size_t offset = 0;
+	std::string status, errMsg;
+	CString strCharList;
+
+	std::string sBuff;
+	std::vector<char> vBuff;
+
+	sBuff.append(recvBuff, recvLen);
+	vBuff.insert(vBuff.end(), sBuff.begin(), sBuff.end());
+	auto pkt = PacketParser::Parse(vBuff);
+	if (!pkt.has_value())
 	{
-		m_bConnect = TRUE;
-		if (m_pSock->m_bRegister)
-			OnBnClickedButtonRegister();
+		return -1;
+	}
+
+	
+	//반복하여 캐릭터 닉네임 추출
+	while (1)
+	{
+		std::string char_name;
+
+		if (!PacketParser::ParseLengthPrefixedString(
+			pkt->payload.c_str(),
+			pkt->payload.size(),
+			offset,
+			char_name,
+			errMsg))
+		{
+			//더이상 없으면 중단
+			//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
+			break;
+		}
+
+		CString wideValue = UTIL::Utf8ToCString(char_name);
+
+		/*CString line;
+		line.Format(
+			L"FIELD[%d] : %s\r\n",
+			fieldIndex++,
+			wideValue.GetString()
+		);
+		m_listResponse.InsertString(nIdxResponse++, line);*/
+		
+		if (strCharList.GetLength() == 0)
+		{
+			strCharList.Format(L"%s", wideValue.GetString());
+		}
 		else
-			Login();
+		{
+			strCharList.Format(L"%s,%s", strCharList, wideValue.GetString());
+		}
 	}
-}
 
-//로그인 버튼 클릭
-void CWorld::OnBnClickedButtonLogin()
-{
-	m_editHost.GetWindowTextW(m_strHost);
-	m_editPort.GetWindowTextW(m_strPort);
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	m_editCharList.SetWindowText(strCharList);
 
-	//connect();
-	//Login();
 
-	//AfxMessageBox(_T("로그인 성공"));
-	////		m_pSock->m_bLoginPhase = FALSE; //로그인 끝
-	//EndDialog(IDOK);
+	rc = EXIT_SUCCESS;
+err:
 
-	if (m_bConnect == FALSE)
-		connect();
-	else
-		OnSocketConnect(m_bConnect);
-}
-
-//회원가입 버튼 클릭
-void CWorld::OnBnClickedButtonRegister()
-{
-	m_pSock->m_bRegister = TRUE;
-
-	if (m_bConnect == FALSE)
-		connect();
+	if (rc != EXIT_SUCCESS)
+	{
+		//AfxMessageBox(_T("로그인 실패: 회원가입을 하세요"));
+	}
 	else
 	{
-		m_pRegDlg->DoModal();
+		AfxMessageBox(_T("CharList 성공"));
+		//this->CharacterList(); //캐릭터 선택
+		//m_pSock->m_bWorldPhase = FALSE; //로그인 끝
+		//EndDialog(IDOK);
 	}
-	m_pSock->m_bRegister = FALSE;
+
+	return rc;
 }
 
 
+
+
+//
+////로그인 버튼 클릭
+//void CWorld::OnBnClickedButtonLogin()
+//{
+//	m_editHost.GetWindowTextW(m_strHost);
+//	m_editPort.GetWindowTextW(m_strPort);
+//	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+//
+//	//connect();
+//	//Login();
+//
+//	//AfxMessageBox(_T("로그인 성공"));
+//	////		m_pSock->m_bLoginPhase = FALSE; //로그인 끝
+//	//EndDialog(IDOK);
+//
+//	if (m_bConnect == FALSE)
+//		connect();
+//	else
+//		OnSocketConnect(m_bConnect);
+//}
+//

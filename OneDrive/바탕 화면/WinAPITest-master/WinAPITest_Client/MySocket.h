@@ -9,8 +9,10 @@
 enum e_Status
 {
     E_LOGIN = 0,
-    E_WORLD,
-    E_CHAT,
+    E_REGISTER,
+    E_WORLD_INIT,
+    E_WORLD_CHAR_LIST,
+    E_WORLD_CHAR_SELECT,
 };
 
 class CMySocket : public CAsyncSocket {
@@ -34,8 +36,11 @@ public:
 
     std::vector<char> m_recvBuff;
 
+    e_Status m_status;
+
     BOOL m_bConnect;
 	BOOL m_bChatSocket;
     BOOL m_bLoginPhase;
+    BOOL m_bWorldPhase;
     BOOL m_bRegister;
 };

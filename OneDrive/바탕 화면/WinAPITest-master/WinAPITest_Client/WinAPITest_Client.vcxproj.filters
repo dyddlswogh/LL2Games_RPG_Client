@@ -14,6 +14,9 @@
     <Filter Include="WORLD">
       <UniqueIdentifier>{4d041b01-2293-41c3-9ffa-9d940aa70182}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UTIL">
+      <UniqueIdentifier>{053f49a7-b371-4892-97f2-6a4103a5667e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />

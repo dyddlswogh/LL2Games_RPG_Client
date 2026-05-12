@@ -41,7 +41,8 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-
+//로그인 아이디
+std::string g_account_id;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -59,13 +60,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         MessageBoxA(NULL, "MFC 초기화 실패", "Error", MB_OK);
         return FALSE;
     }
+    
+    
 
     if (!AfxSocketInit())
     {
         MessageBoxA(NULL, "Socket 초기화 실패", "Error", MB_OK);
         return FALSE;
     }
-
 
     //로그인
     CLogin logDlg;
@@ -80,6 +82,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
+
+    //test
+    return TRUE;
 
 
     // 명령줄 인자로 캐릭터 ID 설정

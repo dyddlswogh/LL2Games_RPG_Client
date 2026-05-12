@@ -12,6 +12,9 @@
 #include "MySocket.h"
 
 
+//로그인 아이디
+extern std::string g_account_id;
+
 // CLogin 대화 상자
 
 IMPLEMENT_DYNAMIC(CLogin, CDialogEx)
@@ -74,7 +77,7 @@ BOOL CLogin::OnInitDialog()
 	m_editHost.SetWindowTextW(_T("100.114.42.54"));
 	m_editPort.SetWindowTextW(_T("5000"));
 
-	m_editID.SetWindowTextW(_T("admin1"));
+	m_editID.SetWindowTextW(_T("test_account_001"));
 	m_editPasswd.SetWindowTextW(_T("1111"));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
@@ -106,6 +109,8 @@ int CLogin::Login()
 
 	datas.push_back(std::string((CStringA(strID))));
 	datas.push_back(std::string((CStringA(strPasswd))));
+
+	g_account_id = CStringA(strID);
 
 	body = PacketParser::MakeBody(datas);
 	pkt = PacketParser::MakePacket(PKT_LOGIN, body);

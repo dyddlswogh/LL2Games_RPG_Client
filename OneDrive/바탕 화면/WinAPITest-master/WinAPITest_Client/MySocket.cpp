@@ -2,11 +2,10 @@
 
 #include "MySocket.h"
 
-CMySocket::CMySocket(CDialogEx* pDlg, e_Status eStatus) : m_dlg(pDlg)
+CMySocket::CMySocket(CDialogEx* pDlg, e_Status eStatus) : m_dlg(pDlg), m_status(eStatus)
 //CMySocket::CMySocket()
 {
     m_bConnect = FALSE;
-    m_bLoginPhase = eStatus == E_LOGIN ? TRUE : FALSE;
     m_bRegister = FALSE;
 }
 CMySocket::~CMySocket() {}
@@ -18,38 +17,43 @@ void CMySocket::OnReceive(int nErrorCode)
 
         { char szTmp[2058]; sprintf_s(szTmp, sizeof(szTmp), "[%s][%d]gunoo22_TEST m_bLoginPhase[%d]", __FUNCTION__, __LINE__, m_bLoginPhase); OutputDebugStringA(szTmp); }
 
+        switch (m_status)
+        {
+
         //회원가입
-        if (m_bRegister)
+        case E_REGISTER:
         {
             CLogin* pLoginDlg = (CLogin*)m_dlg;
             pLoginDlg->m_pRegDlg->OnRegister(buf.c_str(), len);
-            return;
+            break;
         }
-        
+
         //로그인
-        if (m_bLoginPhase)
+        case E_LOGIN:
         {
             CLogin* pLoginDlg = (CLogin*)m_dlg;
             m_bLoginPhase = FALSE;
             pLoginDlg->OnLogin(buf.c_str(), len);
-            return;
+            break;
         }
 
-        //채팅
-        //if (len > 0) {
-        //    m_recvBuff.insert(m_recvBuff.end(), buf.begin(), buf.end());
-        //    Parse(m_pDlg);
-        //    //buf[len] = 0;
+        //World초기화
+        case E_WORLD_INIT:
+        {
+            CWorld* pWorldDlg = (CWorld*)m_dlg;
+            pWorldDlg->OnInitWorld(buf.c_str(), len);
+            break;
+        }
 
-        //    //char* pTmp = UTIL::UTF8ToANSI(buf);
-
-        //    //CString str;
-        //    ////str.Format(_T("%S"), buf);
-        //    //str.Format(_T("%S"), pTmp);
-        //    //m_pDlg->AppendLog(str);
-
-        //    //delete[] pTmp;
-        //}
+        //캐릭터 리스트
+        case E_WORLD_CHAR_LIST:
+        {
+            CWorld* pWorldDlg = (CWorld*)m_dlg;
+            pWorldDlg->OnCharacterList(buf.c_str(), len);
+            break;
+        }
+        }
+       
 
         { char szTmp[2058]; sprintf_s(szTmp, sizeof(szTmp), "[%s][%d] gunoo22_TEST recvBuff[%s]", __FUNCTION__, __LINE__, buf); OutputDebugStringA(szTmp); }
 
@@ -68,11 +72,24 @@ void CMySocket::OnConnect(int nErrorCode)
             AfxMessageBox(msg);
         }
 
-        if (m_bLoginPhase)
+        switch (m_status)
+        {
+        case E_LOGIN:
         {
             CLogin* pLoginDlg = (CLogin*)m_dlg;
             pLoginDlg->OnSocketConnect(m_bConnect);
+            break;
         }
+
+        case E_WORLD_INIT:
+        {
+            CWorld* pWorldDlg = (CWorld*)m_dlg;
+            pWorldDlg->OnSocketConnect(m_bConnect);
+            break;
+        }
+
+        }
+        
         CAsyncSocket::OnConnect(nErrorCode);
 }
 

@@ -45,4 +45,5 @@ public:
 	void OnSocketConnect(BOOL bConnect);
 	int Login();
 	int OnLogin(const char *recvBuf, const int recvLen);
+
 };
