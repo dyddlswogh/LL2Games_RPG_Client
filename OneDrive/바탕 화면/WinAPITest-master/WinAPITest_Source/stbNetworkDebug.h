@@ -8,8 +8,6 @@
 #include <sstream>
 #include <iomanip>
 
-extern int g_ChannelPort;
-
 namespace stb
 {
     // 함수 전방 선언

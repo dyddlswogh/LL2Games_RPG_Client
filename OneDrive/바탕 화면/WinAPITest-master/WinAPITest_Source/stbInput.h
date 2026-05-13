@@ -13,7 +13,9 @@ namespace stb
 		Z, X, C, V, B, N, M,
 		Left, Right, Up, Down,
 		LButton, MButton, RButton, SPACE,
-		LALT, LCONTROL, EnumsEnd,
+		LALT, LCONTROL,
+		Enter, Return,
+		EnumsEnd,
 	};
 
 	enum class eKeyState
@@ -47,7 +49,7 @@ namespace stb
 	enum class eBindType
 	{
 		None,
-		Action,   // Interact ∞∞¿∫ ∞Õ
+		Action,   // Interact Í∞ôÏùÄ Í≤É
 		Skill,
 		Item,
 		UI,

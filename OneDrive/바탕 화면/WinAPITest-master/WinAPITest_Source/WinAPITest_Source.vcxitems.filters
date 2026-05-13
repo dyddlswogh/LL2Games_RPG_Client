@@ -188,6 +188,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp">
       <Filter>Game\UI\Trade</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.cpp">
+      <Filter>Networking\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatPacketHandler.cpp">
+      <Filter>PacketHandler\Chat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -422,6 +428,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TradeUI.h">
       <Filter>Game\UI\Trade</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.h">
+      <Filter>Networking\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatPacketHandler.h">
+      <Filter>PacketHandler\Chat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -564,6 +576,12 @@
     </Filter>
     <Filter Include="PacketHandler\Trade">
       <UniqueIdentifier>{fa536bfa-a44c-4ff3-b8ff-6fc1d25f2e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Networking\Chat">
+      <UniqueIdentifier>{b83cd62c-d8f1-4cf6-8e67-db66354a9e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\Chat">
+      <UniqueIdentifier>{643bf22b-8746-4dff-ae97-3a0d109c3c0b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

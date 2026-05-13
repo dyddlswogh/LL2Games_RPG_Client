@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AnimationInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BoxCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCircleCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCollider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCollisionManager.h" />
@@ -100,6 +102,7 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoxCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HealthBarUI.cpp" />
@@ -131,6 +134,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCircleCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCollider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCollisionManager.cpp" />
