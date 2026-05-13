@@ -8,6 +8,8 @@
 #include <sstream>
 #include <iomanip>
 
+extern int g_ChannelPort;
+
 namespace stb
 {
     // 함수 전방 선언
@@ -35,12 +37,14 @@ namespace stb
         std::stringstream ss;
         ss << "=== 네트워크 디버그 모드 ===\n";
         ss << "서버 IP: " << NetworkConfig::SERVER_IP << "\n";
-        ss << "서버 포트: " << NetworkConfig::SERVER_PORT << "\n";
+        //ss << "서버 포트: " << NetworkConfig::SERVER_PORT << "\n";
+        ss << "서버 포트: " << g_ChannelPort << "\n";
         OutputDebugStringA(ss.str().c_str());
 
         bool connected = NetworkManager::getInstance()->Connect(
             NetworkConfig::SERVER_IP,
-            NetworkConfig::SERVER_PORT,
+            //NetworkConfig::SERVER_PORT,
+            g_ChannelPort,
             hWnd
         );
 
