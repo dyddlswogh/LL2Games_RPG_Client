@@ -490,6 +490,8 @@ err:
 		//채널 포트 전역변수 등록
 		g_channel_port = CStringA(wideValuePort);
 
+		m_pSock->Disconnect(); //연결 끊기
+
 		//다이얼로그 종료
 		EndDialog(IDOK);
 	}
