@@ -4,6 +4,7 @@
 #include "QuickSlotUI.h"
 #include "HealthBarUI.h"
 #include "TradeUI.h"
+#include "ChatUI.h"
 
 UIManager::UIManager()
 {
@@ -11,6 +12,7 @@ UIManager::UIManager()
 	m_quickslotUI = new QuickSlotUI();
 	m_healthBarUI = new HealthBarUI();
 	m_tradeUI = new TradeUI();
+	m_chatUI = new ChatUI();
 }
 
 void UIManager::Init()
@@ -19,11 +21,13 @@ void UIManager::Init()
 	m_quickslotUI->Init();
 	m_healthBarUI->Init();
 	m_tradeUI->Init();
+	m_chatUI->Init();
 
 	mUIs.push_back(m_inventoryUI);
 	mUIs.push_back(m_quickslotUI);
 	mUIs.push_back(m_healthBarUI);
 	mUIs.push_back(m_tradeUI);
+	mUIs.push_back(m_chatUI);
 
 
 	char msg[128];
@@ -69,3 +73,26 @@ void UIManager::OpenTradeUI()
 {
 	m_tradeUI->SetActivce(true);
 }
+
+#if 1 //채팅
+void UIManager::ToggleChatInput()
+{
+	if (m_chatUI) m_chatUI->ToggleInputFocus();
+}
+bool UIManager::IsInputFocused() const
+{
+	return m_chatUI && m_chatUI->IsInputActive();
+}
+void UIManager::AppendInputChar(wchar_t ch)
+{
+	if (m_chatUI) m_chatUI->AppendChar(ch);
+}
+void UIManager::HandleBackspace()
+{
+	if (m_chatUI) m_chatUI->Backspace();
+}
+void UIManager::AppendChatMessage(const std::wstring& nick, const std::wstring& msg)
+{
+	if (m_chatUI) m_chatUI->AddMessage(nick, msg);
+}
+#endif //채팅

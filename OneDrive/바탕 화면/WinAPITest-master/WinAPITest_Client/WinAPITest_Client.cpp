@@ -18,12 +18,17 @@
 #include "..\\WinAPITest_Source\\\stbLogger.h"
 #include "..\\WinAPITest_Source\\\ChannelInitPacketHandler.h"
 
+#include "..\\WinAPITest_Source\\\stbChatNetworkManager.h"
+#include "..\\WinAPITest_Source\\\ChatPacketHandler.h"
+
 #include <afxwin.h>
 #include "CLogin.h"
 #include "CWorld.h"
 #include "MySocket.h"
+#include "..\\WinAPITest_Source\\\UIManager.h"
 
 #define APP stb::SingletonBase<stb::Application>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 ULONG_PTR gpToken;
 Gdiplus::GdiplusStartupInput gdiplus;
@@ -99,6 +104,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     strcpy(stb::g_CharacterId, g_char_id.c_str());
     stb::g_ChannelPort = atoi(g_channel_port.c_str());
+    //채팅서버 포트 = 채널서버 + 100 ex) channelport=9001 -> chatport = 9101
+    stb::g_ChatPort = stb::g_ChannelPort + 100;
 
     //// 명령줄 인자로 캐릭터 ID 설정
     //if (lpCmdLine && wcslen(lpCmdLine) > 0)
@@ -314,6 +321,52 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 stb::NetworkManager::getInstance()->Disconnect();
             }
         }
+    }
+    break;
+    case WM_CHAT_SOCKET_RECEIVE:
+    {
+        int event = WSAGETSELECTEVENT(lParam);
+        int error = WSAGETSELECTERROR(lParam);
+
+        if (event == FD_READ && error == 0)
+            stb::ChatNetworkManager::getInstance()->ProcessReceivedData();
+        else if (event == FD_CLOSE)
+            stb::ChatNetworkManager::getInstance()->Disconnect();
+        else if (event == FD_CONNECT && error == 0)
+        {
+            if (error == 0)
+            {
+                // 연결 성공 - 채널 인증 패킷 전송
+                OutputDebugStringA("채팅 서버 연결 성공! 채팅서버 초기화 시작\n");
+                ChatPacketHandler::SendChatInit(stb::NetworkConfig::GetCharacterId());
+            }
+            else
+            {
+                // 연결 실패
+                OutputDebugStringA("채팅 서버 연결 실패!\n");
+                stb::ChatNetworkManager::getInstance()->Disconnect();
+            }
+        }
+            
+    }
+    break;
+    case WM_CHAR:
+    {
+        wchar_t ch = (wchar_t)wParam;
+        if (ch == VK_RETURN)            // Enter는 ChatScene::Update에서 처리
+            break;
+        if (ch == VK_BACK)             // Backspace
+        {
+            M_UIMANAGER->HandleBackspace();
+            break;
+        }
+        if (ch == 0x1B)                // ESC → 입력 모드 종료
+        {
+            M_UIMANAGER->ToggleChatInput();
+            break;
+        }
+        if (ch >= 0x20)                // 출력 가능한 문자만 추가
+            M_UIMANAGER->AppendInputChar(ch);
     }
     break;
     case WM_DESTROY:

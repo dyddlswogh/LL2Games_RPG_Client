@@ -6,6 +6,7 @@ namespace stb
     // 전역 변수 선언
     extern char g_CharacterId[32];
     extern int g_ChannelPort;
+    extern int g_ChatPort;
 
     // 네트워크 설정
     // 서버 IP와 포트를 여기서 변경하세요!

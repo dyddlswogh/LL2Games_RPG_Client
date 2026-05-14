@@ -26,6 +26,7 @@ public:
     virtual void OnReceive(int nErrorCode) override ;
     virtual void OnConnect(int nErrorCode) override ;
     BOOL connect(const CString& strHost, const int nPort);
+    void Disconnect();
 
     std::string RecevieBuff();
     //void Parse(CchatClientDlg* pDlg);

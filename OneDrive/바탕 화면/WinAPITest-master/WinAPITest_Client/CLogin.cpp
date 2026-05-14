@@ -168,6 +168,7 @@ err:
 	{
 		AfxMessageBox(_T("로그인 성공"));
 		m_pSock->m_bLoginPhase = FALSE; //로그인 끝
+		m_pSock->Disconnect(); //연결 끊기
 		EndDialog(IDOK);
 	}
 

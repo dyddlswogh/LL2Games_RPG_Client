@@ -31,6 +31,7 @@ public:
 
     // 비동기 설정
     bool SetAsync(HWND hWnd);
+    bool SetAsync(HWND hWnd, const int wMsg);
     
     std::vector<char>& GetRecvBuffer() { return m_recvBuffer; }
     HWND GetNotifyWindow() const { return m_hNotifyWnd; }

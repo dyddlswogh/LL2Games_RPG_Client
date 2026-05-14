@@ -245,3 +245,12 @@ bool CMySocket::SendPacket(const std::string& packet)
 
     return true;
 }
+
+void CMySocket::Disconnect()
+{
+    if (m_hSocket != INVALID_SOCKET)
+    {
+        ShutDown(SD_BOTH); // SD_BOTH: 송신/수신 모두 종료
+        Close();     // 소켓 핸들 닫기
+    }
+}
