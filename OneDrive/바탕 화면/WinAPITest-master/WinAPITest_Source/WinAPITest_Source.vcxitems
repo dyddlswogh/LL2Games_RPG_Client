@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)BoxCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ChatPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
@@ -103,6 +104,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)BoxCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ChatPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HealthBarUI.cpp" />

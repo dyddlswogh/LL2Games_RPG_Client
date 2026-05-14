@@ -25,8 +25,10 @@
 #include "CLogin.h"
 #include "CWorld.h"
 #include "MySocket.h"
+#include "..\\WinAPITest_Source\\\UIManager.h"
 
 #define APP stb::SingletonBase<stb::Application>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 ULONG_PTR gpToken;
 Gdiplus::GdiplusStartupInput gdiplus;
@@ -346,6 +348,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
             
+    }
+    break;
+    case WM_CHAR:
+    {
+        wchar_t ch = (wchar_t)wParam;
+        if (ch == VK_RETURN)            // Enter는 ChatScene::Update에서 처리
+            break;
+        if (ch == VK_BACK)             // Backspace
+        {
+            M_UIMANAGER->HandleBackspace();
+            break;
+        }
+        if (ch == 0x1B)                // ESC → 입력 모드 종료
+        {
+            M_UIMANAGER->ToggleChatInput();
+            break;
+        }
+        if (ch >= 0x20)                // 출력 가능한 문자만 추가
+            M_UIMANAGER->AppendInputChar(ch);
     }
     break;
     case WM_DESTROY:

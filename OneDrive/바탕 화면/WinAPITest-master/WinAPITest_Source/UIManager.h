@@ -9,7 +9,7 @@ class QuickSlotUI;
 class HealthBarUI;
 class stbD2DRenderer;
 class TradeUI;
-
+class ChatUI;
 
 class UIManager : public stb::SingletonBase<UIManager>
 {
@@ -27,12 +27,19 @@ public:
 	void CloseTradeUI();
 	void ShowTradeRequestPopUp(const TradeRequestInfo& info); //신청 팝업
 
+	//채팅
+	void ToggleChatInput();
+	bool IsInputFocused() const;
+	void AppendInputChar(wchar_t ch);
+	void HandleBackspace();
+	void AppendChatMessage(const std::wstring& nick, const std::wstring& msg);
+
 private:
 	std::vector<UI*> mUIs;
 	InventoryUI* m_inventoryUI = nullptr;
 	QuickSlotUI* m_quickslotUI = nullptr;
 	HealthBarUI* m_healthBarUI = nullptr;
 
-	//교환
-	TradeUI* m_tradeUI = nullptr;
+	TradeUI* m_tradeUI = nullptr; //교환
+	ChatUI* m_chatUI = nullptr; //채팅
 };

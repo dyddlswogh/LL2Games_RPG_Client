@@ -50,7 +50,7 @@ void ChatPacketHandler::HandleChatInit(const ParsedPacket& pkt)
 	//status에 따라 성공/실패처리
 }
 
-// S→C: 채팅 초기화 응답
+// S→C: 채팅 응답
 void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 {
 	size_t offset = 0;

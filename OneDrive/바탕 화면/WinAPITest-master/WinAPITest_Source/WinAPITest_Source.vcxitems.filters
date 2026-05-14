@@ -194,6 +194,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ChatPacketHandler.cpp">
       <Filter>PacketHandler\Chat</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatUI.cpp">
+      <Filter>Game\UI\Chat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -434,6 +437,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ChatPacketHandler.h">
       <Filter>PacketHandler\Chat</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatUI.h">
+      <Filter>Game\UI\Chat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -582,6 +588,9 @@
     </Filter>
     <Filter Include="PacketHandler\Chat">
       <UniqueIdentifier>{643bf22b-8746-4dff-ae97-3a0d109c3c0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\Chat">
+      <UniqueIdentifier>{36c3d418-0451-455e-ad15-faf6cf2642a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
