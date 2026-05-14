@@ -95,4 +95,9 @@ void UIManager::AppendChatMessage(const std::wstring& nick, const std::wstring& 
 {
 	if (m_chatUI) m_chatUI->AddMessage(nick, msg);
 }
+
+void UIManager::SubmitChatInput()
+{
+	if (m_chatUI) m_chatUI->SubmitInput();
+}
 #endif //Ã¤ÆÃ

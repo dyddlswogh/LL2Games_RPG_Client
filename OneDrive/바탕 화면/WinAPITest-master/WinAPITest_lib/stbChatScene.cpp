@@ -24,16 +24,16 @@
 //#include "stbCamera.h"
 //#include "stbAnimator.h"
 //#include "stbRender.h"
-//#include "UIManager.h"
+#include "UIManager.h"
 
 #define M_CHAT_NETMANAGER stb::SingletonBase<ChatNetworkManager>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 //#define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 //#define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
 //#define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 //#define M_TIME	stb::SingletonBase<stb::Time>::getInstance()
-//#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 namespace stb
 {
@@ -69,23 +69,22 @@ namespace stb
 	void ChatScene::Update()
 	{
 		Scene::Update();
-		//M_UIMANAGER->Update();
-
-		// 입력 처리 (예: Enter → 입력 포커스 토글)
-		if (M_INPUT->GetKeyDown(eKeyCode::Enter)) 
-			ToggleInputFocus();
-
-		if (mInputActive)
+		// Enter 키 → 입력 모드 토글 OR 전송
+		if (M_INPUT->GetKeyDown(eKeyCode::Enter))
 		{
-			// 텍스트 입력 처리 (간단히는 Input에서 키 이벤트로 mInputBuffer 갱신)
-			if (M_INPUT->GetKeyDown(eKeyCode::Return) && !mInputBuffer.empty())
+			if (M_UIMANAGER->IsInputFocused())
 			{
-				// UTF-16 → UTF-8 변환 후 송신
-				std::string utf8 = Convert::WstrToUtf8(mInputBuffer);
-				ChatPacketHandler::SendChat(utf8);
-				mInputBuffer.clear();
+				// 입력 모드 → Enter = 전송 후 닫기
+				// SubmitInput은 ChatUI 내부에서 처리하므로 UIManager 경유
+				M_UIMANAGER->SubmitChatInput();
+			}
+			else
+			{
+				// 비활성 → Enter = 채팅창 열기
+				M_UIMANAGER->ToggleChatInput();
 			}
 		}
+
 	}
 
 	void ChatScene::LateUpdate()

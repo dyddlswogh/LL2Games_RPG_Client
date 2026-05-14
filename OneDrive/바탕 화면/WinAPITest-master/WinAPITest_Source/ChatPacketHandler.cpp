@@ -3,8 +3,10 @@
 #include "PacketParser.h"
 #include "stbChatNetworkManager.h"
 #include "UIManager.h"
+#include "StringConvert.h"
 
 #define M_CHAT_NETWORK stb::SingletonBase<stb::ChatNetworkManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 //#define M_TRADEMGR stb::SingletonBase<TradeManager>::getInstance()
 
 // ── 송신 ─────────────────────────────────────────────────────────────
@@ -62,6 +64,10 @@ void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
 		return;
 
+	//status에 따라 성공/실패처리
+	if (status == "nok")
+		return;
+
 	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, nick, errMsg))
 		return;
 
@@ -69,6 +75,11 @@ void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 		return;
 
 	//TODO
-	//status에 따라 성공/실패처리
 	//채팅 아이디, 메시지
+	
+	// UTF-8 → wstring 변환 후 UI에 전달
+	std::wstring wNick = Convert::Utf8ToWstr(nick);
+	std::wstring wMsg = Convert::Utf8ToWstr(msg);
+
+	M_UIMANAGER->AppendChatMessage(wNick, wMsg);
 }

@@ -55,6 +55,8 @@ namespace stb
 
 	void PlayerScript::Idle()
 	{
+		if (M_UIMANAGER->IsInputFocused())
+			return; //채팅 입력중 -> 이동/공격 차단
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (tr == nullptr)
 		{

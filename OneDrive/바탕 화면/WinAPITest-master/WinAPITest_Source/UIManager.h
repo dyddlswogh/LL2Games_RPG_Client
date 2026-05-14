@@ -33,6 +33,7 @@ public:
 	void AppendInputChar(wchar_t ch);
 	void HandleBackspace();
 	void AppendChatMessage(const std::wstring& nick, const std::wstring& msg);
+	void SubmitChatInput();
 
 private:
 	std::vector<UI*> mUIs;
