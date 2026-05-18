@@ -80,6 +80,10 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.mp.layer_0.png");
 		RESOURCEMANAGER->Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
 
+		// 교환창
+		RESOURCEMANAGER->Load<Texture>(L"Trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.backgrnd.png");
+		RESOURCEMANAGER->Load<Texture>(L"Trade_full", L"Resources\\UI\\ItemTrade\\itemTrade.FullBackgrnd.png");
+
 		// 몬스터 이미지 로드
 		RESOURCEMANAGER->LoadMonsterTextures();
 

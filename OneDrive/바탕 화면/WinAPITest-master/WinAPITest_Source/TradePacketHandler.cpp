@@ -70,7 +70,7 @@ void TradePacketHandler::HandleTradeRequest(const ParsedPacket& pkt)
 		return;
 
 	//TODO: UIManager에 교환 신청 팝업 표시
-	//UIManager::getInstance()->ShowTradeRequestPopUp(info);
+	UIManager::getInstance()->ShowTradeRequestPopUp(info);
 
 }
 

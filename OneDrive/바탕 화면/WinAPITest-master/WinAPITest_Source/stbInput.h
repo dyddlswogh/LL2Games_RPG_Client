@@ -44,6 +44,7 @@ namespace stb
 		QuestWindow,
 		WorldMap,
 		EnumsEnd,
+		Trade,
 	};
 
 	enum class eBindType

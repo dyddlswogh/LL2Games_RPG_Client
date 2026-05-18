@@ -5,6 +5,7 @@
 #include "HealthBarUI.h"
 #include "TradeUI.h"
 #include "ChatUI.h"
+#include "TradeRequestUI.h"
 
 UIManager::UIManager()
 {
@@ -13,6 +14,7 @@ UIManager::UIManager()
 	m_healthBarUI = new HealthBarUI();
 	m_tradeUI = new TradeUI();
 	m_chatUI = new ChatUI();
+	m_tradeReqUI = new TradeRequestUI();
 }
 
 void UIManager::Init()
@@ -22,12 +24,14 @@ void UIManager::Init()
 	m_healthBarUI->Init();
 	m_tradeUI->Init();
 	m_chatUI->Init();
+	m_tradeReqUI->Init();
 
 	mUIs.push_back(m_inventoryUI);
 	mUIs.push_back(m_quickslotUI);
 	mUIs.push_back(m_healthBarUI);
 	mUIs.push_back(m_tradeUI);
 	mUIs.push_back(m_chatUI);
+	mUIs.push_back(m_tradeReqUI);
 
 
 	char msg[128];
@@ -69,10 +73,52 @@ void UIManager::ToggleInventory()
 		m_inventoryUI->Toggle();
 }
 
+#if 1 //교환
 void UIManager::OpenTradeUI()
 {
 	m_tradeUI->SetActivce(true);
 }
+
+void UIManager::ToggleTradeUI()
+{
+	if (m_tradeUI != nullptr)
+		m_tradeUI->Toggle();
+}
+
+void UIManager::OpenReqTradeUI()
+{
+	if (m_tradeReqUI != nullptr)
+		m_tradeReqUI->SetActivce(true);
+}
+
+void UIManager::CloseReqTradeUI()
+{
+	if (m_tradeReqUI != nullptr)
+		m_tradeReqUI->CloseWindow();
+		//m_tradeReqUI->SetActivce(false);
+}
+
+void UIManager::AppendInputChar_Trade(wchar_t ch)
+{
+	if (m_tradeReqUI) m_tradeReqUI->OnChar(ch);
+}
+
+void UIManager::HandleBackspace_Trade()
+{
+	if (m_tradeReqUI) m_tradeReqUI->Backspace();
+}
+
+void UIManager::KeyDownTrade(WPARAM key)
+{
+	if (m_tradeReqUI) m_tradeReqUI->OnKeyDown(key);
+}
+
+void UIManager::ShowTradeRequestPopUp(const TradeRequestInfo& info)
+{
+	if (m_tradeReqUI) m_tradeReqUI->OnPopUp(info);
+}
+
+#endif //교환
 
 #if 1 //채팅
 void UIManager::ToggleChatInput()

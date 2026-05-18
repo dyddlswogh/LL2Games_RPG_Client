@@ -1,5 +1,6 @@
 #pragma once
 #include "UI.h"
+#include "stbTexture.h"
 #include "Trade_Info.h"
 
 class stbD2DRenderer;
@@ -24,6 +25,8 @@ private:
 	int GetClickedMySlotIndex(int mouseX, int mouseY);
 
 private:
+	stb::Texture* m_background = nullptr;
+
 	int m_posX = 200;
 	int m_posY = 150;
 

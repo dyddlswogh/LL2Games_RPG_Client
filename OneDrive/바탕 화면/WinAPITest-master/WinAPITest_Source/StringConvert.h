@@ -81,5 +81,78 @@ namespace Convert
 
 		return result;
 	}
+
+
+	inline std::string Utf8ToAnsi(const std::string& utf8)
+	{
+		if (utf8.empty())
+			return std::string();
+
+		// 1. UTF-8 -> UTF-16
+		int wideLen = MultiByteToWideChar(
+			CP_UTF8,
+			0,
+			utf8.c_str(),
+			-1,
+			nullptr,
+			0
+		);
+
+		if (wideLen <= 0)
+			return std::string();
+
+		std::wstring wide;
+		wide.resize(wideLen);
+
+		int wideResult = MultiByteToWideChar(
+			CP_UTF8,
+			0,
+			utf8.c_str(),
+			-1,
+			&wide[0],
+			wideLen
+		);
+
+		if (wideResult <= 0)
+			return std::string();
+
+		// 2. UTF-16 -> CP949
+		int ansiLen = WideCharToMultiByte(
+			949,    // CP949
+			0,
+			wide.c_str(),
+			-1,
+			nullptr,
+			0,
+			nullptr,
+			nullptr
+		);
+
+		if (ansiLen <= 0)
+			return std::string();
+
+		std::string ansi;
+		ansi.resize(ansiLen);
+
+		int ansiResult = WideCharToMultiByte(
+			949,    // CP949
+			0,
+			wide.c_str(),
+			-1,
+			&ansi[0],
+			ansiLen,
+			nullptr,
+			nullptr
+		);
+
+		if (ansiResult <= 0)
+			return std::string();
+
+		// resize에 null 문자까지 포함되어 있으므로 제거
+		if (!ansi.empty() && ansi.back() == '\0')
+			ansi.pop_back();
+
+		return ansi;
+	}
 };
 

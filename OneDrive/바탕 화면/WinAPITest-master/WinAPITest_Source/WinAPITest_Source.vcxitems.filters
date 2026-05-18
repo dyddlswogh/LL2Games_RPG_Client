@@ -197,6 +197,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ChatUI.cpp">
       <Filter>Game\UI\Chat</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeRequestUI.cpp">
+      <Filter>Game\UI\Trade</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
@@ -439,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ChatUI.h">
       <Filter>Game\UI\Chat</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeRequestUI.h">
+      <Filter>Game\UI\Trade</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

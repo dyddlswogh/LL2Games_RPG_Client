@@ -209,6 +209,13 @@ namespace stb
 			// TODO : 스킬창 UI 열기
 			break;
 
+		case eActionCode::Trade:
+			OutputDebugStringA("Action : Trade\n");
+			//UIManager::getInstance()->OpenTradeUI();
+			//UIManager::getInstance()->ToggleTradeUI(); //test 토글
+			UIManager::getInstance()->OpenReqTradeUI(); //교환신청
+			break;
+
 		default:
 			break;
 		}

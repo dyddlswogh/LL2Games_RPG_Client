@@ -78,6 +78,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
+#if 0 /*gunoo22 260518 테스트*/
     //로그인
     CLogin logDlg;
     if (logDlg.DoModal() != IDOK)
@@ -91,7 +92,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
-
     //test
     {
         CString strCharId, strChannelPort;
@@ -106,6 +106,34 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     stb::g_ChannelPort = atoi(g_channel_port.c_str());
     //채팅서버 포트 = 채널서버 + 100 ex) channelport=9001 -> chatport = 9101
     stb::g_ChatPort = stb::g_ChannelPort + 100;
+#else
+    g_char_id = "1";
+    g_channel_port = "9001";
+
+    strcpy(stb::g_CharacterId, g_char_id.c_str());
+    stb::g_ChannelPort = atoi(g_channel_port.c_str());
+    //채팅서버 포트 = 채널서버 + 100 ex) channelport=9001 -> chatport = 9101
+    stb::g_ChatPort = stb::g_ChannelPort + 100;
+
+    //// 명령줄 인자로 캐릭터 ID 설정
+    if (lpCmdLine && wcslen(lpCmdLine) > 0)
+    {
+      
+
+        // 유니코드를 멀티바이트로 변환
+        WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, stb::g_CharacterId, sizeof(stb::g_CharacterId), NULL, NULL);
+        
+        char msg[128];
+        sprintf_s(msg, "캐릭터 ID 설정: %s\n", stb::g_CharacterId);
+        OutputDebugStringA(msg);
+        LOG("%s\n", msg);
+    }
+    else
+    {
+        OutputDebugStringA("캐릭터 ID: 1 (기본값)\n");
+    }
+#endif
+
 
     //// 명령줄 인자로 캐릭터 ID 설정
     //if (lpCmdLine && wcslen(lpCmdLine) > 0)
@@ -357,16 +385,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
         if (ch == VK_BACK)             // Backspace
         {
-            M_UIMANAGER->HandleBackspace();
+            //M_UIMANAGER->HandleBackspace();
+            //M_UIMANAGER->HandleBackspace_Trade();
+            M_UIMANAGER->AppendInputChar_Trade(ch); //교환신청
             break;
         }
         if (ch == 0x1B)                // ESC → 입력 모드 종료
         {
-            M_UIMANAGER->ToggleChatInput();
+            //M_UIMANAGER->ToggleChatInput();
+            M_UIMANAGER->CloseReqTradeUI();
             break;
         }
         if (ch >= 0x20)                // 출력 가능한 문자만 추가
-            M_UIMANAGER->AppendInputChar(ch);
+        {
+            //M_UIMANAGER->AppendInputChar(ch); //채팅
+            M_UIMANAGER->AppendInputChar_Trade(ch); //교환신청
+        }
+    }
+    break;
+    case WM_KEYDOWN:
+    {
+        M_UIMANAGER->KeyDownTrade(wParam); //교환신청
     }
     break;
     case WM_DESTROY:

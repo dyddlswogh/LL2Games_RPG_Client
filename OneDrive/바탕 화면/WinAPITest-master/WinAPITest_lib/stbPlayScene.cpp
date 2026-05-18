@@ -55,6 +55,8 @@ namespace stb
 		M_PLMANAGER->SetLocalPlayer(mPlayer);
 
 		M_UIMANAGER->Init();
+
+#if 1 /*gunoo22 260518 캐릭터 그리기*/
 		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
 		Animator* spartaAnim = mPlayer->AddComponent<Animator>();
 		if (spartaTex != nullptr)
@@ -64,6 +66,7 @@ namespace stb
 		}
 
 		playerScript->SetFollowers(nullptr, nullptr);
+#endif
 
 		Scene::Initialize();
 

@@ -93,6 +93,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TradeManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TradePacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeRequestUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TradeUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Trade_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
@@ -165,6 +166,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TradePacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeRequestUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UILayout.cpp" />
