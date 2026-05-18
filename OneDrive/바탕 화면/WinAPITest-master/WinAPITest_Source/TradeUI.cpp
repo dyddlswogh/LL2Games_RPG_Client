@@ -37,6 +37,9 @@ void TradeUI::Render(HDC hdc)
 
 void TradeUI::Render(stbD2DRenderer& renderer)
 {
+	if (!mActive)
+		return;
+
 	//stb::Texture* background = m_isExpand ? m_fullBackground : m_background;
 	stb::Texture* background = m_background;
 	if (background == nullptr)

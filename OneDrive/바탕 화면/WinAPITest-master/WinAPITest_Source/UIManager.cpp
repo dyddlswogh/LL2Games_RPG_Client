@@ -60,7 +60,8 @@ void UIManager::Render(stbD2DRenderer& renderer)
 
 	for (UI* ui : mUIs)
 	{
-		if (ui == nullptr || ui->IsActive() == false)
+		//if (ui == nullptr || ui->IsActive() == false)
+		if (ui == nullptr)
 			continue;
 
 		ui->Render(renderer);

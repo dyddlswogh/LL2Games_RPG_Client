@@ -195,6 +195,8 @@ void InventoryUI::Render(HDC hdc)
 
 void InventoryUI::Render(stbD2DRenderer& renderer)
 {
+    if (!mActive)
+        return;
     // 인벤토리 기본 이미지 그리기
     RenderBackGround(renderer);
 
