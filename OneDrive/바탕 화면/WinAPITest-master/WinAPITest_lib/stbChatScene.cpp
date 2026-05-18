@@ -100,7 +100,7 @@ namespace stb
 	void ChatScene::Render(stbD2DRenderer& renderer)
 	{
 		Scene::Render(renderer);
-		//M_UIMANAGER->Render(renderer);
+		M_UIMANAGER->Render(renderer);
 
 		// 화면 하단에 반투명 박스 + 텍스트 라인들 + 입력박스 그리기
 		

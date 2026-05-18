@@ -61,12 +61,12 @@ void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 	std::string errMsg;
 	std::string status, nick, msg;
 
-	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
-		return;
+	//if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
+	//	return;
 
-	//status에 따라 성공/실패처리
-	if (status == "nok")
-		return;
+	////status에 따라 성공/실패처리
+	//if (status == "nok")
+	//	return;
 
 	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, nick, errMsg))
 		return;
@@ -76,6 +76,9 @@ void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 
 	//TODO
 	//채팅 아이디, 메시지
+	
+	if (nick == "ok")
+		nick = "me";
 	
 	// UTF-8 → wstring 변환 후 UI에 전달
 	std::wstring wNick = Convert::Utf8ToWstr(nick);

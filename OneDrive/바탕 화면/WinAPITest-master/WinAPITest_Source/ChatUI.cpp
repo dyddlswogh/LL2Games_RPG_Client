@@ -7,7 +7,7 @@
 
 void ChatUI::Init()
 {
-    mActive = false; // 처음엔 로그만 보이고 입력박스는 숨김
+    mActive = true; // 처음엔 로그만 보이고 입력박스는 숨김
     // (로그는 항상 보이도록 mActive = true로 둬도 됨)
 }
 
