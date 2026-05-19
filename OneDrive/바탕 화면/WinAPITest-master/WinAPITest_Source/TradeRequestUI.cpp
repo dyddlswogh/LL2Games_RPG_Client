@@ -3,11 +3,11 @@
 #include "stbApplication.h"
 #include "TradeManager.h"
 #include "StringConvert.h"
-//#include "stbInput.h"
+#include "stbInput.h"
 //#include "stbResourceManager.h"
 
-//#define M_APP stb::SingletonBase<stb::Application>::getInstance()
-//#define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
+#define M_APP stb::SingletonBase<stb::Application>::getInstance()
+#define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
 //#define M_INVENTORYMANAGER stb::SingletonBase<InventoryManager>::getInstance()
 //#define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 
@@ -25,14 +25,45 @@ void TradeRequestUI::Update()
     if (!mActive) return;
 
     //TODO
-    if (!m_done) return; //입력 끝나지 않으면 행동없음
+    if (m_done)
+    {
+        //완료 TODO;
+        m_targetPlayerId = Convert::WstrToUtf8(m_inputBuffer);
+        TradePacketHandler::SendTradeRequest(m_targetPlayerId);
 
-    //완료 TODO;
-    m_targetPlayerId = Convert::WstrToUtf8(m_inputBuffer);
-    TradePacketHandler::SendTradeRequest(m_targetPlayerId);
+        m_done = false; //초기화
+        this->CloseWindow();
+    }
 
-    m_done = false; //초기화
-    this->CloseWindow();
+    if (m_requestPopupActive)
+    {
+        //마우스 이벤트
+        POINT pt;
+        GetCursorPos(&pt);
+        ScreenToClient(M_APP->GetHWND(), &pt);
+
+        //UpdateButtonState(pt.x, pt.y);
+
+        if (M_INPUT->GetKeyDown(stb::eKeyCode::LButton))
+        {
+            HandleLMouseClick(pt.x, pt.y);
+        }
+
+        /*if (M_INPUT->GetKey(stb::eKeyCode::LButton))
+        {
+            HandleDragging(pt.x, pt.y);
+        }
+
+        if (M_INPUT->GetKeyUp(stb::eKeyCode::LButton))
+        {
+            HandleMouseUp();
+        }
+
+        if (M_INPUT->GetKeyDown(stb::eKeyCode::RButton))
+        {
+            HandleRMouseClick(pt.x, pt.y);
+        }*/
+    }
 }
 
 void TradeRequestUI::Render(HDC hdc)
@@ -203,6 +234,7 @@ void TradeRequestUI::OnPopUp(const TradeRequestInfo& info)
     m_requesterId = info.requesterId;
     m_requesterNameW = Convert::Utf8ToWstr(info.requesterName);
     m_requestPopupActive = true;
+    mActive = true;
 }
 
 void TradeRequestUI::OnChar(wchar_t ch)
@@ -242,7 +274,7 @@ static bool IsPointInRect(int x, int y, const D2D1_RECT_F& rect)
         y <= rect.bottom;
 }
 
-void TradeRequestUI::OnMouseDown(int x, int y)
+void TradeRequestUI::HandleLMouseClick(int x, int y)
 {
     if (!m_requestPopupActive)
         return;
@@ -271,4 +303,16 @@ void TradeRequestUI::OnMouseDown(int x, int y)
         CloseRequestPopup();
         return;
     }
+}
+
+void TradeRequestUI::CloseRequestPopup()
+{
+    m_requestPopupActive = false;
+    mActive = false;
+
+    m_requesterId.clear();
+    m_requesterNameW.clear();
+
+    m_acceptButtonRect = D2D1::RectF(0, 0, 0, 0);
+    m_rejectButtonRect = D2D1::RectF(0, 0, 0, 0);
 }

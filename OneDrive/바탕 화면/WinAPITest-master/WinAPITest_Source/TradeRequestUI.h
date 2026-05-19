@@ -26,7 +26,7 @@ public:
     std::wstring GetNickname() const { return m_inputBuffer; }
 
 
-    void OnMouseDown(int x, int y);   // 교환신청 수락,거절
+    void HandleLMouseClick(int x, int y);   // 교환신청 수락,거절
 
 private:
     void CloseRequestPopup();         // 교환신청 팝업 종료
