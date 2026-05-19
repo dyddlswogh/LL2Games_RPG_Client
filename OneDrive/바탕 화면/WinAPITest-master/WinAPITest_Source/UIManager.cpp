@@ -75,9 +75,10 @@ void UIManager::ToggleInventory()
 }
 
 #if 1 //±³È¯
-void UIManager::OpenTradeUI()
+void UIManager::OpenTradeUI(const std::string& tartgetName)
 {
 	m_tradeUI->SetActivce(true);
+	m_tradeUI->StartTrade(tartgetName);
 }
 
 void UIManager::ToggleTradeUI()

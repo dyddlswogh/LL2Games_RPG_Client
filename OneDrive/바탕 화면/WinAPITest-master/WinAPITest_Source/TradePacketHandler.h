@@ -9,7 +9,7 @@ class TradePacketHandler : public IPacketHandler
 public:
 	// --- S->C 수신 핸들러 ------------------------------------------------------
 	static void HandleTradeRequest(const ParsedPacket& pkt);	//교환신청 받음
-	static void HandleTradeAccepted(const ParsedPacket& pkt);	//상대가 수락
+	static void HandleTradeStart(const ParsedPacket& pkt);		//교환 시작
 	static void HandleTradeDeclined(const ParsedPacket& pkt);	//상대가 거절
 	static void HandleTradeItemUpdate(const ParsedPacket& pkt); //상대 아이템 목록 갱신
 	static void HandleTradeComplete(const ParsedPacket& pkt);	//교환완료

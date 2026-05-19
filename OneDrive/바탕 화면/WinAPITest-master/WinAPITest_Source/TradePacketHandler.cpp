@@ -74,4 +74,19 @@ void TradePacketHandler::HandleTradeRequest(const ParsedPacket& pkt)
 
 }
 
+//교환 시작
+void TradePacketHandler::HandleTradeStart(const ParsedPacket& pkt)
+{
+	size_t offset = 0;
+	const char* data = pkt.payload.c_str();
+	size_t payloadSize = pkt.payload.size();
+	std::string targetName, errMsg;
+
+	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, targetName, errMsg))
+		return;
+
+	//TODO: UIManager에 교환 신청 팝업 표시
+	UIManager::getInstance()->OpenTradeUI(targetName);
+}
+
 //void TradePacketHandler::HandleTradeRequest(const ParsedPacket& pkt)

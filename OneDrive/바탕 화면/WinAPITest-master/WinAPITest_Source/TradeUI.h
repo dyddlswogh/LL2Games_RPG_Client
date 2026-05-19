@@ -13,6 +13,7 @@ public:
 	void Render(HDC hdc) override;
 	void Render(stbD2DRenderer& renderer) override;
 
+
 private:
 	//내 아이템 슬롯 영역(왼쪽 패널)
 	void RenderMySlots(stbD2DRenderer& renderer);
@@ -20,9 +21,13 @@ private:
 	void RenderTargetSlots(stbD2DRenderer& renderer);
 	//확정/취소 버튼
 	void RenderButtons(stbD2DRenderer& renderer);
+	void RenderNickname(stbD2DRenderer& renderer);
 
 	void HandleLMouseClick(int mouseX, int mouseY);
 	int GetClickedMySlotIndex(int mouseX, int mouseY);
+
+public:
+	void StartTrade(const std::string& targetName);
 
 private:
 	stb::Texture* m_background = nullptr;
@@ -38,4 +43,6 @@ private:
 	static constexpr int SLOT_GAP_X = 2;
 	static constexpr int SLOT_GAP_Y = 2;
 	
+	std::wstring m_targetName;
+	std::wstring m_myName;
 };

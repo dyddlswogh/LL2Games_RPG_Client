@@ -53,8 +53,10 @@ private:
 	void DiscardDeviceResources();
 	bool EnsureBrush();
 
+public:
 	ID2D1HwndRenderTarget* GetRenderTarget() { return m_RenderTarget.Get(); }
 	IWICImagingFactory* GetWicFactory() { return m_WicFactory.Get(); }
+	IDWriteFactory* GetWriteFactory() { return m_DWriteFactory.Get(); }
 
 private:
 	HWND mHwnd = nullptr;

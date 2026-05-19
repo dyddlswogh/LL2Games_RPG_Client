@@ -83,5 +83,12 @@ bool PacketManager::RegisterAllHandlers()
 			TradePacketHandler::HandleTradeRequest(pkt);
 		});
 
+	// 교환 시작 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_START,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeStart(pkt);
+		});
+
 	return true;
 }

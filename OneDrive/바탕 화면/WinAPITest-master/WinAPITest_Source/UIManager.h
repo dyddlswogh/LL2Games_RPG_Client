@@ -25,7 +25,7 @@ public:
 
 	//±³È¯
 	void ToggleTradeUI(); //test
-	void OpenTradeUI();
+	void OpenTradeUI(const std::string& tartgetName);
 	void OpenReqTradeUI();
 	void CloseReqTradeUI();
 	void AppendInputChar_Trade(wchar_t ch);
