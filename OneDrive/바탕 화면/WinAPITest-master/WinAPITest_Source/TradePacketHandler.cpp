@@ -21,9 +21,9 @@ void TradePacketHandler::SendTradeRequest(std::string targetPlayerId)
 }
 
 //교환 수락
-void TradePacketHandler::SendTradeAccept()
+void TradePacketHandler::SendTradeAccept(const std::string& requesterId)
 {
-	M_NETWORK->SendPacket(PKT_TRADE_ACCEPT, {});
+	M_NETWORK->SendPacket(PKT_TRADE_ACCEPT, {requesterId});
 }
 
 //교환 거절

@@ -148,7 +148,6 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
     renderer.DrawTextString(L"거절", rejectTextRect,
         D2D1::ColorF(D2D1::ColorF::White));
 }
-
 void TradeRequestUI::RenderRequest(stbD2DRenderer& renderer)
 {
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
@@ -201,7 +200,7 @@ void TradeRequestUI::OnPopUp(const TradeRequestInfo& info)
     { char szTemp[2560] = { 0, }; sprintf_s(szTemp, "[%s][%d] gunoo22_TEST reqName[%s]", __FUNCTION__, __LINE__, ansi_requesterName.c_str()); OutputDebugStringA(szTemp); }
     //TODO
     //교환창 팝업
-
+    m_requesterId = info.requesterId;
     m_requesterNameW = Convert::Utf8ToWstr(info.requesterName);
     m_requestPopupActive = true;
 }
@@ -265,7 +264,7 @@ void TradeRequestUI::OnMouseDown(int x, int y)
 
         // 거절 패킷이 따로 있다면 SendTradeReject 사용
         // 없으면 Cancel 패킷으로 처리
-        TradePacketHandler::SendTradeReject(m_requesterId);
+        //TradePacketHandler::SendTradeReject(m_requesterId);
         // 또는
         // TradePacketHandler::SendTradeCancel(m_requesterId);
 

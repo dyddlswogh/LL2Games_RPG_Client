@@ -36,6 +36,7 @@ private:
     bool         m_done = false;
 
     bool         m_requestPopupActive = false; //교환신청 팝업용
+    std::string m_requesterId;
     std::wstring m_requesterNameW;
     D2D1_RECT_F m_acceptButtonRect{};   //교환신청 수락버튼
     D2D1_RECT_F m_rejectButtonRect{};   //교환신청 거절버튼

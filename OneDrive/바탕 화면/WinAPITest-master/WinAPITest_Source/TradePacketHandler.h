@@ -17,7 +17,7 @@ public:
 
 	// --- C->S 송신 함수 ------------------------------------------------------
 	static void SendTradeRequest(std::string targetPlayerId);	//교환신청
-	static void SendTradeAccept();								//교환수락
+	static void SendTradeAccept(const std::string &requesterId);								//교환수락
 	static void SendTradeDecline();								//교환거절
 	static void SendTradeAddItem(const TradeSlotInfo& item);	//아이템 추가
 	static void SendTradeRemoveItem(int slotPos);				//아이템 제거
