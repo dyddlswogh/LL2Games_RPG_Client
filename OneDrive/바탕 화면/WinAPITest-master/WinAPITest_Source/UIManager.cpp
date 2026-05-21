@@ -60,3 +60,5 @@ void UIManager::ToggleInventory()
 	if (m_inventoryUI != nullptr)
 		m_inventoryUI->Toggle();
 }
+
+

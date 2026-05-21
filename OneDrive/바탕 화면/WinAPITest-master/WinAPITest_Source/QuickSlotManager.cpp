@@ -4,6 +4,7 @@
 #include "CombatPacketHandler.h"
 #include "PlayerManager.h"
 #include "stbInput.h"
+#include "QuickSlotPacketHandler.h"
 
 #define M_INVENTORYMANAGER stb::SingletonBase<InventoryManager>::getInstance()
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
@@ -43,6 +44,15 @@ void QuickSlotManager::SetSlotItem(int slotIndex, int inventoryType, int slotPos
 
 }
 
+// Äü½½·Ô º¯°æ ÇÏ´Â ¿äÃ» ¼­¹ö·Î º¸³¿
+void QuickSlotManager::RequestSetSlot(const QuickSlotData& quickSlotData)
+{
+    if (quickSlotData.slot_index < 0 || quickSlotData.slot_index >= m_maxSlotCount)
+        return;
+    QuickSlotPacketHandler::SendSetQuickSlot(quickSlotData);
+
+}
+
 void QuickSlotManager::ClearSlot(int slotIndex)
 {
 
@@ -72,7 +82,7 @@ void QuickSlotManager::UseSlot(int slotIndex)
     }
     case QuickSlotType::Item:
     {
-        Inventory* inven = M_INVENTORYMANAGER->GetInventory(slot.inventory_type);
+        Inventory* inven = M_INVENTORYMANAGER->GetInventory(static_cast<int>(slot.inventory_type));
 
         InventoryItemInfo* itemInfo = inven->FindSlot(slot.inventory_slotPos);
         if (itemInfo == nullptr)

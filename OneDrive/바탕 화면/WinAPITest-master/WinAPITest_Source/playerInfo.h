@@ -1,6 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
-#include "math.h"
+#include "stbmath.h"
 
 struct BaseStat
 {
@@ -38,10 +38,44 @@ struct PlayerLocation
 
 enum class PlayerState
 {
-	IDLE,
-	MOVE,
-	JUMP,
-	ATTACK,
-	STUNNED,
-	DEAD
+	Idle,
+	Alert,
+	Walk,
+	Jump,
+	Prone,
+	Rope,
+	Ladder,
+	Attack,
+	Dead,
+	None
 };
+
+enum class JobType
+{
+	None,
+	Warrior,
+	Archer,
+	Thief,
+	Mage
+};
+
+
+namespace PlayerTypeUtil
+{
+	inline JobType StringToJobType(const std::string& str)
+	{
+		if (str == "warrior")
+			return JobType::Warrior;
+
+		if (str == "archer")
+			return JobType::Archer;
+
+		if (str == "thief")
+			return JobType::Thief;
+
+		if (str == "mage")
+			return JobType::Mage;
+
+		return JobType::None;
+	}
+}

@@ -1,11 +1,18 @@
 #pragma once
 #include "..\\WinAPITest_Source\\stbGameObject.h"
+#include "..\\WinAPITest_Source\\\stbTransform.h"
+#include "..\\WinAPITest_Source\\\stbAnimator.h"
+#include "..\\WinAPITest_Source\\\BoxCollider2D.h"
 #include "..\\WinAPITest_Source\\Stat.h"
 #include "..\\WinAPITest_Source\\\InventoryManager.h"
 #include "..\\WinAPITest_Source\\\CombatSystem.h"
 #include "..\\WinAPITest_Source\\\QuickSlotManager.h"
+#include "stbPlayerScript.h"
+#include "EquipeTypes.h"
 
 
+
+class stbD2DRenderer;
 namespace stb
 {
 
@@ -15,14 +22,7 @@ namespace stb
 		Right = 1
 	};
 
-	// 이거 나중에 Weapon_Info로 옮겨야함 
-	enum class WeaponType
-	{
-		None	 = 290000,
-		One_Hand = 290001,
-		Two_Hand = 290002,
-		Bow		 = 290003,	
-	};
+
 
 	class Player : public GameObject
 	{
@@ -33,6 +33,7 @@ namespace stb
 		void Update() override;
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
+		void Render(stbD2DRenderer& renderer);
 
 		void SetStat(BaseStat baseStat, DerivedStat derived, int cur_hp, int cur_mp, int remainAp);
 		void SetPlayerInfo(PlayerIdentity playeridentity, PlayerProfile playerProfile, PlayerLocation playerlocation);
@@ -52,12 +53,12 @@ namespace stb
 		CombatSystem* GetCombatSystem() { return &m_combatSystem; }
 
 		// 플레이어의 상태가 Dead인지 확인하는 함수
-		bool IsDead() { return m_playerState == PlayerState::DEAD; };
+		bool IsDead() { return m_playerState == PlayerState::Dead; };
 
 		// 플레이어의 상태가 Attack인지 확인하는 함수
-		bool IsAttacking() { return m_playerState == PlayerState::ATTACK; }
+		bool IsAttacking() { return m_playerState == PlayerState::Attack; }
 		PlayerState GetState() { return m_playerState; }
-		void SetState(PlayerState state) { m_playerState = state; }
+		void SetState(PlayerState state);
 
 		QuickSlotManager* GetQuickSlotManager() { return &m_quickSlotManager; }
 
@@ -66,9 +67,14 @@ namespace stb
 		
 		int GetWeaponTypeToInt() { return static_cast<int>(m_weaponType); }
 		WeaponType GetWeaponType() { return m_weaponType; }
+
+		void SetLocalPlayer(bool isLocalPlayer) { m_isLocalPlayer = isLocalPlayer; }
+		bool IsLocalPlayer() { return m_isLocalPlayer; }
+
+		Animator* GetAnimator() { return m_animator; }
 	private:
 		WeaponType m_weaponType = WeaponType::None;
-
+		
 	private:
 		// 
 		Stat m_stat;
@@ -81,6 +87,7 @@ namespace stb
 		// 플레이어 위치 정보
 		PlayerLocation m_playerLocation;
 
+		// 플레이어 상태
 		PlayerState m_playerState;
 
 		// 플레이어 전투 시스템
@@ -89,7 +96,18 @@ namespace stb
 		QuickSlotManager m_quickSlotManager;
 		
 		FacingDirection m_facing = FacingDirection::Right;
+	
+	private:
+		Transform* m_transform;
+		Animator* m_animator;
+		BoxCollider2D* m_collider;
+		PlayerScript* m_script;
 
+		std::wstring m_currentAnimation;
+		
+		bool m_isLocalPlayer;
+
+		std::string DebugMsg;
 
 	};
 

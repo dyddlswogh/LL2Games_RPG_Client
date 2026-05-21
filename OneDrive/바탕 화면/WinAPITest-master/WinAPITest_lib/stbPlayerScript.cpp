@@ -8,12 +8,15 @@
 #include "PlayerManager.h"
 #include "QuickSlotManager.h"
 #include "UIManager.h"
+#include "stbPlayer.h"
+#include "PlayerAnimationManager.h"
 
 
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
 #define M_TIME  stb::SingletonBase<stb::Time>::getInstance()
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
+#define M_PLAYERANIMMANAGER stb::SingletonBase<PlayerAnimationManager>::getInstance()
 
 
 namespace stb
@@ -41,9 +44,9 @@ namespace stb
 		
 	void PlayerScript::Update()
 	{
-		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+		if (m_player == nullptr) return;
 
-		if (player != nullptr && player->GetState() == PlayerState::ATTACK)
+		if (m_player->GetState() == PlayerState::Attack)
 		{
 			Idle(false);          // 이동은 처리하되 상태는 바꾸지 않음
 			UpdateAttackState();  // 공격 종료 시간 체크
@@ -51,8 +54,9 @@ namespace stb
 		}
 
 		Idle(true);
-		HandleInput();
 		HandleCombatInput();
+		HandleInput();
+		
 	}	
 		
 	void PlayerScript::LateUpdate()
@@ -63,6 +67,13 @@ namespace stb
 	void PlayerScript::Render(HDC hdc)
 	{
 
+	}
+
+	void PlayerScript::SetAnimator()
+	{
+		if (m_player == nullptr) return;
+
+		m_animator = m_player->GetAnimator();
 	}
 
 	void PlayerScript::UpdateAttackState()
@@ -81,12 +92,12 @@ namespace stb
 
 		if (IsMoveInputPressed())
 		{
-			player->SetState(PlayerState::MOVE);
+			player->SetState(PlayerState::Walk);
 			OutputDebugStringA("Attack End -> Move\n");
 		}
 		else
 		{
-			player->SetState(PlayerState::IDLE);
+			player->SetState(PlayerState::Idle);
 			OutputDebugStringA("Attack End -> Idle\n");
 		}
 	}
@@ -100,41 +111,48 @@ namespace stb
 		Vector2 pos = tr->GetPosition();
 		bool moved = false;
 
-		if (M_INPUT->GetAction(eActionCode::MoveRight))
+		if (m_player->GetState() != PlayerState::Attack)
 		{
-			pos.x += 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
+			if (M_INPUT->GetAction(eActionCode::MoveRight))
+			{
+				pos.x += 100.0f * M_TIME->GetDeltaTime();
+				m_player->SetFacing(FacingDirection::Right);
+				m_animator->SetFlipX(true);
+				moved = true;
+			}
+
+			if (M_INPUT->GetAction(eActionCode::MoveLeft))
+			{
+				pos.x -= 100.0f * M_TIME->GetDeltaTime();
+				m_player->SetFacing(FacingDirection::Left);
+				m_animator->SetFlipX(false);
+				moved = true;
+			}
+
+			if (M_INPUT->GetAction(eActionCode::MoveUp))
+			{
+				pos.y -= 100.0f * M_TIME->GetDeltaTime();
+				moved = true;
+			}
+
+			if (M_INPUT->GetAction(eActionCode::MoveDown))
+			{
+				pos.y += 100.0f * M_TIME->GetDeltaTime();
+				moved = true;
+			}
+
+			tr->SetPosition(pos);
 		}
-
-		if (M_INPUT->GetAction(eActionCode::MoveLeft))
-		{
-			pos.x -= 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
-		}
-
-		if (M_INPUT->GetAction(eActionCode::MoveUp))
-		{
-			pos.y -= 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
-		}
-
-		if (M_INPUT->GetAction(eActionCode::MoveDown))
-		{
-			pos.y += 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
-		}
-
-		tr->SetPosition(pos);
-
+		
 		if (changeState)
 		{
 			stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
 			if (player != nullptr)
 			{
 				if (moved)
-					player->SetState(PlayerState::MOVE);
+					player->SetState(PlayerState::Walk);
 				else
-					player->SetState(PlayerState::IDLE);
+					player->SetState(PlayerState::Idle);
 			}
 		}
 
@@ -168,7 +186,7 @@ namespace stb
 
 	void PlayerScript::Attack()
 	{
-		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+		stb::Player* player = m_player;
 
 		if (player == nullptr)
 			return;
@@ -176,12 +194,12 @@ namespace stb
 		if (player->GetCombatSystem() == nullptr)
 			return;
 
-		if (player->GetState() == PlayerState::ATTACK)
+		if (player->GetState() == PlayerState::Attack)
 			return;
 
 		if (player->GetCombatSystem()->TryBasicAttack())
 		{
-			player->SetState(PlayerState::ATTACK);
+			player->SetState(PlayerState::Attack);
 			mAttackTimer = 0.0f;
 
 			OutputDebugStringA("Player Attack Start\n");
@@ -191,7 +209,17 @@ namespace stb
 
 	void PlayerScript::Jump() 
 	{
+		if (m_player == nullptr)
+			return;
 
+		if (m_player->GetCombatSystem() == nullptr)
+			return;
+
+		if (m_player->GetState() == PlayerState::Jump)
+			return;
+
+		m_player->SetState(PlayerState::Jump);
+		
 	}
 
 	void PlayerScript::HandleInput()
@@ -208,6 +236,8 @@ namespace stb
 	{
 		if (M_INPUT->GetActionDown(eActionCode::Attack))
 		{
+			DebugMsg = "HandleComabatInput is Pressed\n";
+			OutputDebugStringA(DebugMsg.c_str());	
 			Attack();
 		}
 	}

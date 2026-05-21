@@ -66,8 +66,10 @@ namespace stb
 
 	void Animator::Render(stbD2DRenderer& renderer)
 	{
-		if (mActiveAnimation)
-			mActiveAnimation->Render(renderer);
+		if (mActiveAnimation) {
+			mActiveAnimation->Render(renderer, m_flipX);
+		}
+			
 	}
 
 	void Animator::CreateAnimation(const std::wstring& name
@@ -146,7 +148,7 @@ namespace stb
 
 	}
 
-	void Animator::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 offset, float duration)
+	void Animator::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 origin, Vector2 offset, float duration)
 	{
 		if (frames.empty())
 		{
@@ -165,7 +167,7 @@ namespace stb
 
 		animation = new Animation();
 		animation->SetName(name);
-		animation->CreateFrameAnimation(name, frames, offset, duration);
+		animation->CreateFrameAnimation(name, frames, origin, offset, duration);
 		animation->SetAnimator(this);
 
 		Events* events = new Events();
@@ -177,6 +179,36 @@ namespace stb
 		m_AnimationEventNames.insert(std::make_pair(name, eventNames));
 	}
 
+	void Animator::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 baseOffset, const std::vector<stb::math::Vector2>& frameOffsets, float duration)
+	{
+		if (frames.empty())
+		{
+			std::string DebugMsg = "Frame is Empty \n";
+			OutputDebugStringA(DebugMsg.c_str());
+			return;
+		}
+
+
+		Animation* animation = FindAnimation(name);
+		if (animation != nullptr)
+			return;
+
+		std::wstring DebugMsg = L"Animation Name : " + name + L"\n";
+		OutputDebugStringW(DebugMsg.c_str());
+
+		animation = new Animation();
+		animation->SetName(name);
+		animation->CreateFrameAnimation(name, frames, baseOffset, frameOffsets, duration);
+		animation->SetAnimator(this);
+
+		Events* events = new Events();
+
+		mAnimations.insert(std::make_pair(name, animation));
+		mEvents.insert(std::make_pair(name, events));
+
+		EventNames eventNames{};
+		m_AnimationEventNames.insert(std::make_pair(name, eventNames));
+	}
 	
 
 	Animation* Animator::FindAnimation(const std::wstring& name)
@@ -253,6 +285,7 @@ namespace stb
 
 		InvokeEvent(animEventIt->second.endEventName);
 	}
+
 
 	void Animator::InvokeEvent(const std::wstring& eventName)
 	{

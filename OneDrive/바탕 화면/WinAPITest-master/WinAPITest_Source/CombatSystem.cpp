@@ -54,7 +54,7 @@ bool CombatSystem::TryBasicAttack()
 
     // 서버에 공격 패킷 보내기
     CombatPacketHandler::SendBasicAttack(static_cast<int>(dir));
-    m_player->SetState(PlayerState::ATTACK);
+    m_player->SetState(PlayerState::Attack);
     m_player->PlayAttackAnimation(m_player->GetWeaponTypeToInt());
     return true;
 }
@@ -96,13 +96,10 @@ bool CombatSystem::CanBasicAttack()
 
     PlayerState state = m_player->GetState();
 
-    if (state == PlayerState::STUNNED)
+    if (state == PlayerState::Dead)
         return false;
 
-    if (state == PlayerState::DEAD)
-        return false;
-
-    if (state == PlayerState::ATTACK)
+    if (state == PlayerState::Attack)
         return false;
 
     // IDLE, MOVE는 공격 가능

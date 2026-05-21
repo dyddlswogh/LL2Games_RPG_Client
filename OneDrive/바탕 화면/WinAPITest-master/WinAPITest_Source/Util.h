@@ -3,7 +3,7 @@
 
 namespace utils
 {
-	std::wstring StringToWString(const std::string& str)
+	inline std::wstring StringToWString(const std::string& str)
 	{
 		return std::wstring(str.begin(), str.end());
 	}

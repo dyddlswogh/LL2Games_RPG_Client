@@ -2,6 +2,7 @@
 #include "PlayerManager.h"
 #include "PacketParser.h"
 #include "QuickSlotManager.h"
+#include "stbNetworkManager.h"
 
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
@@ -51,10 +52,13 @@ void QuickSlotPacketHandler::HandleSlotList(const ParsedPacket& pkt)
                 throw std::runtime_error(errMsg);
             }
 
-            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, quickSlotData.inventory_type, errMsg))
+            int inventoryType = 0;
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, inventoryType, errMsg))
             {
                 throw std::runtime_error(errMsg);
             }
+
+            quickSlotData.inventory_type = inventoryConvert::SetInvenType(inventoryType);
 
             if (!PacketParser::ParseNextIntField(data, payloadSize, offset, quickSlotData.inventory_slotPos, errMsg))
             {
@@ -73,4 +77,19 @@ void QuickSlotPacketHandler::HandleSlotList(const ParsedPacket& pkt)
     {
         OutputDebugStringA("예상치 못한 에러 발생\n");
     }
+}
+
+void QuickSlotPacketHandler::SendSetQuickSlot(const QuickSlotData& quickSlotData)
+{
+    std::vector<std::string> data;
+
+    data.push_back(std::to_string(quickSlotData.slot_index));
+    data.push_back(std::to_string(static_cast<int>(quickSlotData.type)));
+    data.push_back(std::to_string(quickSlotData.ref_id));
+    data.push_back(std::to_string(static_cast<int>(quickSlotData.inventory_type)));
+    data.push_back(std::to_string(quickSlotData.inventory_slotPos));
+    data.push_back(std::to_string(quickSlotData.count));
+
+    stb::NetworkManager::getInstance()->SendPacket(PKT_QUICKSLOT_SET, data);
+    OutputDebugStringA("[PKT_QUICKSLOT_SET 전송 완료]\n\n");
 }

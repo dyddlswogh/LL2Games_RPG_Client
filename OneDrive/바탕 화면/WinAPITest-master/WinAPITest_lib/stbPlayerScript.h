@@ -1,8 +1,11 @@
 #pragma once
 #include "..\\WinAPITest_Source\\stbScript.h"
 #include "..\\WinAPITest_Source\\\CombatSystem.h"
-#include "stbPlayer.h"
+#include "..\\WinAPITest_Source\\stbInput.h"
+#include "..\\WinAPITest_Source\\stbAnimation.h"
 
+namespace stb { class Player; }
+class stbD2DRenderer;
 
 namespace stb
 {
@@ -18,6 +21,7 @@ namespace stb
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 	
+	 
 	public:
 
 
@@ -28,7 +32,7 @@ namespace stb
 		}
 
 		void SetPlayer(stb::Player* player) { m_player = player; }
-
+		void SetAnimator();
 	private:
 		void UpdateAttackState();
 		void Idle(bool changeState = true);
@@ -52,6 +56,9 @@ namespace stb
 		GameObject* mSword;
 
 		stb::Player* m_player;
+		stb::Animator* m_animator;
+
+		std::string DebugMsg;
 	};
 }
 

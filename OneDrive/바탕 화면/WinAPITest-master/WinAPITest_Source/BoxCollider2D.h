@@ -2,6 +2,7 @@
 #include "stbCollider.h"
 
 
+
 namespace stb
 {
 	class BoxCollider2D : public Collider
@@ -14,9 +15,11 @@ namespace stb
         void Update() override;
         void LateUpdate() override;
         void Render(HDC hdc) override;
+		void Render(stbD2DRenderer& renderer) override;
+
+	public:
+	
 	private:
-
-
 	};
 
 }

@@ -44,27 +44,11 @@ namespace stb
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		render::mainCamera = cameraComp;
 
-		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
-
-		Transform* tr = mPlayer->AddComponent<Transform>();
+	
+		mPlayer = M_PLMANAGER->CreateLocalPlayer(enums::eLayerType::Player, Vector2(300.0f, 300.0f));
 		int charId = atoi(stb::NetworkConfig::GetCharacterId());
-		tr->SetPosition(Vector2(300.0f, 300.0f));
-
-		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
-		playerScript->SetOwner(mPlayer);
-		M_PLMANAGER->SetLocalPlayer(mPlayer);
-
+		
 		M_UIMANAGER->Init();
-		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
-		Animator* spartaAnim = mPlayer->AddComponent<Animator>();
-		if (spartaTex != nullptr)
-		{
-			spartaAnim->CreateAnimation(L"Run", spartaTex, Vector2(990.0f, 192.0f), Vector2(110.0f, 96.0f), Vector2::Zero, 4, 0.15f);
-			spartaAnim->PlayAnimation(L"Run", true);
-		}
-
-		playerScript->SetFollowers(nullptr, nullptr);
-
 		Scene::Initialize();
 
 		stb::Logger::Init();

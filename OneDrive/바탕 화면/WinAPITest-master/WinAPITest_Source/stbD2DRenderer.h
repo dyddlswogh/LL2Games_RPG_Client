@@ -47,8 +47,11 @@ public:
 	void DrawBitmap(float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
 	void DrawBitmap(ID2D1Bitmap* bitmap, float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
 	void DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity);
+	void DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity, bool flipX);
 	void DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, float opacity = 1.0f);
-	
+	void DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity = 1.0f);
+
+	void DrawSprite2(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity = 1.0f);
 
 	bool HasBitmap() const;
 	HRESULT CreateBitmapFromFile(PCWSTR filePath, ID2D1Bitmap** outBitmap);

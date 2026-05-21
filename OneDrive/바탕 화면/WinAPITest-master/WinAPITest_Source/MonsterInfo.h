@@ -1,7 +1,7 @@
 #pragma once
 #include "stbMath.h"
 #include "AnimationInfo.h"
-#include "stbMath.h"
+#include "Collider_Info.h"
 
 enum class MonsterState
 {
@@ -49,6 +49,8 @@ struct MonsterData
 	stb::math::Vector2 UIPos = stb::math::Vector2::Zero;
 	RenderInfo renderInfo{};
 	std::vector<AnimationInfo> animations;
+
+	CollierInfo colliderInfo{};
 };
 
 

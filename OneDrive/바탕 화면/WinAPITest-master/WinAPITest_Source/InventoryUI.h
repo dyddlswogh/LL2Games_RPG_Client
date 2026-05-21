@@ -48,7 +48,7 @@ private:
 
 	void HandleMouseUp();
 	void HandleDragging(int mouseX, int mouseY);
-	void SwapInventorySlot(int fromSlotIndex, int toSlotIndex);
+
 
 	void ExpandInventory();
 	void ReduceInventory();

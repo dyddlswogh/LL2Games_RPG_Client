@@ -71,7 +71,15 @@ namespace stb
 
 		void CreateFrameAnimation(const std::wstring& name
 			, const std::vector<Texture*>& frames
+			, Vector2 origin
 			, Vector2 offset
+			, float duration
+		);
+
+		void CreateFrameAnimation(const std::wstring& name
+			, const std::vector<Texture*>& frames
+			, Vector2 baseOffset
+			, const std::vector<stb::math::Vector2>& frameOffsets
 			, float duration
 		);
 
@@ -86,6 +94,9 @@ namespace stb
 		void InvokeCompleteEvent(const std::wstring& animationName);
 		void InvokeEndEvent(const std::wstring& animationName);
 
+
+	public:
+		void SetFlipX(bool flipX) { m_flipX = flipX; }
 	private: 
 		void InvokeEvent(const std::wstring& eventName);
 	private:
@@ -96,7 +107,10 @@ namespace stb
 		Animation* mActiveAnimation;
 		bool mbLoop;
 		bool mbCompleteEventCalled;
+		bool m_flipX;
 		std::map<std::wstring, Events*> mEvents;
+
+
 		
 
 		std::string DebugMsg;

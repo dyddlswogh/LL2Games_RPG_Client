@@ -8,12 +8,17 @@
 #include "ItemDataManager.h"
 #include "ItemPacketHandler.h"
 #include "InventoryPacketHandler.h"
+#include "UIManager.h"
+#include "QuickSlotUI.h"
+#include "QuickSlotManager.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
 #define M_APP stb::SingletonBase<stb::Application>::getInstance()
 #define M_INVENTORYMANAGER stb::SingletonBase<InventoryManager>::getInstance()
 #define M_ITEMDATAMANAGER stb::SingletonBase<ItemDataManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
+#define M_QUICKSLOTMANAGER stb::SingletonBase<QuickSlotManager>::getInstance()
 
 void InventoryUI::Init()
 {
@@ -729,14 +734,29 @@ void InventoryUI::HandleMouseUp()
         {
             // 여기서 서버에 패킷을 보내고 결과값을 바탕으로 아이템 위치를 변경하는 것이 맞다
             InventoryPacketHandler::SendMoveItem(static_cast<int>(m_currentType), m_dragStartSlotIndex, dropSlotIndex);
-            //SwapInventorySlot(m_dragStartSlotIndex, dropSlotIndex);
         }
+
+
+        int quickSlotIndex = M_UIMANAGER->GetQuickSlotUI()->GetSlotIndexByPoint(m_dragCurrentMouseX, m_dragCurrentMouseY);
+
+        if (quickSlotIndex != -1)
+        {
+            QuickSlotData data;
+            data.slot_index = quickSlotIndex;
+            data.type = QuickSlotType::Item;
+            data.ref_id = m_dragItemId;
+            data.inventory_type = m_currentType;
+            data.inventory_slotPos = m_dragStartSlotIndex;
+            data.count = m_dragItemCount;
+
+            M_QUICKSLOTMANAGER->RequestSetSlot(data);
+        }
+
 
         m_isItemDragging = false;
         m_dragStartSlotIndex = -1;
         m_dragItemId = 0;
         m_dragItemCount = 0;
-
         return;
     }
 
@@ -767,24 +787,6 @@ void InventoryUI::HandleDragging(int mouseX, int mouseY)
     m_inventoryClickRect.right = m_inventoryImgPosX + inventoryClickWidth;
     m_inventoryClickRect.bottom = m_inventoryImgPosY + inventoryClickHeight;
 
-}
-
-void InventoryUI::SwapInventorySlot(int fromSlotIndex, int toSlotIndex)
-{
-    if (fromSlotIndex < 0 || fromSlotIndex >= (int)m_slots.size())
-        return;
-
-    if (toSlotIndex < 0 || toSlotIndex >= (int)m_slots.size())
-        return;
-
-    std::swap(m_slots[fromSlotIndex].itemId, m_slots[toSlotIndex].itemId);
-    std::swap(m_slots[fromSlotIndex].itemCount, m_slots[toSlotIndex].itemCount);
-
-    Inventory* inventory = M_INVENTORYMANAGER->GetInventory(static_cast<int>(m_currentType));
-    if (inventory == nullptr)
-        return;
-
-    inventory->SwapSlot(fromSlotIndex, toSlotIndex);
 }
 
 void InventoryUI::ExpandInventory() 

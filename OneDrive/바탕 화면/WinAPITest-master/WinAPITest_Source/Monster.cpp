@@ -13,7 +13,6 @@ void Monster::Initialize()
 
 	m_transform = AddComponent<stb::Transform>();
 	m_animator = AddComponent<stb::Animator>();
-	m_collider = AddComponent<stb::BoxCollider2D>();
 	m_script = AddComponent<MonsterScript>();
 
 	m_script->SetOwner(this);
@@ -27,7 +26,7 @@ void Monster::InitFromSpawn(const MonsterSpawnInfo& info)
 
 	ResetFromSpawnInfo(info);
 	SetAnimation();
-
+	SetCollider();
 	SetState(MonsterState::E_Move);
 	BindAnimationEvents();
 }
@@ -64,6 +63,7 @@ void Monster::Render(stbD2DRenderer& renderer)
 
 
 	GameObject::Render(renderer);
+	m_collider->Render(renderer);
 }
 
 void Monster::SetState(MonsterState state)
@@ -143,6 +143,7 @@ void Monster::SetAnimation()
 			utils::StringToWString(info.anim_name),
 			frames,
 			data->renderInfo.origin,
+			data->renderInfo.offset,
 			0.2f
 		);
 
@@ -155,6 +156,30 @@ void Monster::SetAnimation()
 		m_animator->SetAnimationEventNames(utils::StringToWString(info.anim_name), eventNames);	
 	}
 }
+void Monster::SetCollider()
+{
+	const MonsterData* data = M_MONSTERDATAMANAGER->FindMonsterData(m_monsterId);
+	if (data == nullptr)
+	{
+		std::string DebugMsg = "MonsterData is nullptr \n";
+		OutputDebugStringA(DebugMsg.c_str());
+		return;
+	}
+
+	if (data->colliderInfo.colliderType == stb::eColliderType::Rect2D)
+	{
+		m_collider = AddComponent<stb::BoxCollider2D>();
+	}	
+	else 
+	{
+		m_collider = AddComponent<stb::CircleCollider2D>();
+	}
+	
+	m_collider->SetOffset(data->colliderInfo.offset);
+	m_collider->SetSize(data->colliderInfo.halfSize);
+
+}
+
 void Monster::BindAnimationEvents()
 {
 	m_animator->RegisterEvent(L"MonsterHitEnd", [this]()
@@ -207,8 +232,6 @@ void Monster::ApplyServerUpdate(const MonsterUpdateInfo& info)
 
 		return;
 	}
-	DebugMsg = "Monster InstanceID " + std::to_string(m_instanceId) + " Monster State : "+std::to_string(static_cast<int>(info.state)) + "\n";
-	OutputDebugStringA(DebugMsg.c_str());
 	SetState(info.state);
 }
 

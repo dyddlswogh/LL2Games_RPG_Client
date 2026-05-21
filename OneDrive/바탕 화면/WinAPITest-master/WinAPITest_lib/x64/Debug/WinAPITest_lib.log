@@ -1,18 +1,243 @@
-﻿  itemPacketHandler.cpp
+﻿  CombatPacketHandler.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  (소스 파일 '../WinAPITest_Source/CombatPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/CombatPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkManager.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/CombatPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/CombatPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/CombatPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+  CombatSystem.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/CombatSystem.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/CombatSystem.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/CombatSystem.cpp'을(를) 컴파일하는 중)
+  
+  HealthBarUI.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/HealthBarUI.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/HealthBarUI.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/HealthBarUI.cpp'을(를) 컴파일하는 중)
+  
+  InventoryPacketHandler.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/InventoryPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/InventoryPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\StringConvert.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/InventoryPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkManager.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/InventoryPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/InventoryPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\InventoryUI.h(101,38): warning C4305: '초기화 중': 'double'에서 'const float'(으)로 잘립니다.
+  (소스 파일 '../WinAPITest_Source/InventoryPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+  InventoryUI.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/InventoryUI.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/InventoryUI.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\InventoryUI.h(101,38): warning C4305: '초기화 중': 'double'에서 'const float'(으)로 잘립니다.
+  (소스 파일 '../WinAPITest_Source/InventoryUI.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbApplication.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/InventoryUI.cpp'을(를) 컴파일하는 중)
+  
+  ItemUseService.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/ItemUseService.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/ItemUseService.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/ItemUseService.cpp'을(를) 컴파일하는 중)
+  
+  PlayerAnimationManager.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/PlayerAnimationManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/PlayerAnimationManager.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/PlayerAnimationManager.cpp'을(를) 컴파일하는 중)
+  
+  PlayerDataPacketHandler.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/PlayerDataPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/PlayerDataPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/PlayerDataPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+  PlayerManager.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/PlayerManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/PlayerManager.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/PlayerManager.cpp'을(를) 컴파일하는 중)
+  
+  QuickSlotManager.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/QuickSlotManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/QuickSlotManager.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/QuickSlotManager.cpp'을(를) 컴파일하는 중)
+  
+  QuickSlotPacketHandler.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/QuickSlotPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/QuickSlotPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/QuickSlotPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkManager.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/QuickSlotPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 '../WinAPITest_Source/QuickSlotPacketHandler.cpp'을(를) 컴파일하는 중)
+  
+  UIManager.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/UIManager.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/UIManager.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\InventoryUI.h(101,38): warning C4305: '초기화 중': 'double'에서 'const float'(으)로 잘립니다.
+  (소스 파일 '../WinAPITest_Source/UIManager.cpp'을(를) 컴파일하는 중)
+  
+  itemPacketHandler.cpp
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 '../WinAPITest_Source/itemPacketHandler.cpp'을(를) 컴파일하는 중)
   
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   (소스 파일 '../WinAPITest_Source/itemPacketHandler.cpp'을(를) 컴파일하는 중)
   
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkManager.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
   (소스 파일 '../WinAPITest_Source/itemPacketHandler.cpp'을(를) 컴파일하는 중)
   
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
   (소스 파일 '../WinAPITest_Source/itemPacketHandler.cpp'을(를) 컴파일하는 중)
   
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/itemPacketHandler.cpp'을(를) 컴파일하는 중)
+  
 C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\InventoryUI.h(101,38): warning C4305: '초기화 중': 'double'에서 'const float'(으)로 잘립니다.
   (소스 파일 '../WinAPITest_Source/itemPacketHandler.cpp'을(를) 컴파일하는 중)
   
+  stbInput.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/stbInput.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '../WinAPITest_Source/stbInput.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 '../WinAPITest_Source/stbInput.cpp'을(를) 컴파일하는 중)
+  
+  stbPlayScene.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'stbPlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'stbPlayScene.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 'stbPlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkManager.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 'stbPlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 'stbPlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkConfig.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 'stbPlayScene.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbApplication.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 'stbPlayScene.cpp'을(를) 컴파일하는 중)
+  
+  stbPlayer.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'stbPlayer.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'stbPlayer.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 'stbPlayer.cpp'을(를) 컴파일하는 중)
+  
+  stbPlayerScript.cpp
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(9,52): warning C4244: 'return': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'stbPlayerScript.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbMath.h(17,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'stbPlayerScript.cpp'을(를) 컴파일하는 중)
+  
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkManager.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 'stbPlayerScript.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\MySocket.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 'stbPlayerScript.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbNetworkConfig.h(1,1): warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  (소스 파일 'stbPlayerScript.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\WinAPITest_Source\stbAnimator.h(28,17): warning C4091: 'static ': 변수를 선언하지 않으면 'stb::Animator::EventNames' 왼쪽은 무시됩니다.
+  (소스 파일 'stbPlayerScript.cpp'을(를) 컴파일하는 중)
+  
+  코드를 생성하고 있습니다...
   WinAPITest_lib.vcxproj -> C:\Users\dyddl\OneDrive\바탕 화면\WinAPITest-master\x64\Debug\WinAPITest_lib.lib

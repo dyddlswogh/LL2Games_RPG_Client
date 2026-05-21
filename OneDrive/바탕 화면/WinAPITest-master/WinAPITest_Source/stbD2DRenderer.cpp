@@ -545,6 +545,37 @@ void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect
     );
 }
 
+void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity, bool flipX)
+{
+    if (bitmap == nullptr)
+        return;
+
+    if (!flipX)
+    {
+        m_RenderTarget->DrawBitmap(bitmap, destRect);
+        return;
+    }
+
+    D2D1_MATRIX_3X2_F oldTransform;
+    m_RenderTarget->GetTransform(&oldTransform);
+
+    float centerX = (destRect.left + destRect.right) * 0.5f;
+    float centerY = (destRect.top + destRect.bottom) * 0.5f;
+
+    D2D1_MATRIX_3X2_F flip =
+        D2D1::Matrix3x2F::Scale(
+            -1.0f,
+            1.0f,
+            D2D1::Point2F(centerX, centerY)
+        );
+
+    m_RenderTarget->SetTransform(flip * oldTransform);
+
+    m_RenderTarget->DrawBitmap(bitmap, destRect);
+
+    m_RenderTarget->SetTransform(oldTransform);
+}
+
 bool stbD2DRenderer::HasBitmap() const
 {
     return m_Bitmap != nullptr;
@@ -565,6 +596,100 @@ void stbD2DRenderer::DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, f
         opacity,
         D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
         srcRect);
+}
+
+void stbD2DRenderer::DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity)
+{
+    if (!m_RenderTarget || !bitmap)
+        return;
+
+    D2D1_RECT_F destRect = D2D1::RectF(destX,destY,destX + destW,destY + destH);
+    D2D1_RECT_F srcRect = D2D1::RectF(srcX,srcY,srcX + srcW,srcY + srcH);
+
+    if (!flipX)
+    {
+        m_RenderTarget->DrawBitmap(
+            bitmap,
+            destRect,
+            opacity,
+            D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+            srcRect
+        );
+
+        return;
+    }
+
+    D2D1_MATRIX_3X2_F oldTransform;
+    m_RenderTarget->GetTransform(&oldTransform);
+
+    float centerX = destX + destW * 0.5f;
+    float centerY = destY + destH * 0.5f;
+
+    D2D1_MATRIX_3X2_F flipTransform =
+        D2D1::Matrix3x2F::Scale(
+            -1.0f,
+            1.0f,
+            D2D1::Point2F(centerX, centerY)
+        );
+
+    m_RenderTarget->SetTransform(flipTransform * oldTransform);
+
+    m_RenderTarget->DrawBitmap(
+        bitmap,
+        destRect,
+        opacity,
+        D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+        srcRect
+    );
+
+    m_RenderTarget->SetTransform(oldTransform);
+}
+
+void stbD2DRenderer::DrawSprite2(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity)
+{
+    if (!m_RenderTarget || !bitmap)
+        return;
+
+    D2D1_RECT_F destRect = D2D1::RectF(destX,destY,destX + destW,destY + destH);
+
+    D2D1_RECT_F srcRect = D2D1::RectF(srcX,srcY,srcX + srcW,srcY + srcH);
+
+    if (!flipX)
+    {
+        m_RenderTarget->DrawBitmap(
+            bitmap,
+            destRect,
+            opacity,
+            D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+            srcRect
+        );
+        return;
+    }
+
+    D2D1_MATRIX_3X2_F oldTransform;
+    m_RenderTarget->GetTransform(&oldTransform);
+
+    float pivotX = destX + destW * 0.5f;
+    float pivotY = destY + destH * 0.5f;
+
+    D2D1_MATRIX_3X2_F flipTransform =
+        D2D1::Matrix3x2F::Scale(
+            -1.0f,
+            1.0f,
+            D2D1::Point2F(pivotX, pivotY)
+        );
+
+    m_RenderTarget->SetTransform(flipTransform * oldTransform);
+
+    m_RenderTarget->DrawBitmap(
+        bitmap,
+        destRect,
+        opacity,
+        D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+        srcRect
+    );
+
+    m_RenderTarget->SetTransform(oldTransform);
 }
 
 

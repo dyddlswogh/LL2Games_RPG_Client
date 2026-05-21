@@ -57,6 +57,7 @@ enum PACKET_TYPE : uint16_t {
     PKT_STAT_VIEW           = 0x1000,
     PKT_STAT_UP             = 0x1001,
     PKT_QUICKSLOT_LIST      = 0x1002,
+    PKT_QUICKSLOT_SET       = 0x1003,
 };
 
 struct ParsedPacket

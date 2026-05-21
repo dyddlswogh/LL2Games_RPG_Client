@@ -1,5 +1,5 @@
 #pragma once
-
+#include "stbTexture.h"
 enum class InventoryType
 {
     Equip,
@@ -69,3 +69,33 @@ struct InventoryTabButton
     InventoryTabVisual normalView;
     InventoryTabVisual fullView;
 };
+
+/*
+
+enum class InventoryType
+{
+    Equip,
+    Consume,
+    Etc,
+    Setup,
+    Cash,
+    Cosmetic,
+    EnumEnd
+};
+*/
+namespace inventoryConvert
+{
+    inline InventoryType SetInvenType(int num)
+    {
+        switch (num)
+        {
+        case 0 : return InventoryType::Equip;
+        case 1 : return InventoryType::Consume;
+        case 2 : return InventoryType::Etc;
+        case 3 : return InventoryType::Setup;
+        case 4 : return InventoryType::Cash;
+        case 5 : return InventoryType::Cosmetic;
+        default: return InventoryType::EnumEnd;
+        }
+    }
+}

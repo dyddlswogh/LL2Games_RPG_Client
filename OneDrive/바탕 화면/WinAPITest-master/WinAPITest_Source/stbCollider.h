@@ -1,6 +1,9 @@
 #pragma once
 #include "stbComponent.h"
 
+class stbD2DRenderer;
+
+
 namespace stb
 {
 	class Collider : public Component
@@ -12,6 +15,7 @@ namespace stb
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render(HDC hdc) ;
+		virtual void Render(stbD2DRenderer& renderer);
 
 
 		virtual void OnCollisionEnter(Collider* other);
@@ -27,6 +31,8 @@ namespace stb
 		Vector2 GetSize() { return mSize; }
 
 		eColliderType GetColliderType() { return mType; }
+
+
 
 	private:
 		static UINT32 CollisionID;

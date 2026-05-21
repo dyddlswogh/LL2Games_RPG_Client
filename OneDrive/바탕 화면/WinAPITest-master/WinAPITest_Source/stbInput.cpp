@@ -88,7 +88,7 @@ namespace stb
 
 		// 기본 액션 바인딩
 		m_keyBindings[eKeyCode::LALT] = { eBindType::Action, (int)eActionCode::Jump };
-		m_keyBindings[eKeyCode::LCONTROL] = { eBindType::Action, (int)eActionCode::Attack };
+		m_keyBindings[eKeyCode::A] = { eBindType::Action, (int)eActionCode::Attack };
 		m_keyBindings[eKeyCode::SPACE] = { eBindType::Action, (int)eActionCode::Interact };
 		m_keyBindings[eKeyCode::I] = { eBindType::Action, (int)eActionCode::Inventory };
 		m_keyBindings[eKeyCode::K] = { eBindType::Action, (int)eActionCode::SkillWindow };
