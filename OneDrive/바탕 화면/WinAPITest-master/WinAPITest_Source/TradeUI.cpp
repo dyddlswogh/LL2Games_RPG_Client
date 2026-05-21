@@ -6,6 +6,8 @@
 #include "TradePacketHandler.h"
 #include "StringConvert.h"
 #include "stbD2DRenderer.h"
+#include "stbNetworkConfig.h"
+#include <string>
 
 #define M_APP stb::SingletonBase<stb::Application>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
@@ -15,8 +17,10 @@
 
 void TradeUI::Init()
 {
-	m_myName = Convert::Utf8ToWstr("myName"); //test
-	m_myId = "1"; //test
+	//m_myName = Convert::Utf8ToWstr("myName"); //test
+	//m_myId = "1"; //test
+    m_myId = stb::NetworkConfig::GetCharacterId();
+    m_myName = Convert::Utf8ToWstr(stb::NetworkConfig::GetCharacterName());
 	m_txtBackground = M_REMANAGER->Find<stb::Texture>(L"Trade_normal"); //배경
 
     //버튼
@@ -54,6 +58,12 @@ void TradeUI::Render(stbD2DRenderer& renderer)
 
 	if (!mActive)
 		return;
+
+    if (m_myName.empty())
+    {
+        m_myId = stb::NetworkConfig::GetCharacterId();
+        m_myName = Convert::Utf8ToWstr(stb::NetworkConfig::GetCharacterName());
+    }
 
     if (m_cancelPopupActive) //교환 취소 팝업
     {

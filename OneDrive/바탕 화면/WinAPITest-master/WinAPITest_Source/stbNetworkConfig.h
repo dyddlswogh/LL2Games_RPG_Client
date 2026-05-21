@@ -5,6 +5,7 @@ namespace stb
 {
     // 전역 변수 선언
     extern char g_CharacterId[32];
+    extern std::string g_CharacterName;
     extern int g_ChannelPort;
     extern int g_ChatPort;
 
@@ -24,6 +25,9 @@ namespace stb
         
         // 캐릭터 ID (명령줄 인자로 설정됨)
         static const char* GetCharacterId() { return g_CharacterId; }
+
+        static void SetCharacterName(const std::string& name) { g_CharacterName = name; }
+        static std::string GetCharacterName() { return g_CharacterName; }
 
         
         // 맵 ID

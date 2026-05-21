@@ -8,6 +8,7 @@ void ChannelInitPacketHandler::Execute(const ParsedPacket& pkt)
 {
     try
     {
+#if 0
         size_t offset = 0;
         size_t payloadSize = pkt.payload.size();
         std::string debugMsg = "패킷사이즈" + payloadSize;
@@ -18,6 +19,23 @@ void ChannelInitPacketHandler::Execute(const ParsedPacket& pkt)
             //LOG("[이동 패킷] 페이로드 크기 부족\n");
             return;
         }
+#else
+        size_t offset = 0;
+        const char* data = pkt.payload.c_str();
+        size_t payloadSize = pkt.payload.size();
+        std::string status, name, errMsg;
+
+        if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
+            return;
+
+        if (status == "nok")
+            return;
+
+        if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, name, errMsg))
+            return;
+
+        stb::NetworkConfig::SetCharacterName(name);
+#endif
     
         // 채널 인증 성공 후 맵 입장 패킷 전송
         OutputDebugStringA("채널 인증 완료! 맵 입장 패킷 전송...\n");
