@@ -80,6 +80,15 @@ void UIManager::OpenTradeUI(const std::string& tartgetName)
 	m_tradeUI->SetActivce(true);
 	m_tradeUI->StartTrade(tartgetName);
 }
+void UIManager::CloseTradeUI()
+{
+	m_tradeUI->CloseTradeUI();
+}
+
+void UIManager::ShowCancelPopUp()
+{
+	m_tradeUI->OnCancelPopUp();
+}
 
 void UIManager::ToggleTradeUI()
 {

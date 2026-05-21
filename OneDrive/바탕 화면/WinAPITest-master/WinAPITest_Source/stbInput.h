@@ -45,6 +45,7 @@ namespace stb
 		WorldMap,
 		EnumsEnd,
 		Trade,
+		TradeCancel,
 	};
 
 	enum class eBindType

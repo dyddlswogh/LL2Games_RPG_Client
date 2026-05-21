@@ -22,6 +22,6 @@ public:
 	static void SendTradeAddItem(const TradeSlotInfo& item);	//아이템 추가
 	static void SendTradeRemoveItem(int slotPos);				//아이템 제거
 	static void SendTradeConfirm();								//교환확인
-	static void SendTradeCancel();								//교환취소
+	static void SendTradeCancel(const std::string &targetName);								//교환취소
 
 };

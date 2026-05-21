@@ -80,7 +80,7 @@ namespace stb
 	{
 		m_keyBindings.clear();
 
-		// 이동 액샌 바인딩
+		// 이동 액션 바인딩
 		m_keyBindings[eKeyCode::Left] = { eBindType::Action, (int)eActionCode::MoveLeft };
 		m_keyBindings[eKeyCode::Right] = { eBindType::Action, (int)eActionCode::MoveRight };
 		m_keyBindings[eKeyCode::Up] = { eBindType::Action, (int)eActionCode::MoveUp };
@@ -94,6 +94,9 @@ namespace stb
 		m_keyBindings[eKeyCode::I] = { eBindType::Action, (int)eActionCode::Inventory };
 		m_keyBindings[eKeyCode::K] = { eBindType::Action, (int)eActionCode::SkillWindow };
 		m_keyBindings[eKeyCode::T] = { eBindType::Action, (int)eActionCode::Trade };
+
+		//교환 취소 임시(X)
+		m_keyBindings[eKeyCode::X] = { eBindType::Action, (int)eActionCode::TradeCancel };
 
 
 		// 예시

@@ -6,6 +6,7 @@
 
 #define M_NETWORK stb::SingletonBase<stb::NetworkManager>::getInstance()
 #define M_TRADEMGR stb::SingletonBase<TradeManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 // ── 송신 ─────────────────────────────────────────────────────────────
 
@@ -46,9 +47,9 @@ void TradePacketHandler::SendTradeAddItem(const TradeSlotInfo& item)
 }
 
 //교환 취소
-void TradePacketHandler::SendTradeCancel()
+void TradePacketHandler::SendTradeCancel(const std::string& targetName)
 {
-	M_NETWORK->SendPacket(PKT_TRADE_CANCEL, {});
+	M_NETWORK->SendPacket(PKT_TRADE_CANCEL, { targetName });
 }
 
 // ── 수신 ─────────────────────────────────────────────────────────────
@@ -87,6 +88,28 @@ void TradePacketHandler::HandleTradeStart(const ParsedPacket& pkt)
 
 	//TODO: UIManager에 교환 신청 팝업 표시
 	UIManager::getInstance()->OpenTradeUI(targetName);
+}
+
+//교환 취소
+void TradePacketHandler::HandleTradeCancel(const ParsedPacket& pkt)
+{
+	size_t offset = 0;
+	const char* data = pkt.payload.c_str();
+	size_t payloadSize = pkt.payload.size();
+	std::string status, targetName, errMsg;
+
+	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
+		return;
+
+	if (status == "nok")
+	{
+		if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, errMsg, errMsg))
+			return;
+		OutputDebugStringA(errMsg.c_str());
+		return;
+	}
+
+	UIManager::getInstance()->ShowCancelPopUp(); //상대가 교환 취소했다는 팝업 
 }
 
 //void TradePacketHandler::HandleTradeRequest(const ParsedPacket& pkt)

@@ -8,6 +8,7 @@
 #include "PlayerManager.h"
 #include "QuickSlotManager.h"
 #include "UIManager.h"
+#include "TradePacketHandler.h"
 
 
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
@@ -214,6 +215,11 @@ namespace stb
 			//UIManager::getInstance()->OpenTradeUI();
 			//UIManager::getInstance()->ToggleTradeUI(); //test 토글
 			UIManager::getInstance()->OpenReqTradeUI(); //교환신청
+			break;
+
+		case eActionCode::TradeCancel:
+			OutputDebugStringA("Action : Trade Cancel\n");
+			UIManager::getInstance()->CloseTradeUI(); //교환취소
 			break;
 
 		default:

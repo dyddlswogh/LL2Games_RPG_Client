@@ -40,8 +40,15 @@ void TradeUI::Render(HDC hdc)
 
 void TradeUI::Render(stbD2DRenderer& renderer)
 {
+
 	if (!mActive)
 		return;
+
+    if (m_cancelPopupActive) //교환 취소 팝업
+    {
+        RenderCancelPopUp(renderer);
+        return;
+    }
 
 	//stb::Texture* background = m_isExpand ? m_fullBackground : m_background;
 	stb::Texture* background = m_background;
@@ -69,6 +76,77 @@ void TradeUI::Render(stbD2DRenderer& renderer)
 
 	// 2. 배경 위에 닉네임 출력
 	RenderNickname(renderer);
+}
+void TradeUI::RenderCancelPopUp(stbD2DRenderer& renderer)
+{
+    const float popupW = 360.f;
+    const float popupH = 160.f;
+
+    D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
+
+    float px = rtSize.width / 2.f - popupW / 2.f;
+    float py = rtSize.height / 2.f - popupH / 2.f;
+
+    // 팝업 배경
+    renderer.FillRect(px, py, popupW, popupH,
+        D2D1::ColorF(0.f, 0.f, 0.f, 0.85f));
+
+    // 테두리
+    renderer.DrawRect(px, py, popupW, popupH,
+        D2D1::ColorF(D2D1::ColorF::Yellow), 2.f);
+
+    // 메시지
+    std::wstring message = L"'" + m_targetName + L"'님이 교환신청을 취소 하셨습니다.";
+
+    D2D1_RECT_F msgRect = D2D1::RectF(
+        px + 20.f,
+        py + 30.f,
+        px + popupW - 20.f,
+        py + 70.f
+    );
+
+    renderer.DrawTextString(message, msgRect,
+        D2D1::ColorF(D2D1::ColorF::White));
+
+    // 버튼 위치 저장
+    const float btnW = 100.f;
+    const float btnH = 36.f;
+    const float btnY = py + 100.f;
+
+    m_cancelCheckButtonRect = D2D1::RectF(
+        px + 65.f,
+        btnY,
+        px + 65.f + btnW,
+        btnY + btnH
+    );
+
+    // 확인 버튼
+    renderer.FillRect(
+        m_cancelCheckButtonRect.left,
+        m_cancelCheckButtonRect.top,
+        m_cancelCheckButtonRect.right - m_cancelCheckButtonRect.left,
+        m_cancelCheckButtonRect.bottom - m_cancelCheckButtonRect.top,
+        D2D1::ColorF(0.1f, 0.35f, 0.1f, 0.9f)
+    );
+
+    renderer.DrawRect(
+        m_cancelCheckButtonRect.left,
+        m_cancelCheckButtonRect.top,
+        m_cancelCheckButtonRect.right - m_cancelCheckButtonRect.left,
+        m_cancelCheckButtonRect.bottom - m_cancelCheckButtonRect.top,
+        D2D1::ColorF(D2D1::ColorF::LightBlue),
+        1.5f
+    );
+
+    D2D1_RECT_F acceptTextRect = D2D1::RectF(
+        m_cancelCheckButtonRect.left,
+        m_cancelCheckButtonRect.top + 7.f,
+        m_cancelCheckButtonRect.right,
+        m_cancelCheckButtonRect.bottom
+    );
+
+    renderer.DrawTextString(L"확인", acceptTextRect,
+        D2D1::ColorF(D2D1::ColorF::White));
 }
 
 void TradeUI::RenderNickname(stbD2DRenderer& renderer)
@@ -145,9 +223,28 @@ void TradeUI::RenderNickname(stbD2DRenderer& renderer)
     textFormat->Release();
 }
 
+static bool IsPointInRect(int x, int y, const D2D1_RECT_F& rect)
+{
+    return x >= rect.left &&
+        x <= rect.right &&
+        y >= rect.top &&
+        y <= rect.bottom;
+}
+
 //내 슬롯 클릭 -> 아이템 교환창 등록
 void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
 {
+    
+    if (m_cancelPopupActive)
+    {
+        if (IsPointInRect(mouseX, mouseY, m_cancelCheckButtonRect))
+        {
+            OutputDebugStringA("[TradeUI] Cancel Check clicked\n");
+            CloseCancelPopup();
+        }
+        return;
+    }
+
 	int slotIdx = GetClickedMySlotIndex(mouseX, mouseY);
 	if (slotIdx == -1) return;
 
@@ -169,4 +266,32 @@ void TradeUI::StartTrade(const std::string& targetName)
 {
 	m_targetName = Convert::Utf8ToWstr(targetName);
 
+}
+
+void TradeUI::CloseTradeUI()
+{
+    if (mActive)
+    {
+        TradePacketHandler::SendTradeCancel(Convert::WstrToUtf8(m_targetName));
+        mActive = false;
+        m_targetName.clear();
+    }
+}
+
+void TradeUI::OnCancelPopUp()
+{
+    if (mActive)
+    {
+        m_cancelPopupActive = true; 
+    }
+}
+
+void TradeUI::CloseCancelPopup()
+{
+    mActive = false;
+    m_cancelPopupActive = false;
+
+    m_targetName.clear();
+
+    m_cancelCheckButtonRect = D2D1::RectF(0, 0, 0, 0);
 }

@@ -33,6 +33,7 @@ public:
 	void KeyDownTrade(WPARAM key);
 	void CloseTradeUI();
 	void ShowTradeRequestPopUp(const TradeRequestInfo& info); //신청 팝업
+	void ShowCancelPopUp(); //상대가 교환 취소했다는 팝업
 
 	//채팅
 	void ToggleChatInput();
