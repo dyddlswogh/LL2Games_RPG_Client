@@ -111,18 +111,18 @@ void TradeUI::RenderNickname(stbD2DRenderer& renderer)
 
     // 왼쪽 타겟 닉네임 영역
     D2D1_RECT_F targetNickRect = D2D1::RectF(
-        m_posX + 73.0f,
-        m_posY + 168.0f,
-        m_posX + 185.0f,
-        m_posY + 190.0f
+        m_posX + 70.0f,
+        m_posY + 151.0f,
+        m_posX + 182.0f,
+        m_posY + 173.0f
     );
 
     // 오른쪽 내 닉네임 영역
     D2D1_RECT_F myNickRect = D2D1::RectF(
-        m_posX + 278.0f,
-        m_posY + 168.0f,
-        m_posX + 390.0f,
-        m_posY + 190.0f
+        m_posX + 275.0f,
+        m_posY + 151.0f,
+        m_posX + 387.0f,
+        m_posY + 173.0f
     );
 
     rt->DrawTextW(
