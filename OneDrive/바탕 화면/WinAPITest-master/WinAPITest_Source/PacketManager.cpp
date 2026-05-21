@@ -97,5 +97,20 @@ bool PacketManager::RegisterAllHandlers()
 			TradePacketHandler::HandleTradeCancel(pkt);
 		});
 
+	// 교환 준비 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_READY,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeReady(pkt);
+		});
+
+	// 교환 완료 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_CONFIRM,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeComplete(pkt);
+		});
+
+	
 	return true;
 }

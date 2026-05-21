@@ -25,7 +25,7 @@ public:
 
 	//교환
 	void ToggleTradeUI(); //test
-	void OpenTradeUI(const std::string& tartgetName);
+	void OpenTradeUI(const std::string& targetId, const std::string& targetName);
 	void OpenReqTradeUI();
 	void CloseReqTradeUI();
 	void AppendInputChar_Trade(wchar_t ch);
@@ -34,6 +34,7 @@ public:
 	void CloseTradeUI();
 	void ShowTradeRequestPopUp(const TradeRequestInfo& info); //신청 팝업
 	void ShowCancelPopUp(); //상대가 교환 취소했다는 팝업
+	void TradeReadyTarget(); //상대가 교환 준비
 
 	//채팅
 	void ToggleChatInput();

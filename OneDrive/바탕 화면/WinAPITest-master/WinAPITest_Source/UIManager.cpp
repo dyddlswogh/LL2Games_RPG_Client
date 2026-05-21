@@ -75,10 +75,10 @@ void UIManager::ToggleInventory()
 }
 
 #if 1 //±³È¯
-void UIManager::OpenTradeUI(const std::string& tartgetName)
+void UIManager::OpenTradeUI(const std::string& targetId, const std::string& targetName)
 {
 	m_tradeUI->SetActivce(true);
-	m_tradeUI->StartTrade(tartgetName);
+	m_tradeUI->StartTrade(targetId, targetName);
 }
 void UIManager::CloseTradeUI()
 {
@@ -88,6 +88,11 @@ void UIManager::CloseTradeUI()
 void UIManager::ShowCancelPopUp()
 {
 	m_tradeUI->OnCancelPopUp();
+}
+
+void UIManager::TradeReadyTarget()
+{
+	m_tradeUI->OnReady();
 }
 
 void UIManager::ToggleTradeUI()

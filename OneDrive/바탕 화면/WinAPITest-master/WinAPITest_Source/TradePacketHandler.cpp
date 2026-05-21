@@ -52,6 +52,17 @@ void TradePacketHandler::SendTradeCancel(const std::string& targetName)
 	M_NETWORK->SendPacket(PKT_TRADE_CANCEL, { targetName });
 }
 
+//교환 준비
+void TradePacketHandler::SendTradeReady(const std::string& targetId, const std::vector<std::string> &items)
+{
+	std::vector<std::string> datas;
+
+	datas.push_back(targetId);
+	datas.insert(datas.end(), items.begin(), items.end());
+
+	M_NETWORK->SendPacket(PKT_TRADE_READY, datas);
+}
+
 // ── 수신 ─────────────────────────────────────────────────────────────
 
 // S→C: 교환 신청이 들어왔을 때
@@ -81,13 +92,51 @@ void TradePacketHandler::HandleTradeStart(const ParsedPacket& pkt)
 	size_t offset = 0;
 	const char* data = pkt.payload.c_str();
 	size_t payloadSize = pkt.payload.size();
-	std::string targetName, errMsg;
+	std::string targetId, targetName, errMsg;
+
+	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, targetId, errMsg))
+		return;
 
 	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, targetName, errMsg))
 		return;
 
 	//TODO: UIManager에 교환 신청 팝업 표시
-	UIManager::getInstance()->OpenTradeUI(targetName);
+	UIManager::getInstance()->OpenTradeUI(targetId, targetName);
+}
+
+//상대 교환 준비
+void TradePacketHandler::HandleTradeReady(const ParsedPacket& pkt)
+{
+	size_t offset = 0;
+	const char* data = pkt.payload.c_str();
+	size_t payloadSize = pkt.payload.size();
+	std::string targetId, errMsg;
+
+	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, targetId, errMsg))
+		return;
+
+	if (targetId == "wait" || targetId == "nok")
+		return;
+
+	//TODO: UIManager에 교환 신청 팝업 표시
+	UIManager::getInstance()->TradeReadyTarget();
+}
+
+//교환 완료
+void TradePacketHandler::HandleTradeComplete(const ParsedPacket& pkt)
+{
+	size_t offset = 0;
+	const char* data = pkt.payload.c_str();
+	size_t payloadSize = pkt.payload.size();
+	std::string status, errMsg;
+
+	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
+		return;
+
+	if (status == "ok")
+		UIManager::getInstance()->CloseTradeUI();
+
+	//TODO: UIManager에 교환 완료 팝업 표시
 }
 
 //교환 취소

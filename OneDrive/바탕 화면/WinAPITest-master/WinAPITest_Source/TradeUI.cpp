@@ -16,12 +16,17 @@
 void TradeUI::Init()
 {
 	m_myName = Convert::Utf8ToWstr("myName"); //test
+	m_myId = "1"; //test
 	m_txtBackground = M_REMANAGER->Find<stb::Texture>(L"Trade_normal"); //배경
 
+    //버튼
 	m_txtConfirmNormal = M_REMANAGER->Find<stb::Texture>(L"Trade_button_confirm_normal"); //등록하기
-
 	m_txtTradeNormal = M_REMANAGER->Find<stb::Texture>(L"Trade_button_trade_normal"); //교환하기
 	m_txtTradeChecked = M_REMANAGER->Find<stb::Texture>(L"Trade_button_trade_checked"); //교환대기
+
+    //레이어
+	m_txtLayerConfirmMe = M_REMANAGER->Find<stb::Texture>(L"Trade_layer_confirm_me"); //교환대기 레이어
+
     
 	mActive = false;
 }
@@ -59,6 +64,13 @@ void TradeUI::Render(stbD2DRenderer& renderer)
 	// 1. 배경 출력
     RenderBackground(renderer);
 
+    //교환 대기 레이어
+    if (m_ConfirmLayerMe)
+        RenderConfirmLayerMe(renderer);
+
+    if (m_ConfirmLayerTarget)
+        RenderConfirmLayerTarget(renderer);
+
     // 2. 버튼 출력
     RenderButton(renderer);
 
@@ -93,6 +105,61 @@ void TradeUI::RenderBackground(stbD2DRenderer& renderer)
         1.0f);
 }
 
+void TradeUI::RenderConfirmLayerMe(stbD2DRenderer& renderer)
+{
+    {
+        stb::Texture* confirmLayer = m_txtLayerConfirmMe;
+        if (confirmLayer == nullptr)
+        {
+            OutputDebugStringA("m_txtLayerConfirmMe null\n");
+            return;
+        }
+
+        ID2D1Bitmap* bitmap = confirmLayer->GetD2DBitmap();
+        if (bitmap == nullptr)
+        {
+            OutputDebugStringA("bitmap null\n");
+            return;
+        }
+
+        D2D1_SIZE_F size = bitmap->GetSize();
+
+        renderer.DrawBitmap(bitmap,
+            (FLOAT)m_posX + LAYER_CONFIRM_ME_X,
+            (FLOAT)m_posY + LAYER_CONFIRM_ME_Y,
+            size.width,
+            size.height,
+            1.0f);
+    }
+}
+void TradeUI::RenderConfirmLayerTarget(stbD2DRenderer& renderer)
+{
+    {
+        stb::Texture* confirmLayer = m_txtLayerConfirmMe;
+        if (confirmLayer == nullptr)
+        {
+            OutputDebugStringA("m_txtLayerConfirmMe null\n");
+            return;
+        }
+
+        ID2D1Bitmap* bitmap = confirmLayer->GetD2DBitmap();
+        if (bitmap == nullptr)
+        {
+            OutputDebugStringA("bitmap null\n");
+            return;
+        }
+
+        D2D1_SIZE_F size = bitmap->GetSize();
+
+        renderer.DrawBitmap(bitmap,
+            (FLOAT)m_posX + LAYER_CONFIRM_TARGET_X,
+            (FLOAT)m_posY + LAYER_CONFIRM_TARGET_Y,
+            size.width,
+            size.height,
+            1.0f);
+    }
+}
+
 void TradeUI::RenderButton(stbD2DRenderer& renderer)
 {
 #if 1 //등록버튼
@@ -124,7 +191,7 @@ void TradeUI::RenderButton(stbD2DRenderer& renderer)
 
 #if 1 //교환버튼
     {
-        stb::Texture* trade = m_txtTradeNormal;
+        stb::Texture* trade = m_ConfirmLayerMe ? m_txtTradeChecked : m_txtTradeNormal;
         if (trade == nullptr)
         {
             OutputDebugStringA("m_txtTradeNormal null\n");
@@ -304,10 +371,34 @@ static bool IsPointInRect(int x, int y, const D2D1_RECT_F& rect)
         y <= rect.bottom;
 }
 
+bool TradeUI::IsPointInTradeReady(int x, int y)
+{
+    stb::Texture* confirm = m_txtConfirmNormal;
+    if (confirm == nullptr)
+    {
+        OutputDebugStringA("m_txtConfirmNormal null\n");
+        return false;
+    }
+
+    ID2D1Bitmap* bitmap = confirm->GetD2DBitmap();
+    if (bitmap == nullptr)
+    {
+        OutputDebugStringA("bitmap null\n");
+        return false;
+    }
+
+    D2D1_SIZE_F size = bitmap->GetSize();
+
+    return x >= m_posX + BUTTON_TRADE_X &&
+        x <= m_posX + BUTTON_TRADE_X + size.width &&
+        y >= m_posY + BUTTON_TRADE_Y &&
+        y <= m_posY + BUTTON_TRADE_Y + size.height;
+}
+
 //내 슬롯 클릭 -> 아이템 교환창 등록
 void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
 {
-#if 1 //test
+#if 1 //test 마우스 위치 출력
     {
         int posX = mouseX - m_posX;
         int posY = mouseY - m_posY;
@@ -318,6 +409,7 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
     }
 #endif
 
+    //교환 취소 팝업
     if (m_cancelPopupActive)
     {
         if (IsPointInRect(mouseX, mouseY, m_cancelCheckButtonRect))
@@ -325,6 +417,17 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
             OutputDebugStringA("[TradeUI] Cancel Check clicked\n");
             CloseCancelPopup();
         }
+        return;
+    }
+
+    //교환 준비
+    if (IsPointInTradeReady(mouseX, mouseY))
+    {
+        OutputDebugStringA("[TradeUI] TRADE Ready Clicked\n");
+        //SendTradeReady
+        m_ConfirmLayerMe = true;
+        //switchTradeReady
+        TradePacketHandler::SendTradeReady(m_targetId);
         return;
     }
 
@@ -345,8 +448,9 @@ int TradeUI::GetClickedMySlotIndex(int mouseX, int mouseY)
 	return 0;
 }
 
-void TradeUI::StartTrade(const std::string& targetName)
+void TradeUI::StartTrade(const std::string& targetId, const std::string& targetName)
 {
+    m_targetId = targetId;
 	m_targetName = Convert::Utf8ToWstr(targetName);
 
 }
@@ -377,4 +481,13 @@ void TradeUI::CloseCancelPopup()
     m_targetName.clear();
 
     m_cancelCheckButtonRect = D2D1::RectF(0, 0, 0, 0);
+}
+
+
+void TradeUI::OnReady()
+{
+    if (mActive)
+    {
+        m_ConfirmLayerTarget = true;
+    }
 }
