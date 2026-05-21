@@ -84,6 +84,11 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"Trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.backgrnd.png");
 		RESOURCEMANAGER->Load<Texture>(L"Trade_full", L"Resources\\UI\\ItemTrade\\itemTrade.FullBackgrnd.png");
 
+		RESOURCEMANAGER->Load<Texture>(L"Trade_button_confirm_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_confirm.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Trade_button_trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Trade_button_trade_checked", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.checked.0.png");
+	
+
 		// 몬스터 이미지 로드
 		RESOURCEMANAGER->LoadMonsterTextures();
 

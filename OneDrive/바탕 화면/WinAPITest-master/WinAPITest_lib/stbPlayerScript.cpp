@@ -208,6 +208,10 @@ namespace stb
 		case eActionCode::SkillWindow:
 			OutputDebugStringA("Action : SkillWindow\n");
 			// TODO : 스킬창 UI 열기
+
+#if 1 /* test */
+			UIManager::getInstance()->ToggleTradeUI();
+#endif /* test */
 			break;
 
 		case eActionCode::Trade:

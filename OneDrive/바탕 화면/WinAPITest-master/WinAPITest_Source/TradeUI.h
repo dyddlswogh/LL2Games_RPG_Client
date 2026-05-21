@@ -23,6 +23,8 @@ private:
 	void RenderTargetSlots(stbD2DRenderer& renderer);
 	//확정/취소 버튼
 	void RenderButtons(stbD2DRenderer& renderer);
+	void RenderBackground(stbD2DRenderer& renderer);
+	void RenderButton(stbD2DRenderer& renderer);
 	void RenderNickname(stbD2DRenderer& renderer);
 	void RenderCancelPopUp(stbD2DRenderer& renderer);
 
@@ -41,10 +43,13 @@ private:
 	bool         m_cancelPopupActive = false; //상대 교환 취소 팝업용
 	D2D1_RECT_F m_cancelCheckButtonRect{};   //교환취소 확인버튼
 
-	stb::Texture* m_background = nullptr;
+	stb::Texture* m_txtBackground = nullptr;
+	stb::Texture* m_txtConfirmNormal = nullptr;
+	stb::Texture* m_txtTradeNormal = nullptr;
+	stb::Texture* m_txtTradeChecked = nullptr;
 
-	int m_posX = 200;
-	int m_posY = 150;
+	int m_posX = 230;
+	int m_posY = 100;
 
 	//슬롯 레이아웃 (InventoryUI와 동일한 방식)
 	static constexpr int SLOT_COLS = 4;
@@ -53,6 +58,11 @@ private:
 	static constexpr int SLOT_H = 32;
 	static constexpr int SLOT_GAP_X = 2;
 	static constexpr int SLOT_GAP_Y = 2;
+
+	static constexpr int BUTTON_CONFIRM_X = 10;
+	static constexpr int BUTTON_CONFIRM_Y = 580;
+	static constexpr int BUTTON_TRADE_X = 225;
+	static constexpr int BUTTON_TRADE_Y = 580;
 	
 	std::wstring m_targetName;
 	std::wstring m_myName;
