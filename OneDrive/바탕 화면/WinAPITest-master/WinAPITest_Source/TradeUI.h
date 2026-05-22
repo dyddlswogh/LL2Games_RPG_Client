@@ -29,25 +29,32 @@ private:
 	void RenderButton(stbD2DRenderer& renderer);
 	void RenderNickname(stbD2DRenderer& renderer);
 	void RenderCancelPopUp(stbD2DRenderer& renderer);
+	void RenderSuccessPopUp(stbD2DRenderer& renderer);
+
 
 	bool IsPointInTradeReady(int mouseX, int mouseY);
 
 	void HandleLMouseClick(int mouseX, int mouseY);
 	int GetClickedMySlotIndex(int mouseX, int mouseY);
 	void CloseCancelPopup();
+	void CloseSuccessPopup();
+
 
 
 public:
 	void StartTrade(const std::string& targetId, const std::string& targetName);
 	void CloseTradeUI();
 	void OnCancelPopUp(); //상대가 교환 취소했다는 팝업
+	void OnSuccessPopUp(); //교환 완료 팝업
 	void OnReady(); //상대 교환 준비
 
 
 
 private:
 	bool         m_cancelPopupActive = false; //상대 교환 취소 팝업용
+	bool         m_successPopupActive = false; //상대 교환 완료 팝업용
 	D2D1_RECT_F m_cancelCheckButtonRect{};   //교환취소 확인버튼
+	D2D1_RECT_F m_successCheckButtonRect{};   //완료 확인버튼
 
 	bool         m_ConfirmLayerMe= false; //교환 대기 레이어
 	bool         m_ConfirmLayerTarget= false; //교환 대기 레이어

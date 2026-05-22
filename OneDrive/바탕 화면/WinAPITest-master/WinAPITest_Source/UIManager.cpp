@@ -90,6 +90,11 @@ void UIManager::ShowCancelPopUp()
 	m_tradeUI->OnCancelPopUp();
 }
 
+void UIManager::ShowSuccessPopUp()
+{
+	m_tradeUI->OnSuccessPopUp();
+}
+
 void UIManager::TradeReadyTarget()
 {
 	m_tradeUI->OnReady();

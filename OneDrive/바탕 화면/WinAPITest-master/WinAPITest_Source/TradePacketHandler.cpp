@@ -134,9 +134,9 @@ void TradePacketHandler::HandleTradeComplete(const ParsedPacket& pkt)
 		return;
 
 	if (status == "ok")
-		UIManager::getInstance()->CloseTradeUI();
-
-	//TODO: UIManager에 교환 완료 팝업 표시
+	{
+		UIManager::getInstance()->ShowSuccessPopUp();
+	}
 }
 
 //교환 취소

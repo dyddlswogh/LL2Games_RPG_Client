@@ -8,6 +8,7 @@
 #include "stbD2DRenderer.h"
 #include "stbNetworkConfig.h"
 #include <string>
+#include "Util.h"
 
 #define M_APP stb::SingletonBase<stb::Application>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
@@ -71,6 +72,12 @@ void TradeUI::Render(stbD2DRenderer& renderer)
         return;
     }
 
+    if (m_successPopupActive) //교환 완료 팝업
+    {
+        RenderSuccessPopUp(renderer);
+        return;
+    }
+
 	// 1. 배경 출력
     RenderBackground(renderer);
 
@@ -112,7 +119,11 @@ void TradeUI::RenderBackground(stbD2DRenderer& renderer)
         (FLOAT)m_posY,
         size.width,
         size.height,
+#ifdef __TEST
+        TEST_OPACITY);
+#else
         1.0f);
+#endif
 }
 
 void TradeUI::RenderConfirmLayerMe(stbD2DRenderer& renderer)
@@ -139,7 +150,11 @@ void TradeUI::RenderConfirmLayerMe(stbD2DRenderer& renderer)
             (FLOAT)m_posY + LAYER_CONFIRM_ME_Y,
             size.width,
             size.height,
+#ifdef __TEST
+            TEST_OPACITY);
+#else
             1.0f);
+#endif
     }
 }
 void TradeUI::RenderConfirmLayerTarget(stbD2DRenderer& renderer)
@@ -166,7 +181,11 @@ void TradeUI::RenderConfirmLayerTarget(stbD2DRenderer& renderer)
             (FLOAT)m_posY + LAYER_CONFIRM_TARGET_Y,
             size.width,
             size.height,
+#ifdef __TEST
+            TEST_OPACITY);
+#else
             1.0f);
+#endif
     }
 }
 
@@ -195,7 +214,11 @@ void TradeUI::RenderButton(stbD2DRenderer& renderer)
             (FLOAT)m_posY + BUTTON_CONFIRM_Y,
             size.width,
             size.height,
+#ifdef __TEST
+            TEST_OPACITY);
+#else
             1.0f);
+#endif
     }
 #endif
 
@@ -222,7 +245,11 @@ void TradeUI::RenderButton(stbD2DRenderer& renderer)
             (FLOAT)m_posY + BUTTON_TRADE_Y,
             size.width,
             size.height,
+#ifdef __TEST
+            TEST_OPACITY);
+#else
             1.0f);
+#endif
     }
 #endif
 }
@@ -371,6 +398,77 @@ void TradeUI::RenderCancelPopUp(stbD2DRenderer& renderer)
     renderer.DrawTextString(L"확인", acceptTextRect,
         D2D1::ColorF(D2D1::ColorF::White));
 }
+void TradeUI::RenderSuccessPopUp(stbD2DRenderer& renderer)
+{
+    const float popupW = 360.f;
+    const float popupH = 160.f;
+
+    D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
+
+    float px = rtSize.width / 2.f - popupW / 2.f;
+    float py = rtSize.height / 2.f - popupH / 2.f;
+
+    // 팝업 배경
+    renderer.FillRect(px, py, popupW, popupH,
+        D2D1::ColorF(0.f, 0.f, 0.f, 0.85f));
+
+    // 테두리
+    renderer.DrawRect(px, py, popupW, popupH,
+        D2D1::ColorF(D2D1::ColorF::SeaShell), 2.f);
+
+    // 메시지
+    std::wstring message = L"'" + m_targetName + L"'님과 교환이 완료되었습니다.";
+
+    D2D1_RECT_F msgRect = D2D1::RectF(
+        px + 20.f,
+        py + 30.f,
+        px + popupW - 20.f,
+        py + 70.f
+    );
+
+    renderer.DrawTextString(message, msgRect,
+        D2D1::ColorF(D2D1::ColorF::White));
+
+    // 버튼 위치 저장
+    const float btnW = 100.f;
+    const float btnH = 36.f;
+    const float btnY = py + 100.f;
+
+    m_successCheckButtonRect = D2D1::RectF(
+        px + 65.f,
+        btnY,
+        px + 65.f + btnW,
+        btnY + btnH
+    );
+
+    // 확인 버튼
+    renderer.FillRect(
+        m_successCheckButtonRect.left,
+        m_successCheckButtonRect.top,
+        m_successCheckButtonRect.right - m_successCheckButtonRect.left,
+        m_successCheckButtonRect.bottom - m_successCheckButtonRect.top,
+        D2D1::ColorF(0.1f, 0.35f, 0.1f, 0.9f)
+    );
+
+    renderer.DrawRect(
+        m_successCheckButtonRect.left,
+        m_successCheckButtonRect.top,
+        m_successCheckButtonRect.right - m_successCheckButtonRect.left,
+        m_successCheckButtonRect.bottom - m_successCheckButtonRect.top,
+        D2D1::ColorF(D2D1::ColorF::LightBlue),
+        1.5f
+    );
+
+    D2D1_RECT_F acceptTextRect = D2D1::RectF(
+        m_successCheckButtonRect.left,
+        m_successCheckButtonRect.top + 7.f,
+        m_successCheckButtonRect.right,
+        m_successCheckButtonRect.bottom
+    );
+
+    renderer.DrawTextString(L"확인", acceptTextRect,
+        D2D1::ColorF(D2D1::ColorF::White));
+}
 
 
 static bool IsPointInRect(int x, int y, const D2D1_RECT_F& rect)
@@ -430,6 +528,17 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
         return;
     }
 
+    //교환 완료 팝업
+    if (m_successPopupActive)
+    {
+        if (IsPointInRect(mouseX, mouseY, m_successCheckButtonRect))
+        {
+            OutputDebugStringA("[TradeUI] Cancel Check clicked\n");
+            CloseSuccessPopup();
+        }
+        return;
+    }
+
     //교환 준비
     if (IsPointInTradeReady(mouseX, mouseY))
     {
@@ -483,6 +592,14 @@ void TradeUI::OnCancelPopUp()
     }
 }
 
+void TradeUI::OnSuccessPopUp()
+{
+    if (mActive)
+    {
+        m_successPopupActive = true;
+    }
+}
+
 void TradeUI::CloseCancelPopup()
 {
     mActive = false;
@@ -493,6 +610,14 @@ void TradeUI::CloseCancelPopup()
     m_cancelCheckButtonRect = D2D1::RectF(0, 0, 0, 0);
 }
 
+void TradeUI::CloseSuccessPopup()
+{
+    mActive = false;
+    m_successPopupActive = false;
+    m_targetName.clear();
+
+    m_successCheckButtonRect = D2D1::RectF(0, 0, 0, 0);
+}
 
 void TradeUI::OnReady()
 {
