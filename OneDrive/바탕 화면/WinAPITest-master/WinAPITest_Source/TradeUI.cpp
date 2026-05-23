@@ -578,8 +578,11 @@ void TradeUI::CloseTradeUI()
 {
     if (mActive)
     {
-        TradePacketHandler::SendTradeCancel(Convert::WstrToUtf8(m_targetName));
+        //TradePacketHandler::SendTradeCancel(Convert::WstrToUtf8(m_targetName));
+        TradePacketHandler::SendTradeCancel(m_targetId);
         mActive = false;
+        m_ConfirmLayerMe = false;
+        m_ConfirmLayerTarget = false;
         m_targetName.clear();
     }
 }
@@ -604,7 +607,8 @@ void TradeUI::CloseCancelPopup()
 {
     mActive = false;
     m_cancelPopupActive = false;
-
+    m_ConfirmLayerMe = false;
+    m_ConfirmLayerTarget = false;
     m_targetName.clear();
 
     m_cancelCheckButtonRect = D2D1::RectF(0, 0, 0, 0);
@@ -615,7 +619,8 @@ void TradeUI::CloseSuccessPopup()
     mActive = false;
     m_successPopupActive = false;
     m_targetName.clear();
-
+    m_ConfirmLayerMe = false;
+    m_ConfirmLayerTarget = false;
     m_successCheckButtonRect = D2D1::RectF(0, 0, 0, 0);
 }
 
