@@ -4,6 +4,8 @@
 #include "Trade_Info.h"
 #include <d2d1.h>
 
+#include "InventoryUI_Info.h"
+
 class stbD2DRenderer;
 
 class TradeUI : public UI
@@ -13,6 +15,75 @@ public:
 	void Update() override;
 	void Render(HDC hdc) override;
 	void Render(stbD2DRenderer& renderer) override;
+
+
+//인벤토리
+private:
+	void Init_InventoryTab();
+	void Init_InventoryButton();
+	void CreateSlots();
+	void ClearSlots();
+	void UpdateSlotEnableState();
+	void UpdateInventoryByType();
+
+
+
+
+	std::unordered_map<int, InventoryTabButton> m_tabs;
+
+	static constexpr RECT m_equipTabRect = { 10,30,45,52 };
+	static constexpr RECT m_consumeTabRect = { 47,30,82,52 };
+	static constexpr RECT m_etcTabRect = { 84,30,119,52 };
+	static constexpr RECT m_setupTabRect = { 121,30,156,52 };
+	static constexpr RECT m_cashTabRect = { 158, 30, 193, 52 };
+	static constexpr RECT m_cosmeticTabRect = { 195, 30, 230, 52 };
+
+	static constexpr RECT m_fullEquipTabRect = { 10,30,138,52 };
+	static constexpr RECT m_fullConsumeTabRect = { 140, 30, 268, 52 };
+	static constexpr RECT m_fullEtcTabRect = { 270, 30, 398, 52 };
+	static constexpr RECT m_fullSetupTabRect = { 400 ,30, 528, 52 };
+	static constexpr RECT m_fullCashTabRect = { 530, 30, 658, 52 };
+	static constexpr RECT m_fullCosmeticTabRect = { 660, 30, 788, 52 };
+
+	InventoryButton m_fullButton;
+	InventoryButton m_minButton;
+	InventoryButton m_closeButton;
+
+	static constexpr RECT m_minimize_minButton = { 170, 8, 189,27 };
+	static constexpr RECT m_minimize_fullButton = { 190, 8, 207,27 };
+	static constexpr RECT m_minimize_closeButton = { 208, 4, 234,31 };
+
+	InventoryType m_currentType;
+
+
+	struct Slot
+	{
+		RECT rect;
+		int itemId = 0;
+		int itemCount = 0;
+	};
+
+	std::vector<Slot> mSlots;
+	std::vector<InventorySlotUI> m_slots;
+
+	static constexpr float m_slotStartX = 26;
+	static constexpr float m_slotStartY = 80;
+	static constexpr float m_slotWidth = 42;
+	static constexpr float m_slotHeight = 40;
+	static constexpr float m_slotgapX = 4.2;
+	static constexpr float m_slotgapY = 6;
+
+	static constexpr int m_slotCols = 4;
+	static constexpr int m_fullSlotCols = 16;
+
+	static constexpr int m_slotMaxCount = 128;
+	int m_inventoryImgPosX = 680;
+	int m_inventoryImgPosY = 100;
+	bool m_isExpand = false;
+
+	RECT m_inventoryClickRect = { 234, 105, 672, 127 };
+
+	bool m_isDragging = false;
 
 
 
@@ -31,10 +102,25 @@ private:
 	void RenderCancelPopUp(stbD2DRenderer& renderer);
 	void RenderSuccessPopUp(stbD2DRenderer& renderer);
 
+	void RenderInventoryMenuButtons(stbD2DRenderer& renderer);
+	void RenderInventorySlotItem(stbD2DRenderer& renderer);
+	void RenderInventoryButtons(stbD2DRenderer& renderer);
+	void RenderInventoryTestSlots(stbD2DRenderer& renderer);
+
+
+	stb::Texture* GetCurrentImg(InventoryButton& buttons);
+
+
+
 
 	bool IsPointInTradeReady(int mouseX, int mouseY);
 
 	void HandleLMouseClick(int mouseX, int mouseY);
+	bool HandleTabClick(int mouseX, int mouseY);
+	void HandleDragging(int mouseX, int mouseY);
+
+
+
 	int GetClickedMySlotIndex(int mouseX, int mouseY);
 	void CloseCancelPopup();
 	void CloseSuccessPopup();
