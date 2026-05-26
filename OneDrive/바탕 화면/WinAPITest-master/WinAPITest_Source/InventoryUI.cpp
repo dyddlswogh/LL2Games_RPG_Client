@@ -11,6 +11,7 @@
 #include "UIManager.h"
 #include "QuickSlotUI.h"
 #include "QuickSlotManager.h"
+#include "PlayerManager.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
@@ -19,6 +20,7 @@
 #define M_ITEMDATAMANAGER stb::SingletonBase<ItemDataManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 #define M_QUICKSLOTMANAGER stb::SingletonBase<QuickSlotManager>::getInstance()
+#define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
 void InventoryUI::Init()
 {
@@ -749,6 +751,7 @@ void InventoryUI::HandleMouseUp()
             data.inventory_slotPos = m_dragStartSlotIndex;
             data.count = m_dragItemCount;
 
+            //M_PLAYERMANAGER->GetLocalPlayer()->GetQuickSlotManager()->RequestSetSlot(data);
             M_QUICKSLOTMANAGER->RequestSetSlot(data);
         }
 

@@ -8,6 +8,7 @@
 #include "ItemPacketHandler.h"
 #include "MonsterPacketHandler.h"
 #include "CombatPacketHandler.h"
+#include "QuickSlotPacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -88,6 +89,20 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			CombatPacketHandler::HandleAttackResult(pkt);
+		});
+
+	// Äü½½·Ô ¸®½ºÆ® ÇÚµé·¯ µî·Ï
+	networkManager->RegisterHandler(PKT_QUICKSLOT_LIST,
+		[](const ParsedPacket& pkt)
+		{
+			QuickSlotPacketHandler::HandleSlotList(pkt);
+		});
+
+	// Äü½½·Ô µî·Ï ÇÚµé·¯ µî·Ï
+	networkManager->RegisterHandler(PKT_QUICKSLOT_SET,
+		[](const ParsedPacket& pkt)
+		{
+			QuickSlotPacketHandler::HandleSlotSet(pkt);
 		});
 
 	return true;

@@ -24,6 +24,7 @@ namespace stb
 		m_script = AddComponent<PlayerScript>();
 		m_quickSlotManager.Init();
 
+		//m_quickSlotManager.SetOwner(this);
 		m_script->SetOwner(this);
 		m_script->SetPlayer(this);
 		m_script->SetAnimator();

@@ -156,8 +156,6 @@ bool stbD2DRenderer::CreateTextFormats()
         return false;
     }
         
-
-
     hr = m_DWriteFactory->CreateTextFormat(
         L"Malgun Gothic",
         nullptr,
@@ -191,6 +189,22 @@ bool stbD2DRenderer::CreateTextFormats()
         return false;
     }
 
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"Tahoma",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        9.0f,
+        L"ko-kr",
+        m_QuickSlotTextFormat.GetAddressOf());
+
+    if (FAILED(hr))
+    {
+        OutputDebugString(L"Create title text format failed\n");
+        return false;
+    }
+
     /*
         SetTextAlignment：가로 정렬
         DWRITE_TEXT_ALIGNMENT_LEADING : 왼쪽 정렬
@@ -205,6 +219,9 @@ bool stbD2DRenderer::CreateTextFormats()
 
     m_SmallTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
     m_SmallTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+
+    m_QuickSlotTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+    m_QuickSlotTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 
     return true;
 }
@@ -472,6 +489,10 @@ void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F&
 
     case TextStyle::Small:
         textFormat = m_SmallTextFormat.Get();
+        break;
+
+    case TextStyle::QuickSlot:
+        textFormat = m_QuickSlotTextFormat.Get();
         break;
 
     case TextStyle::Body:

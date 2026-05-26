@@ -10,6 +10,7 @@ class QuickSlotPacketHandler : public IPacketHandler
 public:
 	static void Execute(const ParsedPacket& pkt);
 	static void HandleSlotList(const ParsedPacket& pkt);
+	static void HandleSlotSet(const ParsedPacket& pkt);
 	static void SendSetQuickSlot(const QuickSlotData& quickSlotData);
 private:
 };

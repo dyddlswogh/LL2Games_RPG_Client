@@ -3,6 +3,7 @@
 #include "..\\WinAPITest_Source\\\CombatSystem.h"
 #include "..\\WinAPITest_Source\\stbInput.h"
 #include "..\\WinAPITest_Source\\stbAnimation.h"
+#include "..\\WinAPITest_Source\\QuickSlotManager.h"
 
 namespace stb { class Player; }
 class stbD2DRenderer;
@@ -59,6 +60,7 @@ namespace stb
 		stb::Animator* m_animator;
 
 		std::string DebugMsg;
+		QuickSlotManager* m_quickSlotManager;
 	};
 }
 

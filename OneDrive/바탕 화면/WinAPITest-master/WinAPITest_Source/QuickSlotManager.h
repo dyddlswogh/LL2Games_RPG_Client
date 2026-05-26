@@ -13,6 +13,7 @@ public:
     void ClearSlot(int slotIndex);
     void UseSlot(int slotIndex);
 public:
+    //void SetOwner(stb::Player* player) { m_owner = player; }
     void SetSlot(QuickSlotData& quickSlotData);
     void SetSlotSkill(int slotIndex, int skillId);
     void SetSlotItem(int slotIndex, int inventoryType, int slotPos);
@@ -28,6 +29,7 @@ public:
 
 private:
     std::vector<QuickSlotData> m_slots;
+    //stb::Player* m_owner;
 
 private:
     static constexpr int m_maxSlotCount = 32;

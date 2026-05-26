@@ -3,10 +3,13 @@
 
 enum class QuickSlotType
 {
-    None,
+    None = 0,
     Skill,
-    Item
+    Item,
+    UI,
+    Emote
 };
+
 
 struct QuickSlotData
 {

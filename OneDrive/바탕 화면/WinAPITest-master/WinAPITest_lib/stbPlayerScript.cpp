@@ -18,7 +18,6 @@
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 #define M_PLAYERANIMMANAGER stb::SingletonBase<PlayerAnimationManager>::getInstance()
 
-
 namespace stb
 {
 	PlayerScript::PlayerScript()
@@ -28,6 +27,8 @@ namespace stb
 		, m_player(nullptr)
 		, mAttackTimer(0.0f)
 		, mAttackDuration(0.35f)
+		, m_animator(nullptr)
+		, m_quickSlotManager(nullptr)
 	{
 
 	}
@@ -261,6 +262,10 @@ namespace stb
 			break;
 		case eBindType::UI:
 			OutputDebugStringA("UI Execute\n");
+			break;
+		case eBindType::QuickSlot:
+			OutputDebugStringA("QuickSlot Execute\n");
+			m_player->GetQuickSlotManager()->UseSlot(bindInfo.value);
 			break;
 		default:
 			break;
