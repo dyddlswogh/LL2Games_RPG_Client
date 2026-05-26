@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="stbChatScene.h" />
     <ClInclude Include="stbLoadResource.h" />
     <ClInclude Include="stbLoadScenes.h" />
     <ClInclude Include="stbPlayer.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="stbPlayScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="stbChatScene.cpp" />
     <ClCompile Include="stbPlayer.cpp" />
     <ClCompile Include="stbPlayerScript.cpp" />
     <ClCompile Include="stbPlayScene.cpp" />
@@ -131,6 +133,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>

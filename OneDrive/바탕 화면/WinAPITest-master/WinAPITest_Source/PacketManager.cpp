@@ -5,6 +5,9 @@
 #include "ChannelInitPacketHandler.h"
 #include "InventoryPacketHandler.h"
 #include "PlayerDataPacketHandler.h"
+#include "ItemPacketHandler.h"
+#include "MonsterPacketHandler.h"
+#include "TradePacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -52,8 +55,33 @@ bool PacketManager::RegisterAllHandlers()
 			MovePacketHandler::Execute(pkt);
 		});
 
+	// 플레이어 아이템 사용 핸들러 등록
+	networkManager->RegisterHandler(PKT_PLAYER_USE_ITEM,
+		[](const ParsedPacket& pkt)
+		{
+			ItemPacketHandler::HandleUseItemResult(pkt);
+		});
 
+	// 몬스터 스냅샷 핸들러 등록
+	networkManager->RegisterHandler(PKT_MONSTER_SNAPSHOT,
+		[](const ParsedPacket& pkt)
+		{
+			MonsterPacketHandler::HandleS2C_SpawnMonster(pkt);
+		});
 
+	// 몬스터 업데이트 핸들러 등록
+	networkManager->RegisterHandler(PKT_MONSTER_MOVE,
+		[](const ParsedPacket& pkt)
+		{
+			MonsterPacketHandler::HandleS2C_MonsterMove(pkt);
+		});
+
+	// 교환 신청 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_REQUEST,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeRequest(pkt);
+		});
 
 	return true;
 }

@@ -15,6 +15,8 @@
 #include "stbLogger.h"
 #include "PlayerManager.h"
 #include "UIManager.h"
+#include "MonsterManager.h"
+#include "stbTime.h"
 
 #include "stbApplication.h"
 
@@ -22,6 +24,8 @@
 #define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
 #define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
+#define M_MONSTERAMANGER stb::SingletonBase<MonsterManager>::getInstance()
+#define M_TIME	stb::SingletonBase<stb::Time>::getInstance()
 
 namespace stb
 {
@@ -44,12 +48,10 @@ namespace stb
 
 		Transform* tr = mPlayer->AddComponent<Transform>();
 		int charId = atoi(stb::NetworkConfig::GetCharacterId());
-		//if (charId < 1 || charId > 4) charId = 1;
-		//float startX = 500.0f - (110.0f * 4);	
-		//float posX = startX + (charId - 1) * 110.0f;
 		tr->SetPosition(Vector2(300.0f, 300.0f));
 
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
+		playerScript->SetOwner(mPlayer);
 		M_PLMANAGER->SetLocalPlayer(mPlayer);
 
 		M_UIMANAGER->Init();
@@ -72,12 +74,16 @@ namespace stb
 		M_PKMANAGER->RegisterAllHandlers();
 		LOG("========== Network Connect Start ==========\n");
 		stb::InitializeNetworkDebug(hWnd);
+
+
+		M_MONSTERAMANGER->Init();
 	}
 
 	void PlayScene::Update()
 	{
 		Scene::Update();
 		M_UIMANAGER->Update();
+		M_MONSTERAMANGER->Update(M_TIME->GetDeltaTime());
 	}
 
 	void PlayScene::LateUpdate()
@@ -94,6 +100,7 @@ namespace stb
 	{
 		Scene::Render(renderer);
 		M_UIMANAGER->Render(renderer);
+		M_MONSTERAMANGER->Render(renderer);
 	}
 
 	void PlayScene::OnExit()

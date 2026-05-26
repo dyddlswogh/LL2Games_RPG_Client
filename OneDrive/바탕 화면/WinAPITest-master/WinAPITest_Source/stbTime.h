@@ -19,14 +19,14 @@ namespace stb
 		float GetDeltaTime() { return deltaTime; }
 
 	private:
-		// í”„ë¡œê·¸ë¨ ì‹œì‘ í•  ë•Œ cpu ì§„ë™ìˆ˜ ë°›ì•„ì˜¤ëŠ” ë³€ìˆ˜ í•˜ë‚˜ / í˜„ì¬ ì§„ë™ ë°›ëŠ” ë³€ìˆ˜ / 
+		// ÇÁ·Î±×·¥ ½ÃÀÛ ÇÒ ¶§ cpu Áøµ¿¼ö ¹Ş¾Æ¿À´Â º¯¼ö ÇÏ³ª / ÇöÀç Áøµ¿ ¹Ş´Â º¯¼ö / 
 
 		LARGE_INTEGER cpu_frequency;
 		LARGE_INTEGER startTime;
 		LARGE_INTEGER currTime;
 		float deltaTime;
 		// DeltaTime
-		// (startTime - currTime) / cpu ì§„ë™ìˆ˜
+		// (startTime - currTime) / cpu Áøµ¿¼ö
 		// 
 
 	};

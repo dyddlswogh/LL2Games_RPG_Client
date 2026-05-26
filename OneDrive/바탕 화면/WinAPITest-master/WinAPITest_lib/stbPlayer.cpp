@@ -1,16 +1,18 @@
 #include "stbPlayer.h"
 #include "InventoryManager.h"
+#include "stbPlayerScript.h"
 
 
 namespace stb
 {
-	Player::Player() : m_inven(InventoryManager::getInstance())
+	Player::Player() : m_inven(InventoryManager::getInstance()), m_playerState(PlayerState::IDLE)
 	{
-
+	
 	}
 	void Player::Initialize()
 	{
 		GameObject::Initialize();
+		m_quickSlotManager.Init();
 	}
 
 	void Player::Update()
@@ -38,6 +40,12 @@ namespace stb
 		m_playerIdentity = playeridentity;
 		m_playerProfile = playerProfile;
 		m_playerLocation = playerlocation;
+
+	}
+
+	void Player::PlayAttackAnimation(int skillId)
+	{
+
 
 	}
 

@@ -61,10 +61,20 @@ void MySocket::Close()
 bool MySocket::SetAsync(HWND hWnd)
 {
     m_hNotifyWnd = hWnd;
-    
+
     // 비동기 소켓 설정
     int result = WSAAsyncSelect(m_socket, hWnd, WM_SOCKET_RECEIVE, FD_READ | FD_CLOSE | FD_CONNECT);
-    
+
+    return result != SOCKET_ERROR;
+}
+
+bool MySocket::SetAsync(HWND hWnd, const int wMsg)
+{
+    m_hNotifyWnd = hWnd;
+
+    // 비동기 소켓 설정
+    int result = WSAAsyncSelect(m_socket, hWnd, wMsg, FD_READ | FD_CLOSE | FD_CONNECT);
+
     return result != SOCKET_ERROR;
 }
 

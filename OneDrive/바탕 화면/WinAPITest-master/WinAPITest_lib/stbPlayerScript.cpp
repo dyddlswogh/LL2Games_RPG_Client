@@ -4,10 +4,16 @@
 #include "stbTime.h"
 #include "stbGameObject.h"
 #include "stbNetworkDebug.h"
+#include "..\\WinAPITest_lib\\stbPlayer.h"
+#include "PlayerManager.h"
+#include "QuickSlotManager.h"
+#include "UIManager.h"
 
 
-#define M_Input stb::SingletonBase<stb::Input>::getInstance()
-#define M_Time  stb::SingletonBase<stb::Time>::getInstance()
+#define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
+#define M_TIME  stb::SingletonBase<stb::Time>::getInstance()
+#define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 
 namespace stb
@@ -16,6 +22,7 @@ namespace stb
 		: mNetworkSendTimer(0.0f)
 		, mHead(nullptr)
 		, mSword(nullptr)
+		, m_player (nullptr)
 	{
 
 	}
@@ -33,13 +40,14 @@ namespace stb
 	void PlayerScript::Update()
 	{
 		Idle();
+		HandleInput();
 	}	
 		
 	void PlayerScript::LateUpdate()
 	{
 
 	}	
-		
+		 
 	void PlayerScript::Render(HDC hdc)
 	{
 
@@ -47,6 +55,8 @@ namespace stb
 
 	void PlayerScript::Idle()
 	{
+		if (M_UIMANAGER->IsInputFocused())
+			return; //채팅 입력중 -> 이동/공격 차단
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (tr == nullptr)
 		{
@@ -56,36 +66,36 @@ namespace stb
 		Vector2 pos = tr->GetPosition();
 		bool moved = false;
 
-		if (M_Input->GetAction(eActionCode::MoveRight))
+		if (M_INPUT->GetAction(eActionCode::MoveRight))
 		{
-			pos.x += 100.0f * M_Time->GetDeltaTime();
+			pos.x += 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::MoveLeft))
+		if (M_INPUT->GetAction(eActionCode::MoveLeft))
 		{
-			pos.x -= 100.0f * M_Time->GetDeltaTime();
+			pos.x -= 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::MoveUp))
+		if (M_INPUT->GetAction(eActionCode::MoveUp))
 		{
-			pos.y -= 100.0f * M_Time->GetDeltaTime();
+			pos.y -= 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::MoveDown))
+		if (M_INPUT->GetAction(eActionCode::MoveDown))
 		{
-			pos.y += 100.0f * M_Time->GetDeltaTime();
+			pos.y += 100.0f * M_TIME->GetDeltaTime();
 			moved = true;
 		}
 
-		if (M_Input->GetAction(eActionCode::Attack))
+		if (M_INPUT->GetAction(eActionCode::Attack))
 		{
 			Attack();
 		}
 
-		if (M_Input->GetAction(eActionCode::Jump))
+		if (M_INPUT->GetAction(eActionCode::Jump))
 		{
 			Jump();
 		}
@@ -97,7 +107,7 @@ namespace stb
 		// 이동했으면 서버에 패킷 전송 (throttling 적용)
 		if (moved)
 		{
-			mNetworkSendTimer += M_Time->GetDeltaTime();
+			mNetworkSendTimer += M_TIME->GetDeltaTime();
 			
 			if (mNetworkSendTimer >= NETWORK_SEND_INTERVAL)
 			{
@@ -122,6 +132,12 @@ namespace stb
 
 	void PlayerScript::Attack()
 	{
+		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+
+		if (player != nullptr)
+		{
+			player->GetCombatSystem()->TryBasicAttack();
+		}
 
 	}
 
@@ -129,6 +145,76 @@ namespace stb
 	{
 
 	}
+
+	void PlayerScript::HandleInput()
+	{
+		KeyBindInfo bindInfo;
+
+		if (M_INPUT->GetPressedBind(bindInfo))
+		{
+			ExecuteBind(bindInfo);
+		}
+	}
+
+	void PlayerScript::ExecuteBind(const KeyBindInfo& bindInfo)
+	{
+		switch (bindInfo.type)
+		{
+		case eBindType::Action:
+			ExecuteAction((eActionCode)bindInfo.value);
+			break;
+		case eBindType::Skill:
+			// TODO : 스킬 사용 요청
+			// SkillManager::GetInstance()->UseSkill(bindInfo.value);
+			OutputDebugStringA("Skill Execute\n");
+			break;
+		case eBindType::Item:
+			// TODO : 아이템 사용 요청
+			// ItemManager::GetInstance()->UseItem(bindInfo.value);
+			OutputDebugStringA("Item Execute\n");
+			break;
+		case eBindType::UI:
+			OutputDebugStringA("UI Execute\n");
+			break;
+		default:
+			break;
+		}
+	}
+
+	void PlayerScript::ExecuteAction(eActionCode action)
+	{
+		switch (action)
+		{
+		case eActionCode::Interact:
+			OutputDebugStringA("Action : Interact\n");
+			// TODO : 상호작용 요청
+			break;
+		case eActionCode::Attack:
+			OutputDebugStringA("Action : Attack\n");
+			// TODO : 점프 처리
+			break;
+		case eActionCode::Jump:
+			OutputDebugStringA("Action : Jump\n");
+			// TODO : 점프 처리
+			break;
+
+		case eActionCode::Inventory:
+			OutputDebugStringA("Action : Inventory\n");
+			UIManager::getInstance()->ToggleInventory();
+			// TODO : 인벤토리 UI 열기
+			break;
+
+		case eActionCode::SkillWindow:
+			OutputDebugStringA("Action : SkillWindow\n");
+			// TODO : 스킬창 UI 열기
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	
 
 	void PlayerScript::SyncFollowers(Vector2 pos)
 	{

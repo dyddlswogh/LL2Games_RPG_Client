@@ -6,11 +6,15 @@ namespace stb
 {
 	enum class eKeyCode
 	{
+		F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,
+		Num1, Num2, Num3, Num4, Num5, Num6, Num7, Num8, Num9, Num0,
 		Q, W, E, R, T, Y, U, I, O, P,
 		A, S, D, F, G, H, J, K, L,
 		Z, X, C, V, B, N, M,
 		Left, Right, Up, Down,
-		LButton, MButton, RButton, Space,
+		LButton, MButton, RButton, SPACE,
+		LALT, LCONTROL,
+		Enter, Return,
 		EnumsEnd,
 	};
 
@@ -45,10 +49,11 @@ namespace stb
 	enum class eBindType
 	{
 		None,
-		Action,   // Interact ∞∞¿∫ ∞Õ
+		Action,   // Interact Í∞ôÏùÄ Í≤É
 		Skill,
 		Item,
 		UI,
+		QuickSlot,
 	};
 
 	struct KeyBindInfo
@@ -101,10 +106,8 @@ namespace stb
 
 	public:
 		void CreateDefaultBindings();
-		void ProcessKeyBindings();
-		void ExecuteBind(const KeyBindInfo& bindInfo);
-		void ExecuteAction(eActionCode action);
-
+		bool GetPressedBind(KeyBindInfo& outBindInfo);
+	
 		void BindKey(eKeyCode code, const KeyBindInfo& bindInfo);
 		void UnbindKey(eKeyCode code);
 		bool TryGetBindInfo(eKeyCode code, KeyBindInfo& outBindInfo) const;

@@ -4,6 +4,9 @@
 #include "..\\WinAPITest_Source\\stbApplication.h"
 #include "..\\WinAPITest_Source\\stbD2DRenderer.h"
 
+
+
+
 #define RESOURCEMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 
 namespace stb
@@ -64,11 +67,24 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_close_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.mouseOver.0.png");
 		RESOURCEMANAGER->Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.pressed.0.png");
 		
-
-
+		// 퀵슬롯 UI 리소스
+		RESOURCEMANAGER->Load<Texture>(L"quickslot_background", L"Resources\\UI\\quickslot\\quickSlot.backgrnd.png");
+		//RESOURCEMANAGER->Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\quickslot\\quickSlot.backgrnd.png");
+		// 아이템 리소스
 		RESOURCEMANAGER->Load<Texture>(L"Item_Red_Potion", L"Resources\\Item\\Item_Red_Potion.png");
+		RESOURCEMANAGER->Load<Texture>(L"Item_Blue_Potion", L"Resources\\Item\\Item_Blue_Potion.png");
+
+		// 체력바 UI 리소스
+		RESOURCEMANAGER->Load<Texture>(L"HealthBar_Background", L"Resources\\UI\\HealthBar\\main.status.normal.backgrnd.png");
+		RESOURCEMANAGER->Load<Texture>(L"HealthBar_hpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.hp.layer_0.png");	
+		RESOURCEMANAGER->Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.mp.layer_0.png");
+		RESOURCEMANAGER->Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
+
+		// 몬스터 이미지 로드
+		RESOURCEMANAGER->LoadMonsterTextures();
 
 		stbD2DRenderer& renderer = stb::Application::getInstance()->GetRenderer();
 		RESOURCEMANAGER->LoadAllD2D(renderer);
 	}
+
 }

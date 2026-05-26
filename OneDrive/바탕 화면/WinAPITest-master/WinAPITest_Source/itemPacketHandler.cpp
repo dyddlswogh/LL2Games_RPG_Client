@@ -2,6 +2,7 @@
 #include "PacketParser.h"
 #include "stbNetworkManager.h"
 #include "PlayerManager.h"
+#include "CombatPacketHandler.h"
 
 #define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
@@ -12,18 +13,7 @@ void ItemPacketHandler::Execute(const ParsedPacket& pkt)
 
 void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
 {
-    /*
-    useItem_Info.push_back(std::to_string(result.result));
-    useItem_Info.push_back(std::to_string(result.errcode));
-    useItem_Info.push_back(std::to_string(result.inventoryType));
-    useItem_Info.push_back(std::to_string(result.slotPos));
-    useItem_Info.push_back(std::to_string(result.item_id));
-    useItem_Info.push_back(std::to_string(result.used_count));
-    useItem_Info.push_back(std::to_string(result.remain_count));
-    useItem_Info.push_back(std::to_string(result.hp));
-    useItem_Info.push_back(std::to_string(result.mp));
-    
-    */
+  
     try
     {
         size_t offset = 0;
@@ -137,6 +127,7 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
        {
            item->itemCount = useItemResult.remain_count;
        }
+       OutputDebugStringA("아이템 사용 완료\n");
 
        localPlayerStat->SetCurHp(useItemResult.hp);
        localPlayerStat->SetCurMp(useItemResult.mp);
@@ -153,6 +144,7 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
     }
 }
 
+
 void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
 {
     std::vector<std::string> data;
@@ -160,12 +152,11 @@ void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
     data.push_back(std::to_string(inventoryitemInfo->inventoryType));
     data.push_back(std::to_string(inventoryitemInfo->slotPos));
     data.push_back(std::to_string(inventoryitemInfo->itemId));
-    data.push_back(std::to_string(inventoryitemInfo->itemCount));
+    data.push_back(std::to_string(inventoryitemInfo->useCount));
 
+    std::string DebugMsg = "Use_Count :" + std::to_string(inventoryitemInfo->useCount) + "\n";
 
-    // 패킷 생성 및 전송
-    std::string body = PacketParser::MakeBody(data);
-    std::string packet = PacketParser::MakePacket(PKT_PLAYER_USE_ITEM, body);
+    OutputDebugStringA(DebugMsg.c_str());
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_USE_ITEM, data);
     OutputDebugStringA("[PKT_PLAYER_USE_ITEM 전송 완료]\n\n");

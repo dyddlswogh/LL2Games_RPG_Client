@@ -1,5 +1,8 @@
 #pragma once
 #include "..\\WinAPITest_Source\\stbScript.h"
+#include "..\\WinAPITest_Source\\\CombatSystem.h"
+#include "stbPlayer.h"
+
 
 namespace stb
 {
@@ -13,6 +16,9 @@ namespace stb
 		void Update() override;
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
+	
+	public:
+
 
 		void SetFollowers(GameObject* head, GameObject* sword)
 		{
@@ -20,11 +26,16 @@ namespace stb
 			mSword = sword;
 		}
 
+		void SetPlayer(stb::Player* player) { m_player = player; }
+
 	private:
 		void Idle();
 		void Move();
 		void Attack();
 		void Jump();
+		void HandleInput();
+		void ExecuteBind(const KeyBindInfo& bindInfo);
+		void ExecuteAction(eActionCode action);
 		void SyncFollowers(Vector2 pos);
 	
 	private:
@@ -32,6 +43,8 @@ namespace stb
 		const float NETWORK_SEND_INTERVAL = 0.03f;
 		GameObject* mHead;
 		GameObject* mSword;
+
+		stb::Player* m_player;
 	};
 }
 

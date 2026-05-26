@@ -62,6 +62,12 @@ namespace stb
 			, const std::wstring& path
 			, Vector2 offset, float duration);
 
+		void CreateFrameAnimation(const std::wstring& name
+			, const std::vector<Texture*>& frames
+			, Vector2 offset
+			, float duration
+		);
+
 		Animation* FindAnimation(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop);
 
@@ -72,6 +78,6 @@ namespace stb
 
 		std::map<std::wstring, Events*> mEvents;
 
-
+		std::string DebugMsg;
 	};
 }

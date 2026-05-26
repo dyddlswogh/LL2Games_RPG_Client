@@ -7,7 +7,7 @@
 class ItemDataManager : public stb::SingletonBase<ItemDataManager>
 {
 public:
-
+    bool Init();
     bool PreLoadAll();
     bool LoadJsonFile(const std::string& path, ItemData& itemData);
 

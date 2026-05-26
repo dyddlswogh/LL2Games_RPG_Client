@@ -2,6 +2,8 @@
 #include <charconv>
 #include <string_view>
 #include <system_error>
+#include <string>
+#include <Windows.h>
 
 
 namespace Convert
@@ -31,5 +33,53 @@ namespace Convert
 		if (end == s.c_str()) return false;          // 변환된 게 없음
 		return *end == '\0';                         // 끝까지 다 소비했는지
 	};
+
+	// wstring(UTF-16) → string(UTF-8) 변환
+	inline std::string WstrToUtf8(const std::wstring& wstr)
+	{
+		if (wstr.empty())
+			return {};
+
+		int utf8Len = WideCharToMultiByte(
+			CP_UTF8, 0,
+			wstr.c_str(), (int)wstr.size(),
+			nullptr, 0,
+			nullptr, nullptr);
+
+		if (utf8Len <= 0)
+			return {};
+
+		std::string result(utf8Len, '\0');
+		WideCharToMultiByte(
+			CP_UTF8, 0,
+			wstr.c_str(), (int)wstr.size(),
+			&result[0], utf8Len,
+			nullptr, nullptr);
+
+		return result;
+	}
+
+	// string(UTF-8) → wstring(UTF-16) 변환 (역방향, 필요 시 사용)
+	inline std::wstring Utf8ToWstr(const std::string& str)
+	{
+		if (str.empty())
+			return {};
+
+		int wideLen = MultiByteToWideChar(
+			CP_UTF8, 0,
+			str.c_str(), (int)str.size(),
+			nullptr, 0);
+
+		if (wideLen <= 0)
+			return {};
+
+		std::wstring result(wideLen, L'\0');
+		MultiByteToWideChar(
+			CP_UTF8, 0,
+			str.c_str(), (int)str.size(),
+			&result[0], wideLen);
+
+		return result;
+	}
 };
 

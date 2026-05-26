@@ -19,6 +19,10 @@ public:
 	void SetCurMp(int cur_mp) { m_cur_mp = cur_mp; }
 	void SetRemainAp(int remainAp) { m_remain_ap = remainAp; }
 
+	int GetCurHp() { return m_cur_hp; }
+	int GetMaxHp() { return m_derived.maxHp; }
+	int GetCurMp() { return m_cur_mp; }
+	int GetMaxMp() { return m_derived.maxMp; }
 
 private:
 

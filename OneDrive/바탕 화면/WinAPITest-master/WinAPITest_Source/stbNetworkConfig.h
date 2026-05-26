@@ -5,6 +5,8 @@ namespace stb
 {
     // 전역 변수 선언
     extern char g_CharacterId[32];
+    extern int g_ChannelPort;
+    extern int g_ChatPort;
 
     // 네트워크 설정
     // 서버 IP와 포트를 여기서 변경하세요!
@@ -13,10 +15,12 @@ namespace stb
         // ========== 여기를 수정하세요! ==========
         
         // 외부 서버 IP 주소 (예시)
-        static constexpr const char* SERVER_IP = "100.99.220.45";  // 실제 서버 IP로 변경!
+        //static constexpr const char* SERVER_IP = "100.99.220.45";  // 실제 서버 IP로 변경!
+        static constexpr const char* SERVER_IP = "100.114.42.54";  // 실제 서버 IP로 변경!
        
         // 서버 포트
-        static constexpr int SERVER_PORT = 1234;  // 서버 포트에 맞게 변경
+        //static constexpr int SERVER_PORT = 1234;  // 서버 포트에 맞게 변경
+        inline static int SERVER_PORT = g_ChannelPort;  // 서버 포트에 맞게 변경
         
         // 캐릭터 ID (명령줄 인자로 설정됨)
         static const char* GetCharacterId() { return g_CharacterId; }

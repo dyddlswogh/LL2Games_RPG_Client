@@ -69,17 +69,6 @@ void InventoryPacketHandler::HandleInventoryMetaInfo(const ParsedPacket& pkt)
 
 void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
 {
-    /*
-     payload.push_back(std::to_string(inventory->GetAllItemInfos().size()));
-
-    for(auto itemInfos : inventory->GetAllItemInfos())
-    {
-        payload.push_back(std::to_string(itemInfos.inventoryType));
-        payload.push_back(std::to_string(itemInfos.itemId));
-        payload.push_back(std::to_string(itemInfos.itemCount));
-        payload.push_back(std::to_string(itemInfos.slotPos));
-    }
-    */
     try
     {
         size_t offset = 0;

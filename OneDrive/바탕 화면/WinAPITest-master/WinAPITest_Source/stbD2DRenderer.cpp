@@ -501,6 +501,19 @@ void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, float x, float y, float wid
         D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
 }
 
+void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity)
+{
+    if (bitmap == nullptr) return;
+
+    m_RenderTarget->DrawBitmap(
+        bitmap,
+        destRect,
+        opacity,
+        D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
+        srcRect
+    );
+}
+
 bool stbD2DRenderer::HasBitmap() const
 {
     return m_Bitmap != nullptr;
@@ -521,4 +534,13 @@ void stbD2DRenderer::DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, f
         opacity,
         D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
         srcRect);
+}
+
+
+D2D1_SIZE_F stbD2DRenderer::GetRenderTargetSize() const
+{
+    if(!m_RenderTarget)
+        return D2D1::SizeF(0.f, 0.f);
+
+    return m_RenderTarget->GetSize();
 }

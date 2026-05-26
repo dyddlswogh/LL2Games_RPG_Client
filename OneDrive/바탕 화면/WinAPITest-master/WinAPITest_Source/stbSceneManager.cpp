@@ -48,6 +48,7 @@ namespace stb
 	{
 		mActiveScene->Update();
 		mDontDestroyOnLoad->Update();
+		if (mOverlayScene) mOverlayScene->Update();
 	}
 
 	void SceneManager::Render(HDC hdc)
@@ -60,6 +61,7 @@ namespace stb
 	{
 		mActiveScene->Render(renderer);
 		mDontDestroyOnLoad->Render(renderer);
+		if (mOverlayScene) mOverlayScene->Render(renderer);
 	}
 
 	std::vector<GameObject*> SceneManager::GetGameObjects(eLayerType layer)
@@ -76,4 +78,15 @@ namespace stb
 		return gameObjects;
 	}
 
+
+	void SceneManager::SetOverlayScene(const std::wstring& name)
+	{
+		auto it = mScenes.find(name);
+		if (it != mScenes.end())
+		{
+			mOverlayScene = it->second;
+			mOverlayScene->OnEnter();
+		}
+	}
 }
+

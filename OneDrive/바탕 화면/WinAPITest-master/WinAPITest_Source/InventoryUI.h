@@ -26,8 +26,10 @@ public:
 private:
 	void CreateSlots();
 	void UpdateSlots();
+	void ClearSlots();
 
-	void HandleMouseClick(int mouseX, int mouseY);
+	void HandleLMouseClick(int mouseX, int mouseY);
+	void HandleRMouseClick(int mouseX, int mouseY);
 	bool HandleTabClick(int mouseX, int mouseY);
 	bool HandleButtonClick(int mouseX, int mouseY);
 	bool HandleInventoryClick(int mouseX, int mouseY);
@@ -41,6 +43,7 @@ private:
 	bool IsPointInRect(const RECT& tabRect, int mouseX, int mouseY);
 	void UpdateInventoryByType();
 	int  GetClickedSlotIndex(int mouseX, int mouseY);
+	
 
 	void HandleMouseUp();
 	void HandleDragging(int mouseX, int mouseY);
@@ -72,7 +75,7 @@ private:
 	int m_dragOffsetX;
 	int m_dragOffsetY;
 private:
-	int m_inventoryImgPosX = 100;
+	int m_inventoryImgPosX = 300;
 	int m_inventoryImgPosY = 100;
 
 	static constexpr int m_inventoryClickWidth = 170;
@@ -93,7 +96,7 @@ private:
 	
 	static constexpr int m_slotMaxCount = 128;
 
-	RECT m_inventoryClickRect = { 100, 100, 270, 130 };
+	RECT m_inventoryClickRect = { 300, 100, 470, 130 };
 
 	static constexpr RECT m_equipTabRect	= { 10,30,45,52 };
 	static constexpr RECT m_consumeTabRect	= { 47,30,82,52 };

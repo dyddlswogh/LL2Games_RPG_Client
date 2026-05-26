@@ -21,6 +21,7 @@ struct InventoryItemInfo
     int slotPos = 0;
     int itemId = 0;
     int itemCount = 0;
+	int useCount = 0;
 };
 
 struct InventorySlot
