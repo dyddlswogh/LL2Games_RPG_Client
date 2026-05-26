@@ -182,6 +182,21 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MonsterDataManager.cpp">
       <Filter>Game\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradePacketHandler.cpp">
+      <Filter>PacketHandler\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp">
+      <Filter>Game\UI\Trade</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.cpp">
+      <Filter>Networking\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatPacketHandler.cpp">
+      <Filter>PacketHandler\Chat</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatUI.cpp">
+      <Filter>Game\UI\Chat</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerAnimationManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -404,19 +419,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Util.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h">
-      <Filter>PacketHandler\Combat</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerAnimationManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)EquipeTypes.h">
-      <Filter>Game\Equip</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Collider_Info.h">
-      <Filter>Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotUI_Info.h">
-      <Filter>Game\UI\QuickSlot</Filter>
-    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Component">
@@ -550,9 +553,6 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{dec7ebc8-619d-4c7d-808d-7998b4f436ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Equip">
-      <UniqueIdentifier>{6b7ecddc-aa5d-4d5f-b842-ac5879a284d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -17,6 +17,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AnimationInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BoxCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collider_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem.h" />
@@ -60,6 +62,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCircleCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCollider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCollisionManager.h" />
@@ -92,6 +95,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringConvert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradePacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Trade_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UILayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIManager.h" />
@@ -100,6 +107,8 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoxCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CombatSystem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)HealthBarUI.cpp" />
@@ -132,6 +141,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCircleCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCollider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCollisionManager.cpp" />
@@ -159,6 +169,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradePacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UILayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIManager.cpp" />

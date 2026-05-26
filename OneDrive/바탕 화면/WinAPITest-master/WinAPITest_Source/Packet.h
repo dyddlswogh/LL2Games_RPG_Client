@@ -6,6 +6,7 @@
 #define BUFFER_SIZE 1024
 #define WM_SOCKET_RECEIVE (WM_USER + 100)
 #define WM_SOCKET_DISCONNECT (WM_USER + 101)
+#define WM_CHAT_SOCKET_RECEIVE (WM_USER + 102)   // ← 추가
 
 #pragma pack(push,1)
 struct PacketHeader
@@ -52,6 +53,15 @@ enum PACKET_TYPE : uint16_t {
     PKT_INVENTORY_META_INFO = 0x0080,
     PKT_INVENTORY_ITEM_INFO = 0x0081,
     PKT_INVENTORY_ITEM_MOVE = 0x0082,
+
+    // 0x0100 ~ 0x010F : 교환
+    PKT_TRADE_REQUEST = 0x0100,  // 교환 신청
+    PKT_TRADE_ACCEPT = 0x0101,  // 교환 수락
+    PKT_TRADE_START = 0x0102,  // 교환 실행
+    PKT_TRADE_READY = 0x0103,  // 교환 준비(교환하기 버튼 누름)
+    PKT_TRADE_CONFIRM = 0x0104,  // 교환 성사 
+    PKT_TRADE_CANCEL = 0x0105,  // 교환 취소
+    PKT_TRADE_ADD_ITEM, //아이템 올리기
 
     // 0x1000 ~ : 테스트 / UI / 특수
     PKT_STAT_VIEW           = 0x1000,

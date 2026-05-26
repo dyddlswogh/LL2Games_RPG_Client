@@ -24,4 +24,8 @@
     <LocalDebuggerCommandArguments>
     </LocalDebuggerCommandArguments>
   </PropertyGroup>
+  <PropertyGroup>
+    <ShowAllFiles>false</ShowAllFiles>
+    <RESOURCE_FILE>WinAPITest_Client.rc</RESOURCE_FILE>
+  </PropertyGroup>
 </Project>

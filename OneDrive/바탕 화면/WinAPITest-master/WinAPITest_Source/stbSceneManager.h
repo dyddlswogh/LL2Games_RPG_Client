@@ -36,9 +36,13 @@ namespace stb
 
 		std::vector<GameObject*> GetGameObjects(eLayerType layer);
 
+		void SetOverlayScene(const std::wstring& name);
+		void ClearOverlayScene() { mOverlayScene = nullptr; }
+
 	private:
 		std::map<std::wstring, Scene*> mScenes;
 		Scene* mActiveScene;
 		Scene* mDontDestroyOnLoad;
+		Scene* mOverlayScene = nullptr;
 	};
 }

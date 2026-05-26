@@ -16,7 +16,7 @@ namespace stb
 		LALT, LCONTROL, Insert,Home,PageUp,
 		Delete,End,PageDown, 
 		LShift,
-		
+		Enter, Return,
 		EnumsEnd,
 	};
 
@@ -51,7 +51,7 @@ namespace stb
 	enum class eBindType
 	{
 		None,
-		Action,   // Interact °°Àº °Í
+		Action,   // Interact ê°™ì?? ê²?
 		Skill,
 		Item,
 		UI,

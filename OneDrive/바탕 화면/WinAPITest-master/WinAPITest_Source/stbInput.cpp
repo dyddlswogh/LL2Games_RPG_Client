@@ -15,7 +15,8 @@ namespace stb
 		VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN,
 		VK_LBUTTON, VK_MBUTTON, VK_RBUTTON, VK_SPACE, VK_LMENU, VK_LCONTROL,
 		VK_INSERT,VK_HOME,VK_PRIOR,VK_DELETE,
-		VK_END,VK_NEXT,VK_LSHIFT
+		VK_END,VK_NEXT,VK_LSHIFT,
+		VK_RETURN, VK_RETURN,
 	};
 
 	Input::Input()
@@ -81,14 +82,14 @@ namespace stb
 	{
 		m_keyBindings.clear();
 
-		// ¿Ãµø æ◊ª˜ πŸ¿Œµ˘
+		// ?ù¥?èô ?ï°?Éå Î∞îÏù∏?î©
 		m_keyBindings[eKeyCode::Left] = { eBindType::Action, (int)eActionCode::MoveLeft };
 		m_keyBindings[eKeyCode::Right] = { eBindType::Action, (int)eActionCode::MoveRight };
 		m_keyBindings[eKeyCode::Up] = { eBindType::Action, (int)eActionCode::MoveUp };
 		m_keyBindings[eKeyCode::Down] = { eBindType::Action, (int)eActionCode::MoveDown };
 
 
-		// ±‚∫ª æ◊º« πŸ¿Œµ˘
+		// Í∏∞Î≥∏ ?ï°?Öò Î∞îÏù∏?î©
 		m_keyBindings[eKeyCode::LALT] = { eBindType::Action, (int)eActionCode::Jump };
 		m_keyBindings[eKeyCode::A] = { eBindType::Action, (int)eActionCode::Attack };
 		m_keyBindings[eKeyCode::SPACE] = { eBindType::Action, (int)eActionCode::Interact };
@@ -96,7 +97,7 @@ namespace stb
 		m_keyBindings[eKeyCode::K] = { eBindType::Action, (int)eActionCode::SkillWindow };
 
 
-		// øπΩ√
+		// ?òà?ãú
 		// m_keyBindings[eKeyCode::Q] = { eBindType::Skill, 1001001 };
 		// m_keyBindings[eKeyCode::R] = { eBindType::Item, 2000000 };
 

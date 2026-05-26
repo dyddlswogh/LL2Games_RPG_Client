@@ -10,6 +10,9 @@
     <ClInclude Include="stbPlayerScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="stbChatScene.h">
+      <Filter>Chat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stbPlayScene.cpp" />
@@ -19,6 +22,9 @@
     <ClCompile Include="stbPlayerScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="stbChatScene.cpp">
+      <Filter>Chat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Content">
@@ -26,6 +32,9 @@
     </Filter>
     <Filter Include="Script">
       <UniqueIdentifier>{98befc76-1d72-4d3c-80db-018c8e0d0144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chat">
+      <UniqueIdentifier>{9d0f2f0c-b04f-4630-8e52-83f83c183ec1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

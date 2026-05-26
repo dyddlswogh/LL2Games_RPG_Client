@@ -9,6 +9,7 @@
 #include "MonsterPacketHandler.h"
 #include "CombatPacketHandler.h"
 #include "QuickSlotPacketHandler.h"
+#include "TradePacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -103,6 +104,11 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			QuickSlotPacketHandler::HandleSlotSet(pkt);
+	// 교환 신청 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_REQUEST,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeRequest(pkt);
 		});
 
 	return true;
