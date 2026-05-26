@@ -3,38 +3,38 @@
 
 namespace stb
 {
-    // ì „ì—­ ë³€ìˆ˜ ì„ ì–¸
+    // Àü¿ª º¯¼ö ¼±¾ğ
     extern char g_CharacterId[32];
     extern int g_ChannelPort;
     extern int g_ChatPort;
 
-    // ë„¤íŠ¸ì›Œí¬ ì„¤ì •
-    // ì„œë²„ IPì™€ í¬íŠ¸ë¥¼ ì—¬ê¸°ì„œ ë³€ê²½í•˜ì„¸ìš”!
+    // ³×Æ®¿öÅ© ¼³Á¤
+    // ¼­¹ö IP¿Í Æ÷Æ®¸¦ ¿©±â¼­ º¯°æÇÏ¼¼¿ä!
     struct NetworkConfig
     {
-        // ========== ì—¬ê¸°ë¥¼ ìˆ˜ì •í•˜ì„¸ìš”! ==========
+        // ========== ¿©±â¸¦ ¼öÁ¤ÇÏ¼¼¿ä! ==========
         
-        // ì™¸ë¶€ ì„œë²„ IP ì£¼ì†Œ (ì˜ˆì‹œ)
-        //static constexpr const char* SERVER_IP = "100.99.220.45";  // ì‹¤ì œ ì„œë²„ IPë¡œ ë³€ê²½!
-        static constexpr const char* SERVER_IP = "100.114.42.54";  // ì‹¤ì œ ì„œë²„ IPë¡œ ë³€ê²½!
+        // ¿ÜºÎ ¼­¹ö IP ÁÖ¼Ò (¿¹½Ã)
+        static constexpr const char* SERVER_IP = "100.99.220.45";  // ½ÇÁ¦ ¼­¹ö IP·Î º¯°æ!
+        //static constexpr const char* SERVER_IP = "100.114.42.54";  // ½ÇÁ¦ ¼­¹ö IP·Î º¯°æ!
        
-        // ì„œë²„ í¬íŠ¸
-        //static constexpr int SERVER_PORT = 1234;  // ì„œë²„ í¬íŠ¸ì— ë§ê²Œ ë³€ê²½
-        inline static int SERVER_PORT = g_ChannelPort;  // ì„œë²„ í¬íŠ¸ì— ë§ê²Œ ë³€ê²½
+        // ¼­¹ö Æ÷Æ®
+        static constexpr int SERVER_PORT = 1234;  // ¼­¹ö Æ÷Æ®¿¡ ¸Â°Ô º¯°æ
+        //static constexpr int SERVER_PORT = 9001;  // ¼­¹ö Æ÷Æ®¿¡ ¸Â°Ô º¯°æ
         
-        // ìºë¦­í„° ID (ëª…ë ¹ì¤„ ì¸ìë¡œ ì„¤ì •ë¨)
+        // Ä³¸¯ÅÍ ID (¸í·ÉÁÙ ÀÎÀÚ·Î ¼³Á¤µÊ)
         static const char* GetCharacterId() { return g_CharacterId; }
 
         
-        // ë§µ ID
+        // ¸Ê ID
         static constexpr const char* MAP_ID = "100000000";
         
         // ==============================
         
-        // ìë™ ì—°ê²° ì—¬ë¶€ (falseë¡œ í•˜ë©´ ìˆ˜ë™ìœ¼ë¡œ ì—°ê²°í•´ì•¼ í•¨)
+        // ÀÚµ¿ ¿¬°á ¿©ºÎ (false·Î ÇÏ¸é ¼öµ¿À¸·Î ¿¬°áÇØ¾ß ÇÔ)
         static constexpr bool AUTO_CONNECT = true;
         
-        // ì¬ì—°ê²° ì‹œë„ íšŸìˆ˜
+        // Àç¿¬°á ½Ãµµ È½¼ö
         static constexpr int RECONNECT_ATTEMPTS = 3;
     };
 }

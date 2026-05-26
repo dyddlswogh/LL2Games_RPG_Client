@@ -25,12 +25,19 @@ namespace stb
 			std::function<void()> mEvent;
 		};
 
+		static struct EventNames
+		{
+			std::wstring startEventName;
+			std::wstring completeEventName;
+			std::wstring endEventName;
+		};
 		
 		// ev2 = ev1;
 		// ev2 = std::function<void()>(Add);
 
 		struct Events
 		{
+
 			Event startEvent;
 			Event completeEvent;
 			Event endEvent;
@@ -64,19 +71,47 @@ namespace stb
 
 		void CreateFrameAnimation(const std::wstring& name
 			, const std::vector<Texture*>& frames
+			, Vector2 origin
 			, Vector2 offset
+			, float duration
+		);
+
+		void CreateFrameAnimation(const std::wstring& name
+			, const std::vector<Texture*>& frames
+			, Vector2 baseOffset
+			, const std::vector<stb::math::Vector2>& frameOffsets
 			, float duration
 		);
 
 		Animation* FindAnimation(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop);
 
+
+		void SetAnimationEventNames(const std::wstring& animationName, const EventNames& eventNames);
+		void RegisterEvent(const std::wstring& eventName, std::function<void()> func);
+
+		void InvokeStartEvent(const std::wstring& animationName);
+		void InvokeCompleteEvent(const std::wstring& animationName);
+		void InvokeEndEvent(const std::wstring& animationName);
+
+
+	public:
+		void SetFlipX(bool flipX) { m_flipX = flipX; }
+	private: 
+		void InvokeEvent(const std::wstring& eventName);
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
+		std::map<std::wstring, EventNames> m_AnimationEventNames;
+		std::map<std::wstring, Event> m_EventTable;
+
 		Animation* mActiveAnimation;
 		bool mbLoop;
-
+		bool mbCompleteEventCalled;
+		bool m_flipX;
 		std::map<std::wstring, Events*> mEvents;
+
+
+		
 
 		std::string DebugMsg;
 	};

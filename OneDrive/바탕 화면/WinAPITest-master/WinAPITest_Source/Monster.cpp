@@ -13,7 +13,6 @@ void Monster::Initialize()
 
 	m_transform = AddComponent<stb::Transform>();
 	m_animator = AddComponent<stb::Animator>();
-	m_collider = AddComponent<stb::BoxCollider2D>();
 	m_script = AddComponent<MonsterScript>();
 
 	m_script->SetOwner(this);
@@ -27,8 +26,9 @@ void Monster::InitFromSpawn(const MonsterSpawnInfo& info)
 
 	ResetFromSpawnInfo(info);
 	SetAnimation();
-
+	SetCollider();
 	SetState(MonsterState::E_Move);
+	BindAnimationEvents();
 }
 
 void Monster::Update(float deltaTime)
@@ -63,12 +63,15 @@ void Monster::Render(stbD2DRenderer& renderer)
 
 
 	GameObject::Render(renderer);
+	m_collider->Render(renderer);
 }
 
 void Monster::SetState(MonsterState state)
 {
 	if (m_state == state)
 		return;
+
+	m_state = state;
 
 	switch (state)
 	{
@@ -91,7 +94,9 @@ void Monster::SetState(MonsterState state)
 	{
 		DebugMsg ="current State : " + std::to_string(static_cast<int>(m_state)) + "\n";
 		OutputDebugStringA(DebugMsg.c_str());
-		animator->PlayAnimation(m_currentAnimation, true);
+		bool isLoop = false;
+		if (m_currentAnimation != L"die") isLoop = true;
+		animator->PlayAnimation(m_currentAnimation, isLoop);
 		OutputDebugStringA("Monster PlayAnimation \n");
 	}
 
@@ -112,11 +117,6 @@ void Monster::SetAnimation()
 		return;
 	}
 		
-
-	stb::Animator* animator = GetComponent<stb::Animator>();
-	if (animator == nullptr)
-		return;
-
 	for (const AnimationInfo& info : data->animations)
 	{
 		std::vector<stb::Texture*> frames;
@@ -139,13 +139,64 @@ void Monster::SetAnimation()
 		DebugMsg = "frame size :" + std::to_string(frames.size()) + "\n";
 		OutputDebugStringA(DebugMsg.c_str());
 
-		animator->CreateFrameAnimation(
+		m_animator->CreateFrameAnimation(
 			utils::StringToWString(info.anim_name),
 			frames,
 			data->renderInfo.origin,
+			data->renderInfo.offset,
 			0.2f
 		);
+
+		stb::Animator::EventNames eventNames;
+
+		eventNames.startEventName = utils::StringToWString(info.animationEvent.start);
+		eventNames.completeEventName = utils::StringToWString(info.animationEvent.complete);
+		eventNames.endEventName = utils::StringToWString(info.animationEvent.end);
+
+		m_animator->SetAnimationEventNames(utils::StringToWString(info.anim_name), eventNames);	
 	}
+}
+void Monster::SetCollider()
+{
+	const MonsterData* data = M_MONSTERDATAMANAGER->FindMonsterData(m_monsterId);
+	if (data == nullptr)
+	{
+		std::string DebugMsg = "MonsterData is nullptr \n";
+		OutputDebugStringA(DebugMsg.c_str());
+		return;
+	}
+
+	if (data->colliderInfo.colliderType == stb::eColliderType::Rect2D)
+	{
+		m_collider = AddComponent<stb::BoxCollider2D>();
+	}	
+	else 
+	{
+		m_collider = AddComponent<stb::CircleCollider2D>();
+	}
+	
+	m_collider->SetOffset(data->colliderInfo.offset);
+	m_collider->SetSize(data->colliderInfo.halfSize);
+
+}
+
+void Monster::BindAnimationEvents()
+{
+	m_animator->RegisterEvent(L"MonsterHitEnd", [this]()
+		{
+			OutputDebugStringA("MonsterHitEnd event called\n");
+			if (m_state != MonsterState::E_Die)
+			{
+				SetState(MonsterState::E_Idle);
+			}
+		});
+
+	m_animator->RegisterEvent(L"MonsterDieEnd", [this]()
+		{
+			OutputDebugStringA("MonsterDieEnd event called\n");
+			m_isDeathAnimationFinished = true;
+
+		});
 }
 void Monster::OnDamaged(int damage, int curHp, bool dead)
 {
@@ -156,16 +207,31 @@ void Monster::OnMove(float x, float y, int dir)
 	
 }
 
+// 몬스터패킷 핸들러에서 바로 호출하는 함수
 void Monster::ApplyServerUpdate(const MonsterUpdateInfo& info)
 {
+	bool wasDead = (m_state == MonsterState::E_Die && m_isDeathAnimationFinished);
 	m_targetPos = info.pos;
-
 
 	m_dir = info.dir;
 	//m_moveSpeed = info.moveSpeed;
 	m_curHp = info.curHp;
 	m_maxHp = info.maxHp;
 
+	if (wasDead && info.curHp > 0 && info.state != MonsterState::E_Die)
+	{
+		m_isDeathAnimationFinished = false;
+
+		// 위치도 바로 스폰 위치로 맞추는 게 좋음
+		m_transform->SetPosition(info.pos);
+		m_targetPos = info.pos;
+
+		// 이전 상태가 Die라서 SetState가 꼬이지 않게 강제 초기화
+		m_state = MonsterState::E_NONE;
+		SetState(MonsterState::E_Idle);
+
+		return;
+	}
 	SetState(info.state);
 }
 
@@ -177,10 +243,25 @@ void Monster::ApplyAttackResult(const AttackResult& result)
 	if (result.isDead)
 	{
 		SetState(MonsterState::E_Die);
+		// 죽었을 때 처리 해야함
 		return;
 	}
 
 	SetState(MonsterState::E_Hit);
+}
+
+void Monster::RespawnFromServer(const MonsterUpdateInfo& info)
+{
+	m_isDeathAnimationFinished = false;
+	m_isDead = false;
+
+	m_curHp = info.curHp;
+	m_maxHp = info.maxHp;
+
+	m_pos= info.pos;;
+	m_targetPos = m_pos;
+
+	SetState(MonsterState::E_Idle);
 }
 
 void Monster::ResetFromSpawnInfo(const MonsterSpawnInfo& info)

@@ -47,3 +47,31 @@ void stb::ResourceManager::LoadMonsterTextures()
 		Load<Texture>(key, entry.path().wstring());
 	}
 }
+
+void stb::ResourceManager::LoadPlayerTextures()
+{
+	std::filesystem::path root = L"Resources\\Character";
+
+	for (const auto& entry : std::filesystem::recursive_directory_iterator(root))
+	{
+		if (!entry.is_regular_file())
+		{
+			continue;
+		}
+
+
+		if (entry.path().extension() != ".png")
+		{
+			continue;
+		}
+
+
+		std::filesystem::path relative = std::filesystem::relative(entry.path(), L"Resources");
+
+		std::wstring key = relative.replace_extension(L"").generic_wstring();
+
+		OutputDebugStringW(key.c_str());
+		OutputDebugStringA("\n");
+		Load<Texture>(key, entry.path().wstring());
+	}
+}

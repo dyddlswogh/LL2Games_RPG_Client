@@ -1,7 +1,11 @@
 #pragma once
 #include "CommonInclude.h"
 #include "stbSingletonBase.h"
+<<<<<<< HEAD
+#include "stbMath.h"
+=======
 #include "Trade_Info.h"
+>>>>>>> main
 
 class UI;
 class InventoryUI;
@@ -22,6 +26,9 @@ public:
 
 	void ToggleInventory();
 
+public:
+	InventoryUI* GetInventoryUI() { return m_inventoryUI; }
+	QuickSlotUI* GetQuickSlotUI() { return m_quickslotUI; }
 	//±³È¯
 	void OpenTradeUI();
 	void CloseTradeUI();

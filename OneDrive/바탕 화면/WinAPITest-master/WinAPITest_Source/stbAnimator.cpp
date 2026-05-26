@@ -7,6 +7,8 @@
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 
 
+
+
 namespace stb
 {
 	
@@ -15,6 +17,7 @@ namespace stb
 		, mAnimations({})
 		, mActiveAnimation(nullptr)
 		, mbLoop(false)
+		, mbCompleteEventCalled(false)
 	{
 
 	}
@@ -30,22 +33,23 @@ namespace stb
 
 	void Animator::Update()
 	{
-		if (mActiveAnimation)
+		if (mActiveAnimation == nullptr)
+			return;
+
+		mActiveAnimation->Update();
+
+		if (mActiveAnimation->IsComplete())
 		{
-			mActiveAnimation->Update();
-
-			Events* events = FindEvent(mActiveAnimation->GetName());
-
-			if (mActiveAnimation->IsComplete())
+			if (!mbCompleteEventCalled)
 			{
-				if (events)
-				{
-					events->completeEvent.mEvent;
-				}
-				if(mbLoop)
-				{
-					mActiveAnimation->Reset();
-				}
+				InvokeCompleteEvent(mActiveAnimation->GetName());
+				mbCompleteEventCalled = true;
+			}
+
+			if (mbLoop)
+			{
+				mActiveAnimation->Reset();
+				mbCompleteEventCalled = false;
 			}
 		}
 	}
@@ -62,8 +66,10 @@ namespace stb
 
 	void Animator::Render(stbD2DRenderer& renderer)
 	{
-		if (mActiveAnimation)
-			mActiveAnimation->Render(renderer);
+		if (mActiveAnimation) {
+			mActiveAnimation->Render(renderer, m_flipX);
+		}
+			
 	}
 
 	void Animator::CreateAnimation(const std::wstring& name
@@ -142,7 +148,7 @@ namespace stb
 
 	}
 
-	void Animator::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 offset, float duration)
+	void Animator::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 origin, Vector2 offset, float duration)
 	{
 		if (frames.empty())
 		{
@@ -161,15 +167,48 @@ namespace stb
 
 		animation = new Animation();
 		animation->SetName(name);
-		animation->CreateFrameAnimation(name, frames, offset, duration);
+		animation->CreateFrameAnimation(name, frames, origin, offset, duration);
 		animation->SetAnimator(this);
 
 		Events* events = new Events();
 
 		mAnimations.insert(std::make_pair(name, animation));
 		mEvents.insert(std::make_pair(name, events));
+
+		EventNames eventNames{};
+		m_AnimationEventNames.insert(std::make_pair(name, eventNames));
 	}
 
+	void Animator::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 baseOffset, const std::vector<stb::math::Vector2>& frameOffsets, float duration)
+	{
+		if (frames.empty())
+		{
+			std::string DebugMsg = "Frame is Empty \n";
+			OutputDebugStringA(DebugMsg.c_str());
+			return;
+		}
+
+
+		Animation* animation = FindAnimation(name);
+		if (animation != nullptr)
+			return;
+
+		std::wstring DebugMsg = L"Animation Name : " + name + L"\n";
+		OutputDebugStringW(DebugMsg.c_str());
+
+		animation = new Animation();
+		animation->SetName(name);
+		animation->CreateFrameAnimation(name, frames, baseOffset, frameOffsets, duration);
+		animation->SetAnimator(this);
+
+		Events* events = new Events();
+
+		mAnimations.insert(std::make_pair(name, animation));
+		mEvents.insert(std::make_pair(name, events));
+
+		EventNames eventNames{};
+		m_AnimationEventNames.insert(std::make_pair(name, eventNames));
+	}
 	
 
 	Animation* Animator::FindAnimation(const std::wstring& name)
@@ -196,24 +235,72 @@ namespace stb
 
 		if (mActiveAnimation)
 		{
-			Events* currEvent = FindEvent(mActiveAnimation->GetName());
-
-			if (currEvent)
-			{
-				currEvent->endEvent.mEvent;
-			}
+			InvokeEndEvent(mActiveAnimation->GetName());
 		}
 
-		Events* nextEvent = FindEvent(name);
-		
-		if (nextEvent)
-		{
-			nextEvent->startEvent();
-		}
 		mActiveAnimation = animation;
 		mActiveAnimation->Reset();
 		mbLoop = loop;
+		mbCompleteEventCalled = false;
 
+		InvokeStartEvent(name);
+	}
+
+	void Animator::SetAnimationEventNames(const std::wstring& animationName, const EventNames& eventNames)
+	{
+		m_AnimationEventNames[animationName] = eventNames;
+	}
+
+	void Animator::RegisterEvent(const std::wstring& eventName, std::function<void()> func)
+	{
+		m_EventTable[eventName] = std::move(func);
+	}
+
+	void Animator::InvokeStartEvent(const std::wstring& animationName)
+	{
+		auto animEventIt = m_AnimationEventNames.find(animationName);
+
+		if (animEventIt == m_AnimationEventNames.end())
+			return;
+
+		InvokeEvent(animEventIt->second.startEventName);
+	}
+
+	void Animator::InvokeCompleteEvent(const std::wstring& animationName)
+	{
+		auto animEventIt = m_AnimationEventNames.find(animationName);
+
+		if (animEventIt == m_AnimationEventNames.end())
+			return;
+
+		InvokeEvent(animEventIt->second.completeEventName);
+	}
+
+	void Animator::InvokeEndEvent(const std::wstring& animationName)
+	{
+		auto animEventIt = m_AnimationEventNames.find(animationName);
+
+		if (animEventIt == m_AnimationEventNames.end())
+			return;
+
+		InvokeEvent(animEventIt->second.endEventName);
+	}
+
+
+	void Animator::InvokeEvent(const std::wstring& eventName)
+	{
+		if (eventName.empty())
+			return;
+
+		auto it = m_EventTable.find(eventName);
+
+		if (it == m_EventTable.end())
+		{
+			OutputDebugStringW((L"Animation Event Not Found: " + eventName + L"\n").c_str());
+			return;
+		}
+
+		it->second();
 	}
 
 	Animator::Events* Animator::FindEvent(const std::wstring& name)

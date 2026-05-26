@@ -69,6 +69,7 @@ void UIManager::ToggleInventory()
 		m_inventoryUI->Toggle();
 }
 
+
 void UIManager::OpenTradeUI()
 {
 	m_tradeUI->SetActivce(true);

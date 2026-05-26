@@ -14,6 +14,15 @@
 
 using Microsoft::WRL::ComPtr;
 
+
+enum class TextStyle
+{
+	Body,
+	Title,
+	Small,
+	QuickSlot,
+};
+
 class stbD2DRenderer
 {
 public:
@@ -35,12 +44,15 @@ public:
 	void DrawCircle(float cx, float cy, float radius, const D2D1::ColorF& color, float stroke = 1.0f);
 	void FillCircle(float cx, float cy, float radius, const D2D1::ColorF& color);
 
-	void DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, bool titleStyle = false);
+	void DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, TextStyle TextStyle = TextStyle::Title);
 	void DrawBitmap(float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
 	void DrawBitmap(ID2D1Bitmap* bitmap, float x, float y, float width = -1.0f, float height = -1.0f, float opacity = 1.0f);
 	void DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity);
+	void DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity, bool flipX);
 	void DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, float opacity = 1.0f);
-	
+	void DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity = 1.0f);
+
+	void DrawSprite2(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity = 1.0f);
 
 	bool HasBitmap() const;
 	HRESULT CreateBitmapFromFile(PCWSTR filePath, ID2D1Bitmap** outBitmap);
@@ -66,7 +78,8 @@ private:
 	ComPtr<IDWriteFactory> m_DWriteFactory;
 	ComPtr<IDWriteTextFormat> m_TitleTextFormat;
 	ComPtr<IDWriteTextFormat> m_BodyTextFormat;
-
+	ComPtr<IDWriteTextFormat> m_SmallTextFormat;
+	ComPtr<IDWriteTextFormat> m_QuickSlotTextFormat;
 	// WIC에서 디코더, 포멧 컨버터 같은 걸 만드는 팩토리
 	ComPtr<IWICImagingFactory> m_WicFactory;
 	ComPtr<ID2D1Bitmap> m_Bitmap;
