@@ -173,6 +173,39 @@ void TradeUI::Init_InventoryButton()
 
 void TradeUI::CreateSlots()
 {
+    //tradeslot(My)
+    for (int index = 0; index < m_tradeSlotMaxCount; ++index)
+    {
+        int col = index % m_tradeSlotCols;
+        int row = index / m_tradeSlotCols;
+
+        InventorySlotUI slot;
+        slot.slotIndex = index;
+        slot.x = m_tradeMySlotPosX + col * (m_slotWidth + m_slotgapX);
+        slot.y = m_tradeMySlotPosY + row * (m_slotHeight + m_slotgapY);
+        slot.width = m_slotWidth;
+        slot.height = m_slotHeight;
+
+        m_tradeMySlots.push_back(slot);
+    }
+
+    //tradeslot(Target)
+    for (int index = 0; index < m_tradeSlotMaxCount; ++index)
+    {
+        int col = index % m_tradeSlotCols;
+        int row = index / m_tradeSlotCols;
+
+        InventorySlotUI slot;
+        slot.slotIndex = index;
+        slot.x = m_tradeTargetSlotPosX  + col * (m_slotWidth + m_slotgapX);
+        slot.y = m_tradeTargetSlotPosY  + row * (m_slotHeight + m_slotgapY);
+        slot.width = m_slotWidth;
+        slot.height = m_slotHeight;
+        slot.isEnabled = true;
+
+        m_tradeTargetSlots.push_back(slot);
+    }
+
     mSlots.clear();
 
     for (int index = 0; index < m_slotMaxCount; ++index)
@@ -267,6 +300,7 @@ void TradeUI::UpdateSlots()
         slots.y = m_inventoryImgPosY + m_slotStartY + row * (m_slotHeight + m_slotgapY);
     }
 }
+
 
 void TradeUI::UpdateSlotEnableState()
 {

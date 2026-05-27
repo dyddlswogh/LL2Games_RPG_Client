@@ -95,7 +95,6 @@ private:
 	static constexpr int m_tradeSlotMaxCount = 12;
 
 	RECT m_tradeClickRect = { 230, 100, 670, 120 };
-
 	bool m_isDragging = false;
 	static constexpr int m_tradeClickWidth = 170;
 	static constexpr int m_tradeClickHeight = 30;
