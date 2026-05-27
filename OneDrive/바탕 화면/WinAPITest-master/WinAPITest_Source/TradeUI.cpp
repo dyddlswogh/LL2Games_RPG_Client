@@ -170,6 +170,39 @@ void TradeUI::Init_InventoryButton()
 
 void TradeUI::CreateSlots()
 {
+    //tradeslot(My)
+    for (int index = 0; index < m_tradeSlotMaxCount; ++index)
+    {
+        int col = index % m_tradeSlotCols;
+        int row = index / m_tradeSlotCols;
+
+        InventorySlotUI slot;
+        slot.slotIndex = index;
+        slot.x = m_tradeMySlotPosX + col * (m_slotWidth + m_slotgapX);
+        slot.y = m_tradeMySlotPosY + row * (m_slotHeight + m_slotgapY);
+        slot.width = m_slotWidth;
+        slot.height = m_slotHeight;
+
+        m_tradeMySlots.push_back(slot);
+    }
+
+    //tradeslot(Target)
+    for (int index = 0; index < m_tradeSlotMaxCount; ++index)
+    {
+        int col = index % m_tradeSlotCols;
+        int row = index / m_tradeSlotCols;
+
+        InventorySlotUI slot;
+        slot.slotIndex = index;
+        slot.x = m_tradeTargetSlotPosX  + col * (m_slotWidth + m_slotgapX);
+        slot.y = m_tradeTargetSlotPosY  + row * (m_slotHeight + m_slotgapY);
+        slot.width = m_slotWidth;
+        slot.height = m_slotHeight;
+        slot.isEnabled = true;
+
+        m_tradeTargetSlots.push_back(slot);
+    }
+
     mSlots.clear();
 
     for (int index = 0; index < m_slotMaxCount; ++index)
@@ -183,6 +216,7 @@ void TradeUI::CreateSlots()
         slot.y = m_inventoryImgPosY + m_slotStartY + row * (m_slotHeight + m_slotgapY);
         slot.width = m_slotWidth;
         slot.height = m_slotHeight;
+        slot.isEnabled = true;
 
         m_slots.push_back(slot);
     }
@@ -196,6 +230,20 @@ void TradeUI::ClearSlots()
     {
         slot.itemId = 0;
         slot.itemCount = 0;
+    }
+}
+
+void TradeUI::UpdateSlots()
+{
+    int slotCols = m_isExpand ? m_fullSlotCols : m_slotCols;
+
+    for (auto& slots : m_slots)
+    {
+        int col = slots.slotIndex % slotCols;
+        int row = slots.slotIndex / slotCols;
+
+        slots.x = m_inventoryImgPosX + m_slotStartX + col * (m_slotWidth + m_slotgapX);
+        slots.y = m_inventoryImgPosY + m_slotStartY + row * (m_slotHeight + m_slotgapY);
     }
 }
 
@@ -251,7 +299,7 @@ void TradeUI::Update()
 	if (M_INPUT->GetKeyDown(stb::eKeyCode::LButton))
 		HandleLMouseClick(pt.x, pt.y);
 
-    /*if (M_INPUT->GetKey(stb::eKeyCode::LButton))
+    if (M_INPUT->GetKey(stb::eKeyCode::LButton))
     {
         HandleDragging(pt.x, pt.y);
     }
@@ -259,7 +307,7 @@ void TradeUI::Update()
     if (M_INPUT->GetKeyUp(stb::eKeyCode::LButton))
     {
         HandleMouseUp();
-    }*/
+    }
 }
 
 void TradeUI::Render(HDC hdc)
@@ -315,6 +363,9 @@ void TradeUI::Render(stbD2DRenderer& renderer)
     RenderInventoryButtons(renderer);
     // 7. 테스트용 슬롯들 테두리 그리기
     RenderInventoryTestSlots(renderer);
+
+    // 교환 슬롯 아이템 출력
+    RenderTradeSlotItem(renderer);
 }
 
 void TradeUI::RenderBackground(stbD2DRenderer& renderer)
@@ -755,8 +806,80 @@ void TradeUI::RenderInventorySlotItem(stbD2DRenderer& renderer)
         );
     }
 
+    RenderDraggingItem(renderer);
+}
+
+void TradeUI::RenderTradeSlotItem(stbD2DRenderer& renderer)
+{
+    for (const auto& slot : m_tradeMySlots)
+    {
+        if (!slot.isEnabled)
+            continue;
+
+        if (slot.itemId == 0)
+            continue;
+
+
+        const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(slot.itemId);
+
+        if (itemData == nullptr)
+            continue;
+
+        std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+        if (texture == nullptr)
+            continue;
+
+        ID2D1Bitmap* bitmap = texture->GetD2DBitmap();
+        if (bitmap == nullptr)
+            continue;
+
+        renderer.DrawBitmap(
+            bitmap,
+            slot.x,
+            slot.y,
+            slot.width,
+            slot.height,
+            1.0f
+        );
+    }
 
 }
+
+void TradeUI::RenderDraggingItem(stbD2DRenderer& renderer)
+{
+    if (!m_isItemDragging)
+        return;
+
+    if (m_dragItemId == 0)
+        return;
+
+    const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(m_dragItemId);
+    if (itemData == nullptr)
+        return;
+
+    std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+    stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+    if (texture == nullptr)
+        return;
+
+    ID2D1Bitmap* bitmap = texture->GetD2DBitmap();
+    if (bitmap == nullptr)
+        return;
+
+    float drawX = (float)m_dragCurrentMouseX - m_slotWidth * 0.5f;
+    float drawY = (float)m_dragCurrentMouseY - m_slotHeight * 0.5f;
+
+    renderer.DrawBitmap(
+        bitmap,
+        drawX,
+        drawY,
+        m_slotWidth,
+        m_slotHeight,
+        0.8f
+    );
+}
+
 void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
 {
     // 확장 이미지
@@ -835,6 +958,56 @@ void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
 }
 void TradeUI::RenderInventoryTestSlots(stbD2DRenderer& renderer)
 {
+    //교환슬롯(My)
+    for (const auto& slot : m_tradeMySlots)
+    {
+        if (slot.isEnabled)
+        {
+            renderer.DrawRect(
+                (float)slot.x,
+                (float)slot.y,
+                (float)slot.width,
+                (float)slot.height,
+                D2D1::ColorF::Black
+            );
+        }
+
+    }
+
+    // 테스트용 인벤토리 드래그 영역 그리기
+    renderer.DrawRect(
+        (float)m_tradeClickRect.left,
+        (float)m_tradeClickRect.top,
+        (float)(m_tradeClickRect.right - m_tradeClickRect.left),
+        (float)(m_tradeClickRect.bottom - m_tradeClickRect.top),
+        D2D1::ColorF::Black
+    );
+
+    //교환슬롯(Target)
+    for (const auto& slot : m_tradeTargetSlots)
+    {
+        if (slot.isEnabled)
+        {
+            renderer.DrawRect(
+                (float)slot.x,
+                (float)slot.y,
+                (float)slot.width,
+                (float)slot.height,
+                D2D1::ColorF::Black
+            );
+        }
+
+    }
+
+    // 테스트용 인벤토리 드래그 영역 그리기
+    renderer.DrawRect(
+        (float)m_tradeClickRect.left,
+        (float)m_tradeClickRect.top,
+        (float)(m_tradeClickRect.right - m_tradeClickRect.left),
+        (float)(m_tradeClickRect.bottom - m_tradeClickRect.top),
+        D2D1::ColorF::Black
+    );
+
     for (const auto& slot : m_slots)
     {
         if (slot.isEnabled)
@@ -852,10 +1025,10 @@ void TradeUI::RenderInventoryTestSlots(stbD2DRenderer& renderer)
 
     // 테스트용 인벤토리 드래그 영역 그리기
     renderer.DrawRect(
-        (float)m_inventoryClickRect.left,
-        (float)m_inventoryClickRect.top,
-        (float)(m_inventoryClickRect.right - m_inventoryClickRect.left),
-        (float)(m_inventoryClickRect.bottom - m_inventoryClickRect.top),
+        (float)m_tradeClickRect.left,
+        (float)m_tradeClickRect.top,
+        (float)(m_tradeClickRect.right - m_tradeClickRect.left),
+        (float)(m_tradeClickRect.bottom - m_tradeClickRect.top),
         D2D1::ColorF::Black
     );
 }
@@ -920,6 +1093,8 @@ bool TradeUI::IsPointInTradeReady(int x, int y)
 void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
 {
 #if 1 //test 마우스 위치 출력
+
+    if (1)
     {
         int posX = mouseX;
         int posY = mouseY;
@@ -928,8 +1103,7 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
         OutputDebugStringA(sTmpX.c_str());
         OutputDebugStringA(sTmpY.c_str());
     }
-
-    if (0)
+    else
     {
         int posX = mouseX - m_posX;
         int posY = mouseY - m_posY;
@@ -938,9 +1112,13 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
         OutputDebugStringA(sTmpX.c_str());
         OutputDebugStringA(sTmpY.c_str());
     }
-#endif
+#endif //test 마우스 위치 출력
+
 
     //인벤토리
+    if (HandleInventoryClick(mouseX, mouseY))
+        return;
+
     if (HandleTabClick(mouseX, mouseY))
         return;
 
@@ -978,8 +1156,26 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
     }
 
 	int slotIdx = GetClickedMySlotIndex(mouseX, mouseY);
-	if (slotIdx == -1) return;
+	if (slotIdx != -1)
+    {
+        std::string msg = std::to_string(slotIdx) + "\n";
+        OutputDebugStringA(msg.c_str());
 
+        InventorySlotUI& slot = m_slots[slotIdx];
+
+        if (slot.itemId != 0)
+        {
+            m_isItemDragging = true;
+            m_dragStartSlotIndex = slotIdx;
+            m_dragCurrentMouseX = mouseX;
+            m_dragCurrentMouseY = mouseY;
+            m_dragItemId = slot.itemId;
+            m_dragItemCount = slot.itemCount;
+            {char szTemp[2024]; sprintf_s(szTemp, sizeof(szTemp),  "[%s][%d]slot.itemId[%d]", __FUNCTION__, __LINE__, slot.itemId); OutputDebugStringA(szTemp); }
+        }
+
+        return;
+    }
 	//인벤토리에서 해당 슬롯 아이템 가져오기
 	//InventoryItemInfo* item = M_INVENTORYMANAGER->FindSlot(inventoryType, slotIdx);
 	//if (item == nullptr) return;
@@ -987,6 +1183,21 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
 	//TradeSlotInfo 만들어서 서버에 전송
 	//TradeSlotInfo tradeSlot = { slotIdx, std::to_string(item->itemId), item->itemCount };
 	//TradePacketHandler::SendTradeAddItem(tradeSlot);
+}
+
+bool TradeUI::HandleInventoryClick(int mouseX, int mouseY)
+{
+    int localX = mouseX - m_inventoryImgPosX;
+    int localY = mouseY - m_inventoryImgPosY;
+
+    if (IsPointInRect(m_tradeClickRect, mouseX, mouseY))
+    {
+        m_isDragging = true;
+        m_dragOffsetX = localX;
+        m_dragOffsetY = localY;
+        return true;
+    }
+    return false;
 }
 
 bool TradeUI::HandleTabClick(int mouseX, int mouseY)
@@ -1011,25 +1222,112 @@ bool TradeUI::HandleTabClick(int mouseX, int mouseY)
 
 void TradeUI::HandleDragging(int mouseX, int mouseY)
 {
+    if (m_isItemDragging)
+    {
+        m_dragCurrentMouseX = mouseX;
+        m_dragCurrentMouseY = mouseY;
+        return;
+    }
+
     if (!m_isDragging)
         return;
 
-   /* int inventoryClickWidth = m_isExpand ? m_fullInventoryClickWidth : m_inventoryClickWidth;
-    int inventoryClickHeight = m_isExpand ? m_fullInventoryClickHeight : m_inventoryClickHeight;
+    int inventoryClickWidth = m_tradeClickWidth;
+    int inventoryClickHeight = m_tradeClickHeight;
 
-    m_inventoryImgPosX = mouseX - m_dragOffsetX;
-    m_inventoryImgPosY = mouseY - m_dragOffsetY;
+    //m_inventoryImgPosX = mouseX - m_dragOffsetX;
+    //m_inventoryImgPosY = mouseY - m_dragOffsetY;
+    m_posX = mouseX - m_dragOffsetX;
+    m_posY = mouseY - m_dragOffsetY;
 
-    m_inventoryClickRect.left = m_inventoryImgPosX;
-    m_inventoryClickRect.top = m_inventoryImgPosY;
-    m_inventoryClickRect.right = m_inventoryImgPosX + inventoryClickWidth;
-    m_inventoryClickRect.bottom = m_inventoryImgPosY + inventoryClickHeight;*/
+    m_tradeClickRect.left = m_posX;
+    m_tradeClickRect.top = m_posY;
+    m_tradeClickRect.right = m_posX + inventoryClickWidth;
+    m_tradeClickRect.bottom = m_posY + inventoryClickHeight;
 
+}
+
+void TradeUI::HandleMouseUp()
+{
+    if (m_isItemDragging)
+    {
+        int dropSlotIndex = m_dragStartSlotIndex;
+
+        //int quickSlotIndex = M_UIMANAGER->GetQuickSlotUI()->GetSlotIndexByPoint(m_dragCurrentMouseX, m_dragCurrentMouseY);
+
+        //if (quickSlotIndex != -1)
+        //{
+        //    QuickSlotData data;
+        //    data.slot_index = quickSlotIndex;
+        //    data.type = QuickSlotType::Item;
+        //    data.ref_id = m_dragItemId;
+        //    data.inventory_type = m_currentType;
+        //    data.inventory_slotPos = m_dragStartSlotIndex;
+        //    data.count = m_dragItemCount;
+
+        //    //M_PLAYERMANAGER->GetLocalPlayer()->GetQuickSlotManager()->RequestSetSlot(data);
+        //    M_QUICKSLOTMANAGER->RequestSetSlot(data);
+        //}
+        int mySlotIndex = GetClickedMyTradeSlotIndex(m_dragCurrentMouseX, m_dragCurrentMouseY);
+        if (mySlotIndex != -1)
+        {
+            m_tradeMySlots[mySlotIndex].itemId = m_dragItemId;
+            m_tradeMySlots[mySlotIndex].itemCount = m_dragItemCount;
+            m_slots[m_dragStartSlotIndex].itemId = 0;
+            m_slots[m_dragStartSlotIndex].itemCount = 0;
+        }
+
+
+
+        m_isItemDragging = false;
+        m_dragStartSlotIndex = -1;
+        m_dragItemId = 0;
+        m_dragItemCount = 0;
+        return;
+    }
+
+    m_isDragging = false;
+    UpdateSlots();
+}
+
+static bool IsPointInSlot(const InventorySlotUI& slot, int mouseX, int mouseY)
+{
+    return  mouseX >= slot.x &&
+        mouseX < slot.x + slot.width &&
+        mouseY >= slot.y &&
+        mouseY < slot.y + slot.height;
 }
 
 int TradeUI::GetClickedMySlotIndex(int mouseX, int mouseY)
 {
-	return 0;
+    for (const InventorySlotUI& slot : m_slots)
+    {
+        if (!slot.isEnabled)
+            continue;
+
+        if (IsPointInSlot(slot, mouseX, mouseY))
+        {
+            return slot.slotIndex;
+        }
+    }
+
+    return -1;
+}
+
+int TradeUI::GetClickedMyTradeSlotIndex(int mouseX, int mouseY)
+{
+    for (const InventorySlotUI& slot : m_tradeMySlots)
+    {
+        if (!slot.isEnabled)
+            continue;
+
+        if (IsPointInSlot(slot, mouseX, mouseY))
+        {
+            return slot.slotIndex;
+        }
+    }
+
+    return -1;
 }
 
 void TradeUI::StartTrade(const std::string& targetId, const std::string& targetName)
