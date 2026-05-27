@@ -22,7 +22,10 @@ private:
 	void Init_InventoryTab();
 	void Init_InventoryButton();
 	void CreateSlots();
+	void CreateTradeSlots();
 	void ClearSlots();
+	void ClearTradeSlots();
+	void UpdateSlots();
 	void UpdateSlotEnableState();
 	void UpdateInventoryByType();
 
@@ -65,6 +68,8 @@ private:
 
 	std::vector<Slot> mSlots;
 	std::vector<InventorySlotUI> m_slots;
+	std::vector<InventorySlotUI> m_tradeMySlots;
+	std::vector<InventorySlotUI> m_tradeTargetSlots;
 
 	static constexpr float m_slotStartX = 26;
 	static constexpr float m_slotStartY = 80;
@@ -81,10 +86,32 @@ private:
 	int m_inventoryImgPosY = 100;
 	bool m_isExpand = false;
 
-	RECT m_inventoryClickRect = { 234, 105, 672, 127 };
+	//교환 슬롯
+	int m_tradeMySlotPosX = 465;
+	int m_tradeMySlotPosY = 290;
+	int m_tradeTargetSlotPosX = 260;
+	int m_tradeTargetSlotPosY = 290;
+	static constexpr int m_tradeSlotCols = 4;
+	static constexpr int m_tradeSlotMaxCount = 12;
+
+	RECT m_tradeClickRect = { 230, 100, 670, 120 };
 
 	bool m_isDragging = false;
+	static constexpr int m_tradeClickWidth = 170;
+	static constexpr int m_tradeClickHeight = 30;
 
+	int m_dragOffsetX;
+	int m_dragOffsetY;
+
+	bool m_isItemDragging = false; // 인벤토리 내 아이템 드래그 용
+	int m_dragCurrentMouseX;
+	int m_dragCurrentMouseY;
+
+	int m_dragStartSlotIndex;
+	/*int m_dragCurrentMouseX;
+	int m_dragCurrentMouseY;*/
+	int m_dragItemId;
+	int m_dragItemCount;
 
 
 private:
@@ -104,8 +131,12 @@ private:
 
 	void RenderInventoryMenuButtons(stbD2DRenderer& renderer);
 	void RenderInventorySlotItem(stbD2DRenderer& renderer);
+	void RenderTradeSlotItem(stbD2DRenderer& renderer);
+	void RenderDraggingItem(stbD2DRenderer& renderer);
 	void RenderInventoryButtons(stbD2DRenderer& renderer);
 	void RenderInventoryTestSlots(stbD2DRenderer& renderer);
+
+	void RenderTradeTestSlots(stbD2DRenderer& renderer);
 
 
 	stb::Texture* GetCurrentImg(InventoryButton& buttons);
@@ -116,12 +147,16 @@ private:
 	bool IsPointInTradeReady(int mouseX, int mouseY);
 
 	void HandleLMouseClick(int mouseX, int mouseY);
+	bool HandleInventoryClick(int mouseX, int mouseY);
 	bool HandleTabClick(int mouseX, int mouseY);
 	void HandleDragging(int mouseX, int mouseY);
+
+	void HandleMouseUp();
 
 
 
 	int GetClickedMySlotIndex(int mouseX, int mouseY);
+	int GetClickedMyTradeSlotIndex(int mouseX, int mouseY);
 	void CloseCancelPopup();
 	void CloseSuccessPopup();
 
