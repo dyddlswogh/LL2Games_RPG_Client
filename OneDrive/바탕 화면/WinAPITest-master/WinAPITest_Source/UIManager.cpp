@@ -106,6 +106,11 @@ void UIManager::ToggleTradeUI()
 		m_tradeUI->Toggle();
 }
 
+void UIManager::OnTradeAddItem(const TradeSlotInfo& tradeSlotInfo)
+{
+	if (m_tradeUI) m_tradeUI->OnTargetAddItem(tradeSlotInfo);
+}
+
 void UIManager::OpenReqTradeUI()
 {
 	if (m_tradeReqUI != nullptr)

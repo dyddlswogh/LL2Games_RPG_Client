@@ -38,9 +38,9 @@ void TradePacketHandler::SendTradeDecline()
 void TradePacketHandler::SendTradeAddItem(const TradeSlotInfo& item)
 {
 	std::vector<std::string> datas = {
-		std::to_string(item.slotPos),
 		item.itemId,
-		std::to_string(item.itemCount)
+		std::to_string(item.itemCount),
+		std::to_string(item.slotPos)
 	};
 
 	M_NETWORK->SendPacket(PKT_TRADE_ADD_ITEM, datas);
@@ -161,4 +161,44 @@ void TradePacketHandler::HandleTradeCancel(const ParsedPacket& pkt)
 	UIManager::getInstance()->ShowCancelPopUp(); //상대가 교환 취소했다는 팝업 
 }
 
-//void TradePacketHandler::HandleTradeRequest(const ParsedPacket& pkt)
+//아이템 업로드
+void TradePacketHandler::HandleTradeAddItem(const ParsedPacket& pkt)
+{
+	size_t offset = 0;
+	const char* data = pkt.payload.c_str();
+	size_t payloadSize = pkt.payload.size();
+	std::string status, item_id, item_amount, item_slot_index, errMsg;
+
+	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
+		return;
+
+	if (status == "nok")
+	{
+		if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, errMsg, errMsg))
+			return;
+		OutputDebugStringA(errMsg.c_str());
+		return;
+	}
+	else if (status == "ok")
+	{
+		OutputDebugStringA("success Trade Add Item");
+		return;
+	}
+	else //상대방의 Add Item 수신
+	{
+		item_id = status;
+		if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_amount, errMsg))
+			return;
+
+		if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_slot_index, errMsg))
+			return;
+	}
+
+	//TODO
+	//상대방 아이템 업로드 UI 업데이트
+	TradeSlotInfo tradeSlotInfo;
+	tradeSlotInfo.itemId = item_id;
+	tradeSlotInfo.itemCount = std::stoi(item_amount);
+	tradeSlotInfo.slotPos = std::stoi(item_slot_index);
+	UIManager::getInstance()->OnTradeAddItem(tradeSlotInfo);
+}

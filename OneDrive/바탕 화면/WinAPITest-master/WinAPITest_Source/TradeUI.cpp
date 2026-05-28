@@ -822,7 +822,11 @@ void TradeUI::RenderInventoryMenuButtons(stbD2DRenderer& renderer)
             (FLOAT)m_inventoryImgPosY + view.rect.top,
             size.width,
             size.height,
+#ifdef __TEST
+            TEST_OPACITY
+#else
             1.0f
+#endif
         );
     }
 }
@@ -857,7 +861,11 @@ void TradeUI::RenderInventorySlotItem(stbD2DRenderer& renderer)
             slot.y,
             slot.width,
             slot.height,
+#ifdef __TEST
+            TEST_OPACITY
+#else
             1.0f
+#endif
         );
     }
 
@@ -866,6 +874,7 @@ void TradeUI::RenderInventorySlotItem(stbD2DRenderer& renderer)
 
 void TradeUI::RenderTradeSlotItem(stbD2DRenderer& renderer)
 {
+    //my slot
     for (const auto& slot : m_tradeMySlots)
     {
         if (!slot.isEnabled)
@@ -895,7 +904,49 @@ void TradeUI::RenderTradeSlotItem(stbD2DRenderer& renderer)
             slot.y,
             slot.width,
             slot.height,
+#ifdef __TEST
+            TEST_OPACITY
+#else
             1.0f
+#endif
+        );
+    }
+
+    //target slot
+    for (const auto& slot : m_tradeTargetSlots)
+    {
+        if (!slot.isEnabled)
+            continue;
+
+        if (slot.itemId == 0)
+            continue;
+
+
+        const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(slot.itemId);
+
+        if (itemData == nullptr)
+            continue;
+
+        std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+        if (texture == nullptr)
+            continue;
+
+        ID2D1Bitmap* bitmap = texture->GetD2DBitmap();
+        if (bitmap == nullptr)
+            continue;
+
+        renderer.DrawBitmap(
+            bitmap,
+            slot.x,
+            slot.y,
+            slot.width,
+            slot.height,
+#ifdef __TEST
+            TEST_OPACITY
+#else
+            1.0f
+#endif
         );
     }
 
@@ -931,7 +982,11 @@ void TradeUI::RenderDraggingItem(stbD2DRenderer& renderer)
         drawY,
         m_slotWidth,
         m_slotHeight,
+#ifdef __TEST
+        TEST_OPACITY
+#else
         0.8f
+#endif
     );
 }
 
@@ -959,7 +1014,11 @@ void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
         (FLOAT)m_inventoryImgPosY + m_fullButton.size.top,
         size.width,
         size.height,
+#ifdef __TEST
+        TEST_OPACITY);
+#else
         1.0f);
+#endif
 
 
     // 확장 이미지
@@ -984,7 +1043,11 @@ void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
         (FLOAT)m_inventoryImgPosY + m_minButton.size.top,
         size.width,
         size.height,
+#ifdef __TEST
+        TEST_OPACITY);
+#else
         1.0f);
+#endif
 
 
     // 닫기 이미지
@@ -1009,7 +1072,11 @@ void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
         (FLOAT)m_inventoryImgPosY + m_closeButton.size.top,
         size.width,
         size.height,
+#ifdef __TEST
+        TEST_OPACITY);
+#else
         1.0f);
+#endif
 }
 void TradeUI::RenderInventoryTestSlots(stbD2DRenderer& renderer)
 {
@@ -1441,5 +1508,15 @@ void TradeUI::OnReady()
     if (mActive)
     {
         m_ConfirmLayerTarget = true;
+    }
+}
+
+void TradeUI::OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo)
+{
+    if (mActive)
+    {
+        int slotIdx = tradeSlotInfo.slotPos;
+        m_tradeTargetSlots[slotIdx].itemId = std::stoi(tradeSlotInfo.itemId);
+        m_tradeTargetSlots[slotIdx].itemCount = tradeSlotInfo.itemCount;
     }
 }

@@ -32,6 +32,8 @@ public:
 	void HandleBackspace_Trade();
 	void KeyDownTrade(WPARAM key);
 	void CloseTradeUI();
+	void OnTradeAddItem(const TradeSlotInfo& tradeSlotInfo); //상대가 아이템 추가
+
 	void ShowTradeRequestPopUp(const TradeRequestInfo& info); //신청 팝업
 	void ShowCancelPopUp(); //상대가 교환 취소했다는 팝업
 	void TradeReadyTarget(); //상대가 교환 준비

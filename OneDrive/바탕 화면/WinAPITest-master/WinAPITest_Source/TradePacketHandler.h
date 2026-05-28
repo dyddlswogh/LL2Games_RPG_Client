@@ -15,6 +15,8 @@ public:
 	static void HandleTradeItemUpdate(const ParsedPacket& pkt); //상대 아이템 목록 갱신
 	static void HandleTradeComplete(const ParsedPacket& pkt);	//교환완료
 	static void HandleTradeCancel(const ParsedPacket& pkt);		//교환 취소
+	static void HandleTradeAddItem(const ParsedPacket& pkt);	//아이템 추가
+
 
 	// --- C->S 송신 함수 ------------------------------------------------------
 	static void SendTradeRequest(std::string targetPlayerId);	//교환신청

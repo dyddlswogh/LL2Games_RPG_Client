@@ -5,9 +5,9 @@
 //교환 슬롯 하나 (아이템 정보 + 슬롯 위치)
 struct TradeSlotInfo
 {
-	int slotPos			= 0;
-	std::string itemId	= 0;
-	int itemCount		= 0;
+	std::string itemId;
+	int itemCount = 0;
+	int slotPos = 0;
 };
 
 //교환 세션 전체 상태

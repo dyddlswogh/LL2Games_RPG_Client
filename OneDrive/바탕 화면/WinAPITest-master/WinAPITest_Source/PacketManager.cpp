@@ -111,6 +111,12 @@ bool PacketManager::RegisterAllHandlers()
 			TradePacketHandler::HandleTradeComplete(pkt);
 		});
 
+	// 교환 아이템 추가 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_ADD_ITEM,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeAddItem(pkt);
+		});
 	
 	return true;
 }

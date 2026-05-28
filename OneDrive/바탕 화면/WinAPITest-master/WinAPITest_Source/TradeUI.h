@@ -167,6 +167,7 @@ public:
 	void OnCancelPopUp(); //상대가 교환 취소했다는 팝업
 	void OnSuccessPopUp(); //교환 완료 팝업
 	void OnReady(); //상대 교환 준비
+	void OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo); //상대 아이템 추가
 
 
 
