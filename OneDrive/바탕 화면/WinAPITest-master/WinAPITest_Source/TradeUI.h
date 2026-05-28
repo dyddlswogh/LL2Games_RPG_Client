@@ -113,6 +113,9 @@ private:
 	int m_dragItemCount;
 
 
+	std::vector<TradeSlotInfo> m_mySlotInfo;
+	std::vector<TradeSlotInfo> m_targetSlotInfo;
+
 private:
 	//내 아이템 슬롯 영역(왼쪽 패널)
 	void RenderMySlots(stbD2DRenderer& renderer);
@@ -165,7 +168,7 @@ public:
 	void StartTrade(const std::string& targetId, const std::string& targetName);
 	void CloseTradeUI();
 	void OnCancelPopUp(); //상대가 교환 취소했다는 팝업
-	void OnSuccessPopUp(); //교환 완료 팝업
+	void OnSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, const std::vector<TradeSlotInfo>& targetSlotInfos); //교환 완료 팝업
 	void OnReady(); //상대 교환 준비
 	void OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo); //상대 아이템 추가
 

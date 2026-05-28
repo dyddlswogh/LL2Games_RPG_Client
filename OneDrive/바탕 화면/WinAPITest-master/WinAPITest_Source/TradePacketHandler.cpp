@@ -40,7 +40,8 @@ void TradePacketHandler::SendTradeAddItem(const TradeSlotInfo& item)
 	std::vector<std::string> datas = {
 		item.itemId,
 		std::to_string(item.itemCount),
-		std::to_string(item.slotPos)
+		std::to_string(item.tradeSlotPos),
+		std::to_string(item.invenSlotPos)
 	};
 
 	M_NETWORK->SendPacket(PKT_TRADE_ADD_ITEM, datas);
@@ -135,7 +136,46 @@ void TradePacketHandler::HandleTradeComplete(const ParsedPacket& pkt)
 
 	if (status == "ok")
 	{
-		UIManager::getInstance()->ShowSuccessPopUp();
+		std::vector<TradeSlotInfo> mySlotInfos, targetSlotInfos;
+		//내 슬롯 아이템
+		while (1)
+		{
+			TradeSlotInfo slotInfo;
+			std::string item_id, item_amount, item_slot_index;
+			if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_id, errMsg))
+				break;
+			if (item_id == "$")
+				break;
+			if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_amount, errMsg))
+				break;
+			if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_slot_index, errMsg))
+				break;
+
+			slotInfo.itemId = item_id;
+			slotInfo.itemCount = std::stoi(item_amount);
+			slotInfo.invenSlotPos = std::stoi(item_slot_index);
+			mySlotInfos.push_back(slotInfo);
+		}
+
+		//상대 슬롯 아이템
+		while (1)
+		{
+			TradeSlotInfo slotInfo;
+			std::string item_id, item_amount, item_slot_index;
+			if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_id, errMsg))
+				break;
+			if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_amount, errMsg))
+				break;
+			if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_slot_index, errMsg))
+				break;
+
+			slotInfo.itemId = item_id;
+			slotInfo.itemCount = std::stoi(item_amount);
+			slotInfo.invenSlotPos = std::stoi(item_slot_index);
+			targetSlotInfos.push_back(slotInfo);
+		}
+
+		UIManager::getInstance()->ShowSuccessPopUp(mySlotInfos, targetSlotInfos);
 	}
 }
 
@@ -199,6 +239,6 @@ void TradePacketHandler::HandleTradeAddItem(const ParsedPacket& pkt)
 	TradeSlotInfo tradeSlotInfo;
 	tradeSlotInfo.itemId = item_id;
 	tradeSlotInfo.itemCount = std::stoi(item_amount);
-	tradeSlotInfo.slotPos = std::stoi(item_slot_index);
+	tradeSlotInfo.tradeSlotPos = std::stoi(item_slot_index);
 	UIManager::getInstance()->OnTradeAddItem(tradeSlotInfo);
 }

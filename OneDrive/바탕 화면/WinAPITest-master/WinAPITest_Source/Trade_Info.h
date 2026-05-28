@@ -7,7 +7,8 @@ struct TradeSlotInfo
 {
 	std::string itemId;
 	int itemCount = 0;
-	int slotPos = 0;
+	int tradeSlotPos = 0;
+	int invenSlotPos = 0;
 };
 
 //교환 세션 전체 상태

@@ -85,6 +85,27 @@ bool Inventory::SetSlot(InventoryItemInfo& itemInfo)
 	return true;
 }
 
+bool Inventory::RemoveItemFromId(int itemId, int count)
+{
+	for (auto it = m_slots.begin(); it != m_slots.end(); it++)
+	{
+		auto& slotItem = it->second;
+		if (slotItem.itemId == itemId)
+		{
+			if (slotItem.itemCount < count)
+				return false;
+			slotItem.itemCount -= count;
+
+			if (slotItem.itemCount <= 0)
+				m_slots.erase(it);
+
+			return true;
+		}
+	}
+		
+	return false;
+}
+
 
 bool Inventory::RemoveItem(int slotPos, int count)
 {

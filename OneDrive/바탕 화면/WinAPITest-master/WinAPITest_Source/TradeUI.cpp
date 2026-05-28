@@ -173,39 +173,6 @@ void TradeUI::Init_InventoryButton()
 
 void TradeUI::CreateSlots()
 {
-    //tradeslot(My)
-    for (int index = 0; index < m_tradeSlotMaxCount; ++index)
-    {
-        int col = index % m_tradeSlotCols;
-        int row = index / m_tradeSlotCols;
-
-        InventorySlotUI slot;
-        slot.slotIndex = index;
-        slot.x = m_tradeMySlotPosX + col * (m_slotWidth + m_slotgapX);
-        slot.y = m_tradeMySlotPosY + row * (m_slotHeight + m_slotgapY);
-        slot.width = m_slotWidth;
-        slot.height = m_slotHeight;
-
-        m_tradeMySlots.push_back(slot);
-    }
-
-    //tradeslot(Target)
-    for (int index = 0; index < m_tradeSlotMaxCount; ++index)
-    {
-        int col = index % m_tradeSlotCols;
-        int row = index / m_tradeSlotCols;
-
-        InventorySlotUI slot;
-        slot.slotIndex = index;
-        slot.x = m_tradeTargetSlotPosX  + col * (m_slotWidth + m_slotgapX);
-        slot.y = m_tradeTargetSlotPosY  + row * (m_slotHeight + m_slotgapY);
-        slot.width = m_slotWidth;
-        slot.height = m_slotHeight;
-        slot.isEnabled = true;
-
-        m_tradeTargetSlots.push_back(slot);
-    }
-
     mSlots.clear();
 
     for (int index = 0; index < m_slotMaxCount; ++index)
@@ -285,6 +252,9 @@ void TradeUI::ClearTradeSlots()
         slot.itemId = 0;
         slot.itemCount = 0;
     }
+
+    m_mySlotInfo.clear();
+    m_targetSlotInfo.clear();
 }
 
 void TradeUI::UpdateSlots()
@@ -1376,6 +1346,7 @@ void TradeUI::HandleMouseUp()
     if (m_isItemDragging)
     {
         int mySlotIndex = GetClickedMyTradeSlotIndex(m_dragCurrentMouseX, m_dragCurrentMouseY);
+        //내가 아이템을 교환창에 올릴때
         if (mySlotIndex != -1)
         {
             m_tradeMySlots[mySlotIndex].itemId = m_dragItemId;
@@ -1388,8 +1359,10 @@ void TradeUI::HandleMouseUp()
             TradeSlotInfo itemInfo;
             itemInfo.itemId = std::to_string(m_dragItemId);
             itemInfo.itemCount = m_dragItemCount;
-            itemInfo.slotPos = mySlotIndex;
+            itemInfo.tradeSlotPos = mySlotIndex;
+            itemInfo.invenSlotPos = m_dragStartSlotIndex;
 
+            m_mySlotInfo.push_back(itemInfo); //내아이템 멤버변수에 추가
             TradePacketHandler::SendTradeAddItem(itemInfo);
         }
 
@@ -1473,11 +1446,33 @@ void TradeUI::OnCancelPopUp()
     }
 }
 
-void TradeUI::OnSuccessPopUp()
+void TradeUI::OnSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, const std::vector<TradeSlotInfo>& targetSlotInfos)
 {
     if (mActive)
     {
         m_successPopupActive = true;
+
+        //교환 완료시 클라이언트의 inventory 업데이트
+        //내 교환창에 있던 아이템 삭제
+        for (auto &item : mySlotInfos)
+        {
+            std::string sItemType = item.itemId.substr(0, 1); //id의 첫글자로 타입 구분 ex) 2000000 -> type 2 
+            Inventory* inventory = M_INVENTORYMANAGER->GetInventory(std::stoi(sItemType) - 1 );
+            if (inventory == nullptr)
+                return;
+            //inventory->RemoveItem(item.invenSlotPos, item.itemCount);
+            inventory->RemoveItemFromId(std::stoi(item.itemId), item.itemCount);
+        }
+
+        //상대 교환창에 있던 아이템 추가
+        for (auto& item : targetSlotInfos)
+        {
+            std::string sItemType = item.itemId.substr(0, 1); //id의 첫글자로 타입 구분 ex) 2000000 -> type 2 
+            Inventory* inventory = M_INVENTORYMANAGER->GetInventory(std::stoi(sItemType) - 1);
+            if (inventory == nullptr)
+                return;
+            inventory->SetSlot(item.invenSlotPos, std::stoi(item.itemId), item.itemCount);
+        }
     }
 }
 
@@ -1515,8 +1510,10 @@ void TradeUI::OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo)
 {
     if (mActive)
     {
-        int slotIdx = tradeSlotInfo.slotPos;
+        int slotIdx = tradeSlotInfo.tradeSlotPos;
         m_tradeTargetSlots[slotIdx].itemId = std::stoi(tradeSlotInfo.itemId);
         m_tradeTargetSlots[slotIdx].itemCount = tradeSlotInfo.itemCount;
+
+        m_targetSlotInfo.push_back(tradeSlotInfo); //상대 아이템 멤버변수에 추가
     }
 }

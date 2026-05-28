@@ -90,9 +90,9 @@ void UIManager::ShowCancelPopUp()
 	m_tradeUI->OnCancelPopUp();
 }
 
-void UIManager::ShowSuccessPopUp()
+void UIManager::ShowSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, const std::vector<TradeSlotInfo>& targetSlotInfos)
 {
-	m_tradeUI->OnSuccessPopUp();
+	m_tradeUI->OnSuccessPopUp(mySlotInfos, targetSlotInfos);
 }
 
 void UIManager::TradeReadyTarget()
