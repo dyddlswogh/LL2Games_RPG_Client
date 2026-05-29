@@ -17,8 +17,8 @@
 #include "UIManager.h"
 #include "MonsterManager.h"
 #include "stbTime.h"
-
 #include "stbApplication.h"
+#include "stbAudioClip.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
@@ -30,7 +30,7 @@
 namespace stb
 {
 	PlayScene::PlayScene()
-		:mPlayer(nullptr)
+		:mPlayer(nullptr), mBackground(nullptr), mBGM(nullptr)
 	{
 	}
 
@@ -46,9 +46,27 @@ namespace stb
 
 	
 		mPlayer = M_PLMANAGER->CreateLocalPlayer(enums::eLayerType::Player, Vector2(300.0f, 300.0f));
+		mBackground = M_REMANAGER->Find<Texture>(L"Henesys_ground_1");
+		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Henesys_ground_1");
+		//mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+
+		Transform* tr = mPlayer->AddComponent<Transform>();
 		int charId = atoi(stb::NetworkConfig::GetCharacterId());
 		
 		M_UIMANAGER->Init();
+
+#if 1 /*gunoo22 260518 Ä³¸¯ÅÍ ±×¸®±â*/
+		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
+		Animator* spartaAnim = mPlayer->AddComponent<Animator>();
+		if (spartaTex != nullptr)
+		{
+			spartaAnim->CreateAnimation(L"Run", spartaTex, Vector2(990.0f, 192.0f), Vector2(110.0f, 96.0f), Vector2::Zero, 4, 0.15f);
+			spartaAnim->PlayAnimation(L"Run", true);
+		}
+
+		playerScript->SetFollowers(nullptr, nullptr);
+#endif
+
 		Scene::Initialize();
 
 		stb::Logger::Init();
@@ -82,6 +100,18 @@ namespace stb
 
 	void PlayScene::Render(stbD2DRenderer& renderer)
 	{
+		if (mBackground != nullptr && mBackground->GetD2DBitmap() != nullptr)
+		{
+			D2D1_SIZE_F size = renderer.GetRenderTargetSize();
+			renderer.DrawBitmap(
+				mBackground->GetD2DBitmap(),
+				0.0f,
+				0.0f,
+				size.width,
+				size.height
+			);
+		}
+
 		Scene::Render(renderer);
 		M_UIMANAGER->Render(renderer);
 		M_MONSTERAMANGER->Render(renderer);
@@ -89,11 +119,18 @@ namespace stb
 
 	void PlayScene::OnExit()
 	{
+		if (mBGM != nullptr)
+			mBGM->Stop();
+
 		Scene::OnExit();
 	}
 
 	void PlayScene::OnEnter()
 	{
 		Scene::OnEnter();
+
+		if (mBGM != nullptr)
+			mBGM->Play();
 	}
 }
+

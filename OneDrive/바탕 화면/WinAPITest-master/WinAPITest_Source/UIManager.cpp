@@ -5,6 +5,7 @@
 #include "HealthBarUI.h"
 #include "TradeUI.h"
 #include "ChatUI.h"
+#include "TradeRequestUI.h"
 
 UIManager::UIManager()
 {
@@ -13,6 +14,7 @@ UIManager::UIManager()
 	m_healthBarUI = new HealthBarUI();
 	m_tradeUI = new TradeUI();
 	m_chatUI = new ChatUI();
+	m_tradeReqUI = new TradeRequestUI();
 }
 
 void UIManager::Init()
@@ -22,12 +24,14 @@ void UIManager::Init()
 	m_healthBarUI->Init();
 	m_tradeUI->Init();
 	m_chatUI->Init();
+	m_tradeReqUI->Init();
 
 	mUIs.push_back(m_inventoryUI);
 	mUIs.push_back(m_quickslotUI);
 	mUIs.push_back(m_healthBarUI);
 	mUIs.push_back(m_tradeUI);
 	mUIs.push_back(m_chatUI);
+	mUIs.push_back(m_tradeReqUI);
 
 
 	char msg[128];
@@ -56,7 +60,8 @@ void UIManager::Render(stbD2DRenderer& renderer)
 
 	for (UI* ui : mUIs)
 	{
-		if (ui == nullptr || ui->IsActive() == false)
+		//if (ui == nullptr || ui->IsActive() == false)
+		if (ui == nullptr)
 			continue;
 
 		ui->Render(renderer);
@@ -69,13 +74,79 @@ void UIManager::ToggleInventory()
 		m_inventoryUI->Toggle();
 }
 
-
-void UIManager::OpenTradeUI()
+#if 1 //±³È¯
+void UIManager::OpenTradeUI(const std::string& targetId, const std::string& targetName)
 {
 	m_tradeUI->SetActivce(true);
+	m_tradeUI->StartTrade(targetId, targetName);
+}
+void UIManager::CloseTradeUI()
+{
+	m_tradeUI->CloseTradeUI();
 }
 
-#if 1 //ä��
+void UIManager::ShowCancelPopUp()
+{
+	m_tradeUI->OnCancelPopUp();
+}
+
+void UIManager::ShowSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, const std::vector<TradeSlotInfo>& targetSlotInfos)
+{
+	m_tradeUI->OnSuccessPopUp(mySlotInfos, targetSlotInfos);
+}
+
+void UIManager::TradeReadyTarget()
+{
+	m_tradeUI->OnReady();
+}
+
+void UIManager::ToggleTradeUI()
+{
+	if (m_tradeUI != nullptr)
+		m_tradeUI->Toggle();
+}
+
+void UIManager::OnTradeAddItem(const TradeSlotInfo& tradeSlotInfo)
+{
+	if (m_tradeUI) m_tradeUI->OnTargetAddItem(tradeSlotInfo);
+}
+
+void UIManager::OpenReqTradeUI()
+{
+	if (m_tradeReqUI != nullptr)
+		m_tradeReqUI->SetActivce(true);
+}
+
+void UIManager::CloseReqTradeUI()
+{
+	if (m_tradeReqUI != nullptr)
+		m_tradeReqUI->CloseWindow();
+		//m_tradeReqUI->SetActivce(false);
+}
+
+void UIManager::AppendInputChar_Trade(wchar_t ch)
+{
+	if (m_tradeReqUI) m_tradeReqUI->OnChar(ch);
+}
+
+void UIManager::HandleBackspace_Trade()
+{
+	if (m_tradeReqUI) m_tradeReqUI->Backspace();
+}
+
+void UIManager::KeyDownTrade(WPARAM key)
+{
+	if (m_tradeReqUI) m_tradeReqUI->OnKeyDown(key);
+}
+
+void UIManager::ShowTradeRequestPopUp(const TradeRequestInfo& info)
+{
+	if (m_tradeReqUI) m_tradeReqUI->OnPopUp(info);
+}
+
+#endif //±³È¯
+
+#if 1 //Ã¤ÆÃ
 void UIManager::ToggleChatInput()
 {
 	if (m_chatUI) m_chatUI->ToggleInputFocus();
@@ -101,4 +172,4 @@ void UIManager::SubmitChatInput()
 {
 	if (m_chatUI) m_chatUI->SubmitInput();
 }
-#endif //ä��
+#endif //Ã¤ÆÃ

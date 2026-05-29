@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="stbAudioClip.h" />
     <ClInclude Include="stbChatScene.h" />
     <ClInclude Include="stbLoadResource.h" />
     <ClInclude Include="stbLoadScenes.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="stbPlayScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="stbAudioClip.cpp" />
     <ClCompile Include="stbChatScene.cpp" />
     <ClCompile Include="stbPlayer.cpp" />
     <ClCompile Include="stbPlayerScript.cpp" />

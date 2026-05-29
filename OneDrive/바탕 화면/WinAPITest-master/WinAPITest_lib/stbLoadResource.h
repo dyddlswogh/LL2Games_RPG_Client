@@ -3,6 +3,7 @@
 #include "..\\WinAPITest_Source\\stbTexture.h"
 #include "..\\WinAPITest_Source\\stbApplication.h"
 #include "..\\WinAPITest_Source\\stbD2DRenderer.h"
+#include "stbAudioClip.h"
 
 
 
@@ -13,6 +14,13 @@ namespace stb
 {
 	void LoadResource()
 	{
+		//BGM
+		RESOURCEMANAGER->Load<AudioClip>(L"BGM_Henesys_ground_1", L"Resources\\BGM\\henesys\\CavaBien.mp3");
+		
+		//맵 배경
+		RESOURCEMANAGER->Load<Texture>(L"Henesys_ground_1", L"Resources\\Background\\henesys\\henesys_ground_1.png");
+
+
 		RESOURCEMANAGER->Load<Texture>(L"Player", L"Resources\\Mario.png");
 		RESOURCEMANAGER->Load<Texture>(L"Mario2", L"Resources\\Mario2.png");
 		RESOURCEMANAGER->Load<Texture>(L"CharacterHead", L"Resources\\Character_Head.png");
@@ -79,6 +87,17 @@ namespace stb
 		RESOURCEMANAGER->Load<Texture>(L"HealthBar_hpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.hp.layer_0.png");	
 		RESOURCEMANAGER->Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.mp.layer_0.png");
 		RESOURCEMANAGER->Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
+
+		// 교환창
+		RESOURCEMANAGER->Load<Texture>(L"Trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.backgrnd.png");
+		RESOURCEMANAGER->Load<Texture>(L"Trade_full", L"Resources\\UI\\ItemTrade\\itemTrade.FullBackgrnd.png");
+
+		RESOURCEMANAGER->Load<Texture>(L"Trade_button_confirm_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_confirm.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Trade_button_trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.normal.0.png");
+		RESOURCEMANAGER->Load<Texture>(L"Trade_button_trade_checked", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.checked.0.png");
+		
+		RESOURCEMANAGER->Load<Texture>(L"Trade_layer_confirm_me", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.layer_confirmMe.png");
+	
 
 		// 몬스터 이미지 로드
 		RESOURCEMANAGER->LoadMonsterTextures();

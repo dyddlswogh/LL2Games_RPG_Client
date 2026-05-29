@@ -82,22 +82,26 @@ namespace stb
 	{
 		m_keyBindings.clear();
 
-		// ?´?™ ?•¡?ƒŒ ë°”ì¸?”©
+		// ì´ë™ ì•¡ì…˜ ë°”ì¸ë”©
 		m_keyBindings[eKeyCode::Left] = { eBindType::Action, (int)eActionCode::MoveLeft };
 		m_keyBindings[eKeyCode::Right] = { eBindType::Action, (int)eActionCode::MoveRight };
 		m_keyBindings[eKeyCode::Up] = { eBindType::Action, (int)eActionCode::MoveUp };
 		m_keyBindings[eKeyCode::Down] = { eBindType::Action, (int)eActionCode::MoveDown };
 
 
-		// ê¸°ë³¸ ?•¡?…˜ ë°”ì¸?”©
+		// ê¸°ë³¸ ?ï¿½ï¿½?ï¿½ï¿½ ë°”ì¸?ï¿½ï¿½
 		m_keyBindings[eKeyCode::LALT] = { eBindType::Action, (int)eActionCode::Jump };
 		m_keyBindings[eKeyCode::A] = { eBindType::Action, (int)eActionCode::Attack };
 		m_keyBindings[eKeyCode::SPACE] = { eBindType::Action, (int)eActionCode::Interact };
 		m_keyBindings[eKeyCode::I] = { eBindType::Action, (int)eActionCode::Inventory };
 		m_keyBindings[eKeyCode::K] = { eBindType::Action, (int)eActionCode::SkillWindow };
+		m_keyBindings[eKeyCode::T] = { eBindType::Action, (int)eActionCode::Trade };
+
+		//êµí™˜ ì·¨ì†Œ ì„ì‹œ(X)
+		m_keyBindings[eKeyCode::X] = { eBindType::Action, (int)eActionCode::TradeCancel };
 
 
-		// ?˜ˆ?‹œ
+		// ?ï¿½ï¿½?ï¿½ï¿½
 		// m_keyBindings[eKeyCode::Q] = { eBindType::Skill, 1001001 };
 		// m_keyBindings[eKeyCode::R] = { eBindType::Item, 2000000 };
 
