@@ -17,8 +17,8 @@
 #include "UIManager.h"
 #include "MonsterManager.h"
 #include "stbTime.h"
-
 #include "stbApplication.h"
+#include "stbAudioClip.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_PKMANAGER stb::SingletonBase<PacketManager>::getInstance()
@@ -30,7 +30,7 @@
 namespace stb
 {
 	PlayScene::PlayScene()
-		:mPlayer(nullptr), mBackground(nullptr)
+		:mPlayer(nullptr), mBackground(nullptr), mBGM(nullptr)
 	{
 	}
 
@@ -45,6 +45,7 @@ namespace stb
 		render::mainCamera = cameraComp;
 
 		mBackground = M_REMANAGER->Find<Texture>(L"Henesys_ground_1");
+		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Henesys_ground_1");
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
 		Transform* tr = mPlayer->AddComponent<Transform>();
@@ -121,11 +122,18 @@ namespace stb
 
 	void PlayScene::OnExit()
 	{
+		if (mBGM != nullptr)
+			mBGM->Stop();
+
 		Scene::OnExit();
 	}
 
 	void PlayScene::OnEnter()
 	{
 		Scene::OnEnter();
+
+		if (mBGM != nullptr)
+			mBGM->Play();
 	}
 }
+

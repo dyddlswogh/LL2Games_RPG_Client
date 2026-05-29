@@ -3,6 +3,7 @@
 #include "..\\WinAPITest_Source\\stbTexture.h"
 #include "..\\WinAPITest_Source\\stbApplication.h"
 #include "..\\WinAPITest_Source\\stbD2DRenderer.h"
+#include "stbAudioClip.h"
 
 
 
@@ -13,6 +14,9 @@ namespace stb
 {
 	void LoadResource()
 	{
+		//BGM
+		RESOURCEMANAGER->Load<AudioClip>(L"BGM_Henesys_ground_1", L"Resources\\BGM\\henesys\\CavaBien.mp3");
+		
 		//¸Ê ¹è°æ
 		RESOURCEMANAGER->Load<Texture>(L"Henesys_ground_1", L"Resources\\Background\\henesys\\henesys_ground_1.png");
 

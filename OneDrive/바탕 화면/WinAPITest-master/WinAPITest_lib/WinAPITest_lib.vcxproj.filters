@@ -13,6 +13,9 @@
     <ClInclude Include="stbChatScene.h">
       <Filter>Chat</Filter>
     </ClInclude>
+    <ClInclude Include="stbAudioClip.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stbPlayScene.cpp" />
@@ -25,6 +28,9 @@
     <ClCompile Include="stbChatScene.cpp">
       <Filter>Chat</Filter>
     </ClCompile>
+    <ClCompile Include="stbAudioClip.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Content">
@@ -35,6 +41,9 @@
     </Filter>
     <Filter Include="Chat">
       <UniqueIdentifier>{9d0f2f0c-b04f-4630-8e52-83f83c183ec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{e1b4e7cf-02bc-498b-8806-14e6b823392f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

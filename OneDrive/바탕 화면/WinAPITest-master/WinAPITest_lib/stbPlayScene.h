@@ -20,10 +20,10 @@ namespace stb
 		void OnExit() override;
 		void OnEnter() override;
 
-
 	private:
 		class Player* mPlayer;
 		class Texture* mBackground;
+		class AudioClip* mBGM;
 	};
 
 }
