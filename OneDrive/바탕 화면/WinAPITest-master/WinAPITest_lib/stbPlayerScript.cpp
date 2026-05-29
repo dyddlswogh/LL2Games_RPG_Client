@@ -8,6 +8,8 @@
 #include "PlayerManager.h"
 #include "QuickSlotManager.h"
 #include "UIManager.h"
+#include "stbPlayer.h"
+#include "PlayerAnimationManager.h"
 #include "TradePacketHandler.h"
 
 
@@ -15,7 +17,7 @@
 #define M_TIME  stb::SingletonBase<stb::Time>::getInstance()
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
-
+#define M_PLAYERANIMMANAGER stb::SingletonBase<PlayerAnimationManager>::getInstance()
 
 namespace stb
 {
@@ -23,7 +25,11 @@ namespace stb
 		: mNetworkSendTimer(0.0f)
 		, mHead(nullptr)
 		, mSword(nullptr)
-		, m_player (nullptr)
+		, m_player(nullptr)
+		, mAttackTimer(0.0f)
+		, mAttackDuration(0.35f)
+		, m_animator(nullptr)
+		, m_quickSlotManager(nullptr)
 	{
 
 	}
@@ -40,8 +46,19 @@ namespace stb
 		
 	void PlayerScript::Update()
 	{
-		Idle();
+		if (m_player == nullptr) return;
+
+		if (m_player->GetState() == PlayerState::Attack)
+		{
+			Idle(false);          // ì´ë™ì€ ì²˜ë¦¬í•˜ë˜ ìƒíƒœëŠ” ë°”ê¾¸ì§€ ì•ŠìŒ
+			UpdateAttackState();  // ê³µê²© ì¢…ë£Œ ì‹œê°„ ì²´í¬
+			return;
+		}
+
+		Idle(true);
+		HandleCombatInput();
 		HandleInput();
+		
 	}	
 		
 	void PlayerScript::LateUpdate()
@@ -54,62 +71,101 @@ namespace stb
 
 	}
 
-	void PlayerScript::Idle()
+	void PlayerScript::SetAnimator()
+	{
+		if (m_player == nullptr) return;
+
+		m_animator = m_player->GetAnimator();
+	}
+
+	void PlayerScript::UpdateAttackState()
+	{
+		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+
+		if (player == nullptr)
+			return;
+
+		mAttackTimer += M_TIME->GetDeltaTime();
+
+		if (mAttackTimer < mAttackDuration)
+			return;
+
+		mAttackTimer = 0.0f;
+
+		if (IsMoveInputPressed())
+		{
+			player->SetState(PlayerState::Walk);
+			OutputDebugStringA("Attack End -> Move\n");
+		}
+		else
+		{
+			player->SetState(PlayerState::Idle);
+			OutputDebugStringA("Attack End -> Idle\n");
+		}
+	}
+
+	void PlayerScript::Idle(bool changeState)
 	{
 		if (M_UIMANAGER->IsInputFocused())
-			return; //Ã¤ÆÃ ÀÔ·ÂÁß -> ÀÌµ¿/°ø°Ý Â÷´Ü
+			return; //ì±„íŒ… ìž…ë ¥ì¤‘ -> ì´ë™/ê³µê²© ì°¨ë‹¨
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (tr == nullptr)
-		{
 			return;
-		}
 
 		Vector2 pos = tr->GetPosition();
 		bool moved = false;
 
-		if (M_INPUT->GetAction(eActionCode::MoveRight))
+		if (m_player->GetState() != PlayerState::Attack)
 		{
-			pos.x += 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
-		}
+			if (M_INPUT->GetAction(eActionCode::MoveRight))
+			{
+				pos.x += 100.0f * M_TIME->GetDeltaTime();
+				m_player->SetFacing(FacingDirection::Right);
+				m_animator->SetFlipX(true);
+				moved = true;
+			}
 
-		if (M_INPUT->GetAction(eActionCode::MoveLeft))
+			if (M_INPUT->GetAction(eActionCode::MoveLeft))
+			{
+				pos.x -= 100.0f * M_TIME->GetDeltaTime();
+				m_player->SetFacing(FacingDirection::Left);
+				m_animator->SetFlipX(false);
+				moved = true;
+			}
+
+			if (M_INPUT->GetAction(eActionCode::MoveUp))
+			{
+				pos.y -= 100.0f * M_TIME->GetDeltaTime();
+				moved = true;
+			}
+
+			if (M_INPUT->GetAction(eActionCode::MoveDown))
+			{
+				pos.y += 100.0f * M_TIME->GetDeltaTime();
+				moved = true;
+			}
+
+			tr->SetPosition(pos);
+		}
+		
+		if (changeState)
 		{
-			pos.x -= 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
+			stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+			if (player != nullptr)
+			{
+				if (moved)
+					player->SetState(PlayerState::Walk);
+				else
+					player->SetState(PlayerState::Idle);
+			}
 		}
-
-		if (M_INPUT->GetAction(eActionCode::MoveUp))
-		{
-			pos.y -= 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
-		}
-
-		if (M_INPUT->GetAction(eActionCode::MoveDown))
-		{
-			pos.y += 100.0f * M_TIME->GetDeltaTime();
-			moved = true;
-		}
-
-		if (M_INPUT->GetAction(eActionCode::Attack))
-		{
-			Attack();
-		}
-
-		if (M_INPUT->GetAction(eActionCode::Jump))
-		{
-			Jump();
-		}
-
-		tr->SetPosition(pos);
 
 		SyncFollowers(pos);
 
-		// ÀÌµ¿ÇßÀ¸¸é ¼­¹ö¿¡ ÆÐÅ¶ Àü¼Û (throttling Àû¿ë)
 		if (moved)
 		{
 			mNetworkSendTimer += M_TIME->GetDeltaTime();
-			
+
 			if (mNetworkSendTimer >= NETWORK_SEND_INTERVAL)
 			{
 				auto netMgr = stb::NetworkManager::getInstance();
@@ -117,12 +173,13 @@ namespace stb
 				{
 					stb::SendPlayerMove(pos.x, pos.y, 100.0f);
 				}
+
 				mNetworkSendTimer = 0.0f;
 			}
 		}
 		else
 		{
-			mNetworkSendTimer = 0.0f;  // ¸ØÃß¸é Å¸ÀÌ¸Ó ¸®¼Â
+			mNetworkSendTimer = 0.0f;
 		}
 	}
 
@@ -133,18 +190,40 @@ namespace stb
 
 	void PlayerScript::Attack()
 	{
-		stb::Player* player = M_PLAYERMANAGER->GetLocalPlayer();
+		stb::Player* player = m_player;
 
-		if (player != nullptr)
+		if (player == nullptr)
+			return;
+
+		if (player->GetCombatSystem() == nullptr)
+			return;
+
+		if (player->GetState() == PlayerState::Attack)
+			return;
+
+		if (player->GetCombatSystem()->TryBasicAttack())
 		{
-			player->GetCombatSystem()->TryBasicAttack();
+			player->SetState(PlayerState::Attack);
+			mAttackTimer = 0.0f;
+
+			OutputDebugStringA("Player Attack Start\n");
 		}
 
 	}
 
 	void PlayerScript::Jump() 
 	{
+		if (m_player == nullptr)
+			return;
 
+		if (m_player->GetCombatSystem() == nullptr)
+			return;
+
+		if (m_player->GetState() == PlayerState::Jump)
+			return;
+
+		m_player->SetState(PlayerState::Jump);
+		
 	}
 
 	void PlayerScript::HandleInput()
@@ -157,6 +236,16 @@ namespace stb
 		}
 	}
 
+	void PlayerScript::HandleCombatInput()
+	{
+		if (M_INPUT->GetActionDown(eActionCode::Attack))
+		{
+			DebugMsg = "HandleComabatInput is Pressed\n";
+			OutputDebugStringA(DebugMsg.c_str());	
+			Attack();
+		}
+	}
+
 	void PlayerScript::ExecuteBind(const KeyBindInfo& bindInfo)
 	{
 		switch (bindInfo.type)
@@ -165,17 +254,21 @@ namespace stb
 			ExecuteAction((eActionCode)bindInfo.value);
 			break;
 		case eBindType::Skill:
-			// TODO : ½ºÅ³ »ç¿ë ¿äÃ»
+			// TODO : ìŠ¤í‚¬ ì‚¬ìš© ìš”ì²­
 			// SkillManager::GetInstance()->UseSkill(bindInfo.value);
 			OutputDebugStringA("Skill Execute\n");
 			break;
 		case eBindType::Item:
-			// TODO : ¾ÆÀÌÅÛ »ç¿ë ¿äÃ»
+			// TODO : ì•„ì´í…œ ì‚¬ìš© ìš”ì²­
 			// ItemManager::GetInstance()->UseItem(bindInfo.value);
 			OutputDebugStringA("Item Execute\n");
 			break;
 		case eBindType::UI:
 			OutputDebugStringA("UI Execute\n");
+			break;
+		case eBindType::QuickSlot:
+			OutputDebugStringA("QuickSlot Execute\n");
+			m_player->GetQuickSlotManager()->UseSlot(bindInfo.value);
 			break;
 		default:
 			break;
@@ -188,26 +281,21 @@ namespace stb
 		{
 		case eActionCode::Interact:
 			OutputDebugStringA("Action : Interact\n");
-			// TODO : »óÈ£ÀÛ¿ë ¿äÃ»
-			break;
-		case eActionCode::Attack:
-			OutputDebugStringA("Action : Attack\n");
-			// TODO : Á¡ÇÁ Ã³¸®
+			// TODO : ìƒí˜¸ìž‘ìš© ìš”ì²­
 			break;
 		case eActionCode::Jump:
+			Jump();
 			OutputDebugStringA("Action : Jump\n");
-			// TODO : Á¡ÇÁ Ã³¸®
+			// TODO : ì í”„ ì²˜ë¦¬
 			break;
-
 		case eActionCode::Inventory:
 			OutputDebugStringA("Action : Inventory\n");
 			UIManager::getInstance()->ToggleInventory();
-			// TODO : ÀÎº¥Åä¸® UI ¿­±â
+			// TODO : ì¸ë²¤í† ë¦¬ UI ì—´ê¸°
 			break;
-
 		case eActionCode::SkillWindow:
 			OutputDebugStringA("Action : SkillWindow\n");
-			// TODO : ½ºÅ³Ã¢ UI ¿­±â
+			// TODO : ìŠ¤í‚¬ì°½ UI ì—´ê¸°
 
 #if 1 /* test */
 			UIManager::getInstance()->ToggleTradeUI();
@@ -217,13 +305,13 @@ namespace stb
 		case eActionCode::Trade:
 			OutputDebugStringA("Action : Trade\n");
 			//UIManager::getInstance()->OpenTradeUI();
-			//UIManager::getInstance()->ToggleTradeUI(); //test Åä±Û
-			UIManager::getInstance()->OpenReqTradeUI(); //±³È¯½ÅÃ»
+			//UIManager::getInstance()->ToggleTradeUI(); //test í† ê¸€
+			UIManager::getInstance()->OpenReqTradeUI(); //êµí™˜ì‹ ì²­
 			break;
 
 		case eActionCode::TradeCancel:
 			OutputDebugStringA("Action : Trade Cancel\n");
-			UIManager::getInstance()->CloseTradeUI(); //±³È¯Ãë¼Ò
+			UIManager::getInstance()->CloseTradeUI(); //êµí™˜ì·¨ì†Œ
 			break;
 
 		default:
@@ -245,6 +333,14 @@ namespace stb
 			Transform* tr = mSword->GetComponent<Transform>();
 			if (tr) tr->SetPosition(Vector2(pos.x - 15.0f, pos.y + 7.0f));
 		}
+	}
+
+	bool PlayerScript::IsMoveInputPressed() const
+	{
+		return M_INPUT->GetAction(eActionCode::MoveRight) ||
+			M_INPUT->GetAction(eActionCode::MoveLeft) ||
+			M_INPUT->GetAction(eActionCode::MoveUp) ||
+			M_INPUT->GetAction(eActionCode::MoveDown);
 	}
 
 }

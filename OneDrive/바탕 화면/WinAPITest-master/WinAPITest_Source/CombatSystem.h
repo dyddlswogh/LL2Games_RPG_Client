@@ -18,7 +18,7 @@ public:
 	CombatSystem();
 	~CombatSystem() {};
 
-	void SetPlayer(stb::Player* player) { m_player = player; }
+	void SetOwner(stb::Player* player) { m_player = player; }
 
 	bool TryAttack(int skillId);
 	bool TryBasicAttack();
@@ -28,6 +28,7 @@ public:
 private:
 	stb::Player* m_player;
 
+	std::string DebugMsg;
 
 
 };

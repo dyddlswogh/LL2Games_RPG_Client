@@ -16,6 +16,7 @@ namespace stb
 			Vector2 leftTop;
 			Vector2 size;
 			Vector2 offset;
+			Vector2 origin;
 			float duration;
 			Texture* texture = nullptr;
 
@@ -24,6 +25,7 @@ namespace stb
 				: leftTop(Vector2::Zero)
 				, size(Vector2::Zero)
 				, offset(Vector2::Zero)
+				, origin(Vector2::Zero)
 				, duration(0.0f)
 			{
 
@@ -37,6 +39,7 @@ namespace stb
 		void Update();
 		void Render(HDC hdc);
 		void Render(stbD2DRenderer& renderer);
+		void Render(stbD2DRenderer& renderer, bool flipX);
 
 		void CreateAnimation(const std::wstring& name
 			, Texture* spriteTexture
@@ -49,10 +52,17 @@ namespace stb
 
 		void CreateFrameAnimation(const std::wstring& name
 			, const std::vector<Texture*>& frames
+			, Vector2 origin
 			, Vector2 offset
 			, float duration
 		);
 
+		void CreateFrameAnimation(const std::wstring& name
+			, const std::vector<Texture*>& frames
+			, Vector2 baseOffset
+			, const std::vector<stb::math::Vector2>& frameOffsets
+			, float duration
+		);
 		void Reset();
 		HRESULT Load(const std::wstring& path);
 

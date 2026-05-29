@@ -44,21 +44,18 @@ namespace stb
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		render::mainCamera = cameraComp;
 
+	
+		mPlayer = M_PLMANAGER->CreateLocalPlayer(enums::eLayerType::Player, Vector2(300.0f, 300.0f));
 		mBackground = M_REMANAGER->Find<Texture>(L"Henesys_ground_1");
 		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Henesys_ground_1");
-		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+		//mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
 		Transform* tr = mPlayer->AddComponent<Transform>();
 		int charId = atoi(stb::NetworkConfig::GetCharacterId());
-		tr->SetPosition(Vector2(300.0f, 300.0f));
-
-		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
-		playerScript->SetOwner(mPlayer);
-		M_PLMANAGER->SetLocalPlayer(mPlayer);
-
+		
 		M_UIMANAGER->Init();
 
-#if 1 /*gunoo22 260518 Ä³¸¯ÅÍ ±×¸®±â*/
+#if 1 /*gunoo22 260518 Ã„Â³Â¸Â¯Ã…Ã Â±Ã—Â¸Â®Â±Ã¢*/
 		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
 		Animator* spartaAnim = mPlayer->AddComponent<Animator>();
 		if (spartaTex != nullptr)

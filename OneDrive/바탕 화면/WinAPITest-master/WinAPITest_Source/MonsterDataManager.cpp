@@ -1,5 +1,8 @@
 #include "MonsterDataManager.h"
 #include <fstream>
+#include "stbEnums.h"
+#include "Collider_Info.h"
+#include "stbMath.h"
 
 #define MONSTER_PATH "WinAPITest_Source/Data/Monsters/"
 namespace fs = std::filesystem;
@@ -75,6 +78,16 @@ bool MonsterDataManager::LoadJsonFile(const std::string& path, MonsterData& mons
         info.frame_count = animJson.value("frame_count", 1);
         info.delay_ms = animJson.value("delay_ms", 150);
 
+        if (animJson.contains("event"))
+        {
+            const auto& events = animJson.at("event");
+
+            info.animationEvent.start = events.value("start", "");
+            info.animationEvent.complete = events.value("complete", "");
+            info.animationEvent.end = events.value("end", "");
+        }
+        
+
         monsterData.animations.emplace_back(info);
     }
    
@@ -86,11 +99,22 @@ bool MonsterDataManager::LoadJsonFile(const std::string& path, MonsterData& mons
     monsterData.renderInfo.origin.x = origin.value("x", 0.0f);
     monsterData.renderInfo.origin.y = origin.value("y", 0.0f);
 
+    const auto& collider = j.at("collider");
+    monsterData.colliderInfo.colliderType =
+        stb::enums::SetColliderType(collider.value("type", "None"));
+
+
+    const auto& offset = collider.at("offset");
+    monsterData.colliderInfo.offset.x = offset.value("x", 0.0f);
+    monsterData.colliderInfo.offset.y = offset.value("y", 0.0f);
+
+    const auto& half = collider.at("half");
+    monsterData.colliderInfo.halfSize.x = half.value("w", 0.0f);
+    monsterData.colliderInfo.halfSize.y = half.value("h", 0.0f);
+    
     const auto& ui = j.at("ui").at("hp_bar_offset");
     monsterData.UIPos.x = ui.value("x", 0.0f);
     monsterData.UIPos.y = ui.value("y", 0.0f);
-
-    m_monsterDatas.emplace(monsterData.monster_id, monsterData);
 
     return true;
 }

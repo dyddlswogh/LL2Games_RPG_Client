@@ -156,8 +156,6 @@ bool stbD2DRenderer::CreateTextFormats()
         return false;
     }
         
-
-
     hr = m_DWriteFactory->CreateTextFormat(
         L"Malgun Gothic",
         nullptr,
@@ -175,6 +173,37 @@ bool stbD2DRenderer::CreateTextFormats()
         return false;
     }
        
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"Tahoma",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        12.0f,
+        L"ko-kr",
+        m_SmallTextFormat.GetAddressOf());
+
+    if (FAILED(hr))
+    {
+        OutputDebugString(L"Create title text format failed\n");
+        return false;
+    }
+
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"Tahoma",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        9.0f,
+        L"ko-kr",
+        m_QuickSlotTextFormat.GetAddressOf());
+
+    if (FAILED(hr))
+    {
+        OutputDebugString(L"Create title text format failed\n");
+        return false;
+    }
 
     /*
         SetTextAlignment：가로 정렬
@@ -187,6 +216,12 @@ bool stbD2DRenderer::CreateTextFormats()
 
     m_BodyTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
     m_BodyTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+
+    m_SmallTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+    m_SmallTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+
+    m_QuickSlotTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+    m_QuickSlotTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 
     return true;
 }
@@ -435,7 +470,7 @@ void stbD2DRenderer::FillCircle(float cx, float cy, float radius, const D2D1::Co
 }
 
 // 문자열을 출력하는 함수
-void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, bool titleStyle)
+void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F& layoutRect, const D2D1::ColorF& color, TextStyle TextStyle)
 {
     if (!m_RenderTarget || !EnsureBrush()) 
     {
@@ -444,14 +479,31 @@ void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F&
     }
        
 
-    IDWriteTextFormat* textFormat = titleStyle ? m_TitleTextFormat.Get() : m_BodyTextFormat.Get();
+    IDWriteTextFormat* textFormat = nullptr;
+
+    switch (TextStyle)
+    {
+    case TextStyle::Title:
+        textFormat = m_TitleTextFormat.Get();
+        break;
+
+    case TextStyle::Small:
+        textFormat = m_SmallTextFormat.Get();
+        break;
+
+    case TextStyle::QuickSlot:
+        textFormat = m_QuickSlotTextFormat.Get();
+        break;
+
+    case TextStyle::Body:
+    default:
+        textFormat = m_BodyTextFormat.Get();
+        break;
+    }
 
     if (!textFormat)
-    {
-        //OutputDebugString(L"DrawTextString : TextFormat is null\n");
         return;
-    }
-        
+ 
 
     m_Brush->SetColor(color);
     m_RenderTarget->DrawTextW(
@@ -514,6 +566,37 @@ void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect
     );
 }
 
+void stbD2DRenderer::DrawBitmap(ID2D1Bitmap* bitmap, const D2D1_RECT_F& destRect, const D2D1_RECT_F& srcRect, float opacity, bool flipX)
+{
+    if (bitmap == nullptr)
+        return;
+
+    if (!flipX)
+    {
+        m_RenderTarget->DrawBitmap(bitmap, destRect);
+        return;
+    }
+
+    D2D1_MATRIX_3X2_F oldTransform;
+    m_RenderTarget->GetTransform(&oldTransform);
+
+    float centerX = (destRect.left + destRect.right) * 0.5f;
+    float centerY = (destRect.top + destRect.bottom) * 0.5f;
+
+    D2D1_MATRIX_3X2_F flip =
+        D2D1::Matrix3x2F::Scale(
+            -1.0f,
+            1.0f,
+            D2D1::Point2F(centerX, centerY)
+        );
+
+    m_RenderTarget->SetTransform(flip * oldTransform);
+
+    m_RenderTarget->DrawBitmap(bitmap, destRect);
+
+    m_RenderTarget->SetTransform(oldTransform);
+}
+
 bool stbD2DRenderer::HasBitmap() const
 {
     return m_Bitmap != nullptr;
@@ -534,6 +617,100 @@ void stbD2DRenderer::DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, f
         opacity,
         D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
         srcRect);
+}
+
+void stbD2DRenderer::DrawSprite(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity)
+{
+    if (!m_RenderTarget || !bitmap)
+        return;
+
+    D2D1_RECT_F destRect = D2D1::RectF(destX,destY,destX + destW,destY + destH);
+    D2D1_RECT_F srcRect = D2D1::RectF(srcX,srcY,srcX + srcW,srcY + srcH);
+
+    if (!flipX)
+    {
+        m_RenderTarget->DrawBitmap(
+            bitmap,
+            destRect,
+            opacity,
+            D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+            srcRect
+        );
+
+        return;
+    }
+
+    D2D1_MATRIX_3X2_F oldTransform;
+    m_RenderTarget->GetTransform(&oldTransform);
+
+    float centerX = destX + destW * 0.5f;
+    float centerY = destY + destH * 0.5f;
+
+    D2D1_MATRIX_3X2_F flipTransform =
+        D2D1::Matrix3x2F::Scale(
+            -1.0f,
+            1.0f,
+            D2D1::Point2F(centerX, centerY)
+        );
+
+    m_RenderTarget->SetTransform(flipTransform * oldTransform);
+
+    m_RenderTarget->DrawBitmap(
+        bitmap,
+        destRect,
+        opacity,
+        D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+        srcRect
+    );
+
+    m_RenderTarget->SetTransform(oldTransform);
+}
+
+void stbD2DRenderer::DrawSprite2(ID2D1Bitmap* bitmap, float destX, float destY, float destW, float destH, float srcX, float srcY, float srcW, float srcH, bool flipX, float opacity)
+{
+    if (!m_RenderTarget || !bitmap)
+        return;
+
+    D2D1_RECT_F destRect = D2D1::RectF(destX,destY,destX + destW,destY + destH);
+
+    D2D1_RECT_F srcRect = D2D1::RectF(srcX,srcY,srcX + srcW,srcY + srcH);
+
+    if (!flipX)
+    {
+        m_RenderTarget->DrawBitmap(
+            bitmap,
+            destRect,
+            opacity,
+            D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+            srcRect
+        );
+        return;
+    }
+
+    D2D1_MATRIX_3X2_F oldTransform;
+    m_RenderTarget->GetTransform(&oldTransform);
+
+    float pivotX = destX + destW * 0.5f;
+    float pivotY = destY + destH * 0.5f;
+
+    D2D1_MATRIX_3X2_F flipTransform =
+        D2D1::Matrix3x2F::Scale(
+            -1.0f,
+            1.0f,
+            D2D1::Point2F(pivotX, pivotY)
+        );
+
+    m_RenderTarget->SetTransform(flipTransform * oldTransform);
+
+    m_RenderTarget->DrawBitmap(
+        bitmap,
+        destRect,
+        opacity,
+        D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
+        srcRect
+    );
+
+    m_RenderTarget->SetTransform(oldTransform);
 }
 
 

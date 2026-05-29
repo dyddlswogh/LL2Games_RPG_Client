@@ -14,26 +14,7 @@ void CombatPacketHandler::HandlerMosterDamage(const ParsedPacket& pkt)
 
 void CombatPacketHandler::HandleAttackResult(const ParsedPacket& pkt)
 {
-    /*
-        payload.push_back(std::to_string(Attacker->GetId()));
-	    payload.push_back(std::to_string(SkillID));
-	    payload.push_back(std::to_string(result.size()));
-        payload.push_back(std::to_string(r.monster_instance_id));
-        payload.push_back(std::to_string(r.damage));
-        payload.push_back(std::to_string(r.cur_hp));
-        payload.push_back(std::to_string(r.max_hp));
-        payload.push_back(r.dead ? "1" : "0");
-
-        struct MonsterHitResult {
-        int monster_instance_id;
-        int damage;
-        int cur_hp;
-        int max_hp;
-        bool dead;
-};
-
-    */
-
+   
     try
     {
         size_t offset = 0;
@@ -116,12 +97,8 @@ void CombatPacketHandler::SendBasicAttack(int dir)
 
     data.push_back(std::to_string(dir));
 
-    //std::string DebugMsg = "Use_Count :" + std::to_string(inventoryitemInfo->useCount) + "\n";
-
-    //OutputDebugStringA(DebugMsg.c_str());
-
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_BASIC_ATTACK, data);
-    OutputDebugStringA("[PKT_PLAYER_ATTACK 전송 완료]\n\n");
+    OutputDebugStringA("[PKT_PLAYER_BASIC_ATTACK 전송 완료]\n\n");
 }
 
 void CombatPacketHandler::SendUseSkill(int skillId, int dir)

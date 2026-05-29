@@ -102,6 +102,9 @@ namespace stb
 		// 몬스터 이미지 로드
 		RESOURCEMANAGER->LoadMonsterTextures();
 
+		// 플레이어 이미지 로드
+		RESOURCEMANAGER->LoadPlayerTextures();
+
 		stbD2DRenderer& renderer = stb::Application::getInstance()->GetRenderer();
 		RESOURCEMANAGER->LoadAllD2D(renderer);
 	}

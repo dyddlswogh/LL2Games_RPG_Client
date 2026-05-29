@@ -60,6 +60,7 @@ namespace stb
 
 		void LoadAllD2D(stbD2DRenderer& renderer);
 		void LoadMonsterTextures();
+		void LoadPlayerTextures();
 
 	private:
 		std::map<std::wstring, Resource*> mResources;

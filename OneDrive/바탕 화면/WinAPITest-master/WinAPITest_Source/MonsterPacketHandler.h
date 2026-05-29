@@ -9,7 +9,8 @@ public:
 	static void Execute(const ParsedPacket& pkt);
 	static void HandleS2C_SpawnMonster(const ParsedPacket& pkt);
 	static void HandleS2C_MonsterMove(const ParsedPacket& pkt);
-	
+
+
 private:
 };
 

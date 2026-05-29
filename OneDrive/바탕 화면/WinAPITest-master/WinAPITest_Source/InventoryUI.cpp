@@ -7,12 +7,20 @@
 #include "InventoryManager.h"
 #include "ItemDataManager.h"
 #include "ItemPacketHandler.h"
+#include "InventoryPacketHandler.h"
+#include "UIManager.h"
+#include "QuickSlotUI.h"
+#include "QuickSlotManager.h"
+#include "PlayerManager.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
 #define M_APP stb::SingletonBase<stb::Application>::getInstance()
 #define M_INVENTORYMANAGER stb::SingletonBase<InventoryManager>::getInstance()
 #define M_ITEMDATAMANAGER stb::SingletonBase<ItemDataManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
+#define M_QUICKSLOTMANAGER stb::SingletonBase<QuickSlotManager>::getInstance()
+#define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
 void InventoryUI::Init()
 {
@@ -270,9 +278,62 @@ void InventoryUI::RenderSlotItem(stbD2DRenderer& renderer)
             slot.height,
             1.0f
         );
+
+        if (slot.itemCount > 1)
+        {
+            std::wstring countText = std::to_wstring(slot.itemCount);
+
+            D2D1_RECT_F textRect = D2D1::RectF(
+                slot.x,
+                slot.y + slot.height - 13.0f,
+                slot.x + slot.width - 5.0f,
+                slot.y + slot.height
+            );
+
+            renderer.DrawTextString(
+                countText,
+                textRect,
+                D2D1::ColorF::Black,
+                TextStyle::Small
+            );
+        }
     }
 
-    
+    RenderDraggingItem(renderer);
+}
+
+void InventoryUI::RenderDraggingItem(stbD2DRenderer& renderer)
+{
+    if (!m_isItemDragging)
+        return;
+
+    if (m_dragItemId == 0)
+        return;
+
+    const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(m_dragItemId);
+    if (itemData == nullptr)
+        return;
+
+    std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+    stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+    if (texture == nullptr)
+        return;
+
+    ID2D1Bitmap* bitmap = texture->GetD2DBitmap();
+    if (bitmap == nullptr)
+        return;
+
+    float drawX = (float)m_dragCurrentMouseX - m_slotWidth * 0.5f;
+    float drawY = (float)m_dragCurrentMouseY - m_slotHeight * 0.5f;
+
+    renderer.DrawBitmap(
+        bitmap,
+        drawX,
+        drawY,
+        m_slotWidth,
+        m_slotHeight,
+        0.8f
+    );
 }
 
 void InventoryUI::UpdateInventoryByType()
@@ -303,6 +364,7 @@ void InventoryUI::UpdateInventoryByType()
         
     }
 }
+
 
 void InventoryUI::RenderBackGround(stbD2DRenderer& renderer)
 {
@@ -498,7 +560,20 @@ void InventoryUI::HandleLMouseClick(int mouseX, int mouseY)
         std::string msg = std::to_string(slotIndex) + "\n";
         OutputDebugStringA(msg.c_str());
 
-        // 클릭 시 상호작용 추가 예정
+        InventorySlotUI& slot = m_slots[slotIndex];
+
+        if (slot.itemId != 0)
+        {
+            m_isItemDragging = true;
+            m_dragStartSlotIndex = slotIndex;
+            m_dragCurrentMouseX = mouseX;
+            m_dragCurrentMouseY = mouseY;
+
+            m_dragItemId = slot.itemId;
+            m_dragItemCount = slot.itemCount;
+        }
+
+        return;
     }
 }
 
@@ -581,7 +656,7 @@ bool InventoryUI::HandleInventoryClick(int mouseX, int mouseY)
 
     if (IsPointInRect(m_inventoryClickRect, mouseX, mouseY))
     {
-        m_isDragging = true;
+        m_isInventoryDragging = true;
         m_dragOffsetX = localX;
         m_dragOffsetY = localY;
         return true;
@@ -655,13 +730,55 @@ int InventoryUI::GetClickedSlotIndex(int mouseX, int mouseY)
 
 void InventoryUI::HandleMouseUp()
 {
-    m_isDragging = false;
+    if (m_isItemDragging)
+    {
+        int dropSlotIndex = GetClickedSlotIndex(m_dragCurrentMouseX, m_dragCurrentMouseY);
+
+        if (dropSlotIndex != -1 && dropSlotIndex != m_dragStartSlotIndex)
+        {
+            // 여기서 서버에 패킷을 보내고 결과값을 바탕으로 아이템 위치를 변경하는 것이 맞다
+            InventoryPacketHandler::SendMoveItem(static_cast<int>(m_currentType), m_dragStartSlotIndex, dropSlotIndex);
+        }
+
+
+        int quickSlotIndex = M_UIMANAGER->GetQuickSlotUI()->GetSlotIndexByPoint(m_dragCurrentMouseX, m_dragCurrentMouseY);
+
+        if (quickSlotIndex != -1)
+        {
+            QuickSlotData data;
+            data.slot_index = quickSlotIndex;
+            data.type = QuickSlotType::Item;
+            data.ref_id = m_dragItemId;
+            data.inventory_type = m_currentType;
+            data.inventory_slotPos = m_dragStartSlotIndex;
+            data.count = m_dragItemCount;
+
+            //M_PLAYERMANAGER->GetLocalPlayer()->GetQuickSlotManager()->RequestSetSlot(data);
+            M_QUICKSLOTMANAGER->RequestSetSlot(data);
+        }
+
+
+        m_isItemDragging = false;
+        m_dragStartSlotIndex = -1;
+        m_dragItemId = 0;
+        m_dragItemCount = 0;
+        return;
+    }
+
+    m_isInventoryDragging = false;
     UpdateSlots();
 }
 
 void InventoryUI::HandleDragging(int mouseX, int mouseY)
 {
-    if (!m_isDragging)
+    if (m_isItemDragging)
+    {
+        m_dragCurrentMouseX = mouseX;
+        m_dragCurrentMouseY = mouseY;
+        return;
+    }
+
+    if (!m_isInventoryDragging)
         return;
 
     int inventoryClickWidth = m_isExpand ? m_fullInventoryClickWidth : m_inventoryClickWidth;

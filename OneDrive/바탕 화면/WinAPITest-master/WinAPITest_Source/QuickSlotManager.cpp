@@ -4,6 +4,7 @@
 #include "CombatPacketHandler.h"
 #include "PlayerManager.h"
 #include "stbInput.h"
+#include "QuickSlotPacketHandler.h"
 
 #define M_INVENTORYMANAGER stb::SingletonBase<InventoryManager>::getInstance()
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
@@ -11,6 +12,15 @@
 
 void QuickSlotManager::Init()
 {
+    std::string msg =
+        "QuickSlotManager::Init this: " +
+        std::to_string(reinterpret_cast<uintptr_t>(this)) +
+        ", m_maxSlotCount: " +
+        std::to_string(m_maxSlotCount) +
+        "\n";
+
+    OutputDebugStringA(msg.c_str());
+
     m_slots.clear();
     m_slots.resize(m_maxSlotCount);
 
@@ -43,6 +53,15 @@ void QuickSlotManager::SetSlotItem(int slotIndex, int inventoryType, int slotPos
 
 }
 
+// Äü½½·Ô º¯°æ ÇÏ´Â ¿äÃ» ¼­¹ö·Î º¸³¿
+void QuickSlotManager::RequestSetSlot(const QuickSlotData& quickSlotData)
+{
+    if (quickSlotData.slot_index < 0 || quickSlotData.slot_index >= m_maxSlotCount)
+        return;
+    QuickSlotPacketHandler::SendSetQuickSlot(quickSlotData);
+
+}
+
 void QuickSlotManager::ClearSlot(int slotIndex)
 {
 
@@ -50,12 +69,22 @@ void QuickSlotManager::ClearSlot(int slotIndex)
 
 const QuickSlotData* QuickSlotManager::GetSlot(int slotIndex) const
 {
-	return nullptr;
+    if (slotIndex < 0 || slotIndex >= (int)m_slots.size())
+        return nullptr;
+
+    return &m_slots[slotIndex];
 }
 
 void QuickSlotManager::UseSlot(int slotIndex)
 {
-    const QuickSlotData& slot = m_slots[slotIndex];
+   
+    if (slotIndex < 0 || slotIndex >= static_cast<int>(m_slots.size()))
+    {
+        OutputDebugStringA("QuickSlotManager::UseSlot - slotIndex out of range\n");
+        return;
+    }
+
+    QuickSlotData& slot = m_slots[slotIndex];
 
     switch (slot.type)
     {
@@ -72,12 +101,20 @@ void QuickSlotManager::UseSlot(int slotIndex)
     }
     case QuickSlotType::Item:
     {
-        Inventory* inven = M_INVENTORYMANAGER->GetInventory(slot.inventory_type);
+        Inventory* inven = M_INVENTORYMANAGER->GetInventory(static_cast<int>(slot.inventory_type));
+
+        if (inven == nullptr)
+            return;
+
 
         InventoryItemInfo* itemInfo = inven->FindSlot(slot.inventory_slotPos);
         if (itemInfo == nullptr)
             return;
 
+        if (itemInfo->itemId != slot.ref_id)
+            return;
+        slot.count--;
+        itemInfo->useCount = 1;
         ItemPacketHandler::SendUseItem(itemInfo);
         break;
     }

@@ -188,17 +188,65 @@ namespace stb
 		if (bitmap == nullptr)
 			return;
 
-		float destX = pos.x - (sprite.size.x / 2.0f) + sprite.offset.x;
-		float destY = pos.y - (sprite.size.y / 2.0f) + sprite.offset.y;
+		float destX = pos.x - sprite.origin.x + sprite.offset.x;
+		float destY = pos.y - sprite.origin.y + sprite.offset.y;
 		float destW = sprite.size.x * scale.x;
 		float destH = sprite.size.y * scale.y;
 
+	
 		renderer.DrawSprite(
 			bitmap,
 			destX, destY, destW, destH,
 			sprite.leftTop.x, sprite.leftTop.y,
 			sprite.size.x, sprite.size.y
 		);
+	}
+
+	void Animation::Render(stbD2DRenderer& renderer, bool flipX)
+	{
+		if (mAnimationSheet.empty())
+			return;
+
+		GameObject* gameObj = mAnimator->GetOwner();
+		Transform* tr = gameObj->GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+		Vector2 scale = tr->GetScale();
+
+		if (render::mainCamera)
+			pos = render::mainCamera->CalculatePosition(pos);
+
+		Sprite sprite = mAnimationSheet[mIndex];
+
+		Texture* renderTexture = sprite.texture != nullptr
+			? sprite.texture
+			: mTexture;
+
+		if (renderTexture == nullptr)
+			return;
+
+		ID2D1Bitmap* bitmap = renderTexture->GetD2DBitmap();
+		if (bitmap == nullptr)
+			return;
+
+		float destX = pos.x - sprite.origin.x + sprite.offset.x;
+		float destY = pos.y - sprite.origin.y + sprite.offset.y;
+		float destW = sprite.size.x * scale.x;
+		float destH = sprite.size.y * scale.y;
+
+
+		renderer.DrawSprite2(
+			bitmap,
+			destX, destY, destW, destH,
+			sprite.leftTop.x, sprite.leftTop.y,
+			sprite.size.x, sprite.size.y, flipX);
+
+		//renderer.DrawSprite(
+		//	bitmap,
+		//	destX, destY, destW, destH,
+		//	sprite.leftTop.x, sprite.leftTop.y,
+		//	sprite.size.x, sprite.size.y,
+		//	flipX
+		//);
 	}
 
     void Animation::CreateAnimation(const std::wstring& name
@@ -223,25 +271,89 @@ namespace stb
         }
     }
 
-	void Animation::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 offset, float duration)
+	//void Animation::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 offset, float duration)
+	//{
+	//	mTexture = nullptr;
+
+	//	for (Texture* tex : frames)
+	//	{
+	//		if (tex == nullptr)
+	//			continue;
+
+	//		Sprite sprite = {};
+	//		sprite.texture = tex;
+	//		sprite.leftTop = Vector2(0.0f, 0.0f);
+	//		sprite.size = Vector2((float)tex->GetWidth(), (float)tex->GetHeight());
+	//		sprite.offset = offset;
+	//		sprite.duration = duration;
+
+	//		mAnimationSheet.emplace_back(sprite);
+	//	}
+	//}
+
+	void Animation::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 baseOffset, const std::vector<stb::math::Vector2>& frameOffsets, float duration)
 	{
 		mTexture = nullptr;
+		mAnimationSheet.clear();
 
-		for (Texture* tex : frames)
+		for (size_t i = 0; i < frames.size(); ++i)
 		{
+			Texture* tex = frames[i];
+
 			if (tex == nullptr)
 				continue;
+
+			Vector2 frameOffset = Vector2::Zero;
+
+			if (i < frameOffsets.size())
+				frameOffset = frameOffsets[i];
 
 			Sprite sprite = {};
 			sprite.texture = tex;
 			sprite.leftTop = Vector2(0.0f, 0.0f);
 			sprite.size = Vector2((float)tex->GetWidth(), (float)tex->GetHeight());
-			sprite.offset = offset;
+			sprite.origin = baseOffset;
+			sprite.offset = frameOffset;
 			sprite.duration = duration;
 
 			mAnimationSheet.emplace_back(sprite);
 		}
 	}
+
+	void Animation::CreateFrameAnimation(const std::wstring& name, const std::vector<Texture*>& frames, Vector2 origin, Vector2 offset, float duration)
+	{
+		SetName(name);
+
+		mTexture = nullptr;
+		mAnimationSheet.clear();
+		mAnimationSheet.reserve(frames.size());
+
+		for (size_t i = 0; i < frames.size(); ++i)
+		{
+			Texture* tex = frames[i];
+
+			if (tex == nullptr)
+				continue;
+
+			const float texWidth = static_cast<float>(tex->GetWidth());
+			const float texHeight = static_cast<float>(tex->GetHeight());
+
+			Sprite sprite = {};
+			sprite.texture = tex;
+			sprite.leftTop = Vector2(0.0f, 0.0f);
+			sprite.size = Vector2(texWidth, texHeight);
+
+			// ÇÙ½É
+			sprite.origin = origin;
+			sprite.offset = offset;
+
+			sprite.duration = duration;
+
+			mAnimationSheet.emplace_back(sprite);
+		}
+	}
+
+
 
     void Animation::Reset()
     {

@@ -13,7 +13,9 @@ namespace stb
 		Z, X, C, V, B, N, M,
 		Left, Right, Up, Down,
 		LButton, MButton, RButton, SPACE,
-		LALT, LCONTROL,
+		LALT, LCONTROL, Insert,Home,PageUp,
+		Delete,End,PageDown, 
+		LShift,
 		Enter, Return,
 		EnumsEnd,
 	};
@@ -51,7 +53,7 @@ namespace stb
 	enum class eBindType
 	{
 		None,
-		Action,   // Interact 같은 것
+		Action,   // Interact 같�?? �?
 		Skill,
 		Item,
 		UI,
@@ -106,8 +108,11 @@ namespace stb
 		bool GetActionDown(eActionCode action);
 		bool GetActionUp(eActionCode action);
 
+		eKeyCode FindKeyByQuickSlotIndex(int slotIndex) const;
+		std::wstring KeyCodeToWString(eKeyCode keyCode) const;
 	public:
 		void CreateDefaultBindings();
+		void CreateDefaultBindingQuickSlot();
 		bool GetPressedBind(KeyBindInfo& outBindInfo);
 	
 		void BindKey(eKeyCode code, const KeyBindInfo& bindInfo);

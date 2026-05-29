@@ -1,24 +1,8 @@
 #pragma once
 #include "CommonInclude.h"
 #include "stbInput.h"
-
-
-enum class QuickSlotType
-{
-    None,
-    Skill,
-    Item
-};
-
-struct QuickSlotData
-{
-    QuickSlotType type = QuickSlotType::None;
-    int slot_index = 0;
-    int ref_id = 0;
-    int inventory_type = 0;
-    int inventory_slotPos = 0;
-};
-
+#include "InventoryUI_Info.h"
+#include "QuickSlotUI_Info.h"
 
 class QuickSlotManager
 {
@@ -29,9 +13,12 @@ public:
     void ClearSlot(int slotIndex);
     void UseSlot(int slotIndex);
 public:
+    //void SetOwner(stb::Player* player) { m_owner = player; }
     void SetSlot(QuickSlotData& quickSlotData);
     void SetSlotSkill(int slotIndex, int skillId);
     void SetSlotItem(int slotIndex, int inventoryType, int slotPos);
+
+    void RequestSetSlot(const QuickSlotData& quickSlotData);
 
     const QuickSlotData* GetSlot(int slotIndex) const;
    
@@ -42,6 +29,7 @@ public:
 
 private:
     std::vector<QuickSlotData> m_slots;
+    //stb::Player* m_owner;
 
 private:
     static constexpr int m_maxSlotCount = 32;

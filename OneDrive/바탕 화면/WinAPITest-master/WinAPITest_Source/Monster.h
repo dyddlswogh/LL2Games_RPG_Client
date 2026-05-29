@@ -6,6 +6,7 @@
 #include "stbTransform.h"
 #include "stbAnimator.h"
 #include "BoxCollider2D.h"
+#include "stbCircleCollider2D.h"
 #include "MonsterScript.h"
 #include "CombatSystem_Info.h"
 
@@ -22,12 +23,15 @@ public:
     void SetState(MonsterState state);
     void SetPosition(float x, float y);
     void SetAnimation();
+    void SetCollider();
+    void BindAnimationEvents();
     void OnDamaged(int damage, int curHp, bool dead);
     void OnMove(float x, float y, int dir);
 
     void ResetFromSpawnInfo(const MonsterSpawnInfo& info);
     void ApplyServerUpdate(const MonsterUpdateInfo& info);
     void ApplyAttackResult(const AttackResult& result);
+    void RespawnFromServer(const MonsterUpdateInfo& info);
 public:
     int GetInstanceId() const { return m_instanceId; }
     int GetMoveSpeed() const { return m_moveSpeed; }
@@ -53,7 +57,7 @@ private:
 private:
     stb::Transform* m_transform;
     stb::Animator* m_animator;
-    stb::BoxCollider2D* m_collider;
+    stb::Collider* m_collider;
 
     std::wstring m_currentAnimation;
     MonsterScript* m_script;
