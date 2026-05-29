@@ -13,6 +13,10 @@ namespace stb
 {
 	void LoadResource()
 	{
+		//¸Ê ¹è°æ
+		RESOURCEMANAGER->Load<Texture>(L"Henesys_ground_1", L"Resources\\Background\\henesys\\henesys_ground_1.png");
+
+
 		RESOURCEMANAGER->Load<Texture>(L"Player", L"Resources\\Mario.png");
 		RESOURCEMANAGER->Load<Texture>(L"Mario2", L"Resources\\Mario2.png");
 		RESOURCEMANAGER->Load<Texture>(L"CharacterHead", L"Resources\\Character_Head.png");

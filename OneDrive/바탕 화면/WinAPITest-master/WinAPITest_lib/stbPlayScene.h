@@ -1,7 +1,6 @@
 #pragma once
 #include "..\\WinAPITest_Source\\stbScene.h"
 
-
 namespace stb
 {
 	using namespace math;
@@ -24,7 +23,7 @@ namespace stb
 
 	private:
 		class Player* mPlayer;
-
+		class Texture* mBackground;
 	};
 
 }

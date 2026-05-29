@@ -30,7 +30,7 @@
 namespace stb
 {
 	PlayScene::PlayScene()
-		:mPlayer(nullptr)
+		:mPlayer(nullptr), mBackground(nullptr)
 	{
 	}
 
@@ -44,6 +44,7 @@ namespace stb
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		render::mainCamera = cameraComp;
 
+		mBackground = M_REMANAGER->Find<Texture>(L"Henesys_ground_1");
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
 		Transform* tr = mPlayer->AddComponent<Transform>();
@@ -101,6 +102,18 @@ namespace stb
 
 	void PlayScene::Render(stbD2DRenderer& renderer)
 	{
+		if (mBackground != nullptr && mBackground->GetD2DBitmap() != nullptr)
+		{
+			D2D1_SIZE_F size = renderer.GetRenderTargetSize();
+			renderer.DrawBitmap(
+				mBackground->GetD2DBitmap(),
+				0.0f,
+				0.0f,
+				size.width,
+				size.height
+			);
+		}
+
 		Scene::Render(renderer);
 		M_UIMANAGER->Render(renderer);
 		M_MONSTERAMANGER->Render(renderer);
