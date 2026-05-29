@@ -7,21 +7,21 @@
 #pragma comment(lib, "ws2_32.lib")
 
 /*
-    ìœˆë„ìš° í”„ë¡œê·¸ë¨ì—ì„œ ì†Œì¼“ í†µì‹ ì„ í•˜ê¸° ìœ„í•´ì„œ í•„ìš”í•œ í—¤ë” íŒŒì¼
+    À©µµ¿ì ÇÁ·Î±×·¥¿¡¼­ ¼ÒÄÏ Åë½ÅÀ» ÇÏ±â À§ÇØ¼­ ÇÊ¿äÇÑ Çì´õ ÆÄÀÏ
     #include <WinSock2.h>
-    - ìœˆë„ìš° ì†Œì¼“ API ê¸°ë³¸ ì„ ì–¸
-    - socket, bind, connect, send, recv, closesocket ê°™ì€ ê²ƒë“¤ì´ í¬í•¨ë˜ì–´ ìˆë‹¤.
-    - SOCKET, sockaddr_in ê°™ì€ íƒ€ì…ë„ ìˆë‹¤
+    - À©µµ¿ì ¼ÒÄÏ API ±âº» ¼±¾ğ
+    - socket, bind, connect, send, recv, closesocket °°Àº °ÍµéÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Ù.
+    - SOCKET, sockaddr_in °°Àº Å¸ÀÔµµ ÀÖ´Ù
 
  
 
     #include <WS2tcpip.h>
-    - WinSock2.hì—ì„œ ì¡°ê¸ˆ ë” í™•ì¥ëœ ë„¤íŠ¸ì›Œí¬ ê´€ë ¨ ê¸°ëŠ¥
-    - inet_pton : ì‚¬ëŒì´ ì•Œì•„ë³´ê¸° ì‰¬ìš´ í…ìŠ¤íŠ¸ í˜•íƒœì˜ IPv4ì™€ IPv6 ì£¼ì†Œë¥¼ binary í˜•íƒœë¡œ ë³€í™˜í•˜ëŠ” ê¸°ëŠ¥
-                  ë¦¬í‹€ì•¤ë””ì•ˆ ë¬¸ìì—´ì„ ë°”ì´ë„ˆë¦¬ í˜•íƒœì¸ IPv6 ë˜ëŠ” IPv4 ì£¼ì†Œ ë¹…ì•¤ë””ì•ˆ ë„¤íŠ¸ì›Œí¬ ì£¼ì†Œë¡œ ë³€í™˜í•´ì£¼ëŠ” í•¨ìˆ˜
+    - WinSock2.h¿¡¼­ Á¶±İ ´õ È®ÀåµÈ ³×Æ®¿öÅ© °ü·Ã ±â´É
+    - inet_pton : »ç¶÷ÀÌ ¾Ë¾Æº¸±â ½¬¿î ÅØ½ºÆ® ÇüÅÂÀÇ IPv4¿Í IPv6 ÁÖ¼Ò¸¦ binary ÇüÅÂ·Î º¯È¯ÇÏ´Â ±â´É
+                  ¸®Æ²¾Øµğ¾È ¹®ÀÚ¿­À» ¹ÙÀÌ³Ê¸® ÇüÅÂÀÎ IPv6 ¶Ç´Â IPv4 ÁÖ¼Ò ºò¾Øµğ¾È ³×Æ®¿öÅ© ÁÖ¼Ò·Î º¯È¯ÇØÁÖ´Â ÇÔ¼ö
 
-    - inet_ntop : IPv4, IPv6 ì£¼ì†Œë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜í•˜ëŠ” ê¸°ëŠ¥
-                  ë¹…ì—”ë””ì•ˆ ë„¤íŠ¸ì›Œí¬ì •ë³´ë¥¼ ë¦¬í‹€ì—”ë””ì•ˆ ë¬¸ìì—´ë¡œ ë³€í™˜í•´ì£¼ëŠ” í•¨ìˆ˜ 
+    - inet_ntop : IPv4, IPv6 ÁÖ¼Ò¸¦ ¹®ÀÚ¿­·Î º¯È¯ÇÏ´Â ±â´É
+                  ºò¿£µğ¾È ³×Æ®¿öÅ©Á¤º¸¸¦ ¸®Æ²¿£µğ¾È ¹®ÀÚ¿­·Î º¯È¯ÇØÁÖ´Â ÇÔ¼ö 
 */
 
 namespace stb
@@ -30,12 +30,12 @@ namespace stb
         : m_bConnected(false)
         , m_socket()
     {
-        // Winsock ì´ˆê¸°í™”
+        // Winsock ÃÊ±âÈ­
         WSADATA wsaData;
         int result = WSAStartup(MAKEWORD(2, 2), &wsaData);
         if (result != 0)
         {
-            OutputDebugStringA("WSAStartup ì‹¤íŒ¨\n");
+            OutputDebugStringA("WSAStartup ½ÇÆĞ\n");
         }
     }
 
@@ -52,20 +52,20 @@ namespace stb
             return true;
         }
 
-        // ì†Œì¼“ ìƒì„±
+        // ¼ÒÄÏ »ı¼º
         if (!m_socket.Create())
         {
             return false;
         }
 
-        // ë¹„ë™ê¸° ì„¤ì •
+        // ºñµ¿±â ¼³Á¤
         if (!m_socket.SetAsync(hWnd))
         {
             m_socket.Close();
             return false;
         }
 
-        // ì„œë²„ ì—°ê²°
+        // ¼­¹ö ¿¬°á
         if (!m_socket.Connect(ip.c_str(), port))
         {
             int error = WSAGetLastError();
@@ -135,21 +135,21 @@ namespace stb
 
     void NetworkManager::ProcessReceivedData()
     {
-        // ë°ì´í„° ìˆ˜ì‹ 
+        // µ¥ÀÌÅÍ ¼ö½Å
         char tempBuf[BUFFER_SIZE];
         int recvLen = m_socket.Receive(tempBuf, BUFFER_SIZE);
 
         if (recvLen > 0)
         {
-            // ë¡œê·¸ ì£¼ì„ ì²˜ë¦¬ (ì„±ëŠ¥ í–¥ìƒ)
+            // ·Î±× ÁÖ¼® Ã³¸® (¼º´É Çâ»ó)
             // std::stringstream ss;
-            // ss << "[ProcessReceivedData] ìˆ˜ì‹ : " << recvLen << " bytes\n";
+            // ss << "[ProcessReceivedData] ¼ö½Å: " << recvLen << " bytes\n";
             // OutputDebugStringA(ss.str().c_str());
             
             auto& recvBuffer = m_socket.GetRecvBuffer();
             recvBuffer.insert(recvBuffer.end(), tempBuf, tempBuf + recvLen);
 
-            // íŒ¨í‚· íŒŒì‹±
+            // ÆĞÅ¶ ÆÄ½Ì
             while (true)
             {
                 auto parsedPacket = PacketParser::Parse(recvBuffer);
@@ -158,9 +158,9 @@ namespace stb
                     break;
                 }
 
-                // ë¡œê·¸ ì£¼ì„ ì²˜ë¦¬
+                // ·Î±× ÁÖ¼® Ã³¸®
                 // std::stringstream ss2;
-                // ss2 << "[ProcessReceivedData] íŒ¨í‚· íŒŒì‹± ì™„ë£Œ: type=0x" << std::hex << parsedPacket.value().type << "\n";
+                // ss2 << "[ProcessReceivedData] ÆĞÅ¶ ÆÄ½Ì ¿Ï·á: type=0x" << std::hex << parsedPacket.value().type << "\n";
                 // OutputDebugStringA(ss2.str().c_str());
                 
                 HandlePacket(parsedPacket.value());
@@ -168,8 +168,8 @@ namespace stb
         }
         else if (recvLen == 0)
         {
-            // ì—°ê²° ì¢…ë£Œ
-            OutputDebugStringA("[ProcessReceivedData] ì—°ê²° ì¢…ë£Œ\n");
+            // ¿¬°á Á¾·á
+            OutputDebugStringA("[ProcessReceivedData] ¿¬°á Á¾·á\n");
             Disconnect();
         }
     }

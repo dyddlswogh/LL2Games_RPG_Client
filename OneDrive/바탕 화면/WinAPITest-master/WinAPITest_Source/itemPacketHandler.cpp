@@ -3,8 +3,11 @@
 #include "stbNetworkManager.h"
 #include "PlayerManager.h"
 #include "CombatPacketHandler.h"
+#include "UIManager.h"
+#include "InventoryUI.h"
 
 #define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
 void ItemPacketHandler::Execute(const ParsedPacket& pkt)
 {
@@ -131,6 +134,16 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
 
        localPlayerStat->SetCurHp(useItemResult.hp);
        localPlayerStat->SetCurMp(useItemResult.mp);
+
+       
+
+       InventoryUI* inventoryUI = M_UIMANAGER->GetInventoryUI();
+       if (inventoryUI == nullptr)
+       {
+           throw std::runtime_error("inventoryUI is nullptr");
+       }
+
+       inventoryUI->UpdateInventoryByType();
 
     }
     catch (std::exception& e)

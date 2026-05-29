@@ -33,6 +33,14 @@ struct InventorySlot
 	bool isEnable = false;
 };
 
+struct InventorySlotUpdate
+{
+	int slotPos = 0;
+	int itemId = 0;
+	int itemCount = 0;
+
+};
+
 enum class ItemType
 {
 	NONE,

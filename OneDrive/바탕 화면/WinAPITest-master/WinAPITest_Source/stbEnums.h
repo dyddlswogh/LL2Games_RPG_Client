@@ -47,4 +47,15 @@ namespace stb::enums
 	};
 
 
+	inline eColliderType SetColliderType(std::string str)
+	{
+		if (str == "Rect2D")
+			return eColliderType::Rect2D;
+
+		if (str == "Circle2D")
+			return eColliderType::Circle2D;
+
+		return eColliderType::EnumsEnd;
+	}
+
 }

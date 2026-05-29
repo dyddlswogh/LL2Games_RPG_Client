@@ -10,7 +10,8 @@ public:
 
 	bool CreateInventory(InventoryMetaInfo inventoryMetaInfo);
 	void EnsureInventory(InventoryMetaInfo inventoryMetaInfo);
-
+	void UpdateSlot(InventorySlotUpdate& inventorySlotUpdate);
+public:
 	
 	Inventory* GetInventory(int inventoryType);
 	const Inventory* GetInventory(int inventoryType) const;

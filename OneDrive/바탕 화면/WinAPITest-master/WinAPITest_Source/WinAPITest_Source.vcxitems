@@ -19,10 +19,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ChannelInitPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ChatPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ChatUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collider_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EquipeTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)HealthBarUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Inventory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
@@ -44,12 +46,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketParser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerAnimationManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerDataPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)playerInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PlayerManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotUI_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Skill.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SkillDataManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Skill_Info.h" />
@@ -125,6 +129,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MySocket.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketParser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerAnimationManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerDataPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)QuickSlotManager.cpp" />

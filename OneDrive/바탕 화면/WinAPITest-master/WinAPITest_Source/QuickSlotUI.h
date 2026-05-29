@@ -3,6 +3,7 @@
 #include "stbTexture.h"
 #include "UILayout.h"
 #include "stbInput.h"
+#include "QuickSlotUI_Info.h"
 
 class QuickSlotUI : public UI
 {
@@ -11,7 +12,11 @@ public:
 	void Init() override;
 	void Update() override;
 	void Render(stbD2DRenderer& renderer) override;
-
+	void RenderTestBox(stbD2DRenderer& renderer);
+	void RenderSlotItem(stbD2DRenderer& renderer);
+	void RenderItemSlot(stbD2DRenderer& renderer, const QuickSlotData& slot, const UIRect& rect);
+	void RenderSkillSlot(stbD2DRenderer& renderer, const QuickSlotData& slot, const UIRect& rect);
+	void RednerSlotText(stbD2DRenderer& renderer);
 	void CreateSlotRect();
 	int GetSlotIndexByPoint(int mouseX, int mouseY);
 	void HandleClickSlot(int slotIndex);

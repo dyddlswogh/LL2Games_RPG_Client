@@ -5,10 +5,16 @@
 #include "UILayout.h"
 #include "stbApplication.h"
 #include "stbInput.h"
+#include "ItemDataManager.h"
+#include "QuickSlotManager.h"
+#include "PlayerManager.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_APP stb::SingletonBase<stb::Application>::getInstance()
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
+#define M_ITEMDATAMANAGER stb::SingletonBase<ItemDataManager>::getInstance()
+#define M_QUICKSLOTMANAGER stb::SingletonBase<QuickSlotManager>::getInstance()
+#define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 
 void QuickSlotUI::Init()
 {
@@ -27,6 +33,8 @@ void QuickSlotUI::Update()
     {
         GetSlotIndexByPoint(pt.x, pt.y);
     }
+
+
 
 }
 
@@ -49,16 +57,17 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
     // 기준 해상도 대비 UI 전체 스케일
-
-   
     float scaleX = rtSize.width / 1366.0f;
     float scaleY = rtSize.height / 768.0f;
     float scale = min(scaleX, scaleY);
 
     m_scale = scale;
 
-    int drawWidth = (int)(BASE_BG_WIDTH * scale);
-    int drawHeight = (int)(BASE_BG_HEIGHT * scale);
+    // int drawWidth = (int)(BASE_BG_WIDTH * scale);
+    // int drawHeight = (int)(BASE_BG_HEIGHT * scale);
+
+    int drawWidth = (int)(BASE_BG_WIDTH * 1);
+    int drawHeight = (int)(BASE_BG_HEIGHT * 1);
 
     m_UIRect = UILayout::CalcRect(
         (int)rtSize.width,
@@ -70,8 +79,6 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
         15
     );
 
-    CreateSlotRect();
-
     renderer.DrawBitmap(
         bitmap,
         (FLOAT)m_UIRect.x,
@@ -80,7 +87,15 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
         (FLOAT)m_UIRect.height,
         0.5f
     );
+    CreateSlotRect();
+    RenderTestBox(renderer);
+    RenderSlotItem(renderer);
+    RednerSlotText(renderer);
+}
 
+void QuickSlotUI::RenderTestBox(stbD2DRenderer& renderer)
+{
+    
     for (const auto& rect : m_slotRects)
     {
         renderer.DrawRect(
@@ -99,6 +114,106 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
         (FLOAT)m_UIRect.height,
         D2D1::ColorF::Black
     );
+}
+
+void QuickSlotUI::RenderSlotItem(stbD2DRenderer& renderer)
+{
+    for (int i = 0; i < (int)m_slotRects.size(); ++i)
+    {
+       
+        const QuickSlotData* slot = M_PLAYERMANAGER->GetLocalPlayer()->GetQuickSlotManager()->GetSlot(i);
+   
+        if (slot == nullptr)
+            continue;
+
+        if (slot->type == QuickSlotType::None)
+        {
+            continue;
+        }
+           
+        const UIRect& rect = m_slotRects[i];
+
+        if (slot->type == QuickSlotType::Item)
+        {
+            RenderItemSlot(renderer, *slot, rect);
+        }
+        else if (slot->type == QuickSlotType::Skill)
+        {
+            RenderSkillSlot(renderer, *slot, rect);
+        }
+    }
+}
+
+void QuickSlotUI::RenderItemSlot(stbD2DRenderer& renderer, const QuickSlotData& slot, const UIRect& rect)
+{
+    const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(slot.ref_id);
+    if (itemData == nullptr)
+        return;
+
+    std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+
+    stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+    if (texture == nullptr)
+        return;
+
+    ID2D1Bitmap* bitmap = texture->GetD2DBitmap();
+    if (bitmap == nullptr)
+        return;
+
+    renderer.DrawBitmap(
+        bitmap,
+        (FLOAT)rect.x,
+        (FLOAT)rect.y,
+        (FLOAT)rect.width,
+        (FLOAT)rect.height,
+        1.0f
+    );
+
+    if (slot.count > 1)
+    {
+        std::wstring countText = std::to_wstring(slot.count);
+
+        D2D1_RECT_F textRect = D2D1::RectF(
+            (FLOAT)rect.x,
+            (FLOAT)(rect.y + rect.height - 11.0f),
+            (FLOAT)(rect.x + rect.width - 3.0f),
+            (FLOAT)(rect.y + rect.height)
+        );
+
+        renderer.DrawTextString(
+            countText,
+            textRect,
+            D2D1::ColorF::Black,
+            TextStyle::QuickSlot
+        );
+    }
+}
+
+void QuickSlotUI::RenderSkillSlot(stbD2DRenderer& renderer, const QuickSlotData& slot, const UIRect& rect)
+{
+}
+
+void QuickSlotUI::RednerSlotText(stbD2DRenderer& renderer)
+{
+    for (int i = 0; i < (int)m_slotRects.size(); ++i)
+    {
+       stb::eKeyCode keyCode = M_INPUT->FindKeyByQuickSlotIndex(i);
+       std::wstring str_key = M_INPUT->KeyCodeToWString(keyCode);
+
+       D2D1_RECT_F textRect = D2D1::RectF(
+           (FLOAT)m_slotRects[i].x + 2.0f,
+           (FLOAT)m_slotRects[i].y + 1.0f,
+           (FLOAT)m_slotRects[i].x + m_slotRects[i].width,
+           (FLOAT)m_slotRects[i].y + 14.0f
+       );
+
+       renderer.DrawTextString(
+           str_key,
+           textRect,
+           D2D1::ColorF::Black,
+           TextStyle::QuickSlot
+       );
+    }
 }
 
 void QuickSlotUI::CreateSlotRect()

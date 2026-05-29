@@ -7,6 +7,8 @@
 #include "PlayerDataPacketHandler.h"
 #include "ItemPacketHandler.h"
 #include "MonsterPacketHandler.h"
+#include "CombatPacketHandler.h"
+#include "QuickSlotPacketHandler.h"
 #include "TradePacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
@@ -48,6 +50,13 @@ bool PacketManager::RegisterAllHandlers()
 			InventoryPacketHandler::HandleInventoryItemInfo(pkt);
 		});
 
+	// 플레이어 인벤토리 핸들러 등록
+	networkManager->RegisterHandler(PKT_INVENTORY_ITEM_MOVE,
+		[](const ParsedPacket& pkt)
+		{
+			InventoryPacketHandler::HandleInventoryMoveItem(pkt);
+		});
+
 	// 플레이어 움직임 핸들러 등록
 	networkManager->RegisterHandler(PKT_PLAYER_MOVE,
 		[](const ParsedPacket& pkt)
@@ -76,6 +85,25 @@ bool PacketManager::RegisterAllHandlers()
 			MonsterPacketHandler::HandleS2C_MonsterMove(pkt);
 		});
 
+	// 몬스터 데미지 핸들러 등록
+	networkManager->RegisterHandler(PKT_MONSTER_ONDAMAGED,
+		[](const ParsedPacket& pkt)
+		{
+			CombatPacketHandler::HandleAttackResult(pkt);
+		});
+
+	// 퀵슬롯 리스트 핸들러 등록
+	networkManager->RegisterHandler(PKT_QUICKSLOT_LIST,
+		[](const ParsedPacket& pkt)
+		{
+			QuickSlotPacketHandler::HandleSlotList(pkt);
+		});
+
+	// 퀵슬롯 등록 핸들러 등록
+	networkManager->RegisterHandler(PKT_QUICKSLOT_SET,
+		[](const ParsedPacket& pkt)
+		{
+			QuickSlotPacketHandler::HandleSlotSet(pkt);
 	// 교환 신청 핸들러 등록
 	networkManager->RegisterHandler(PKT_TRADE_REQUEST,
 		[](const ParsedPacket& pkt)

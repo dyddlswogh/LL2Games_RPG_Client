@@ -21,7 +21,7 @@ namespace stb
 		virtual void Render(HDC hdc);
 		virtual void Render(stbD2DRenderer& renderer);
 
-		void SetOwner(GameObject* gameObject) { mGameObject = gameObject; }
+		virtual void SetOwner(GameObject* gameObject) { mGameObject = gameObject; }
 		GameObject* GetOwner() { return mGameObject; }
 		eComponentType GetType() { return mType;}
 

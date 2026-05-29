@@ -95,17 +95,6 @@ void MonsterPacketHandler::HandleS2C_SpawnMonster(const ParsedPacket& pkt)
 
 void MonsterPacketHandler::HandleS2C_MonsterMove(const ParsedPacket& pkt)
 {
-	/*
- payload.push_back(std::to_string(monster->GetInstanceId()));          // monster instanceid
-		payload.push_back(std::to_string(static_cast<int>(monster->GetState())));
-		payload.push_back(std::to_string(monster->GetDir()));
-		payload.push_back(std::to_string(monster->GetPos().xPos));
-		payload.push_back(std::to_string(monster->GetPos().yPos));
-		payload.push_back(std::to_string(monster->GetCurrentHP()));
-		payload.push_back(std::to_string(monster->GetMaxHP()));
-// 테스트용 로그
-	*/
-
 	try
 	{
 		size_t offset = 0;
@@ -180,3 +169,4 @@ void MonsterPacketHandler::HandleS2C_MonsterMove(const ParsedPacket& pkt)
 	}
 
 }
+

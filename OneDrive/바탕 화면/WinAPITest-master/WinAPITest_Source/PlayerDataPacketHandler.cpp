@@ -5,15 +5,6 @@
 
 void PlayerDataPacketHandler::HandleLocalPlayerInfo(const ParsedPacket& pkt)
 {
-	/*
-		payload.push_back(std::to_string(player->GetId()));
-		payload.push_back(player->GetName());
-		payload.push_back(std::to_string(player->GetJob()));
-		payload.push_back(std::to_string(player->GetLevel()));
-		payload.push_back(std::to_string(player->GetMapId()));
-		payload.push_back(std::to_string(player->GetPos().xPos));
-		payload.push_back(std::to_string(player->GetPos().yPos));
-	*/
 	try
 	{
 

@@ -74,7 +74,7 @@ void UIManager::ToggleInventory()
 		m_inventoryUI->Toggle();
 }
 
-#if 1 //��ȯ
+#if 1 //±³È¯
 void UIManager::OpenTradeUI(const std::string& targetId, const std::string& targetName)
 {
 	m_tradeUI->SetActivce(true);
@@ -144,9 +144,9 @@ void UIManager::ShowTradeRequestPopUp(const TradeRequestInfo& info)
 	if (m_tradeReqUI) m_tradeReqUI->OnPopUp(info);
 }
 
-#endif //��ȯ
+#endif //±³È¯
 
-#if 1 //ä��
+#if 1 //Ã¤ÆÃ
 void UIManager::ToggleChatInput()
 {
 	if (m_chatUI) m_chatUI->ToggleInputFocus();
@@ -172,4 +172,4 @@ void UIManager::SubmitChatInput()
 {
 	if (m_chatUI) m_chatUI->SubmitInput();
 }
-#endif //ä��
+#endif //Ã¤ÆÃ

@@ -37,6 +37,7 @@ enum PACKET_TYPE : uint16_t {
     PKT_PLAYER_USE_ITEM     = 0x0023,
     PKT_PLAYER_INFO         = 0x0024,
     PKT_PLAYER_STAT         = 0x0025,
+    PKT_PLAYER_SKILLLIST    = 0x0026,
     PKT_PLAYER_BASIC_ATTACK = 0x0027,
 
     // 0x0040 ~ 0x005F : 몬스터
@@ -51,6 +52,7 @@ enum PACKET_TYPE : uint16_t {
     // 0x0080 ~ 0x009F : 인벤토리
     PKT_INVENTORY_META_INFO = 0x0080,
     PKT_INVENTORY_ITEM_INFO = 0x0081,
+    PKT_INVENTORY_ITEM_MOVE = 0x0082,
 
     // 0x0100 ~ 0x010F : 교환
     PKT_TRADE_REQUEST = 0x0100,  // 교환 신청
@@ -65,6 +67,7 @@ enum PACKET_TYPE : uint16_t {
     PKT_STAT_VIEW           = 0x1000,
     PKT_STAT_UP             = 0x1001,
     PKT_QUICKSLOT_LIST      = 0x1002,
+    PKT_QUICKSLOT_SET       = 0x1003,
 };
 
 struct ParsedPacket
