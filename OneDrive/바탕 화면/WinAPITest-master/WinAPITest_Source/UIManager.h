@@ -1,11 +1,9 @@
 #pragma once
 #include "CommonInclude.h"
 #include "stbSingletonBase.h"
-<<<<<<< HEAD
 #include "stbMath.h"
-=======
 #include "Trade_Info.h"
->>>>>>> main
+
 
 class UI;
 class InventoryUI;

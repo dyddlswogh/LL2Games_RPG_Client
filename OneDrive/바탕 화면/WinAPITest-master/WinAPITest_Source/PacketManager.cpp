@@ -36,6 +36,13 @@ bool PacketManager::RegisterAllHandlers()
 			PlayerDataPacketHandler::HandleLocalPlayerStat(pkt);
 		});
 
+	// 플레이어 온데미지 핸들러 등록
+	networkManager->RegisterHandler(PKT_PLAYER_ONDAMAGED,
+		[](const ParsedPacket& pkt)
+		{
+			PlayerDataPacketHandler::HandlePlayerOnDamaged(pkt);
+		});
+
 	// 플레이어 인벤토리 핸들러 등록
 	networkManager->RegisterHandler(PKT_INVENTORY_META_INFO,
 		[](const ParsedPacket& pkt)
@@ -71,6 +78,7 @@ bool PacketManager::RegisterAllHandlers()
 			ItemPacketHandler::HandleUseItemResult(pkt);
 		});
 
+
 	// 몬스터 스냅샷 핸들러 등록
 	networkManager->RegisterHandler(PKT_MONSTER_SNAPSHOT,
 		[](const ParsedPacket& pkt)
@@ -104,6 +112,8 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			QuickSlotPacketHandler::HandleSlotSet(pkt);
+		});
+
 	// 교환 신청 핸들러 등록
 	networkManager->RegisterHandler(PKT_TRADE_REQUEST,
 		[](const ParsedPacket& pkt)

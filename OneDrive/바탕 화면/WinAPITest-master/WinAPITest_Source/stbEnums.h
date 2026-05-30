@@ -11,6 +11,7 @@ namespace stb::enums
 		Script,
 		SpriteRenderer,
 		Animator,
+		DamageText,
 		Camera,
 		AudioListener,
 		AudioSource,

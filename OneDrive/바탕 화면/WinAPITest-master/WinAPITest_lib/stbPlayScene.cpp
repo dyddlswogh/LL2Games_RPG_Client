@@ -48,10 +48,18 @@ namespace stb
 		mPlayer = M_PLMANAGER->CreateLocalPlayer(enums::eLayerType::Player, Vector2(300.0f, 300.0f));
 		mBackground = M_REMANAGER->Find<Texture>(L"Henesys_ground_1");
 		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Henesys_ground_1");
-		//mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 
+
+#if 0 //누락된 코드
 		Transform* tr = mPlayer->AddComponent<Transform>();
 		int charId = atoi(stb::NetworkConfig::GetCharacterId());
+		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
+		tr->SetPosition(Vector2(300.0f, 300.0f));
+
+		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
+		playerScript->SetOwner(mPlayer);
+		M_PLMANAGER->SetLocalPlayer(mPlayer);
+#endif
 		
 		M_UIMANAGER->Init();
 
@@ -64,7 +72,7 @@ namespace stb
 			spartaAnim->PlayAnimation(L"Run", true);
 		}
 
-		playerScript->SetFollowers(nullptr, nullptr);
+		//playerScript->SetFollowers(nullptr, nullptr);
 #endif
 
 		Scene::Initialize();

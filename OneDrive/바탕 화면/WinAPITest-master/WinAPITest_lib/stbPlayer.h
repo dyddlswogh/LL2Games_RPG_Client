@@ -2,6 +2,7 @@
 #include "..\\WinAPITest_Source\\stbGameObject.h"
 #include "..\\WinAPITest_Source\\\stbTransform.h"
 #include "..\\WinAPITest_Source\\\stbAnimator.h"
+#include "..\\WinAPITest_Source\\\stbDamageText.h"
 #include "..\\WinAPITest_Source\\\BoxCollider2D.h"
 #include "..\\WinAPITest_Source\\Stat.h"
 #include "..\\WinAPITest_Source\\\InventoryManager.h"
@@ -72,6 +73,11 @@ namespace stb
 		bool IsLocalPlayer() { return m_isLocalPlayer; }
 
 		Animator* GetAnimator() { return m_animator; }
+
+	public:
+		void OnDamaged(int damage, int curHp);
+		void ShowDamageText(int damage);
+
 	private:
 		WeaponType m_weaponType = WeaponType::None;
 		
@@ -100,6 +106,7 @@ namespace stb
 	private:
 		Transform* m_transform;
 		Animator* m_animator;
+		DamageText* m_damageText;
 		BoxCollider2D* m_collider;
 		PlayerScript* m_script;
 
