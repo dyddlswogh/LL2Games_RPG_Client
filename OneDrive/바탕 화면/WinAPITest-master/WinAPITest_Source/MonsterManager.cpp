@@ -84,4 +84,33 @@ void MonsterManager::ApplyAttackResult(const AttackResult& result)
     monster->ApplyAttackResult(result);
 }
 
+void MonsterManager::RespawnMonster(const MonsterUpdateInfo& info)
+{
+    auto it = m_monsters.find(info.instanceId);
+
+    if (it != m_monsters.end())
+    {
+        // 이미 있으면 재활성화(부활) 처리
+        it->second->RespawnFromServer(info);
+        OutputDebugStringA("Monster Respawn (existing)\n");
+        return;
+    }
+
+ 
+    MonsterSpawnInfo spawn{};
+    spawn.instanceId = info.instanceId;
+    spawn.monsterId = info.monsterId;
+    spawn.pos = info.pos;
+    spawn.dir = info.dir;
+    spawn.moveSpeed = 0;
+    spawn.curHp = info.curHp;
+    spawn.maxHp = info.maxHp;
+    spawn.state = info.state;
+
+ 
+    SpawnMonster(spawn);
+
+    OutputDebugStringA("Monster Respawn (created)\n");
+}
+
 

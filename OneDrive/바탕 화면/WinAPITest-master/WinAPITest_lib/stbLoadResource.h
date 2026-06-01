@@ -73,18 +73,21 @@ namespace stb
 		// 아이템 리소스
 		RESOURCEMANAGER->Load<Texture>(L"Item_Red_Potion", L"Resources\\Item\\Item_Red_Potion.png");
 		RESOURCEMANAGER->Load<Texture>(L"Item_Blue_Potion", L"Resources\\Item\\Item_Blue_Potion.png");
-
+		RESOURCEMANAGER->LoadItemTextures();
 		// 체력바 UI 리소스
-		RESOURCEMANAGER->Load<Texture>(L"HealthBar_Background", L"Resources\\UI\\HealthBar\\main.status.normal.backgrnd.png");
-		RESOURCEMANAGER->Load<Texture>(L"HealthBar_hpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.hp.layer_0.png");	
-		RESOURCEMANAGER->Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.mp.layer_0.png");
-		RESOURCEMANAGER->Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
+		RESOURCEMANAGER->LoadHealthBarTextures();
 
 		// 몬스터 이미지 로드
 		RESOURCEMANAGER->LoadMonsterTextures();
 
 		// 플레이어 이미지 로드
 		RESOURCEMANAGER->LoadPlayerTextures();
+
+		// EXPUI 이미지 로드
+		RESOURCEMANAGER->LoadExpTextures();
+
+		// LevelUI 이미지 로드
+		RESOURCEMANAGER->LoadLevelTextures();
 
 		stbD2DRenderer& renderer = stb::Application::getInstance()->GetRenderer();
 		RESOURCEMANAGER->LoadAllD2D(renderer);

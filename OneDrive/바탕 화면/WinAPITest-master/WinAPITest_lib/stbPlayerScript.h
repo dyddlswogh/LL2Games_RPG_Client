@@ -40,6 +40,7 @@ namespace stb
 		void Move();
 		void Attack();
 		void Jump();
+		void PickUp();
 		void HandleInput();
 		void HandleCombatInput();
 		void ExecuteBind(const KeyBindInfo& bindInfo);

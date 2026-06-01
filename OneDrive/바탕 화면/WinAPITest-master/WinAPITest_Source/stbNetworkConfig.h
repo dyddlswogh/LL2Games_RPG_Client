@@ -19,8 +19,8 @@ namespace stb
         //static constexpr const char* SERVER_IP = "100.114.42.54";  // 실제 서버 IP로 변경!
        
         // 서버 포트
-        static constexpr int SERVER_PORT = 1234;  // 서버 포트에 맞게 변경
-        //static constexpr int SERVER_PORT = 9001;  // 서버 포트에 맞게 변경
+        //static constexpr int SERVER_PORT = 1234;  // 서버 포트에 맞게 변경
+        static constexpr int SERVER_PORT = 9001;  // 서버 포트에 맞게 변경
         
         // 캐릭터 ID (명령줄 인자로 설정됨)
         static const char* GetCharacterId() { return g_CharacterId; }

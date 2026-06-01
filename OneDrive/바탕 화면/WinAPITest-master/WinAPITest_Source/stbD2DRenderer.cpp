@@ -204,6 +204,28 @@ bool stbD2DRenderer::CreateTextFormats()
         OutputDebugString(L"Create title text format failed\n");
         return false;
     }
+    
+
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"메이플스토리",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        17.0f,
+        L"ko-kr",
+        m_NicknameTextFormat.GetAddressOf());
+
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"메이플스토리",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        9.0f,
+        L"ko-kr",
+        m_ExpTextFormat.GetAddressOf());
+
 
     /*
         SetTextAlignment：가로 정렬
@@ -223,6 +245,11 @@ bool stbD2DRenderer::CreateTextFormats()
     m_QuickSlotTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
     m_QuickSlotTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 
+    m_NicknameTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+    m_NicknameTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+
+    m_ExpTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+    m_ExpTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
     return true;
 }
 
@@ -493,6 +520,14 @@ void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F&
 
     case TextStyle::QuickSlot:
         textFormat = m_QuickSlotTextFormat.Get();
+        break;
+
+    case TextStyle::NickName:
+        textFormat = m_NicknameTextFormat.Get();
+        break;
+
+    case TextStyle::EXP:
+        textFormat = m_ExpTextFormat.Get();
         break;
 
     case TextStyle::Body:

@@ -35,12 +35,14 @@ namespace stb
 		void Render(HDC hdc) override;
 		void Render(stbD2DRenderer& renderer);
 
-		void SetStat(BaseStat baseStat, DerivedStat derived, int cur_hp, int cur_mp, int remainAp);
+		void SetStat(BaseStat baseStat, DerivedStat derived, ExpStat expStat, int cur_hp, int cur_mp, int remainAp);
 		void SetPlayerInfo(PlayerIdentity playeridentity, PlayerProfile playerProfile, PlayerLocation playerlocation);
 		void PlayAttackAnimation(int skillId);
 	public:
 		Stat* GetStat() { return &m_stat; }
 		InventoryManager* GetInvenManager() { return m_inven; }
+
+		const std::string GetPlayerName() { return m_playerProfile.name; }
 
 		const PlayerIdentity* GetPlayerIdentity() const { return &m_playerIdentity; }
 		PlayerIdentity* GetPlayerIdentity() { return &m_playerIdentity; }

@@ -21,6 +21,8 @@ enum class TextStyle
 	Title,
 	Small,
 	QuickSlot,
+	NickName,
+	EXP,
 };
 
 class stbD2DRenderer
@@ -80,6 +82,8 @@ private:
 	ComPtr<IDWriteTextFormat> m_BodyTextFormat;
 	ComPtr<IDWriteTextFormat> m_SmallTextFormat;
 	ComPtr<IDWriteTextFormat> m_QuickSlotTextFormat;
+	ComPtr<IDWriteTextFormat> m_NicknameTextFormat;
+	ComPtr<IDWriteTextFormat> m_ExpTextFormat;
 	// WIC에서 디코더, 포멧 컨버터 같은 걸 만드는 팩토리
 	ComPtr<IWICImagingFactory> m_WicFactory;
 	ComPtr<ID2D1Bitmap> m_Bitmap;

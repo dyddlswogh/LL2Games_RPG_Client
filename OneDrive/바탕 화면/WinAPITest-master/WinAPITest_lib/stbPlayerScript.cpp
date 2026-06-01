@@ -8,8 +8,9 @@
 #include "PlayerManager.h"
 #include "QuickSlotManager.h"
 #include "UIManager.h"
-#include "stbPlayer.h"
 #include "PlayerAnimationManager.h"
+#include "stbSceneManager.h"
+#include "stbPlayScene.h"
 
 
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
@@ -17,6 +18,7 @@
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 #define M_PLAYERANIMMANAGER stb::SingletonBase<PlayerAnimationManager>::getInstance()
+#define M_SCENEMANAGER stb::SingletonBase<stb::SceneManager>::getInstance()
 
 namespace stb
 {
@@ -225,6 +227,28 @@ namespace stb
 		
 	}
 
+	void PlayerScript::PickUp()
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		if (tr == nullptr)
+			return;
+
+		stb::Scene* scene = M_SCENEMANAGER->GetActiveScene();
+
+		if (scene == nullptr)
+			return;
+
+		PlayScene* playScene = dynamic_cast<PlayScene*>(scene);
+		if (playScene == nullptr)
+			return;
+
+		DropItemManager* dropManager = playScene->GetDropItemManager();
+		if (dropManager == nullptr)
+			return;
+
+		dropManager->RequestPickup(tr->GetPosition());
+	}
+
 	void PlayerScript::HandleInput()
 	{
 		KeyBindInfo bindInfo;
@@ -295,6 +319,10 @@ namespace stb
 		case eActionCode::SkillWindow:
 			OutputDebugStringA("Action : SkillWindow\n");
 			// TODO : 스킬창 UI 열기
+			break;
+		case eActionCode::PickUp:
+			OutputDebugStringA("Action : PickUp\n");
+			PickUp();
 			break;
 
 		default:

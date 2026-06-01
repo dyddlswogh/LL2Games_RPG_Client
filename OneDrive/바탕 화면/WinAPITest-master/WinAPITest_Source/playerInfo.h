@@ -16,6 +16,13 @@ struct DerivedStat
 	int maxMp;
 };
 
+struct ExpStat
+{
+	int level;
+	int64_t exp;
+	int64_t need_exp;
+};
+
 struct PlayerIdentity
 {
 	int charId = 0;

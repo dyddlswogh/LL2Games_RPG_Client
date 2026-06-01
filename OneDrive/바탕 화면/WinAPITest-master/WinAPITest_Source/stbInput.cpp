@@ -95,6 +95,7 @@ namespace stb
 		m_keyBindings[eKeyCode::SPACE] = { eBindType::Action, (int)eActionCode::Interact };
 		m_keyBindings[eKeyCode::I] = { eBindType::Action, (int)eActionCode::Inventory };
 		m_keyBindings[eKeyCode::K] = { eBindType::Action, (int)eActionCode::SkillWindow };
+		m_keyBindings[eKeyCode::Z] = { eBindType::Action, (int)eActionCode::PickUp };
 
 
 		// ?˜ˆ?‹œ

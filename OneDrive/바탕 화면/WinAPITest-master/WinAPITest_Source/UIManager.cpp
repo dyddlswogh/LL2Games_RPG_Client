@@ -5,14 +5,19 @@
 #include "HealthBarUI.h"
 #include "TradeUI.h"
 #include "ChatUI.h"
+#include "ExpBarUI.h"
+#include "LevelUI.h"
 
 UIManager::UIManager()
 {
 	m_inventoryUI = new InventoryUI();
 	m_quickslotUI = new QuickSlotUI();
 	m_healthBarUI = new HealthBarUI();
+	m_expBarUI = new ExpBarUI();
+	m_levelUI = new LevelUI();
 	m_tradeUI = new TradeUI();
 	m_chatUI = new ChatUI();
+	
 }
 
 void UIManager::Init()
@@ -20,14 +25,20 @@ void UIManager::Init()
 	m_inventoryUI->Init();
 	m_quickslotUI->Init();
 	m_healthBarUI->Init();
+	m_expBarUI->Init();
+	m_levelUI->Init();
 	m_tradeUI->Init();
 	m_chatUI->Init();
+	
 
 	mUIs.push_back(m_inventoryUI);
 	mUIs.push_back(m_quickslotUI);
 	mUIs.push_back(m_healthBarUI);
+	mUIs.push_back(m_expBarUI);
+	mUIs.push_back(m_levelUI);
 	mUIs.push_back(m_tradeUI);
 	mUIs.push_back(m_chatUI);
+	
 
 
 	char msg[128];

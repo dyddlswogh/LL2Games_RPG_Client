@@ -9,18 +9,31 @@
 namespace Convert
 {
 	/*
-	string_viewëŠ” ë¬¸ìì—´ì„ ë³µì‚¬í•˜ì§€ ì•Šê³  ì°¸ì¡°ë§Œ í•˜ëŠ” ê°ì²´ì´ë‹¤.
+	string_view´Â ¹®ÀÚ¿­À» º¹»çÇÏÁö ¾Ê°í ÂüÁ¶¸¸ ÇÏ´Â °´Ã¼ÀÌ´Ù.
 	*/
 	inline bool StringToInt(std::string_view s, int& output)
 	{
-		// stringì˜ data í•¨ìˆ˜ëŠ” ë¬¸ìì—´ì˜ ì‹œì‘ ì£¼ì†Œë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+		// stringÀÇ data ÇÔ¼ö´Â ¹®ÀÚ¿­ÀÇ ½ÃÀÛ ÁÖ¼Ò¸¦ °¡Á®¿Â´Ù.
 		const char* b = s.data();
 		const char* e = s.data() + s.size();
 
-		// from_charsëŠ” bë¶€í„° eì „ê¹Œì§€ ë¬¸ìë¥¼ ì½ì–´ì„œ ì •ìˆ˜ë¡œ í•´ì„í•˜ê³  ê·¸ ê²°ê³¼ë¥¼ outputì— ì €ì¥í•œë‹¤.
-		// êµ¬ì¡° ë¶„í•´ ë¬¸ë²•ìœ¼ë¡œì„œ p : ì–´ë””ê¹Œì§€ ì½ì—ˆëŠ”ì§€ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°, ec : ì—ëŸ¬ ì½”ë“œ
+		// from_chars´Â bºÎÅÍ eÀü±îÁö ¹®ÀÚ¸¦ ÀĞ¾î¼­ Á¤¼ö·Î ÇØ¼®ÇÏ°í ±× °á°ú¸¦ output¿¡ ÀúÀåÇÑ´Ù.
+		// ±¸Á¶ ºĞÇØ ¹®¹ıÀ¸·Î¼­ p : ¾îµğ±îÁö ÀĞ¾ú´ÂÁö °¡¸®Å°´Â Æ÷ÀÎÅÍ, ec : ¿¡·¯ ÄÚµå
 		auto [p, ec] = std::from_chars(b, e, output);
-		// ec == std::errc{}ì˜ ì˜ë¯¸ëŠ” ì—ëŸ¬ ì—†ìŒ
+		// ec == std::errc{}ÀÇ ÀÇ¹Ì´Â ¿¡·¯ ¾øÀ½
+		return ec == std::errc{} && p == e;
+	}
+
+	inline bool StringToInt64(std::string_view s, int64_t& output)
+	{
+		// stringÀÇ data ÇÔ¼ö´Â ¹®ÀÚ¿­ÀÇ ½ÃÀÛ ÁÖ¼Ò¸¦ °¡Á®¿Â´Ù.
+		const char* b = s.data();
+		const char* e = s.data() + s.size();
+
+		// from_chars´Â bºÎÅÍ eÀü±îÁö ¹®ÀÚ¸¦ ÀĞ¾î¼­ Á¤¼ö·Î ÇØ¼®ÇÏ°í ±× °á°ú¸¦ output¿¡ ÀúÀåÇÑ´Ù.
+		// ±¸Á¶ ºĞÇØ ¹®¹ıÀ¸·Î¼­ p : ¾îµğ±îÁö ÀĞ¾ú´ÂÁö °¡¸®Å°´Â Æ÷ÀÎÅÍ, ec : ¿¡·¯ ÄÚµå
+		auto [p, ec] = std::from_chars(b, e, output);
+		// ec == std::errc{}ÀÇ ÀÇ¹Ì´Â ¿¡·¯ ¾øÀ½
 		return ec == std::errc{} && p == e;
 	}
 
@@ -29,12 +42,12 @@ namespace Convert
 		char* end = nullptr;
 		errno = 0;
 		out = std::strtof(s.c_str(), &end);
-		if (errno != 0) return false;                // ë²”ìœ„ ì˜¤ë¥˜ ë“±
-		if (end == s.c_str()) return false;          // ë³€í™˜ëœ ê²Œ ì—†ìŒ
-		return *end == '\0';                         // ëê¹Œì§€ ë‹¤ ì†Œë¹„í–ˆëŠ”ì§€
+		if (errno != 0) return false;                // ¹üÀ§ ¿À·ù µî
+		if (end == s.c_str()) return false;          // º¯È¯µÈ °Ô ¾øÀ½
+		return *end == '\0';                         // ³¡±îÁö ´Ù ¼ÒºñÇß´ÂÁö
 	};
 
-	// wstring(UTF-16) â†’ string(UTF-8) ë³€í™˜
+	// wstring(UTF-16) ¡æ string(UTF-8) º¯È¯
 	inline std::string WstrToUtf8(const std::wstring& wstr)
 	{
 		if (wstr.empty())
@@ -59,7 +72,7 @@ namespace Convert
 		return result;
 	}
 
-	// string(UTF-8) â†’ wstring(UTF-16) ë³€í™˜ (ì—­ë°©í–¥, í•„ìš” ì‹œ ì‚¬ìš©)
+	// string(UTF-8) ¡æ wstring(UTF-16) º¯È¯ (¿ª¹æÇâ, ÇÊ¿ä ½Ã »ç¿ë)
 	inline std::wstring Utf8ToWstr(const std::string& str)
 	{
 		if (str.empty())
@@ -78,6 +91,37 @@ namespace Convert
 			CP_UTF8, 0,
 			str.c_str(), (int)str.size(),
 			&result[0], wideLen);
+
+		return result;
+	}
+
+	inline std::wstring StringToWString(const std::string& str)
+	{
+		if (str.empty())
+			return L"";
+
+		int sizeNeeded = MultiByteToWideChar(
+			CP_UTF8,
+			0,
+			str.c_str(),
+			-1,
+			nullptr,
+			0
+		);
+
+		if (sizeNeeded <= 0)
+			return L"";
+
+		std::wstring result(sizeNeeded - 1, L'\0');
+
+		MultiByteToWideChar(
+			CP_UTF8,
+			0,
+			str.c_str(),
+			-1,
+			result.data(),
+			sizeNeeded
+		);
 
 		return result;
 	}

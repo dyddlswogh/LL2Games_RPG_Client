@@ -6,8 +6,10 @@
 #include "UIManager.h"
 #include "InventoryUI.h"
 
+
 #define M_PLMANAGER stb::SingletonBase<PlayerManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
+
 
 void ItemPacketHandler::Execute(const ParsedPacket& pkt)
 {
@@ -157,6 +159,89 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
     }
 }
 
+void ItemPacketHandler::HandlePickUpItem(const ParsedPacket& pkt)
+{
+    try
+    {
+        size_t offset = 0;
+        const char* data = pkt.payload.c_str();
+        size_t payloadSize = pkt.payload.size();
+        std::string errMsg;
+
+        int itemSize = 0;
+
+        auto localPlayer = M_PLMANAGER->GetLocalPlayer();
+        if (localPlayer == nullptr)
+        {
+            throw std::runtime_error("localPlayer is nullptr");
+        }
+        auto inventoryManager = localPlayer->GetInvenManager();
+        if (inventoryManager == nullptr)
+        {
+            throw std::runtime_error("inventoryManager is nullptr");
+        }
+
+
+        if (!PacketParser::ParseNextIntField(data, payloadSize, offset, itemSize, errMsg))
+        {
+            throw std::runtime_error(errMsg);
+        }
+        
+        for (int i = 0; i < itemSize; i++)
+        {
+            PickUpItemData pickUpItemData{};
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, pickUpItemData.inventoryType, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, pickUpItemData.slotPos, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, pickUpItemData.itemId, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            if (!PacketParser::ParseNextIntField(data, payloadSize, offset, pickUpItemData.itemCount, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
+            auto inventory = inventoryManager->GetInventory(pickUpItemData.inventoryType);
+            if (inventory == nullptr)
+            {
+                throw std::runtime_error("inventory is nullptr");
+            }
+
+            if (!inventory->SetSlot(pickUpItemData.slotPos, pickUpItemData.itemId, pickUpItemData.itemCount))
+            {
+                
+            }
+        }
+
+        InventoryUI* inventoryUI = M_UIMANAGER->GetInventoryUI();
+        if (inventoryUI == nullptr)
+        {
+            throw std::runtime_error("inventoryUI is nullptr");
+        }
+
+        inventoryUI->UpdateInventoryByType();
+    }
+    catch (std::exception& e)
+    {
+        OutputDebugStringA(e.what());
+        OutputDebugStringA("\n");
+    }
+    catch (...)
+    {
+        OutputDebugStringA("예상치 못한 에러입니다.\n\n");
+    }
+}
+
 
 void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
 {
@@ -167,10 +252,19 @@ void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
     data.push_back(std::to_string(inventoryitemInfo->itemId));
     data.push_back(std::to_string(inventoryitemInfo->useCount));
 
-    std::string DebugMsg = "Use_Count :" + std::to_string(inventoryitemInfo->useCount) + "\n";
-
-    OutputDebugStringA(DebugMsg.c_str());
-
+ 
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_USE_ITEM, data);
     OutputDebugStringA("[PKT_PLAYER_USE_ITEM 전송 완료]\n\n");
+}
+
+void ItemPacketHandler::SendPickupDropItem(int dropId)
+{
+    std::vector<std::string> payload;
+
+    payload.push_back(std::to_string(dropId));
+
+    stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_PICKUP_ITEM, payload);
+    OutputDebugStringA("[PKT_PLAYER_PICKUP_ITEM 전송 완료]\n\n");
+    std::string DebugMsg = "Drop ID = " + std::to_string(dropId) + "\n";
+    OutputDebugStringA(DebugMsg.c_str());
 }

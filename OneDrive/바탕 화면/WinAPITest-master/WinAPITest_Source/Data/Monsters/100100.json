@@ -29,8 +29,7 @@
       "frame_prefix": "die1.",
       "frame_count": 8,
       "delay_ms": 120,
-      "events" : {
-        "start" : "MonsterDieStart",
+      "event" : {
         "complete" : "MonsterDieEnd"
       }
     }

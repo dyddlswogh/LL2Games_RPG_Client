@@ -30,7 +30,7 @@ struct MonsterSpawnInfo
 struct MonsterUpdateInfo
 {
 	int instanceId;
-
+	int monsterId = 0;
 	int dir;
 	int moveSpeed;
 	int curHp;

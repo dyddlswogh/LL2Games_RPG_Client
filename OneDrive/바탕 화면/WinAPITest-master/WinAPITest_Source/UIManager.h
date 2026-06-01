@@ -1,11 +1,8 @@
 #pragma once
 #include "CommonInclude.h"
 #include "stbSingletonBase.h"
-<<<<<<< HEAD
 #include "stbMath.h"
-=======
 #include "Trade_Info.h"
->>>>>>> main
 
 class UI;
 class InventoryUI;
@@ -14,6 +11,8 @@ class HealthBarUI;
 class stbD2DRenderer;
 class TradeUI;
 class ChatUI;
+class ExpBarUI;
+class LevelUI;
 
 class UIManager : public stb::SingletonBase<UIManager>
 {
@@ -27,8 +26,6 @@ public:
 	void ToggleInventory();
 
 public:
-	InventoryUI* GetInventoryUI() { return m_inventoryUI; }
-	QuickSlotUI* GetQuickSlotUI() { return m_quickslotUI; }
 	//교환
 	void OpenTradeUI();
 	void CloseTradeUI();
@@ -42,11 +39,17 @@ public:
 	void AppendChatMessage(const std::wstring& nick, const std::wstring& msg);
 	void SubmitChatInput();
 
+public:
+	InventoryUI* GetInventoryUI() { return m_inventoryUI; }
+	QuickSlotUI* GetQuickSlotUI() { return m_quickslotUI; }
+	ExpBarUI* GetExpBarUI() { return m_expBarUI; }
 private:
 	std::vector<UI*> mUIs;
 	InventoryUI* m_inventoryUI = nullptr;
 	QuickSlotUI* m_quickslotUI = nullptr;
 	HealthBarUI* m_healthBarUI = nullptr;
+	ExpBarUI* m_expBarUI = nullptr;
+	LevelUI* m_levelUI = nullptr;
 
 	TradeUI* m_tradeUI = nullptr; //교환
 	ChatUI* m_chatUI = nullptr; //채팅

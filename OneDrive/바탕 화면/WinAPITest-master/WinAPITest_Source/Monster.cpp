@@ -153,7 +153,16 @@ void Monster::SetAnimation()
 		eventNames.completeEventName = utils::StringToWString(info.animationEvent.complete);
 		eventNames.endEventName = utils::StringToWString(info.animationEvent.end);
 
-		m_animator->SetAnimationEventNames(utils::StringToWString(info.anim_name), eventNames);	
+		m_animator->SetAnimationEventNames(utils::StringToWString(info.anim_name), eventNames);
+
+		OutputDebugStringW(utils::StringToWString(info.animationEvent.end).c_str());
+
+		// 디버그 출력: animation name과 이벤트 이름들을 출력
+		std::wstring dbg = L"SetAnimationEventNames: anim=" + utils::StringToWString(info.anim_name)
+			+ L" start=" + eventNames.startEventName
+			+ L" complete=" + eventNames.completeEventName
+			+ L" end=" + eventNames.endEventName + L"\n";
+		OutputDebugStringW(dbg.c_str());
 	}
 }
 void Monster::SetCollider()
@@ -195,6 +204,7 @@ void Monster::BindAnimationEvents()
 		{
 			OutputDebugStringA("MonsterDieEnd event called\n");
 			m_isDeathAnimationFinished = true;
+			m_isDead = true;
 
 		});
 }
@@ -221,7 +231,7 @@ void Monster::ApplyServerUpdate(const MonsterUpdateInfo& info)
 	if (wasDead && info.curHp > 0 && info.state != MonsterState::E_Die)
 	{
 		m_isDeathAnimationFinished = false;
-
+		m_isDead = false;
 		// 위치도 바로 스폰 위치로 맞추는 게 좋음
 		m_transform->SetPosition(info.pos);
 		m_targetPos = info.pos;
@@ -278,9 +288,7 @@ void Monster::ResetFromSpawnInfo(const MonsterSpawnInfo& info)
 	m_maxHp = info.maxHp;
 	m_state = info.state;
 
-	m_isDead = false;
-
-	m_state = MonsterState::E_NONE; // 있으면 추천
+	m_state = MonsterState::E_Idle; // 있으면 추천
 	m_isDead = false;
 
 	if (m_transform != nullptr)

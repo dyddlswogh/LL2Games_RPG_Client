@@ -61,6 +61,10 @@ namespace stb
 		void LoadAllD2D(stbD2DRenderer& renderer);
 		void LoadMonsterTextures();
 		void LoadPlayerTextures();
+		void LoadItemTextures();
+		void LoadHealthBarTextures();
+		void LoadExpTextures();
+		void LoadLevelTextures();
 
 	private:
 		std::map<std::wstring, Resource*> mResources;

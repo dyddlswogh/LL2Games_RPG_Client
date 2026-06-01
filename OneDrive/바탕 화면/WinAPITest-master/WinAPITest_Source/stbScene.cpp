@@ -76,6 +76,8 @@ namespace stb
 
 			layer->Render(renderer);
 		}
+
+		dropItemManager.Render(renderer);
 	}
 
 

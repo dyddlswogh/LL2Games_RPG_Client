@@ -1,5 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
+#include "stbMath.h"
 
 struct STRInventoryMetaInfo
 {
@@ -60,9 +61,26 @@ struct ItemData
 
 	int hpRestore = 0;
 	int mpRestore = 0;
-
-	std::string resourceName;
 };
+
+struct DropItemData
+{
+	DropItemData() = default;
+	int dropId = 0;
+	int itemId = 0;
+	int count = 0;
+	stb::math::Vector2 itemPos{};
+
+};
+
+struct PickUpItemData
+{
+	int inventoryType;
+	int slotPos;
+	int itemId;
+	int itemCount;
+};
+
 
 struct UseItemResult {
 	int result;

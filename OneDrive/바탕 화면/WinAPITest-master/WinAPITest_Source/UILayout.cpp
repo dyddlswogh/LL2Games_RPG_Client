@@ -3,6 +3,7 @@
 #include <algorithm>
 
 
+
 UIRect UILayout::CalcRect(
     int windowWidth,
     int windowHeight,
@@ -55,3 +56,14 @@ UIRect UILayout::CalcRect(
 
     return rc;
 }
+
+
+ D2D1_RECT_F UILayout::ToD2DRect(const UIRect& rc)
+ {
+     return D2D1::RectF(
+         static_cast<float>(rc.x),
+         static_cast<float>(rc.y),
+         static_cast<float>(rc.x + rc.width),
+         static_cast<float>(rc.y + rc.height)
+     );
+ }
