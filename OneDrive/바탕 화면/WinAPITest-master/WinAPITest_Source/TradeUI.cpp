@@ -816,8 +816,7 @@ void TradeUI::RenderInventorySlotItem(stbD2DRenderer& renderer)
         if (itemData == nullptr)
             continue;
 
-        std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
-        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(std::to_wstring(itemData->itemId));
         if (texture == nullptr)
             continue;
 
@@ -859,8 +858,7 @@ void TradeUI::RenderTradeSlotItem(stbD2DRenderer& renderer)
         if (itemData == nullptr)
             continue;
 
-        std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
-        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(std::to_wstring(itemData->itemId));
         if (texture == nullptr)
             continue;
 
@@ -897,8 +895,7 @@ void TradeUI::RenderTradeSlotItem(stbD2DRenderer& renderer)
         if (itemData == nullptr)
             continue;
 
-        std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
-        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+        stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(std::to_wstring(itemData->itemId));
         if (texture == nullptr)
             continue;
 
@@ -934,8 +931,7 @@ void TradeUI::RenderDraggingItem(stbD2DRenderer& renderer)
     if (itemData == nullptr)
         return;
 
-    std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
-    stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
+    stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(std::to_wstring(itemData->itemId));
     if (texture == nullptr)
         return;
 
