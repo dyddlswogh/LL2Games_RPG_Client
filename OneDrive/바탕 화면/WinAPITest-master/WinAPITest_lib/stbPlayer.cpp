@@ -10,7 +10,7 @@
 namespace stb
 {
 	Player::Player() : m_inven(InventoryManager::getInstance()), m_playerState(PlayerState::None),
-					   m_transform(nullptr), m_animator(nullptr), m_collider(nullptr), m_script(nullptr), m_isLocalPlayer(false)
+					   m_transform(nullptr), m_animator(nullptr), m_damageText(nullptr), m_collider(nullptr), m_script(nullptr), m_isLocalPlayer(false)
 	{
 		m_combatSystem.SetOwner(this);
 	}
@@ -20,6 +20,7 @@ namespace stb
 		m_transform = AddComponent<stb::Transform>();
 		m_transform->SetPosition(Vector2(300.0f, 100.0f));
 		m_animator = AddComponent<stb::Animator>();
+		m_damageText = AddComponent<stb::DamageText>();
 		m_collider = AddComponent<stb::BoxCollider2D>();
 		m_script = AddComponent<PlayerScript>();
 		m_quickSlotManager.Init();
@@ -126,7 +127,19 @@ namespace stb
 		}
 	}
 
+	void Player::OnDamaged(int damage, int curHp)
+	{
+		m_stat.SetCurHp(curHp);
+		ShowDamageText(damage);
 
+		// 필요하면 여기서 피격 상태/무적/넉백도 나중에 추가
+	}
+
+	void Player::ShowDamageText(int damage)
+	{
+		if (m_damageText != nullptr)
+			m_damageText->AddDamage(damage);
+	}
 
 }
 

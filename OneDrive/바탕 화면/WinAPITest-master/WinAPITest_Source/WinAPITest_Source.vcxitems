@@ -72,6 +72,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)stbCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbD2DRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbDamageText.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbDontDestroyOnLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbEnums.h" />
@@ -101,6 +102,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ItemPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TradeManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TradePacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeRequestUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TradeUI.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Trade_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UI.h" />
@@ -155,6 +157,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbD2DRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbDamageText.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbDontDestroyOnLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)stbGameObject.cpp" />
@@ -178,6 +181,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)itemPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TradePacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeRequestUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UI.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UILayout.cpp" />

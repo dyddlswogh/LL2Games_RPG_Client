@@ -37,6 +37,13 @@ bool PacketManager::RegisterAllHandlers()
 			PlayerDataPacketHandler::HandleLocalPlayerStat(pkt);
 		});
 
+	// 플레이어 온데미지 핸들러 등록
+	networkManager->RegisterHandler(PKT_PLAYER_ONDAMAGED,
+		[](const ParsedPacket& pkt)
+		{
+			PlayerDataPacketHandler::HandlePlayerOnDamaged(pkt);
+		});
+
 	// 플레이어 인벤토리 핸들러 등록
 	networkManager->RegisterHandler(PKT_INVENTORY_META_INFO,
 		[](const ParsedPacket& pkt)
@@ -120,6 +127,7 @@ bool PacketManager::RegisterAllHandlers()
 		{
 			QuickSlotPacketHandler::HandleSlotSet(pkt);
 		});
+
 	// 교환 신청 핸들러 등록
 	networkManager->RegisterHandler(PKT_TRADE_REQUEST,
 		[](const ParsedPacket& pkt)
@@ -147,5 +155,40 @@ bool PacketManager::RegisterAllHandlers()
 		{
 			DropItemPacketHandler::HandleRemoveDropItem(pkt);
 		});
+	// 교환 시작 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_START,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeStart(pkt);
+		});
+
+	// 교환 취소 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_CANCEL,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeCancel(pkt);
+		});
+
+	// 교환 준비 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_READY,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeReady(pkt);
+		});
+
+	// 교환 완료 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_CONFIRM,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeComplete(pkt);
+		});
+
+	// 교환 아이템 추가 핸들러 등록
+	networkManager->RegisterHandler(PKT_TRADE_ADD_ITEM,
+		[](const ParsedPacket& pkt)
+		{
+			TradePacketHandler::HandleTradeAddItem(pkt);
+		});
+	
 	return true;
 }

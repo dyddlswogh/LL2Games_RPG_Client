@@ -182,6 +182,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MonsterDataManager.cpp">
       <Filter>Game\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerAnimationManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatPacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ChatUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradePacketHandler.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeRequestUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TradeUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)stbDamageText.cpp">
+      <Filter>Component\DamageText</Filter>
     <ClCompile Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ExpBarUI.cpp">
       <Filter>Game\UI\ExpBar</Filter>
@@ -430,6 +439,21 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CombatSystem_Info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatPacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ChatUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collider_Info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EquipeTypes.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerAnimationManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)QuickSlotUI_Info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradePacketHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeRequestUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TradeUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Trade_Info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)stbDamageText.h">
+      <Filter>Component\DamageText</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Collider_Info.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EquipeTypes.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)stbChatNetworkManager.h" />
@@ -596,6 +620,9 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{dec7ebc8-619d-4c7d-808d-7998b4f436ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\DamageText">
+      <UniqueIdentifier>{c2b76626-3bcd-4c06-9491-fffb3cfbda0a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\UI\ExpBar">
       <UniqueIdentifier>{6ebc0c82-7142-4958-8fe8-d50579d7f793}</UniqueIdentifier>

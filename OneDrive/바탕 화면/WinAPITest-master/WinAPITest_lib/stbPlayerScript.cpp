@@ -9,6 +9,7 @@
 #include "QuickSlotManager.h"
 #include "UIManager.h"
 #include "PlayerAnimationManager.h"
+#include "TradePacketHandler.h"
 #include "stbSceneManager.h"
 #include "stbPlayScene.h"
 
@@ -51,8 +52,8 @@ namespace stb
 
 		if (m_player->GetState() == PlayerState::Attack)
 		{
-			Idle(false);          // ÀÌµ¿Àº Ã³¸®ÇÏµÇ »óÅÂ´Â ¹Ù²ÙÁö ¾ÊÀ½
-			UpdateAttackState();  // °ø°İ Á¾·á ½Ã°£ Ã¼Å©
+			Idle(false);          // ì´ë™ì€ ì²˜ë¦¬í•˜ë˜ ìƒíƒœëŠ” ë°”ê¾¸ì§€ ì•ŠìŒ
+			UpdateAttackState();  // ê³µê²© ì¢…ë£Œ ì‹œê°„ ì²´í¬
 			return;
 		}
 
@@ -108,7 +109,7 @@ namespace stb
 	void PlayerScript::Idle(bool changeState)
 	{
 		if (M_UIMANAGER->IsInputFocused())
-			return; //Ã¤ÆÃ ÀÔ·ÂÁß -> ÀÌµ¿/°ø°İ Â÷´Ü
+			return; //ì±„íŒ… ì…ë ¥ì¤‘ -> ì´ë™/ê³µê²© ì°¨ë‹¨
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (tr == nullptr)
 			return;
@@ -277,12 +278,12 @@ namespace stb
 			ExecuteAction((eActionCode)bindInfo.value);
 			break;
 		case eBindType::Skill:
-			// TODO : ½ºÅ³ »ç¿ë ¿äÃ»
+			// TODO : ìŠ¤í‚¬ ì‚¬ìš© ìš”ì²­
 			// SkillManager::GetInstance()->UseSkill(bindInfo.value);
 			OutputDebugStringA("Skill Execute\n");
 			break;
 		case eBindType::Item:
-			// TODO : ¾ÆÀÌÅÛ »ç¿ë ¿äÃ»
+			// TODO : ì•„ì´í…œ ì‚¬ìš© ìš”ì²­
 			// ItemManager::GetInstance()->UseItem(bindInfo.value);
 			OutputDebugStringA("Item Execute\n");
 			break;
@@ -304,21 +305,37 @@ namespace stb
 		{
 		case eActionCode::Interact:
 			OutputDebugStringA("Action : Interact\n");
-			// TODO : »óÈ£ÀÛ¿ë ¿äÃ»
+			// TODO : ìƒí˜¸ì‘ìš© ìš”ì²­
 			break;
 		case eActionCode::Jump:
 			Jump();
 			OutputDebugStringA("Action : Jump\n");
-			// TODO : Á¡ÇÁ Ã³¸®
+			// TODO : ì í”„ ì²˜ë¦¬
 			break;
 		case eActionCode::Inventory:
 			OutputDebugStringA("Action : Inventory\n");
 			UIManager::getInstance()->ToggleInventory();
-			// TODO : ÀÎº¥Åä¸® UI ¿­±â
+			// TODO : ì¸ë²¤í† ë¦¬ UI ì—´ê¸°
 			break;
 		case eActionCode::SkillWindow:
 			OutputDebugStringA("Action : SkillWindow\n");
-			// TODO : ½ºÅ³Ã¢ UI ¿­±â
+			// TODO : ìŠ¤í‚¬ì°½ UI ì—´ê¸°
+
+#if 1 /* test */
+			UIManager::getInstance()->ToggleTradeUI();
+#endif /* test */
+			break;
+
+		case eActionCode::Trade:
+			OutputDebugStringA("Action : Trade\n");
+			//UIManager::getInstance()->OpenTradeUI();
+			//UIManager::getInstance()->ToggleTradeUI(); //test í† ê¸€
+			UIManager::getInstance()->OpenReqTradeUI(); //êµí™˜ì‹ ì²­
+			break;
+
+		case eActionCode::TradeCancel:
+			OutputDebugStringA("Action : Trade Cancel\n");
+			UIManager::getInstance()->CloseTradeUI(); //êµí™˜ì·¨ì†Œ
 			break;
 		case eActionCode::PickUp:
 			OutputDebugStringA("Action : PickUp\n");
