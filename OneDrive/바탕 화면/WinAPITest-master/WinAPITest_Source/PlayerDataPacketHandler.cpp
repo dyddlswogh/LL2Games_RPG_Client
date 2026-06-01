@@ -1,9 +1,16 @@
 #include "PlayerDataPacketHandler.h"
+#include "PacketData.h"
 #include "PacketParser.h"
 #include "PlayerManager.h"
 #include "PlayerManager.h"
+#include "ExpBarUI.h"
+#include "Stat.h"
+#include "UIManager.h"
 
+#define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 #define M_PLAYERMANAGER stb::SingletonBase<PlayerManager>::getInstance()
+
+
 
 void PlayerDataPacketHandler::HandleLocalPlayerInfo(const ParsedPacket& pkt)
 {
@@ -83,19 +90,6 @@ void PlayerDataPacketHandler::HandleLocalPlayerInfo(const ParsedPacket& pkt)
 
 void PlayerDataPacketHandler::HandleLocalPlayerStat(const ParsedPacket& pkt)
 {
-	/*
-	 payload.push_back(std::to_string(playerBastStat.str));
-    payload.push_back(std::to_string(playerBastStat.dex));
-    payload.push_back(std::to_string(playerBastStat.intel));
-    payload.push_back(std::to_string(playerBastStat.luck));
-
-    payload.push_back(std::to_string(playerStat.GetMaxHp()));
-    payload.push_back(std::to_string(playerStat.GetMaxMp()));
-    
-    payload.push_back(std::to_string(playerStat.GetCurHp()));
-    payload.push_back(std::to_string(playerStat.GetCurMp()));
-    payload.push_back(std::to_string(playerStat.GetRemainAp()));
-	*/
 	try
 	{
 		size_t offset = 0;
@@ -115,10 +109,11 @@ void PlayerDataPacketHandler::HandleLocalPlayerStat(const ParsedPacket& pkt)
 		}
 		BaseStat baseStat = {};
 		DerivedStat derived = {};
+		ExpStat expStat = {};
 		int cur_hp = 0;
 		int cur_mp = 0;
 		int remain_ap = 0;
-
+	
 		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, baseStat.str, errMsg))
 		{
 			throw std::runtime_error(errMsg);
@@ -164,12 +159,106 @@ void PlayerDataPacketHandler::HandleLocalPlayerStat(const ParsedPacket& pkt)
 			throw std::runtime_error(errMsg);
 		}
 
-		localPlayer->SetStat(baseStat, derived, cur_hp, cur_mp, remain_ap);
+		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, expStat.level, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		if (!PacketParser::ParseNextInt64Field(data, payloadSize, offset, expStat.exp, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		if (!PacketParser::ParseNextInt64Field(data, payloadSize, offset, expStat.need_exp, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		localPlayer->SetStat(baseStat, derived, expStat, cur_hp, cur_mp, remain_ap);
+
 		OutputDebugStringA("SetPlayerStat Success\n");
 	}
 	catch (const std::exception& e)
 	{
 		OutputDebugStringA("[HandleLocalPlayerStat] ");
+		OutputDebugStringA(e.what());
+		OutputDebugStringA("\n");
+	}
+	catch (...)
+	{
+		OutputDebugStringA("예상치 못한 에러 발생\n");
+	}
+}
+
+void PlayerDataPacketHandler::HandleLocalPlayerGetExp(const ParsedPacket& pkt)
+{
+	try
+	{
+		size_t offset = 0;
+		const char* data = pkt.payload.c_str();
+		size_t payloadSize = pkt.payload.size();
+		std::string errMsg;
+
+		auto playerManager = PlayerManager::getInstance();
+		if (playerManager == nullptr)
+		{
+			throw std::runtime_error("playerManager is nullptr");
+		}
+		auto localPlayer = playerManager->GetLocalPlayer();
+		if (localPlayer == nullptr)
+		{
+			throw std::runtime_error("localPlayer is nullptr");
+		}
+
+		Stat* stat = localPlayer->GetStat();
+
+		if (stat == nullptr)
+		{
+			throw std::runtime_error("stat is nullptr");
+		}
+		
+		ExpUpdateResult expResult{};
+		
+		bool isLevelUp = false;
+
+		if (!PacketParser::ParseNextInt64Field(data, payloadSize, offset, expResult.gainedExp, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, expResult.newLevel, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		if (!PacketParser::ParseNextInt64Field(data, payloadSize, offset, expResult.curExp, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		if (!PacketParser::ParseNextInt64Field(data, payloadSize, offset, expResult.needExp, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+		
+		int levelUpValue = 0;
+		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, levelUpValue, errMsg))
+		{
+			throw std::runtime_error(errMsg);
+		}
+
+		expResult.levelUp = (levelUpValue != 0);
+
+		stat->HandleExpGain(expResult);
+		std::string DebugMsg;
+		DebugMsg = "Exp : " + std::to_string(expResult.curExp) + "\n"
+			+ "needExp :" + std::to_string(expResult.needExp) + "\n";
+		OutputDebugStringA(DebugMsg.c_str());
+		OutputDebugStringA("HandleLocalPlayerGetExp Success\n");
+	}
+	catch (const std::exception& e)
+	{
+		OutputDebugStringA("[HandleLocalPlayerGetExp] ");
 		OutputDebugStringA(e.what());
 		OutputDebugStringA("\n");
 	}

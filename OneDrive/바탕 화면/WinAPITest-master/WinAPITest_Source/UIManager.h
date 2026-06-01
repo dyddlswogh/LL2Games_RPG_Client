@@ -13,6 +13,8 @@ class stbD2DRenderer;
 class TradeUI;
 class ChatUI;
 class TradeRequestUI;
+class ExpBarUI;
+class LevelUI;
 
 class UIManager : public stb::SingletonBase<UIManager>
 {
@@ -26,8 +28,6 @@ public:
 	void ToggleInventory();
 
 public:
-	InventoryUI* GetInventoryUI() { return m_inventoryUI; }
-	QuickSlotUI* GetQuickSlotUI() { return m_quickslotUI; }
 	//교환
 	void ToggleTradeUI(); //test
 	void OpenTradeUI(const std::string& targetId, const std::string& targetName);
@@ -52,11 +52,17 @@ public:
 	void AppendChatMessage(const std::wstring& nick, const std::wstring& msg);
 	void SubmitChatInput();
 
+public:
+	InventoryUI* GetInventoryUI() { return m_inventoryUI; }
+	QuickSlotUI* GetQuickSlotUI() { return m_quickslotUI; }
+	ExpBarUI* GetExpBarUI() { return m_expBarUI; }
 private:
 	std::vector<UI*> mUIs;
 	InventoryUI* m_inventoryUI = nullptr;
 	QuickSlotUI* m_quickslotUI = nullptr;
 	HealthBarUI* m_healthBarUI = nullptr;
+	ExpBarUI* m_expBarUI = nullptr;
+	LevelUI* m_levelUI = nullptr;
 
 	TradeUI* m_tradeUI = nullptr; //교환
 	TradeRequestUI* m_tradeReqUI = nullptr; //교환

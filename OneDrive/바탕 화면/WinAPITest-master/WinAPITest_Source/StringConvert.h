@@ -9,18 +9,31 @@
 namespace Convert
 {
 	/*
-	string_view는 문자열을 복사하지 않고 참조만 하는 객체이다.
+	string_view??문자?�을 복사?��? ?�고 참조�??�는 객체?�다.
 	*/
 	inline bool StringToInt(std::string_view s, int& output)
 	{
-		// string의 data 함수는 문자열의 시작 주소를 가져온다.
+		// string??data ?�수??문자?�의 ?�작 주소�?가?�온??
 		const char* b = s.data();
 		const char* e = s.data() + s.size();
 
-		// from_chars는 b부터 e전까지 문자를 읽어서 정수로 해석하고 그 결과를 output에 저장한다.
-		// 구조 분해 문법으로서 p : 어디까지 읽었는지 가리키는 포인터, ec : 에러 코드
+		// from_chars??b부??e?�까지 문자�??�어???�수�??�석?�고 �?결과�?output???�?�한??
+		// 구조 분해 문법?�로??p : ?�디까�? ?�었?��? 가리키???�인?? ec : ?�러 코드
 		auto [p, ec] = std::from_chars(b, e, output);
-		// ec == std::errc{}의 의미는 에러 없음
+		// ec == std::errc{}???��????�러 ?�음
+		return ec == std::errc{} && p == e;
+	}
+
+	inline bool StringToInt64(std::string_view s, int64_t& output)
+	{
+		// string??data ?�수??문자?�의 ?�작 주소�?가?�온??
+		const char* b = s.data();
+		const char* e = s.data() + s.size();
+
+		// from_chars??b부??e?�까지 문자�??�어???�수�??�석?�고 �?결과�?output???�?�한??
+		// 구조 분해 문법?�로??p : ?�디까�? ?�었?��? 가리키???�인?? ec : ?�러 코드
+		auto [p, ec] = std::from_chars(b, e, output);
+		// ec == std::errc{}???��????�러 ?�음
 		return ec == std::errc{} && p == e;
 	}
 
@@ -29,12 +42,12 @@ namespace Convert
 		char* end = nullptr;
 		errno = 0;
 		out = std::strtof(s.c_str(), &end);
-		if (errno != 0) return false;                // 범위 오류 등
-		if (end == s.c_str()) return false;          // 변환된 게 없음
-		return *end == '\0';                         // 끝까지 다 소비했는지
+		if (errno != 0) return false;                // 범위 ?�류 ??
+		if (end == s.c_str()) return false;          // 변?�된 �??�음
+		return *end == '\0';                         // ?�까지 ???�비?�는지
 	};
 
-	// wstring(UTF-16) → string(UTF-8) 변환
+	// wstring(UTF-16) ??string(UTF-8) 변??
 	inline std::string WstrToUtf8(const std::wstring& wstr)
 	{
 		if (wstr.empty())
@@ -59,7 +72,7 @@ namespace Convert
 		return result;
 	}
 
-	// string(UTF-8) → wstring(UTF-16) 변환 (역방향, 필요 시 사용)
+	// string(UTF-8) ??wstring(UTF-16) 변??(??��?? ?�요 ???�용)
 	inline std::wstring Utf8ToWstr(const std::string& str)
 	{
 		if (str.empty())
@@ -148,11 +161,42 @@ namespace Convert
 		if (ansiResult <= 0)
 			return std::string();
 
-		// resize에 null 문자까지 포함되어 있으므로 제거
+		// resize�� null ���ڱ��� ���ԵǾ� �����Ƿ� ����
 		if (!ansi.empty() && ansi.back() == '\0')
 			ansi.pop_back();
 
 		return ansi;
+	}
+
+	inline std::wstring StringToWString(const std::string& str)
+	{
+		if (str.empty())
+			return L"";
+
+		int sizeNeeded = MultiByteToWideChar(
+			CP_UTF8,
+			0,
+			str.c_str(),
+			-1,
+			nullptr,
+			0
+		);
+
+		if (sizeNeeded <= 0)
+			return L"";
+
+		std::wstring result(sizeNeeded - 1, L'\0');
+
+		MultiByteToWideChar(
+			CP_UTF8,
+			0,
+			str.c_str(),
+			-1,
+			result.data(),
+			sizeNeeded
+		);
+
+		return result;
 	}
 };
 

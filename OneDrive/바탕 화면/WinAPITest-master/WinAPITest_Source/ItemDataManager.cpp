@@ -64,8 +64,7 @@ bool ItemDataManager::LoadJsonFile(const std::string& path, ItemData& itemData)
     itemData.type = Item::SetItemType(j.at("type").get<std::string>());
     itemData.stackable = j.at("stackable").get<bool>();
     itemData.maxStack = j.at("max_stack").get<int>();
-    itemData.resourceName = j.at("resource_name").get<std::string>();
-
+   
     const auto& ue = j.at("tooltip").at(0);
     
     itemData.hpRestore = ue.at("hp_restore").get<int>();

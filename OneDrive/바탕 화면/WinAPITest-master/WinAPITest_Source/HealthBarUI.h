@@ -2,6 +2,7 @@
 #include "UI.h"
 #include "UILayout.h"
 #include "stbTexture.h"
+#include <array>
 
 class HealthBarUI : public UI
 {
@@ -22,10 +23,12 @@ private:
 	stb::Texture* m_hpLayer = nullptr;
 	stb::Texture* m_mpLayer = nullptr;
 	stb::Texture* m_guage = nullptr;
+	stb::Texture* m_slash = nullptr;
 
 	UIRect m_UIRect;
 private:
-
-	
+	std::array<stb::Texture*, 10> m_numbers{};
+	UIRect m_hpBarRect{};
+	UIRect m_mpBarRect{};
 };
 

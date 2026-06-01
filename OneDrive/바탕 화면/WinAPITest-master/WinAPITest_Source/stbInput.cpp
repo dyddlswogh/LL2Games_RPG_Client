@@ -96,6 +96,7 @@ namespace stb
 		m_keyBindings[eKeyCode::I] = { eBindType::Action, (int)eActionCode::Inventory };
 		m_keyBindings[eKeyCode::K] = { eBindType::Action, (int)eActionCode::SkillWindow };
 		m_keyBindings[eKeyCode::T] = { eBindType::Action, (int)eActionCode::Trade };
+		m_keyBindings[eKeyCode::Z] = { eBindType::Action, (int)eActionCode::PickUp };
 
 		//교환 취소 임시(X)
 		m_keyBindings[eKeyCode::X] = { eBindType::Action, (int)eActionCode::TradeCancel };

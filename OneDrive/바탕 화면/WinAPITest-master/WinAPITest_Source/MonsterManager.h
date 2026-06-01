@@ -17,6 +17,7 @@ public:
     void RemoveMonster(int instanceId);
     void ApplyServerUpdate(const MonsterUpdateInfo& info);
     void ApplyAttackResult(const AttackResult& result);
+    void RespawnMonster(const MonsterUpdateInfo& info);
     //void ApplyMonsterDamage(const MonsterHitInfo& info);
 
 

@@ -75,7 +75,7 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
         drawWidth,
         drawHeight,
         UIAnchor::BottomRight,
-        10,
+        2,
         15
     );
 
@@ -85,10 +85,10 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
         (FLOAT)m_UIRect.y,
         (FLOAT)m_UIRect.width,
         (FLOAT)m_UIRect.height,
-        0.5f
+        0.3f
     );
     CreateSlotRect();
-    RenderTestBox(renderer);
+    //RenderTestBox(renderer);
     RenderSlotItem(renderer);
     RednerSlotText(renderer);
 }
@@ -146,11 +146,8 @@ void QuickSlotUI::RenderSlotItem(stbD2DRenderer& renderer)
 
 void QuickSlotUI::RenderItemSlot(stbD2DRenderer& renderer, const QuickSlotData& slot, const UIRect& rect)
 {
-    const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(slot.ref_id);
-    if (itemData == nullptr)
-        return;
-
-    std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+ 
+    std::wstring key = std::to_wstring(slot.ref_id);
 
     stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
     if (texture == nullptr)
@@ -160,33 +157,44 @@ void QuickSlotUI::RenderItemSlot(stbD2DRenderer& renderer, const QuickSlotData& 
     if (bitmap == nullptr)
         return;
 
+    int itemWidth = texture->GetWidth();
+    int itemHeight = texture->GetHeight();
+
+    if (itemWidth > rect.width)
+        itemWidth = rect.width;
+
+    if (itemHeight > rect.height)
+        itemHeight = rect.height;
+
+    int itemX = rect.x + (rect.width - itemWidth) / 2.0f;
+    int itemY = rect.y + (rect.height - itemHeight) / 2.0f;
+
     renderer.DrawBitmap(
         bitmap,
-        (FLOAT)rect.x,
-        (FLOAT)rect.y,
-        (FLOAT)rect.width,
-        (FLOAT)rect.height,
+        itemX,
+        itemY,
+        itemWidth,
+        itemHeight,
         1.0f
     );
 
-    if (slot.count > 1)
-    {
-        std::wstring countText = std::to_wstring(slot.count);
+   
+    std::wstring countText = std::to_wstring(slot.count);
 
-        D2D1_RECT_F textRect = D2D1::RectF(
-            (FLOAT)rect.x,
-            (FLOAT)(rect.y + rect.height - 11.0f),
-            (FLOAT)(rect.x + rect.width - 3.0f),
-            (FLOAT)(rect.y + rect.height)
-        );
+    D2D1_RECT_F textRect = D2D1::RectF(
+        (FLOAT)rect.x,
+        (FLOAT)(rect.y + rect.height - 11.0f),
+        (FLOAT)(rect.x + rect.width - 3.0f),
+        (FLOAT)(rect.y + rect.height)
+    );
 
-        renderer.DrawTextString(
-            countText,
-            textRect,
-            D2D1::ColorF::Black,
-            TextStyle::QuickSlot
-        );
-    }
+    renderer.DrawTextString(
+        countText,
+        textRect,
+        D2D1::ColorF::Black,
+        TextStyle::QuickSlot
+    );
+    
 }
 
 void QuickSlotUI::RenderSkillSlot(stbD2DRenderer& renderer, const QuickSlotData& slot, const UIRect& rect)

@@ -255,48 +255,56 @@ void InventoryUI::RenderSlotItem(stbD2DRenderer& renderer)
         if (slot.itemId == 0)
             continue;
 
-  
-        const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(slot.itemId);
-       
-        if (itemData == nullptr)
-            continue;
-
-        std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+        std::wstring key = std::to_wstring(slot.itemId);
         stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
         if (texture == nullptr)
+        {
+            OutputDebugStringA("texture is null\n");
             continue;
+        }
+            
 
         ID2D1Bitmap* bitmap = texture->GetD2DBitmap();
         if (bitmap == nullptr)
             continue;
 
+        int itemWidth = texture->GetWidth();
+        int itemHeight = texture->GetHeight();
+
+        if (itemWidth > slot.width)
+            itemWidth = slot.width;
+
+        if (itemHeight > slot.height)
+            itemHeight = slot.height;
+
+        int itemX = slot.x + (slot.width - itemWidth) / 2.0f;
+        int itemY = slot.y + (slot.height - itemHeight) / 2.0f;
+
         renderer.DrawBitmap(
             bitmap,
-            slot.x,
-            slot.y,
-            slot.width,
-            slot.height,
+            itemX,
+            itemY,
+            itemWidth,
+            itemHeight,
             1.0f
         );
 
-        if (slot.itemCount > 1)
-        {
-            std::wstring countText = std::to_wstring(slot.itemCount);
+      
+        std::wstring countText = std::to_wstring(slot.itemCount);
 
-            D2D1_RECT_F textRect = D2D1::RectF(
-                slot.x,
-                slot.y + slot.height - 13.0f,
-                slot.x + slot.width - 5.0f,
-                slot.y + slot.height
-            );
+        D2D1_RECT_F textRect = D2D1::RectF(
+            slot.x,
+            slot.y + slot.height - 13.0f,
+            slot.x + slot.width - 5.0f,
+            slot.y + slot.height
+        );
 
-            renderer.DrawTextString(
-                countText,
-                textRect,
-                D2D1::ColorF::Black,
-                TextStyle::Small
-            );
-        }
+        renderer.DrawTextString(
+            countText,
+            textRect,
+            D2D1::ColorF::Black,
+            TextStyle::Small
+        );
     }
 
     RenderDraggingItem(renderer);
@@ -310,11 +318,8 @@ void InventoryUI::RenderDraggingItem(stbD2DRenderer& renderer)
     if (m_dragItemId == 0)
         return;
 
-    const ItemData* itemData = M_ITEMDATAMANAGER->FindItemData(m_dragItemId);
-    if (itemData == nullptr)
-        return;
-
-    std::wstring key(itemData->resourceName.begin(), itemData->resourceName.end());
+    
+    std::wstring key = std::to_wstring(m_dragItemId);
     stb::Texture* texture = M_REMANAGER->Find<stb::Texture>(key);
     if (texture == nullptr)
         return;
@@ -330,8 +335,8 @@ void InventoryUI::RenderDraggingItem(stbD2DRenderer& renderer)
         bitmap,
         drawX,
         drawY,
-        m_slotWidth,
-        m_slotHeight,
+        texture->GetWidth(),
+        texture->GetHeight(),
         0.8f
     );
 }
@@ -364,7 +369,6 @@ void InventoryUI::UpdateInventoryByType()
         
     }
 }
-
 
 void InventoryUI::RenderBackGround(stbD2DRenderer& renderer)
 {
@@ -513,7 +517,7 @@ void InventoryUI::CreateSlots()
        slot.y = m_inventoryImgPosY + m_slotStartY + row * (m_slotHeight + m_slotgapY);
        slot.width = m_slotWidth;
        slot.height = m_slotHeight;
-
+       slot.itemId = 0;
        m_slots.push_back(slot);
    }
 

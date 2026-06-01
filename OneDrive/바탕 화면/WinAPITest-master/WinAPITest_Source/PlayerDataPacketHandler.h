@@ -13,6 +13,7 @@ public:
 	static void HandlePlayerOnDamaged(const ParsedPacket& pkt);
 
 
+	static void HandleLocalPlayerGetExp(const ParsedPacket& pkt);
 private:
 };
 

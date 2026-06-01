@@ -26,6 +26,12 @@ enum class UIButtonState
     Pressed
 };
 
+struct ExpBarTextureKey
+{
+    std::wstring layerBack;
+    std::wstring gauge;
+};
+
 struct InventorySlotUI
 {
     int slotIndex;

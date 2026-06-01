@@ -74,13 +74,13 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
         const char* data = pkt.payload.c_str();
         size_t payloadSize = pkt.payload.size();
         std::string errMsg;
-        int metaInfoSize = 0;
-        if (!PacketParser::ParseNextIntField(data, payloadSize, offset, metaInfoSize, errMsg))
+        int itemSize = 0;
+        if (!PacketParser::ParseNextIntField(data, payloadSize, offset, itemSize, errMsg))
         {
             throw std::runtime_error(errMsg);
         }
   
-        for (int i = 0; i < metaInfoSize; i++)
+        for (int i = 0; i < itemSize; i++)
         {
             InventoryItemInfo ItemInfo;
 
@@ -107,7 +107,7 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
                 throw std::runtime_error(errMsg);
             }
 
-
+       
             auto inventory = M_INVENTORYMANAGER->GetInventory(ItemInfo.inventoryType);
             if (!inventory->SetSlot(ItemInfo))
             {

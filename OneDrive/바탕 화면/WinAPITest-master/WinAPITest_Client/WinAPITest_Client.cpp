@@ -85,7 +85,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     {
         return FALSE;
     }
-
+#endif
+#if 0
     //캐릭터, 채널 선택
     CWorld worldDlg;
     if (worldDlg.DoModal() != IDOK)
@@ -97,6 +98,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         CString strCharId, strChannelPort;
         strCharId = CString(g_char_id.c_str());
         strChannelPort = CString(g_channel_port.c_str());
+
+
         CString strTmp;
         strTmp.Format(_T("캐릭터[%s] 채널port[%s]"), strCharId, strChannelPort);
         AfxMessageBox(strTmp);
@@ -104,6 +107,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     strcpy(stb::g_CharacterId, g_char_id.c_str());
     stb::g_ChannelPort = atoi(g_channel_port.c_str());
+
+
     //채팅서버 포트 = 채널서버 + 100 ex) channelport=9001 -> chatport = 9101
     stb::g_ChatPort = stb::g_ChannelPort + 100;
 #else
@@ -140,18 +145,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //{
     //  
 
-    //    // 유니코드를 멀티바이트로 변환
-    //    WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, stb::g_CharacterId, sizeof(stb::g_CharacterId), NULL, NULL);
-    //    
-    //    char msg[128];
-    //    sprintf_s(msg, "캐릭터 ID 설정: %s\n", stb::g_CharacterId);
-    //    OutputDebugStringA(msg);
-    //    LOG("%s\n", msg);
-    //}
-    //else
-    //{
-    //    OutputDebugStringA("캐릭터 ID: 1 (기본값)\n");
-    //}
+        // 유니코드를 멀티바이트로 변환
+        WideCharToMultiByte(CP_UTF8, 0, lpCmdLine, -1, stb::g_CharacterId, sizeof(stb::g_CharacterId), NULL, NULL);
+        
+        char msg[128];
+        sprintf_s(msg, "캐릭터 ID 설정: %s\n", stb::g_CharacterId);
+        OutputDebugStringA(msg);
+        LOG("%s\n", msg);
+    }
+    else
+    {
+        OutputDebugStringA("캐릭터 ID: 1 (기본값)\n");
+    }
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);

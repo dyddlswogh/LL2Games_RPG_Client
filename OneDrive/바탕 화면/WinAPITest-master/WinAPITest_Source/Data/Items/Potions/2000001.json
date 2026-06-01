@@ -1,17 +1,14 @@
 {
   "item_id": 2000001,
-  "name": "Small MP Potion",
-  "type": "consumable",
+  "name": "Orange Potion",
+  "type": "Consume",
   "stackable": true,
   "max_stack": 100,
-  "sell_price": 10,
-  "resource_name": "Item_Blue_Potion",
+  "sell_price": 24,
   "tooltip": [
     {
-      "hp_restore": 0,
-      "mp_restore": 50
+      "hp_restore": 150,
+      "mp_restore": 0
     }
   ]
 }
-
-

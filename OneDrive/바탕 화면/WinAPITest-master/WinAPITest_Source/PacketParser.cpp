@@ -125,6 +125,32 @@ bool PacketParser::ParseNextIntField(const char* data, size_t payloadSize, size_
     return true;
 }
 
+bool PacketParser::ParseNextInt64Field(const char* data, size_t payloadSize, size_t& offset, int64_t& outValue, std::string& errMsg)
+{
+    std::string temp;
+
+    if (!PacketParser::ParseLengthPrefixedString(
+        data,
+        payloadSize,
+        offset,
+        temp,
+        errMsg))
+    {
+        return false;
+    }
+
+    OutputDebugStringA(temp.c_str());
+    OutputDebugStringA("\n");
+
+    if (!Convert::StringToInt64(temp, outValue))
+    {
+        errMsg = "StringTo64Int failed: " + temp;
+        return false;
+    }
+
+    return true;
+}
+
 bool PacketParser::ParseNextFloatField(const char* data, size_t payloadSize, size_t& offset, float& outValue, std::string& errMsg)
 {
     std::string temp;

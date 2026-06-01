@@ -1,5 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
+#include <d2d1.h>
 
 enum class UIAnchor
 {
@@ -31,4 +32,6 @@ public:
         UIAnchor anchor,
         int offsetX,
         int offsetY);
+
+    static D2D1_RECT_F ToD2DRect(const UIRect& rc);
 };

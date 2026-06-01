@@ -10,6 +10,7 @@
 #include "CombatPacketHandler.h"
 #include "QuickSlotPacketHandler.h"
 #include "TradePacketHandler.h"
+#include "DropItemPacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -78,6 +79,12 @@ bool PacketManager::RegisterAllHandlers()
 			ItemPacketHandler::HandleUseItemResult(pkt);
 		});
 
+	// 플레이어 아이템 픽업 핸들러 등록
+	networkManager->RegisterHandler(PKT_PLAYER_PICKUP_ITEM,
+		[](const ParsedPacket& pkt)
+		{
+			ItemPacketHandler::HandlePickUpItem(pkt);
+		});
 
 	// 몬스터 스냅샷 핸들러 등록
 	networkManager->RegisterHandler(PKT_MONSTER_SNAPSHOT,
@@ -98,6 +105,13 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			CombatPacketHandler::HandleAttackResult(pkt);
+		});
+
+	// 몬스터 리스폰 핸들러 등록
+	networkManager->RegisterHandler(PKT_MONSTER_RESPAWN,
+		[](const ParsedPacket& pkt)
+		{
+			MonsterPacketHandler::HandleS2C_RespawnMonster(pkt);
 		});
 
 	// 퀵슬롯 리스트 핸들러 등록
@@ -121,6 +135,26 @@ bool PacketManager::RegisterAllHandlers()
 			TradePacketHandler::HandleTradeRequest(pkt);
 		});
 
+	// 경험치 획득 핸들러 등록
+	networkManager->RegisterHandler(PKI_PLAYER_EXP_GAIN,
+		[](const ParsedPacket& pkt)
+		{
+			PlayerDataPacketHandler::HandleLocalPlayerGetExp(pkt);
+		});
+
+	// 드롭 아이템 핸들러 등록
+	networkManager->RegisterHandler(PKT_DROPITEMS,
+		[](const ParsedPacket& pkt)
+		{
+			DropItemPacketHandler::HandleSpawnDropItem(pkt);
+		});
+
+	// 드롭 아이템 삭제 핸들러 등록
+	networkManager->RegisterHandler(PKT_REMOVEITEMS,
+		[](const ParsedPacket& pkt)
+		{
+			DropItemPacketHandler::HandleRemoveDropItem(pkt);
+		});
 	// 교환 시작 핸들러 등록
 	networkManager->RegisterHandler(PKT_TRADE_START,
 		[](const ParsedPacket& pkt)

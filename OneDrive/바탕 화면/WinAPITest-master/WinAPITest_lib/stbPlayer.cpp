@@ -52,9 +52,9 @@ namespace stb
 		GameObject::Render(renderer);
 	}
 
-	void Player::SetStat(BaseStat baseStat, DerivedStat derived, int cur_hp, int cur_mp, int remainAp)
+	void Player::SetStat(BaseStat baseStat, DerivedStat derived, ExpStat expStat, int cur_hp, int cur_mp, int remainAp)
 	{
-		m_stat.SetStat(baseStat, derived, cur_hp, cur_mp, remainAp);
+		m_stat.SetStat(baseStat, derived, expStat, cur_hp, cur_mp, remainAp);
 	}
 
 	void Player::SetPlayerInfo(PlayerIdentity playeridentity, PlayerProfile playerProfile, PlayerLocation playerlocation)
