@@ -112,7 +112,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //채팅서버 포트 = 채널서버 + 100 ex) channelport=9001 -> chatport = 9101
     stb::g_ChatPort = stb::g_ChannelPort + 100;
 #else
-    g_char_id = "3";
+    g_char_id = "1";
     g_channel_port = "9001";
 
     strcpy(stb::g_CharacterId, g_char_id.c_str());

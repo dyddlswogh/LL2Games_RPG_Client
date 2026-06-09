@@ -86,6 +86,15 @@ bool PlayerAnimationManager::LoadJsonFile(const std::string& path, PlayerAnimati
             }
         }
 
+        if (animJson.contains("event"))
+        {
+            const auto& events = animJson.at("event");
+
+            info.animationEvent.start = events.value("start", "");
+            info.animationEvent.complete = events.value("complete", "");
+            info.animationEvent.end = events.value("end", "");
+        }
+
         animData.animations.emplace_back(info);
     }
 
@@ -134,10 +143,27 @@ bool PlayerAnimationManager::SetupPlayerAnimations(stb::Player* player, JobType 
         DebugMsg = "frame size :" + std::to_string(frames.size()) + "\n";
         OutputDebugStringA(DebugMsg.c_str());
 
+        if (frames.empty())
+        {
+            std::string msg = "[PlayerAnimationManager] No frame files found for animation: " + info.animName + " (path=" + info.path + ")\n";
+            OutputDebugStringA(msg.c_str());
+            // 다음 애니메이션으로 넘어감
+            continue;
+        }
+
+        // origin 결정: JSON에 origin이 (0,0)인 경우 프레임 첫 이미지 중앙을 기본 origin으로 사용
+        stb::math::Vector2 originToUse = animSet->renderInfo.origin;
+        if (originToUse.x == 0.0f && originToUse.y == 0.0f)
+        {
+            stb::Texture* first = frames.front();
+            originToUse.x = static_cast<float>(first->GetWidth()) * 0.5f;
+            originToUse.y = static_cast<float>(first->GetHeight()) * 0.5f;
+        }
+
         animator->CreateFrameAnimation(
             utils::StringToWString(info.animName),
             frames,
-            animSet->renderInfo.origin,
+            originToUse,
             info.frameOffsets,
             info.delayMs
         );
@@ -149,9 +175,31 @@ bool PlayerAnimationManager::SetupPlayerAnimations(stb::Player* player, JobType 
         eventNames.endEventName = utils::StringToWString(info.animationEvent.end);
 
         animator->SetAnimationEventNames(utils::StringToWString(info.animName), eventNames);
+       
     }
-
+    BindPlayerAnimationEvents(player, animator);
     return true;
+}
+
+void PlayerAnimationManager::BindPlayerAnimationEvents(stb::Player* player, stb::Animator* animator)
+{
+   // 나중에 이벤트들 여기로 옮겨야함
+
+    if (player == nullptr || animator == nullptr)
+        return;
+
+    animator->RegisterEvent(L"PlayerAttackEnd", [player]()
+        {
+            OutputDebugStringA("PlayerAttackEnd event called\n");
+
+            if (player == nullptr)
+                return;
+
+            if (player->GetState() != PlayerState::Attack)
+                return;
+
+            player->SetState(PlayerState::Idle);
+        });
 }
 
 const PlayerAnimationSet* PlayerAnimationManager::FindAnimationSet(JobType jobtype, WeaponType weaponType) const

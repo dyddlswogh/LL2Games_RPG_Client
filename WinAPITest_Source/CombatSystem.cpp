@@ -55,7 +55,7 @@ bool CombatSystem::TryBasicAttack()
     // 서버에 공격 패킷 보내기
     CombatPacketHandler::SendBasicAttack(static_cast<int>(dir));
     m_player->SetState(PlayerState::Attack);
-    m_player->PlayAttackAnimation(m_player->GetWeaponTypeToInt());
+   
     return true;
 }
 

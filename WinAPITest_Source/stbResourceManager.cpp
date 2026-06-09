@@ -78,7 +78,7 @@ void stb::ResourceManager::LoadPlayerTextures()
 
 void stb::ResourceManager::LoadItemTextures()
 {
-	std::filesystem::path root = L"Resources\\Item\\Consume";
+	std::filesystem::path root = L"Resources\\Item";
 
 	for (const auto& entry : std::filesystem::recursive_directory_iterator(root))
 	{

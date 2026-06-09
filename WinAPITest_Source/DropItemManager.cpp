@@ -14,6 +14,8 @@ void DropItemManager::Render(stbD2DRenderer& renderer)
     for (const auto& [id, data] : m_dropItems)
     {
         std::wstring key = std::to_wstring(data.itemId);
+        std::string DebugMsg;
+     
 
         stb::Texture* itemTex = M_RESOURCEMANAGER->Find<stb::Texture>(key);
         if (itemTex == nullptr)
@@ -117,6 +119,8 @@ void DropItemManager::RemoveDropItem(int dropId)
 
     if (item == m_dropItems.end())
     {
+        std::string DebugMsg = "m_dropItems Cant find item\n";
+        OutputDebugStringA(DebugMsg.c_str());
         return;
     }
 

@@ -87,7 +87,7 @@ void DropItemPacketHandler::HandleRemoveDropItem(const ParsedPacket& pkt)
         const char* data = pkt.payload.c_str();
         size_t payloadSize = pkt.payload.size();
         std::string errMsg;
-        int removeItemId = 0;
+        int removeDropId = 0;
 
         DropItemManager* dropItemManager = M_SCENEMANAGER->GetActiveScene()->GetDropItemManager();
 
@@ -96,12 +96,12 @@ void DropItemPacketHandler::HandleRemoveDropItem(const ParsedPacket& pkt)
             throw std::runtime_error("dropItemManager is nullptr");
         }
 
-        if (!PacketParser::ParseNextIntField(data, payloadSize, offset, removeItemId, errMsg))
+        if (!PacketParser::ParseNextIntField(data, payloadSize, offset, removeDropId, errMsg))
         {
             throw std::runtime_error(errMsg);
         }
 
-        dropItemManager-> RemoveDropItem(removeItemId);
+        dropItemManager->RemoveDropItem(removeDropId);
 
         OutputDebugStringA("Item register Sucess\n");
     }

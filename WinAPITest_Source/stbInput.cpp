@@ -82,14 +82,14 @@ namespace stb
 	{
 		m_keyBindings.clear();
 
-		// Ïù¥Îèô Ïï°ÏÖò Î∞îÏù∏Îî©
+		// ¿Ãµø æ◊º« πŸ¿Œµ˘
 		m_keyBindings[eKeyCode::Left] = { eBindType::Action, (int)eActionCode::MoveLeft };
 		m_keyBindings[eKeyCode::Right] = { eBindType::Action, (int)eActionCode::MoveRight };
 		m_keyBindings[eKeyCode::Up] = { eBindType::Action, (int)eActionCode::MoveUp };
 		m_keyBindings[eKeyCode::Down] = { eBindType::Action, (int)eActionCode::MoveDown };
 
 
-		// Í∏∞Î≥∏ ?ÔøΩÔøΩ?ÔøΩÔøΩ Î∞îÏù∏?ÔøΩÔøΩ
+		// ±‚∫ª ?????? πŸ¿Œ???
 		m_keyBindings[eKeyCode::LALT] = { eBindType::Action, (int)eActionCode::Jump };
 		m_keyBindings[eKeyCode::A] = { eBindType::Action, (int)eActionCode::Attack };
 		m_keyBindings[eKeyCode::SPACE] = { eBindType::Action, (int)eActionCode::Interact };
@@ -98,11 +98,11 @@ namespace stb
 		m_keyBindings[eKeyCode::T] = { eBindType::Action, (int)eActionCode::Trade };
 		m_keyBindings[eKeyCode::Z] = { eBindType::Action, (int)eActionCode::PickUp };
 
-		//ÍµêÌôò Ï∑®ÏÜå ÏûÑÏãú(X)
+		//±≥»Ø √Îº“ ¿”Ω√(X)
 		m_keyBindings[eKeyCode::X] = { eBindType::Action, (int)eActionCode::TradeCancel };
 
 
-		// ?ÔøΩÔøΩ?ÔøΩÔøΩ
+		// ??????
 		// m_keyBindings[eKeyCode::Q] = { eBindType::Skill, 1001001 };
 		// m_keyBindings[eKeyCode::R] = { eBindType::Item, 2000000 };
 
@@ -139,7 +139,7 @@ namespace stb
 		m_keyBindings[eKeyCode::W] = { eBindType::QuickSlot, 21 };
 		m_keyBindings[eKeyCode::E] = { eBindType::QuickSlot, 22 };
 		m_keyBindings[eKeyCode::R] = { eBindType::QuickSlot, 23 };
-		m_keyBindings[eKeyCode::T] = { eBindType::QuickSlot, 24 };
+		//m_keyBindings[eKeyCode::T] = { eBindType::QuickSlot, 24 };
 		//m_keyBindings[eKeyCode::A] = { eBindType::QuickSlot, 25 };
 		m_keyBindings[eKeyCode::S] = { eBindType::QuickSlot, 26 };
 		m_keyBindings[eKeyCode::D] = { eBindType::QuickSlot, 27 };

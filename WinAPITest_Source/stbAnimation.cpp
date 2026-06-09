@@ -228,11 +228,19 @@ namespace stb
 		if (bitmap == nullptr)
 			return;
 
-		float destX = pos.x - sprite.origin.x + sprite.offset.x;
+		float originX = sprite.origin.x;
+		float offsetX = sprite.offset.x;
+
+		if (flipX)
+		{
+			originX = sprite.size.x - sprite.origin.x;
+			offsetX = -sprite.offset.x;
+		}
+
+		float destX = pos.x - originX + offsetX;
 		float destY = pos.y - sprite.origin.y + sprite.offset.y;
 		float destW = sprite.size.x * scale.x;
 		float destH = sprite.size.y * scale.y;
-
 
 		renderer.DrawSprite2(
 			bitmap,
@@ -240,13 +248,26 @@ namespace stb
 			sprite.leftTop.x, sprite.leftTop.y,
 			sprite.size.x, sprite.size.y, flipX);
 
-		//renderer.DrawSprite(
-		//	bitmap,
-		//	destX, destY, destW, destH,
-		//	sprite.leftTop.x, sprite.leftTop.y,
-		//	sprite.size.x, sprite.size.y,
-		//	flipX
-		//);
+#if 1 /*플레이어 위치 테스트*/
+		// 디버그 1: 실제 Transform 위치
+		renderer.DrawRect(
+			pos.x - 2.0f,
+			pos.y - 2.0f,
+			4.0f,
+			4.0f,
+			D2D1::ColorF::Black
+		);
+
+		// 디버그 2: 실제 이미지가 그려지는 박스
+		renderer.DrawRect(
+			destX,
+			destY,
+			destW,
+			destH,
+			D2D1::ColorF::Black
+		);
+#endif
+
 	}
 
     void Animation::CreateAnimation(const std::wstring& name
@@ -265,6 +286,7 @@ namespace stb
             sprite.leftTop.y = leftTop.y;
             sprite.size = size;
             sprite.offset = offset;
+			sprite.origin = Vector2(size.x * 0.5f, size.y * 0.5f);
             sprite.duration = duration;
 
             mAnimationSheet.push_back(sprite);

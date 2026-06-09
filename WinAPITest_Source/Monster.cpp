@@ -126,19 +126,11 @@ void Monster::SetAnimation()
 			std::wstring key =
 				utils::StringToWString(info.path + "/" + info.frame_prefix + std::to_string(i));
 			
-			std::wstring DebugMsg = key + L"\n";
-			OutputDebugStringW(DebugMsg.c_str());
-
 			stb::Texture* tex = M_RESOURCEMANAGER->Find<stb::Texture>(key);
 			if (tex != nullptr)
 				frames.emplace_back(tex);
 		}
-		std::string DebugMsg = info.anim_name + "\n";
-		OutputDebugStringA(DebugMsg.c_str());
-
-		DebugMsg = "frame size :" + std::to_string(frames.size()) + "\n";
-		OutputDebugStringA(DebugMsg.c_str());
-
+	
 		m_animator->CreateFrameAnimation(
 			utils::StringToWString(info.anim_name),
 			frames,
@@ -155,14 +147,6 @@ void Monster::SetAnimation()
 
 		m_animator->SetAnimationEventNames(utils::StringToWString(info.anim_name), eventNames);
 
-		OutputDebugStringW(utils::StringToWString(info.animationEvent.end).c_str());
-
-		// 디버그 출력: animation name과 이벤트 이름들을 출력
-		std::wstring dbg = L"SetAnimationEventNames: anim=" + utils::StringToWString(info.anim_name)
-			+ L" start=" + eventNames.startEventName
-			+ L" complete=" + eventNames.completeEventName
-			+ L" end=" + eventNames.endEventName + L"\n";
-		OutputDebugStringW(dbg.c_str());
 	}
 }
 void Monster::SetCollider()
