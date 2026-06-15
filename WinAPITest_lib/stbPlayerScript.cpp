@@ -252,6 +252,10 @@ namespace stb
 
 	void PlayerScript::HandleInput()
 	{
+		//채팅 입력중 -> 단축키 차단
+		if (M_UIMANAGER->IsInputFocused())
+			return;
+
 		KeyBindInfo bindInfo;
 
 		if (M_INPUT->GetPressedBind(bindInfo))
@@ -262,6 +266,10 @@ namespace stb
 
 	void PlayerScript::HandleCombatInput()
 	{
+		//채팅 입력중 -> 이동/공격 차단
+		if (M_UIMANAGER->IsInputFocused())
+			return;
+
 		if (M_INPUT->GetActionDown(eActionCode::Attack))
 		{
 			DebugMsg = "HandleComabatInput is Pressed\n";
