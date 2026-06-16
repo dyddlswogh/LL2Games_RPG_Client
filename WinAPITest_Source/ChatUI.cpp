@@ -78,7 +78,7 @@ void ChatUI::Render(stbD2DRenderer& renderer)
         float ty = logY + i * lineH;
         D2D1_RECT_F rect = D2D1::RectF(logX + 4, ty, logX + boxW, ty + lineH);
         renderer.DrawTextString(m_logLines[i], rect,
-            D2D1::ColorF(D2D1::ColorF::White));
+            D2D1::ColorF(D2D1::ColorF::White), TextStyle::NickName);
     }
 
     // ── 입력박스 (입력 모드일 때만) ──
@@ -96,7 +96,7 @@ void ChatUI::Render(stbD2DRenderer& renderer)
         D2D1_RECT_F rect = D2D1::RectF(inputX + 4, inputY + 2,
             inputX + boxW, inputY + inputH);
         renderer.DrawTextString(display, rect,
-            D2D1::ColorF(D2D1::ColorF::Yellow));
+            D2D1::ColorF(D2D1::ColorF::Yellow), TextStyle::NickName);
     }
     else
     {
@@ -107,7 +107,7 @@ void ChatUI::Render(stbD2DRenderer& renderer)
         D2D1_RECT_F rect = D2D1::RectF(inputX + 4, inputY + 2,
             inputX + boxW, inputY + inputH);
         renderer.DrawTextString(L"Enter 키를 눌러 채팅", rect,
-            D2D1::ColorF(0.6f, 0.6f, 0.6f, 0.6f));
+            D2D1::ColorF(0.6f, 0.6f, 0.6f, 0.6f), TextStyle::NickName);
     }
 }
 
