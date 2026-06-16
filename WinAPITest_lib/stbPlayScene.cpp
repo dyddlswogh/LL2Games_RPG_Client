@@ -50,7 +50,7 @@ namespace stb
 		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Henesys_ground_1");
 
 
-#if 0 //ëˆ„ë½ëœ ì½”ë“œ
+#if 0 //´©¶ôµÈ ÄÚµå
 		Transform* tr = mPlayer->AddComponent<Transform>();
 		int charId = atoi(stb::NetworkConfig::GetCharacterId());
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
@@ -63,7 +63,7 @@ namespace stb
 		
 		M_UIMANAGER->Init();
 
-#if 1 /*gunoo22 260518 Ã„Â³Â¸Â¯Ã…Ã Â±Ã—Â¸Â®Â±Ã¢*/
+#if 1 /*gunoo22 260518 ?©ø¢¬??? ¡¾¡¿¢¬¢ç¡¾?*/
 		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
 		Animator* spartaAnim = mPlayer->AddComponent<Animator>();
 		if (spartaTex != nullptr)
@@ -138,7 +138,8 @@ namespace stb
 		Scene::OnEnter();
 
 		if (mBGM != nullptr)
-			mBGM->Play();
+			//mBGM->Play();
+			;
 	}
 }
 

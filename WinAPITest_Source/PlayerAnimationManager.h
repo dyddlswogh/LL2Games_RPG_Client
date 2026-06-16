@@ -15,6 +15,7 @@ public:
     bool LoadJsonFile(const std::string& path, PlayerAnimationSet& animData);
 
     bool SetupPlayerAnimations(stb::Player* player , JobType jobtype, WeaponType weaponType);
+    void BindPlayerAnimationEvents(stb::Player* player, stb::Animator* animator);
 public:
     const AnimationInfo* FindAnimationData(std::string AnimName) const;
     const PlayerAnimationSet* FindAnimationSet(JobType jobtype, WeaponType weaponType) const;

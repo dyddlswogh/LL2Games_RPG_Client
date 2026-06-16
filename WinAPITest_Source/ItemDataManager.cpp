@@ -65,10 +65,14 @@ bool ItemDataManager::LoadJsonFile(const std::string& path, ItemData& itemData)
     itemData.stackable = j.at("stackable").get<bool>();
     itemData.maxStack = j.at("max_stack").get<int>();
    
-    const auto& ue = j.at("tooltip").at(0);
-    
-    itemData.hpRestore = ue.at("hp_restore").get<int>();
-    itemData.mpRestore = ue.at("mp_restore").get<int>();
+    if (j.contains("tooltip"))
+    {
+        const auto& ue = j.at("tooltip").at(0);
+
+        itemData.hpRestore = ue.at("hp_restore").get<int>();
+        itemData.mpRestore = ue.at("mp_restore").get<int>();
+    }
+   
  
    
     return true;

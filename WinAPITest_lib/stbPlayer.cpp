@@ -82,48 +82,34 @@ namespace stb
 	void Player::SetState(PlayerState state)
 	{
 		if (m_playerState == state)
-		{
-
 			return;
-		}
-			
 
 		m_playerState = state;
-		
-		switch (m_playerState)
+
+		switch (state)
 		{
 		case PlayerState::Idle:
-			m_animator->PlayAnimation(L"alert", true);
-			break;
-
-		case PlayerState::Alert:
-			m_animator->PlayAnimation(L"alert", true);
+			m_currentAnimation = L"stand";
 			break;
 
 		case PlayerState::Walk:
-			m_animator->PlayAnimation(L"walk", true);
-			break;
-
-		case PlayerState::Jump:
-			m_animator->PlayAnimation(L"jump", false);
-			break;
-
-		case PlayerState::Prone:
-			m_animator->PlayAnimation(L"prone", true);
-			break;
-
-		case PlayerState::Rope:
-			m_animator->PlayAnimation(L"rope", true);
-			break;
-
-		case PlayerState::Ladder:
-			m_animator->PlayAnimation(L"ladder", true);
+			m_currentAnimation = L"walk";
 			break;
 
 		case PlayerState::Attack:
-			m_animator->PlayAnimation(L"swingT1", true);
-			//PlayAttackAnimation(static_cast<int>(m_weaponType));
+			m_currentAnimation = L"swingO3";
 			break;
+		}
+
+		stb::Animator* animator = GetComponent<stb::Animator>();
+		if (animator != nullptr)
+		{
+			bool isLoop = true;
+
+			if (state == PlayerState::Attack)
+				isLoop = false;
+
+			animator->PlayAnimation(m_currentAnimation, isLoop);
 		}
 	}
 
