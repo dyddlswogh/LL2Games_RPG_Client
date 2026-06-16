@@ -20,8 +20,25 @@ bool PlayerAnimationManager::Init()
 
 bool PlayerAnimationManager::PreLoadAll()
 {
-    for (const auto& entry : fs::recursive_directory_iterator(PLAYER_ANIM_PATH))
+    fs::path root = PLAYER_ANIM_PATH;
+    std::error_code ec;
+
+    if (!fs::exists(root, ec) || !fs::is_directory(root, ec))
     {
+        OutputDebugStringA(("[PlayerAnimationManager] animation path not found: "
+            + root.string() + "\n").c_str());
+        return false;
+    }
+
+    for (const auto& entry : fs::recursive_directory_iterator(root, fs::directory_options::skip_permission_denied, ec))
+    {
+        if (ec)
+        {
+            OutputDebugStringA(("[PlayerAnimationManager] filesystem error: "
+                + ec.message() + "\n").c_str());
+            break;
+        }
+
         if (!entry.is_regular_file())
             continue;
 
@@ -29,7 +46,6 @@ bool PlayerAnimationManager::PreLoadAll()
             continue;
 
         PlayerAnimationSet animSet{};
-
         if (!LoadJsonFile(entry.path().string(), animSet))
             return false;
 
@@ -86,6 +102,15 @@ bool PlayerAnimationManager::LoadJsonFile(const std::string& path, PlayerAnimati
             }
         }
 
+        if (animJson.contains("event"))
+        {
+            const auto& events = animJson.at("event");
+
+            info.animationEvent.start = events.value("start", "");
+            info.animationEvent.complete = events.value("complete", "");
+            info.animationEvent.end = events.value("end", "");
+        }
+
         animData.animations.emplace_back(info);
     }
 
@@ -121,23 +146,33 @@ bool PlayerAnimationManager::SetupPlayerAnimations(stb::Player* player, JobType 
             std::wstring key =
                 utils::StringToWString(info.path + "/" + info.framePrefix + std::to_string(i));
 
-            std::wstring DebugMsg = key + L"\n";
-            OutputDebugStringW(DebugMsg.c_str());
-
             stb::Texture* tex = M_RESOURCEMANAGER->Find<stb::Texture>(key);
             if (tex != nullptr)
                 frames.emplace_back(tex);
         }
-        std::string DebugMsg = info.animName + "\n";
-        OutputDebugStringA(DebugMsg.c_str());
+       
 
-        DebugMsg = "frame size :" + std::to_string(frames.size()) + "\n";
-        OutputDebugStringA(DebugMsg.c_str());
+        if (frames.empty())
+        {
+            std::string msg = "[PlayerAnimationManager] No frame files found for animation: " + info.animName + " (path=" + info.path + ")\n";
+            OutputDebugStringA(msg.c_str());
+            // 다음 애니메이션으로 넘어감
+            continue;
+        }
+
+        // origin 결정: JSON에 origin이 (0,0)인 경우 프레임 첫 이미지 중앙을 기본 origin으로 사용
+        stb::math::Vector2 originToUse = animSet->renderInfo.origin;
+        if (originToUse.x == 0.0f && originToUse.y == 0.0f)
+        {
+            stb::Texture* first = frames.front();
+            originToUse.x = static_cast<float>(first->GetWidth()) * 0.5f;
+            originToUse.y = static_cast<float>(first->GetHeight()) * 0.5f;
+        }
 
         animator->CreateFrameAnimation(
             utils::StringToWString(info.animName),
             frames,
-            animSet->renderInfo.origin,
+            originToUse,
             info.frameOffsets,
             info.delayMs
         );
@@ -149,9 +184,31 @@ bool PlayerAnimationManager::SetupPlayerAnimations(stb::Player* player, JobType 
         eventNames.endEventName = utils::StringToWString(info.animationEvent.end);
 
         animator->SetAnimationEventNames(utils::StringToWString(info.animName), eventNames);
+       
     }
-
+    BindPlayerAnimationEvents(player, animator);
     return true;
+}
+
+void PlayerAnimationManager::BindPlayerAnimationEvents(stb::Player* player, stb::Animator* animator)
+{
+   // 나중에 이벤트들 여기로 옮겨야함
+
+    if (player == nullptr || animator == nullptr)
+        return;
+
+    animator->RegisterEvent(L"PlayerAttackEnd", [player]()
+        {
+            OutputDebugStringA("PlayerAttackEnd event called\n");
+
+            if (player == nullptr)
+                return;
+
+            if (player->GetState() != PlayerState::Attack)
+                return;
+
+            player->SetState(PlayerState::Idle);
+        });
 }
 
 const PlayerAnimationSet* PlayerAnimationManager::FindAnimationSet(JobType jobtype, WeaponType weaponType) const

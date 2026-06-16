@@ -212,6 +212,9 @@ void ItemPacketHandler::HandlePickUpItem(const ParsedPacket& pkt)
             }
 
             auto inventory = inventoryManager->GetInventory(pickUpItemData.inventoryType);
+            std::string DebugMsg;
+            DebugMsg = std::to_string(pickUpItemData.inventoryType) + "\n";
+            OutputDebugStringA(DebugMsg.c_str());
             if (inventory == nullptr)
             {
                 throw std::runtime_error("inventory is nullptr");

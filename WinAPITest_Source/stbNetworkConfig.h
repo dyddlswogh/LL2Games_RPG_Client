@@ -16,7 +16,7 @@ namespace stb
         // ========== 여기를 수정하세요! ==========
         
         // 외부 서버 IP 주소 (예시)
-        static constexpr const char* SERVER_IP = "100.99.220.45";  // 실제 서버 IP로 변경!
+        static constexpr const char* SERVER_IP = "100.108.54.60";  // 실제 서버 IP로 변경!
         //static constexpr const char* SERVER_IP = "100.114.42.54";  // 실제 서버 IP로 변경!
        
         // 서버 포트

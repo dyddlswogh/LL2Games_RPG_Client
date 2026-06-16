@@ -50,16 +50,20 @@ namespace stb
 	{
 		if (m_player == nullptr) return;
 
-		if (m_player->GetState() == PlayerState::Attack)
+		// ¿‘∑¬¿ª ∏’¿˙ √≥∏Æ«ÿº≠ ∞∞¿∫ «¡∑π¿”ø° Idle()¿Ã ∞¯∞› ¿‘∑¬¿ª µ§æÓæ≤¡ˆ æ µµ∑œ «‘
+		HandleCombatInput();
+		HandleInput();
+
+		if (m_player->GetState() == PlayerState::Attack) 
 		{
-			Idle(false);          // Ïù¥ÎèôÏùÄ Ï≤òÎ¶¨ÌïòÎêò ÏÉÅÌÉúÎäî Î∞îÍæ∏ÏßÄ ÏïäÏùå
-			UpdateAttackState();  // Í≥µÍ≤© Ï¢ÖÎ£å ÏãúÍ∞Ñ Ï≤¥ÌÅ¨
+			Idle(false);
+
+			// ¿”Ω√ æ»¿¸¿Âƒ°
 			return;
 		}
 
+		// ∞¯∞› ¡ﬂ¿Ã æ∆¥œ∏È ∆ÚªÛΩ√ ªÛ≈¬ √≥∏Æ
 		Idle(true);
-		HandleCombatInput();
-		HandleInput();
 		
 	}	
 		
@@ -109,7 +113,7 @@ namespace stb
 	void PlayerScript::Idle(bool changeState)
 	{
 		if (M_UIMANAGER->IsInputFocused())
-			return; //Ï±ÑÌåÖ ÏûÖÎ†•Ï§ë -> Ïù¥Îèô/Í≥µÍ≤© Ï∞®Îã®
+			return; //√§∆√ ¿‘∑¬¡ﬂ -> ¿Ãµø/∞¯∞› ¬˜¥‹
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		if (tr == nullptr)
 			return;
@@ -278,12 +282,12 @@ namespace stb
 			ExecuteAction((eActionCode)bindInfo.value);
 			break;
 		case eBindType::Skill:
-			// TODO : Ïä§ÌÇ¨ ÏÇ¨Ïö© ÏöîÏ≤≠
+			// TODO : Ω∫≈≥ ªÁøÎ ø‰√ª
 			// SkillManager::GetInstance()->UseSkill(bindInfo.value);
 			OutputDebugStringA("Skill Execute\n");
 			break;
 		case eBindType::Item:
-			// TODO : ÏïÑÏù¥ÌÖú ÏÇ¨Ïö© ÏöîÏ≤≠
+			// TODO : æ∆¿Ã≈€ ªÁøÎ ø‰√ª
 			// ItemManager::GetInstance()->UseItem(bindInfo.value);
 			OutputDebugStringA("Item Execute\n");
 			break;
@@ -305,21 +309,21 @@ namespace stb
 		{
 		case eActionCode::Interact:
 			OutputDebugStringA("Action : Interact\n");
-			// TODO : ÏÉÅÌò∏ÏûëÏö© ÏöîÏ≤≠
+			// TODO : ªÛ»£¿€øÎ ø‰√ª
 			break;
 		case eActionCode::Jump:
 			Jump();
 			OutputDebugStringA("Action : Jump\n");
-			// TODO : Ï†êÌîÑ Ï≤òÎ¶¨
+			// TODO : ¡°«¡ √≥∏Æ
 			break;
 		case eActionCode::Inventory:
 			OutputDebugStringA("Action : Inventory\n");
 			UIManager::getInstance()->ToggleInventory();
-			// TODO : Ïù∏Î≤§ÌÜ†Î¶¨ UI Ïó¥Í∏∞
+			// TODO : ¿Œ∫•≈‰∏Æ UI ø≠±‚
 			break;
 		case eActionCode::SkillWindow:
 			OutputDebugStringA("Action : SkillWindow\n");
-			// TODO : Ïä§ÌÇ¨Ï∞Ω UI Ïó¥Í∏∞
+			// TODO : Ω∫≈≥√¢ UI ø≠±‚
 
 #if 1 /* test */
 			UIManager::getInstance()->ToggleTradeUI();
@@ -329,13 +333,13 @@ namespace stb
 		case eActionCode::Trade:
 			OutputDebugStringA("Action : Trade\n");
 			//UIManager::getInstance()->OpenTradeUI();
-			//UIManager::getInstance()->ToggleTradeUI(); //test ÌÜ†Í∏Ä
-			UIManager::getInstance()->OpenReqTradeUI(); //ÍµêÌôòÏã†Ï≤≠
+			//UIManager::getInstance()->ToggleTradeUI(); //test ≈‰±€
+			UIManager::getInstance()->OpenReqTradeUI(); //±≥»ØΩ≈√ª
 			break;
 
 		case eActionCode::TradeCancel:
 			OutputDebugStringA("Action : Trade Cancel\n");
-			UIManager::getInstance()->CloseTradeUI(); //ÍµêÌôòÏ∑®ÏÜå
+			UIManager::getInstance()->CloseTradeUI(); //±≥»Ø√Îº“
 			break;
 		case eActionCode::PickUp:
 			OutputDebugStringA("Action : PickUp\n");

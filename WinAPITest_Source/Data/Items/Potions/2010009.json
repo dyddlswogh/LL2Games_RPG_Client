@@ -1,7 +1,7 @@
 {
   "item_id": 2010009,
   "name": "Green Apple",
-  "type": "consumable",
+  "type": "Consume",
   "stackable": true,
   "max_stack": 300,
   "sell_price": 30,

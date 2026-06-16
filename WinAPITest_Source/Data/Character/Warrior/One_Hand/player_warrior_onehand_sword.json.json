@@ -6,10 +6,10 @@
   "render": {
     "width": 64,
     "height": 64,
-    "origin": {
-      "x": 32,
-      "y": 48
-    }
+     "origin": {
+        "x": 32,
+        "y": 55
+      }
   },
 
   "animations": {
@@ -17,7 +17,7 @@
       "path": "Character/Warrior/onehand_sword/stand",
       "frame_prefix": "stand1_",
       "frame_count": 4,
-      "delay_ms": 10
+      "delay_ms": 0.15
     },
     "alert": {
       "path": "Character/Warrior/onehand_sword/alert",
@@ -29,7 +29,13 @@
       "path": "Character/Warrior/onehand_sword/walk",
       "frame_prefix": "walk1_",
       "frame_count": 4,
-      "delay_ms": 0.2   
+      "delay_ms": 0.2,
+      "frame_offsets": [
+        { "x": 0, "y": 0 },
+        { "x": -6, "y": 0 },
+        { "x": 1, "y": 0 },
+        { "x": 0, "y": 0 }
+      ]
     },
     "jump": {
       "path": "Character/Warrior/onehand_sword/jump",
@@ -61,15 +67,20 @@
       "frame_count": 3,
       "delay_ms": 10
     },
-    "swingT1": {
-      "path": "Character/Warrior/onehand_sword/swingT1",
-      "frame_prefix": "swingT1_",
+    "swingO3": {
+      "path": "Character/Warrior/onehand_sword/swingO3",
+      "frame_prefix": "swingO3_",
       "frame_count": 3,
-      "delay_ms": 0.15,
+      "delay_ms": 0.2,
+      "event": {
+        "start": "",
+        "complete": "PlayerAttackEnd",
+        "end": ""
+      },
       "frame_offsets": [
-        { "x": 5, "y": -33 },
-        { "x": 5, "y": -33 },
-        { "x": 5, "y": -33 }
+        { "x": 0, "y": 0 },
+        { "x": -38, "y": 0 },
+        { "x": 2, "y": 0 }
       ]
     },
     "stabO1": {
