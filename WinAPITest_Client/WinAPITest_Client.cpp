@@ -367,31 +367,57 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CHAR:
     {
         wchar_t ch = (wchar_t)wParam;
-        if (ch == VK_RETURN)            // Enter는 ChatScene::Update에서 처리
-            break;
-        if (ch == VK_BACK)             // Backspace
+
+        //채팅 입력중일 경우
+        if (M_UIMANAGER->IsInputFocused())
         {
-            //M_UIMANAGER->HandleBackspace();
-            //M_UIMANAGER->HandleBackspace_Trade();
-            M_UIMANAGER->AppendInputChar_Trade(ch); //교환신청
+            if (ch == VK_RETURN)            // Enter는 ChatScene::Update에서 처리
+                break;
+
+            if (ch == VK_BACK)             // Backspace
+            {
+                M_UIMANAGER->HandleBackspace();
+                break;
+            }
+
+            if (ch == 0x1B)                // ESC → 입력 모드 종료
+            {
+                M_UIMANAGER->ToggleChatInput();
+                break;
+            }
+
+            if (ch >= 0x20)                // 출력 가능한 문자만 추가
+            {
+                M_UIMANAGER->AppendInputChar(ch); //채팅
+                break;
+            }
             break;
         }
-        if (ch == 0x1B)                // ESC → 입력 모드 종료
+
+        // 채팅 입력 중이 아닐 때만 교환신청 입력 처리
+        if (ch == VK_BACK)
         {
-            //M_UIMANAGER->ToggleChatInput();
+            M_UIMANAGER->HandleBackspace_Trade();
+            break;
+        }
+
+        if (ch == 0x1B)
+        {
             M_UIMANAGER->CloseReqTradeUI();
             break;
         }
-        if (ch >= 0x20)                // 출력 가능한 문자만 추가
+
+        if (ch >= 0x20)
         {
-            //M_UIMANAGER->AppendInputChar(ch); //채팅
-            M_UIMANAGER->AppendInputChar_Trade(ch); //교환신청
+            M_UIMANAGER->AppendInputChar_Trade(ch);
         }
+        
     }
     break;
     case WM_KEYDOWN:
     {
-        M_UIMANAGER->KeyDownTrade(wParam); //교환신청
+        if (!M_UIMANAGER->IsInputFocused()) //채팅중이 아닐경우에만
+            M_UIMANAGER->KeyDownTrade(wParam); //교환신청
     }
     break;
     case WM_DESTROY:
