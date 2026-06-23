@@ -12,6 +12,7 @@
 #include "TradePacketHandler.h"
 #include "stbSceneManager.h"
 #include "stbPlayScene.h"
+#include "MovePacketHandler.h"
 
 
 #define M_INPUT stb::SingletonBase<stb::Input>::getInstance()
@@ -108,7 +109,7 @@ namespace stb
 			player->SetState(PlayerState::Idle);
 			OutputDebugStringA("Attack End -> Idle\n");
 		}
-	}
+	}	
 
 	void PlayerScript::Idle(bool changeState)
 	{
@@ -152,6 +153,10 @@ namespace stb
 			}
 
 			tr->SetPosition(pos);
+			if (m_player->GetPlayerLocation() != nullptr)
+			{
+				m_player->GetPlayerLocation()->pos = pos;
+			}
 		}
 		
 		if (changeState)
@@ -177,7 +182,8 @@ namespace stb
 				auto netMgr = stb::NetworkManager::getInstance();
 				if (netMgr != nullptr && netMgr->IsConnected())
 				{
-					stb::SendPlayerMove(pos.x, pos.y, 100.0f);
+					MovePacketHandler::SendPlayerMove(m_player);
+					//stb::SendPlayerMove(pos.x, pos.y, 100.0f);
 				}
 
 				mNetworkSendTimer = 0.0f;

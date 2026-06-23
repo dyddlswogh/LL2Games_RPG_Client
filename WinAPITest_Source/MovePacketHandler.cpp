@@ -4,6 +4,9 @@
 #include "PacketParser.h"
 #include "StringConvert.h"
 #include "PacketData.h"
+#include "stbNetworkManager.h"
+#include "stbTransform.h"
+
 
 /*
 struct ParsedPacket
@@ -23,10 +26,9 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
         size_t payloadSize = pkt.payload.size();
 
         std::string playerId;
-        std::string str_xPos;
-        std::string str_yPos;
-        std::string str_speed;
         std::string errMsg;
+        int state = 0;
+        OtherPlayerMove otherPlayerMove{};
 
         if (payloadSize < sizeof(uint16_t))
         {
@@ -52,66 +54,33 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
             return;
         }
 
-        //2. xPos
-        if (!PacketParser::ParseLengthPrefixedString(
-            pkt.payload.c_str(),
-            payloadSize,
-            offset,
-            str_xPos,
-            errMsg
-        ))
+        if(!PacketParser::ParseNextFloatField(pkt.payload.c_str(), payloadSize, offset, otherPlayerMove.xPos, errMsg))
         {
-            // 로그 출력 필요
             return;
         }
 
-        //3. yPos
-        if (!PacketParser::ParseLengthPrefixedString(
-            pkt.payload.c_str(),
-            payloadSize,
-            offset,
-            str_yPos,
-            errMsg
-        ))
+        if (!PacketParser::ParseNextFloatField(pkt.payload.c_str(), payloadSize, offset, otherPlayerMove.yPos, errMsg))
         {
-            // 로그 출력 필요
             return;
         }
 
-        //4. speed
-        if (!PacketParser::ParseLengthPrefixedString(
-            pkt.payload.c_str(),
-            payloadSize,
-            offset,
-            str_speed,
-            errMsg
-        ))
+        if (!PacketParser::ParseNextFloatField(pkt.payload.c_str(), payloadSize, offset, otherPlayerMove.speed, errMsg))
         {
-            // 로그 출력 필요
             return;
         }
 
-        OtherPlayerMove otherPlayerMove{};
+        if (!PacketParser::ParseNextIntField(pkt.payload.c_str(), payloadSize, offset, otherPlayerMove.dir, errMsg))
+        {
+            return;
+        }
 
+        if (!PacketParser::ParseNextIntField(pkt.payload.c_str(), payloadSize, offset, state, errMsg))
+        {
+            return;
+        }
+
+        otherPlayerMove.state = (state == 1) ? PlayerState::Walk : PlayerTypeUtil::IntToState(state);
         otherPlayerMove.playerId = playerId;
-
-        if (!Convert::StringToFloat(str_xPos, otherPlayerMove.xPos))
-        {
-            // 로그 출력 필요
-            return;
-        }
-
-        if (!Convert::StringToFloat(str_yPos, otherPlayerMove.yPos))
-        {
-            // 로그 출력 필요
-            return;
-        }
-
-        if (!Convert::StringToFloat(str_speed, otherPlayerMove.speed))
-        {
-            // 로그 출력 필요
-            return;
-        }
 
         auto otherPlayerMgr = stb::OtherPlayerManager::getInstance();
 
@@ -137,4 +106,31 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
         //LOG("[이동 패킷] 알 수 없는 예외 발생\n");
     }
     
+}
+
+void MovePacketHandler::SendPlayerMove(stb::Player* player)
+{
+    if (player == nullptr)
+        return;
+
+    stb::Transform* tr = player->GetComponent<stb::Transform>();
+    if (tr == nullptr)
+        return;
+
+    stb::math::Vector2 pos = tr->GetPosition();
+    if (player->GetPlayerLocation() != nullptr)
+    {
+        player->GetPlayerLocation()->pos = pos;
+    }
+
+    std::vector<std::string> payload;
+
+    payload.push_back(std::to_string(pos.x));
+    payload.push_back(std::to_string(pos.y));
+    payload.push_back(std::to_string(player->GetPlayerMoveSpeed()));
+    payload.push_back(std::to_string(static_cast<int>(player->GetFacing())));
+    payload.push_back(std::to_string(static_cast<int>(player->GetState())));
+    
+    stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_MOVE, payload);
+    OutputDebugStringA("[PKT_PLAYER_MOVE 전송 완료]\n\n");
 }

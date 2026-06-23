@@ -76,6 +76,8 @@ namespace stb
 
 		Animator* GetAnimator() { return m_animator; }
 
+		float GetPlayerMoveSpeed() { return m_moveSpeed; }
+
 	public:
 		void OnDamaged(int damage, int curHp);
 		void ShowDamageText(int damage);
@@ -111,6 +113,7 @@ namespace stb
 		DamageText* m_damageText;
 		BoxCollider2D* m_collider;
 		PlayerScript* m_script;
+		float m_moveSpeed;
 
 		std::wstring m_currentAnimation;
 		

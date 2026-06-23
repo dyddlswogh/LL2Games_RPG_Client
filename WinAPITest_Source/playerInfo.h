@@ -85,4 +85,22 @@ namespace PlayerTypeUtil
 
 		return JobType::None;
 	}
+
+	inline PlayerState IntToState(const int state)
+	{
+		switch (state)
+		{
+		case 0: return PlayerState::Idle;
+		case 1: return PlayerState::Alert;
+		case 2: return PlayerState::Walk;
+		case 3: return PlayerState::Jump;
+		case 4: return PlayerState::Prone;
+		case 5: return PlayerState::Rope;
+		case 6: return PlayerState::Ladder;
+		case 7: return PlayerState::Attack;
+		case 8: return PlayerState::Dead;
+		default: return PlayerState::Idle;
+		
+		}
+	}
 }
