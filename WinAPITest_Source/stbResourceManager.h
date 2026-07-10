@@ -58,13 +58,27 @@ namespace stb
 			mResources.insert(make_pair(name, resource));
 		}
 
-		void LoadAllD2D(stbD2DRenderer& renderer);
-		void LoadMonsterTextures();
+		// 1. 월드 / 배경 리소스
+		void LoadMapTextures();
+
+		// 2. 게임 오브젝트 리소스
 		void LoadPlayerTextures();
+		void LoadMonsterTextures();
 		void LoadItemTextures();
+
+		// 3. UI 리소스
+		void LoadInventoryTextures();
+		void LoadQuickSlotTextures();
 		void LoadHealthBarTextures();
 		void LoadExpTextures();
 		void LoadLevelTextures();
+		void LoadTradeTextures();
+
+		// 4. 사운드 리소스
+		void LoadBGMAudioClips();
+
+		// 5. D2D 렌더링 리소스 초기화
+		void LoadAllD2D(stbD2DRenderer& renderer);
 
 	private:
 		std::map<std::wstring, Resource*> mResources;

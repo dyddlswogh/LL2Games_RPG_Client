@@ -2,6 +2,7 @@
 #include "stbTexture.h"
 #include "stbResourceManager.h"
 #include <nlohmann/json.hpp>
+#include "stbAudioClip.h"
 
 stb::ResourceManager::ResourceManager()
 {
@@ -150,4 +151,80 @@ void stb::ResourceManager::LoadLevelTextures()
 	Load<Texture>(L"Level_7",					L"Resources\\UI\\Level\\main.namePlate.levelNum.7.png");
 	Load<Texture>(L"Level_8",					L"Resources\\UI\\Level\\main.namePlate.levelNum.8.png");
 	Load<Texture>(L"Level_9",					L"Resources\\UI\\Level\\main.namePlate.levelNum.9.png");
+}
+
+void stb::ResourceManager::LoadInventoryTextures()
+{
+	Load<Texture>(L"Inventory_normal", L"Resources\\UI\\Inventory\\Inventory_backgrnd.png");
+	Load<Texture>(L"Inventory_full", L"Resources\\UI\\Inventory\\Inventory.FullBackgrnd.png");
+
+	Load<Texture>(L"Inventory_equip_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.0.png");
+	Load<Texture>(L"Inventory_consume_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.1.png");
+	Load<Texture>(L"Inventory_etc_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.2.png");
+	Load<Texture>(L"Inventory_setup_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.3.png");
+	Load<Texture>(L"Inventory_cash_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.4.png");
+	Load<Texture>(L"Inventory_cosmetic_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.5.png");
+
+	Load<Texture>(L"Inventory_equip_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.0.png");
+	Load<Texture>(L"Inventory_consume_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.1.png");
+	Load<Texture>(L"Inventory_etc_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.2.png");
+	Load<Texture>(L"Inventory_setup_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.3.png");
+	Load<Texture>(L"Inventory_cash_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.4.png");
+	Load<Texture>(L"Inventory_cosmetic_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.5.png");
+
+	Load<Texture>(L"Inventory_full_equip_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.0.png");
+	Load<Texture>(L"Inventory_full_consume_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.1.png");
+	Load<Texture>(L"Inventory_full_etc_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.2.png");
+	Load<Texture>(L"Inventory_full_setup_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.3.png");
+	Load<Texture>(L"Inventory_full_cash_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.4.png");
+	Load<Texture>(L"Inventory_full_cosmetic_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.5.png");
+
+	Load<Texture>(L"Inventory_full_equip_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.0.png");
+	Load<Texture>(L"Inventory_full_consume_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.1.png");
+	Load<Texture>(L"Inventory_full_etc_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.2.png");
+	Load<Texture>(L"Inventory_full_setup_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.3.png");
+	Load<Texture>(L"Inventory_full_cash_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.4.png");
+	Load<Texture>(L"Inventory_full_cosmetic_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.5.png");
+
+	Load<Texture>(L"Inventory_full_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.normal.0.png");
+	Load<Texture>(L"Inventory_full_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.mouseOver.0.png");
+	Load<Texture>(L"Inventory_full_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.pressed.0.png");
+
+	Load<Texture>(L"Inventory_min_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.normal.0.png");
+	Load<Texture>(L"Inventory_min_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.mouseOver.0.png");
+	Load<Texture>(L"Inventory_min_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.pressed.0.png");
+
+
+	Load<Texture>(L"Inventory_close_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.normal.0.png");
+	Load<Texture>(L"Inventory_close_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.mouseOver.0.png");
+	Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.pressed.0.png");
+
+}
+
+void stb::ResourceManager::LoadTradeTextures()
+{
+	Load<Texture>(L"Trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.backgrnd.png");
+	Load<Texture>(L"Trade_full", L"Resources\\UI\\ItemTrade\\itemTrade.FullBackgrnd.png");
+
+	Load<Texture>(L"Trade_button_confirm_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_confirm.normal.0.png");
+	Load<Texture>(L"Trade_button_trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.normal.0.png");
+	Load<Texture>(L"Trade_button_trade_checked", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.checked.0.png");
+
+	Load<Texture>(L"Trade_layer_confirm_me", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.layer_confirmMe.png");
+}
+
+void stb::ResourceManager::LoadBGMAudioClips()
+{
+	Load<AudioClip>(L"BGM_Henesys_ground_1", L"Resources\\BGM\\henesys\\CavaBien.mp3");
+}
+
+
+void stb::ResourceManager::LoadMapTextures()
+{
+	Load<Texture>(L"Henesys_ground_1", L"Resources\\Background\\henesys\\henesys_ground_1.png");
+}
+
+void stb::ResourceManager::LoadQuickSlotTextures()
+{
+	Load<Texture>(L"quickslot_background", L"Resources\\UI\\quickslot\\quickSlot.backgrnd.png");
 }
