@@ -1,7 +1,7 @@
 #include "ItemDataManager.h"
 #include <fstream>
 
-#define ITEM_PATH "/WinAPITest_Source/Data/Items/"
+#define ITEM_PATH "WinAPITest_Source/Data/Items/"
 namespace fs = std::filesystem;
 
 
@@ -16,6 +16,7 @@ bool ItemDataManager::PreLoadAll()
 {
     if (!fs::exists(ITEM_PATH))
     {
+        std::string curPath = fs::current_path().string();
         printf("no exist %s\n", ITEM_PATH);
         return false;
     }
