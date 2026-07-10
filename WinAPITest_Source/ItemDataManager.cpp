@@ -1,7 +1,7 @@
 #include "ItemDataManager.h"
 #include <fstream>
 
-#define ITEM_PATH "WinAPITest_Source/Data/Items/"
+#define ITEM_PATH "/WinAPITest_Source/Data/Items/"
 namespace fs = std::filesystem;
 
 
@@ -14,6 +14,12 @@ bool ItemDataManager::Init()
 
 bool ItemDataManager::PreLoadAll()
 {
+    if (!fs::exists(ITEM_PATH))
+    {
+        printf("no exist %s\n", ITEM_PATH);
+        return false;
+    }
+
     for (const auto& entry : fs::recursive_directory_iterator(ITEM_PATH))
     {
         if (!entry.is_regular_file()) continue;

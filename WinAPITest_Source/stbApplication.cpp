@@ -35,13 +35,14 @@ namespace stb
 	{
 	}
 
-	void Application::Initialize(HWND hWnd, UINT width, UINT height)
+	bool Application::Initialize(HWND hWnd, UINT width, UINT height)
 	{
 		bool result = m_Renderer.Initialize(hWnd);
 
 		if (!result)
 		{
 			MessageBox(hWnd, L"Renderer Initialize Failed", L"Error", MB_OK);
+			return false;
 		}
 
 		mHwnd = hWnd;
@@ -55,9 +56,25 @@ namespace stb
 		
 		// Json 파일 실행 시 미리 읽어오기
 
-		M_ITEMDATAMANAGER->Init();
-		M_SKILLDATAMANAGER->Init();
-		M_MONSTERDATAMANAGER->Init();
+		if (!M_ITEMDATAMANAGER->Init())
+		{
+			MessageBox(hWnd, L"fail: M_ITEMDATAMANAGER init", L"Error", MB_ICONERROR);
+			return false;
+		}
+
+		if (!M_SKILLDATAMANAGER->Init())
+		{
+			MessageBox(hWnd, L"fail: M_SKILLDATAMANAGER init", L"Error", MB_ICONERROR);
+			return false;
+		}
+
+		if (!M_MONSTERDATAMANAGER->Init())
+		{
+			MessageBox(hWnd, L"fail: M_MONSTERDATAMANAGER init", L"Error", MB_ICONERROR);
+			return false;
+		}
+
+		return true;
 	}
 
 	void Application::Run()

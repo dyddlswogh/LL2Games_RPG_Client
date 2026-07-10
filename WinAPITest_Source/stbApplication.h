@@ -12,7 +12,7 @@ namespace stb
 		~Application();
 
 		// 윈도우의 사이즈와 핸들을 받아온다.
-		void Initialize(HWND hWnd, UINT width, UINT height);
+		bool Initialize(HWND hWnd, UINT width, UINT height);
 		void Run();
 		void Update();
 		void Render();

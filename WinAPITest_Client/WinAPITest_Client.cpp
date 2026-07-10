@@ -242,7 +242,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         nullptr
     );
     CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
-    APP->Initialize(hWnd, width, height);
+
+    //APP초기화 실패시 구동 취소
+    if (!APP->Initialize(hWnd, width, height))
+    {
+        return FALSE;
+    }
 
     if (!hWnd)
     {

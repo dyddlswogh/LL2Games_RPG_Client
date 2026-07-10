@@ -15,6 +15,11 @@ bool MonsterDataManager::Init()
 }
 bool MonsterDataManager::PreLoadAll()
 {
+    if (!fs::exists(MONSTER_PATH))
+    {
+        printf("no exist %s\n", MONSTER_PATH);
+        return false;
+    }
     for (const auto& entry : fs::recursive_directory_iterator(MONSTER_PATH))
     {
         if (!entry.is_regular_file()) continue;

@@ -13,6 +13,11 @@ bool SkillDataManager::Init()
 
 bool SkillDataManager::PreLoadAll()
 {
+    if (!fs::exists(SKILL_PATH))
+    {
+        printf("no exist %s\n", SKILL_PATH);
+        return false;
+    }
     for (const auto& entry : fs::recursive_directory_iterator(SKILL_PATH))
     {
         if (!entry.is_regular_file()) continue;
