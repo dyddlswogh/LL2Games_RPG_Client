@@ -7,15 +7,25 @@ C++/WinAPI 기반 2D MMORPG 클라이언트입니다.
 
 ## Demo
 
-> GIF와 플레이 영상은 포트폴리오 제출 전 추가 예정입니다.
+### Play Video
 
-| 구분 | 내용 |
-| --- | --- |
-| Play Video | 추가 예정 |
-| Movement / Multiplayer Sync | 추가 예정 |
-| Combat / Monster | 추가 예정 |
-| Item / Inventory / QuickSlot | 추가 예정 |
-| Chat / Trade UI | 추가 예정 |
+[플레이 영상 보기](영상_링크_추가)
+
+### Movement / Multiplayer Sync
+
+![movement-sync](./docs/demo/movement_sync.gif)
+
+### Combat / Monster
+
+![combat-monster](./docs/demo/combat_monster.gif)
+
+### Item / Inventory / QuickSlot
+
+![item-inventory](./docs/demo/item_inventory.gif)
+
+### Chat / Trade UI
+
+![chat-trade](./docs/demo/chat_trade.gif)
 
 ## Highlights
 
@@ -42,32 +52,92 @@ C++/WinAPI 기반 2D MMORPG 클라이언트입니다.
 
 ## Architecture
 
+클라이언트는 `Application`이 메인 루프를 관리하고, `Scene`이 현재 화면 상태를 구성합니다.  
+게임 내 객체는 `GameObject`와 `Component` 단위로 관리하며, `ResourceManager`가 이미지와 애니메이션 리소스를 로딩합니다.  
+서버에서 수신한 패킷은 `PacketManager`에서 opcode별 handler로 분기되고, 각 handler가 `Player`, `Monster`, `Inventory`, `UI` 상태를 갱신합니다.
+
 ```text
 Application
- ├─ Scene
- ├─ GameObject
- │   └─ Component
- ├─ ResourceManager
- ├─ PacketManager
- │   └─ PacketHandler
- ├─ Player / OtherPlayer / Monster
- ├─ Inventory / QuickSlot
- └─ UI
+ |-- Main Loop
+ |   |-- Input
+ |   |-- Update
+ |   `-- Render
+ |
+ |-- Scene
+ |   `-- GameObject
+ |       `-- Component
+ |
+ |-- ResourceManager
+ |   |-- Texture
+ |   |-- Animation
+ |   `-- JSON Data
+ |
+ |-- Network
+ |   |-- Socket
+ |   |-- PacketManager
+ |   `-- PacketHandler
+ |
+ |-- Game Domain
+ |   |-- Player
+ |   |-- OtherPlayer
+ |   |-- Monster
+ |   |-- Item
+ |   |-- Inventory
+ |   `-- QuickSlot
+ |
+ `-- UI
+     |-- HP / MP / EXP
+     |-- Inventory
+     |-- QuickSlot
+     |-- Chat
+     `-- Trade
+```
+
+## Packet Flow
+
+서버 패킷은 수신 버퍼에 누적한 뒤 패킷 단위로 분리하고, opcode에 따라 handler로 전달합니다.  
+각 handler는 패킷 필드를 파싱해 클라이언트의 게임 객체 또는 UI 상태를 갱신합니다.
+
+```text
+TCP Socket
+ -> Receive Buffer
+ -> Packet Header / Body Parse
+ -> Opcode Dispatch
+ -> Packet Handler
+ -> Player / Monster / Inventory / UI Update
+ -> Render
+```
+
+## Runtime Flow
+
+```text
+Program Start
+ -> Resource Load
+ -> Server Connect
+ -> Channel Auth
+ -> Map Enter
+ -> Other Player Snapshot Receive
+ -> Game Loop
+      -> Input
+      -> Send Move / Attack / Item Packet
+      -> Receive Server Packet
+      -> Update Object State
+      -> Render
 ```
 
 ## Core Features
 
 ### 1. Client Runtime
 
-- Application, Scene, GameObject, Component 기반 클라이언트 구조 활용
-- ResourceManager 기반 리소스 로딩
+- `Application`, `Scene`, `GameObject`, `Component` 기반 클라이언트 구조 활용
+- `ResourceManager` 기반 리소스 로딩
 - Direct2D 기반 렌더링 흐름 적용
 - 입력, 업데이트, 렌더링 루프 기반 게임 화면 구성
 
 ### 2. Server Packet Integration
 
 - TCP socket 기반 서버 연결
-- PacketManager와 opcode별 handler 구성
+- `PacketManager`와 opcode별 handler 구성
 - Channel 인증, 맵 입장, Player/Map/Inventory 데이터 수신
 - 서버 패킷을 클라이언트 객체와 UI 상태에 반영
 
@@ -98,18 +168,6 @@ Application
 - MFC 기반 로그인 창, 채팅 창, 교환 창 연동
 - 서버 패킷 결과를 UI 상태에 반영
 
-## Client-Server Flow
-
-```text
-Connect Server
- → Channel Auth
- → Receive Player / Map / Inventory Data
- → Enter Map
- → Receive Other Player Snapshot
- → Move / Attack / Item Packet
- → Update Client Object & UI State
-```
-
 ## Contribution
 
 2인 협업 프로젝트입니다.  
@@ -119,7 +177,7 @@ Connect Server
 
 - 기존 WinAPI 클라이언트 구조와 게임 리소스를 프로젝트에 통합
 - GDI+ 중심 렌더링 경로를 Direct2D 기반으로 전환
-- PacketManager와 opcode별 packet handler 구성
+- `PacketManager`와 opcode별 packet handler 구성
 - Channel 인증부터 맵 입장까지 이어지는 서버 패킷 연동 구현
 - 플레이어 이동, 다른 플레이어 snapshot/이동/공격 동기화 구현
 - 몬스터 생성/피격/리스폰, 전투 요청, 경험치 반영 구현
@@ -132,9 +190,11 @@ Connect Server
 - 해당 UI를 서버 패킷 처리 흐름과 연동하여 프로젝트 전체 기능으로 통합
 
 ## Related Links
-- Server Repository: https://github.com/LL2Games/LL2Games_RPG_Server
+
+- Server Repository:https://github.com/LL2Games/LL2Games_RPG_Server
+
 ## Notes
 
 - 서버와 함께 실행해야 전체 기능을 확인할 수 있습니다.
 - 서버 주소, 포트, 테스트 캐릭터 정보는 실행 환경에 맞게 설정해야 합니다.
-- 포트폴리오 제출용 README에서는 Demo 영역에 실제 GIF와 플레이 영상을 추가하는 것을 권장합니다.
+- 포트폴리오 제출용 README에서는 `Demo` 영역에 실제 GIF와 플레이 영상을 추가하는 것을 권장합니다.
