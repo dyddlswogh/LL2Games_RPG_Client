@@ -227,6 +227,35 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     //#define CreateWindowW(lpClassName, lpWindowName, dwStyle, x, y,\
     //nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)\
 
+//gunoo22 260710 개발시 전체 창 투명도 설정
+#ifdef __DEV_OPACITY
+    HWND hWnd = CreateWindowExW
+    (
+        WS_EX_LAYERED,
+        szWindowClass,
+        szTitle,
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT,
+        0,
+        width,
+        height,
+        nullptr,
+        nullptr,
+        hInstance,
+        nullptr
+    );
+
+    if (!hWnd)
+    {
+        return FALSE;
+    }
+
+    //투명도 지정 0(완전투명) ~ 255(완전 불투명)
+    BYTE opacity = 22;
+    SetLayeredWindowAttributes(hWnd, 0, opacity, LWA_ALPHA);
+
+    CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+#else
     HWND hWnd = CreateWindowW
     (
         szWindowClass,
@@ -242,6 +271,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         nullptr
     );
     CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
+#endif
 
     //APP초기화 실패시 구동 취소
     if (!APP->Initialize(hWnd, width, height))
