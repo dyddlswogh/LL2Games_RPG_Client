@@ -104,9 +104,9 @@ void stb::ResourceManager::LoadItemTextures()
 
 void stb::ResourceManager::LoadHealthBarTextures()
 {
-	Load<Texture>(L"HealthBar_Background", L"Resources\\UI\\HealthBar\\main.status.normal.backgrnd.png");
-	Load<Texture>(L"HealthBar_hpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.hp.layer_0.png");
-	Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.mp.layer_0.png");
+	Load<Texture>(L"HealthBar_Background", L"Resources\\UI\\HealthBar\\backgrnd.png");
+	Load<Texture>(L"HealthBar_hpLayer", L"Resources\\UI\\HealthBar\\hp.layer_0.png");
+	Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\mp.layer_0.png");
 	Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
 
 	Load<Texture>(L"HealthBar_0", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.0.png");
