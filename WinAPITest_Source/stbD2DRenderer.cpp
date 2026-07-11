@@ -212,7 +212,7 @@ bool stbD2DRenderer::CreateTextFormats()
         DWRITE_FONT_WEIGHT_BOLD,
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
-        17.0f,
+        12.0f,
         L"ko-kr",
         m_NicknameTextFormat.GetAddressOf());
 
@@ -222,7 +222,7 @@ bool stbD2DRenderer::CreateTextFormats()
         DWRITE_FONT_WEIGHT_BOLD,
         DWRITE_FONT_STYLE_NORMAL,
         DWRITE_FONT_STRETCH_NORMAL,
-        9.0f,
+        10.0f,
         L"ko-kr",
         m_ExpTextFormat.GetAddressOf());
 
