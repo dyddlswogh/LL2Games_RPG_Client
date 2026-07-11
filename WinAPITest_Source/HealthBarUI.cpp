@@ -122,7 +122,7 @@ void HealthBarUI::RenderHpLayer(stbD2DRenderer& renderer)
         drawHeight,
         UIAnchor::CenterBottom,
         10,
-        38
+        61
     );
 
     int curHp = player->GetStat()->GetCurHp();
@@ -194,7 +194,7 @@ void HealthBarUI::RenderMpLayer(stbD2DRenderer& renderer)
         drawHeight,
         UIAnchor::CenterBottom,
         10,
-        19
+        20
     );
 
     int curMp = player->GetStat()->GetCurMp();

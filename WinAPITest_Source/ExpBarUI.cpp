@@ -14,7 +14,7 @@
 
 void ExpBarUI::Init()
 {
-    m_expBarTextureKeys[1228] =
+    /*m_expBarTextureKeys[1228] =
     {
         L"1228_expBar_backLayer",
         L"1228_expBar_backLayer"
@@ -26,16 +26,17 @@ void ExpBarUI::Init()
         L"1380_expBar_backLayer"
     };
 
-    m_expBarTextureKeys[1366] =
-    {
-        L"1366_expBar_backLayer",
-        L"1366_expBar_gaugeLayer"
-    };
 
     m_expBarTextureKeys[1920] =
     {
         L"1920_expBar_backLayer",
         L"1920_expBar_backLayer"
+    };*/
+
+    m_expBarTextureKeys[1366] =
+    {
+        L"1366_expBar_backLayer",
+        L"1366_expBar_gaugeLayer"
     };
 
     m_background = M_RESOURCEMANAGER->Find<stb::Texture>(m_expBarTextureKeys[1366].layerBack);

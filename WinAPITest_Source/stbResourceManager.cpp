@@ -107,31 +107,31 @@ void stb::ResourceManager::LoadHealthBarTextures()
 	Load<Texture>(L"HealthBar_Background", L"Resources\\UI\\HealthBar\\backgrnd.png");
 	Load<Texture>(L"HealthBar_hpLayer", L"Resources\\UI\\HealthBar\\hp.layer_0.png");
 	Load<Texture>(L"HealthBar_mpLayer", L"Resources\\UI\\HealthBar\\mp.layer_0.png");
-	Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
+	//Load<Texture>(L"HealthBar_guage", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
 
-	Load<Texture>(L"HealthBar_0", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.0.png");
-	Load<Texture>(L"HealthBar_1", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.1.png");
-	Load<Texture>(L"HealthBar_2", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.2.png");
-	Load<Texture>(L"HealthBar_3", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.3.png");
-	Load<Texture>(L"HealthBar_4", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.4.png");
-	Load<Texture>(L"HealthBar_5", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.5.png");
-	Load<Texture>(L"HealthBar_6", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.6.png");
-	Load<Texture>(L"HealthBar_7", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.7.png");
-	Load<Texture>(L"HealthBar_8", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.8.png");
-	Load<Texture>(L"HealthBar_9", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.9.png");
-	Load<Texture>(L"HealthBar_/", L"Resources\\UI\\HealthBar\\main.status.normal.gauge.number.png");
+	Load<Texture>(L"HealthBar_0", L"Resources\\UI\\HealthBar\\0.png");
+	Load<Texture>(L"HealthBar_1", L"Resources\\UI\\HealthBar\\1.png");
+	Load<Texture>(L"HealthBar_2", L"Resources\\UI\\HealthBar\\2.png");
+	Load<Texture>(L"HealthBar_3", L"Resources\\UI\\HealthBar\\3.png");
+	Load<Texture>(L"HealthBar_4", L"Resources\\UI\\HealthBar\\4.png");
+	Load<Texture>(L"HealthBar_5", L"Resources\\UI\\HealthBar\\5.png");
+	Load<Texture>(L"HealthBar_6", L"Resources\\UI\\HealthBar\\6.png");
+	Load<Texture>(L"HealthBar_7", L"Resources\\UI\\HealthBar\\7.png");
+	Load<Texture>(L"HealthBar_8", L"Resources\\UI\\HealthBar\\8.png");
+	Load<Texture>(L"HealthBar_9", L"Resources\\UI\\HealthBar\\9.png");
+	Load<Texture>(L"HealthBar_/", L"Resources\\UI\\HealthBar\\slash.png");
 }
 
 void stb::ResourceManager::LoadExpTextures()
 {
-	Load<Texture>(L"1228_expBar_backLayer", L"Resources\\UI\\Exp\\main.expBar.1228.layer_back.png");
-	Load<Texture>(L"1228_expBar_gaugeLayer", L"Resources\\UI\\Exp\\main.expBar.1228.layer_gauge.png");
-	Load<Texture>(L"1280_expBar_backLayer", L"Resources\\UI\\Exp\\main.expBar.1280.layer_back.png");
-	Load<Texture>(L"1280_expBar_gaugeLayer", L"Resources\\UI\\Exp\\main.expBar.1280.layer_gauge.png");
-	Load<Texture>(L"1366_expBar_backLayer", L"Resources\\UI\\Exp\\main.expBar.1366.layer_back.png");
-	Load<Texture>(L"1366_expBar_gaugeLayer", L"Resources\\UI\\Exp\\main.expBar.1366.layer_gauge.png");
-	Load<Texture>(L"1920_expBar_backLayer", L"Resources\\UI\\Exp\\main.expBar.1920.layer_back.png");
-	Load<Texture>(L"1920_expBar_gaugeLayer", L"Resources\\UI\\Exp\\main.expBar.1920.layer_gauge.png");
+	Load<Texture>(L"1366_expBar_backLayer", L"Resources\\UI\\Exp\\1366_layer_back.png");
+	Load<Texture>(L"1366_expBar_gaugeLayer", L"Resources\\UI\\Exp\\1366_layer_gauge.png");
+	/*Load<Texture>(L"1228_expBar_backLayer", L"Resources\\UI\\Exp\\1228_layer_back.png");
+	Load<Texture>(L"1228_expBar_gaugeLayer", L"Resources\\UI\\Exp\\1228_layer_gauge.png");
+	Load<Texture>(L"1280_expBar_backLayer", L"Resources\\UI\\Exp\\1280_layer_back.png");
+	Load<Texture>(L"1280_expBar_gaugeLayer", L"Resources\\UI\\Exp\\1280_layer_gauge.png");
+	Load<Texture>(L"1920_expBar_backLayer", L"Resources\\UI\\Exp\\1920_layer_back.png");
+	Load<Texture>(L"1920_expBar_gaugeLayer", L"Resources\\UI\\Exp\\1920_layer_gauge.png");*/
 
 
 }
