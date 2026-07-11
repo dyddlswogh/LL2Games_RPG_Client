@@ -215,13 +215,13 @@ void stb::ResourceManager::LoadTradeTextures()
 
 void stb::ResourceManager::LoadBGMAudioClips()
 {
-	Load<AudioClip>(L"BGM_Henesys_ground_1", L"Resources\\BGM\\henesys\\CavaBien.mp3");
+	Load<AudioClip>(L"BGM_Forest_ground_1", L"Resources\\BGM\\forest\\041415calmbgm.mp3");
 }
 
 
 void stb::ResourceManager::LoadMapTextures()
 {
-	Load<Texture>(L"Henesys_ground_1", L"Resources\\Background\\henesys\\henesys_ground_1.png");
+	Load<Texture>(L"Forest_ground_1", L"Resources\\Background\\forest\\forest_ground_1.png");
 }
 
 void stb::ResourceManager::LoadQuickSlotTextures()

@@ -46,8 +46,8 @@ namespace stb
 
 	
 		mPlayer = M_PLMANAGER->CreateLocalPlayer(enums::eLayerType::Player, Vector2(300.0f, 300.0f));
-		mBackground = M_REMANAGER->Find<Texture>(L"Henesys_ground_1");
-		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Henesys_ground_1");
+		mBackground = M_REMANAGER->Find<Texture>(L"Forest_ground_1");
+		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Forest_ground_1");
 
 
 #if 0 //누락된 코드
