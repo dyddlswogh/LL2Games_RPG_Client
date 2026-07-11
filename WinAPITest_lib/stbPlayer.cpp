@@ -2,10 +2,13 @@
 #include "InventoryManager.h"
 #include "stbPlayerScript.h"
 #include "..\\WinAPITest_Source\\\PlayerAnimationManager.h"
+#include "stbResourceManager.h"
+#include "stbTexture.h"
 
 
 
 #define M_PLAYERANIMMANAGER stb::SingletonBase<PlayerAnimationManager>::getInstance()
+#define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 
 namespace stb
 {
@@ -63,12 +66,27 @@ namespace stb
 		m_playerProfile = playerProfile;
 		m_playerLocation = playerlocation;
 
+		if (m_transform != nullptr)
+		{
+			m_transform->SetPosition(m_playerLocation.pos);
+		}
+
 		JobType jobType = static_cast<JobType>(m_playerProfile.job);
 		WeaponType weaponType = WeaponType::One_Hand;
 
 		M_PLAYERANIMMANAGER->Init();
 
-		M_PLAYERANIMMANAGER->SetupPlayerAnimations(this, jobType, weaponType);
+		bool setupOk = M_PLAYERANIMMANAGER->SetupPlayerAnimations(this, jobType, weaponType);
+		if (!setupOk)
+		{
+			stb::Texture* knightTex = M_REMANAGER->Find<stb::Texture>(L"DamonKnight");
+			if (knightTex != nullptr && m_animator != nullptr)
+			{
+				m_animator->CreateAnimation(L"stand", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 1, 1.0f);
+				m_animator->CreateAnimation(L"walk", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 3, 0.3f);
+				m_animator->CreateAnimation(L"swingO3", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 3, 0.2f);
+			}
+		}
 
 		SetState(PlayerState::Idle);
 	}

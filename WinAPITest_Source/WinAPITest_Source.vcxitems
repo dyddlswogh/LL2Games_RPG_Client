@@ -46,6 +46,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MonsterScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MovePacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MySocket.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)OtherPlayerPacketHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Packet.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PacketManager.h" />
@@ -136,6 +137,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MonsterScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MovePacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)MySocket.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)OtherPlayerPacketHandler.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PacketParser.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerAnimationManager.cpp" />

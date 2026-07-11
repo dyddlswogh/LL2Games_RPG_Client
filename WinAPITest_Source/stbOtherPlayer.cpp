@@ -14,8 +14,14 @@ namespace stb
     OtherPlayer::OtherPlayer()
         : mCharacterId("")
         , mTargetPosition(Vector2::Zero)
+        , mTargetSpeed(0.0f)
         , mHasTarget(false)
         , mInterpolationSpeed(800.0f) // 500 -> 800으로 증가 (더 빠르게 따라감)
+        , m_playerState(PlayerState::None)
+        , m_transform(nullptr)
+        , m_animator(nullptr)
+        , m_damageText(nullptr)
+        , m_collider(nullptr)
     {
     }
 
@@ -26,6 +32,10 @@ namespace stb
     void OtherPlayer::Initialize()
     {
         GameObject::Initialize();
+        m_transform = AddComponent<stb::Transform>();
+        m_animator = AddComponent<stb::Animator>();
+        m_damageText = AddComponent<stb::DamageText>();
+        m_collider = AddComponent<stb::BoxCollider2D>();
     }
 
     void OtherPlayer::Update()
@@ -58,6 +68,10 @@ namespace stb
                     tr->SetPosition(mTargetPosition);
                     SyncFollowers(mTargetPosition);
                     mHasTarget = false;
+                    if (m_playerState == PlayerState::Walk)
+                    {
+                        SetState(PlayerState::Idle);
+                    }
                 }
             }
         }
@@ -93,6 +107,53 @@ namespace stb
         mTargetPosition = Vector2(x, y);
         mTargetSpeed = speed;
         mHasTarget = true;
+    }
+
+    void OtherPlayer::SetDirection(int dir)
+    {
+        stb::Animator* animator = GetComponent<stb::Animator>();
+        if (animator == nullptr)
+            return;
+
+        animator->SetFlipX(dir > 0);
+    }
+
+    void OtherPlayer::SetState(PlayerState state)
+    {
+        if (m_playerState == state)
+            return;
+
+        m_playerState = state;
+
+        switch (state)
+        {
+        case PlayerState::Idle:
+            m_currentAnimation = L"stand";
+            break;
+
+        case PlayerState::Walk:
+            m_currentAnimation = L"walk";
+            break;
+
+        case PlayerState::Attack:
+            m_currentAnimation = L"swingO3";
+            break;
+
+        default:
+            m_currentAnimation = L"stand";
+            break;
+        }
+
+        stb::Animator* animator = GetComponent<stb::Animator>();
+        if (animator != nullptr)
+        {
+            bool isLoop = true;
+
+            if (state == PlayerState::Attack)
+                isLoop = false;
+
+            animator->PlayAnimation(m_currentAnimation, isLoop);
+        }
     }
 
     void OtherPlayer::SyncFollowers(Vector2 pos)

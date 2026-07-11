@@ -167,6 +167,7 @@ namespace stb
         sprintf_s(xStr, "%.1f", x);
         sprintf_s(yStr, "%.1f", y);
         sprintf_s(speedStr, "%.1f", speed);
+      
         
         std::vector<std::string> data = { xStr, yStr, speedStr };
         NetworkManager::getInstance()->SendPacket(PKT_PLAYER_MOVE, data);

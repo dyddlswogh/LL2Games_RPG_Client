@@ -2,12 +2,13 @@
 #include "IPacketHandler.h"
 #include "Packet.h"
 #include "CommonInclude.h"
-
+#include "..\\WinAPITest_lib\\stbPlayer.h"
 
 class MovePacketHandler : public IPacketHandler
 {
 public:
 	static void Execute(const ParsedPacket& pkt);
+	static void SendPlayerMove(stb::Player* player);
 
 private:
 };

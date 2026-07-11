@@ -216,6 +216,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)stbEntity.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)OtherPlayerPacketHandler.cpp">
+      <Filter>PacketHandler\OtherPlayer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)MySocket.h" />
@@ -493,6 +496,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EquipeTypes.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)OtherPlayerPacketHandler.h">
+      <Filter>PacketHandler\OtherPlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Colider">
@@ -641,6 +647,9 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{82465e83-c772-48b5-adfa-4126c8a4e3e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketHandler\OtherPlayer">
+      <UniqueIdentifier>{76710acb-d664-4283-a532-ecb7d7b5e4e2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
