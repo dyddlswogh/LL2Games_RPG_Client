@@ -47,10 +47,8 @@ bool CombatSystem::TryBasicAttack()
         return false;
     }
        
-    AttackDirection dir = AttackDirection::Left;
-
-    if (m_player->GetFacing() == stb::FacingDirection::Left)
-        dir = AttackDirection::Left;
+    AttackDirection dir =
+        (m_player->GetFacing() == stb::FacingDirection::Left) ? AttackDirection::Left : AttackDirection::Right;
 
     // 서버에 공격 패킷 보내기
     CombatPacketHandler::SendBasicAttack(static_cast<int>(dir));

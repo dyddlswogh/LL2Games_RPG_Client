@@ -4,6 +4,7 @@
 #include "AnimationInfo.h"
 #include "EquipeTypes.h"
 #include "..\\WinAPITest_lib\\\stbPlayer.h"
+#include "stbOtherPlayer.h"
 #include "playerInfo.h"
 #include <nlohmann/json.hpp>
 
@@ -15,7 +16,9 @@ public:
     bool LoadJsonFile(const std::string& path, PlayerAnimationSet& animData);
 
     bool SetupPlayerAnimations(stb::Player* player , JobType jobtype, WeaponType weaponType);
+    bool SetupOtherPlayerAnimations(stb::OtherPlayer* otherPlayer, JobType jobtype, WeaponType weaponType);
     void BindPlayerAnimationEvents(stb::Player* player, stb::Animator* animator);
+    void BindOtherPlayerAnimationEvents(stb::OtherPlayer* otherPlayer, stb::Animator* animator);
 public:
     const AnimationInfo* FindAnimationData(std::string AnimName) const;
     const PlayerAnimationSet* FindAnimationSet(JobType jobtype, WeaponType weaponType) const;

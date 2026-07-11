@@ -11,6 +11,7 @@
 #include "QuickSlotPacketHandler.h"
 #include "TradePacketHandler.h"
 #include "DropItemPacketHandler.h"
+#include "OtherPlayerPacketHandler.h"
 
 bool PacketManager::RegisterAllHandlers()
 {
@@ -84,6 +85,27 @@ bool PacketManager::RegisterAllHandlers()
 		[](const ParsedPacket& pkt)
 		{
 			ItemPacketHandler::HandlePickUpItem(pkt);
+		});
+
+	// 다른 플레이어 입장 핸들러 등록
+	networkManager->RegisterHandler(PKT_OTHERPLAYER_ENTER,
+		[](const ParsedPacket& pkt)
+		{
+			OtherPlayerPacketHandler::HandleOtherPlayerEnter(pkt);
+		});
+
+	// 다른 플레이어 스냅샷 핸들러 등록
+	networkManager->RegisterHandler(PKT_OTHERPLAYER_SNAPSHOT,
+		[](const ParsedPacket& pkt)
+		{
+			OtherPlayerPacketHandler::HandleOtherPlayerSnapShot(pkt);
+		});
+
+	// 다른 플레이어 공격 핸들러 등록
+	networkManager->RegisterHandler(PKT_OTHER_PLAYER_ATTACK,
+		[](const ParsedPacket& pkt)
+		{
+			CombatPacketHandler::HandleOtherPlayerAttack(pkt);
 		});
 
 	// 몬스터 스냅샷 핸들러 등록

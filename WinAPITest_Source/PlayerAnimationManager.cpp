@@ -190,6 +190,79 @@ bool PlayerAnimationManager::SetupPlayerAnimations(stb::Player* player, JobType 
     return true;
 }
 
+bool PlayerAnimationManager::SetupOtherPlayerAnimations(stb::OtherPlayer* otherPlayer, JobType jobtype, WeaponType weaponType)
+{
+    if (otherPlayer == nullptr)
+        return false;
+
+    stb::Animator* animator = otherPlayer->GetComponent<stb::Animator>();
+    if (animator == nullptr)
+        animator = otherPlayer->AddComponent<stb::Animator>();
+
+    const PlayerAnimationSet* animSet = FindAnimationSet(jobtype, weaponType);
+    if (animSet == nullptr)
+        return false;
+
+    int createdCount = 0;
+
+    for (const PlayerAnimationInfo& info : animSet->animations)
+    {
+        std::vector<stb::Texture*> frames;
+        for (int i = 0; i < info.frameCount; ++i)
+        {
+            std::wstring key =
+                utils::StringToWString(info.path + "/" + info.framePrefix + std::to_string(i));
+
+            stb::Texture* tex = M_RESOURCEMANAGER->Find<stb::Texture>(key);
+            if (tex != nullptr)
+                frames.emplace_back(tex);
+        }
+
+
+        if (frames.empty())
+        {
+            std::string msg = "[PlayerAnimationManager] No frame files found for animation: " + info.animName + " (path=" + info.path + ")\n";
+            OutputDebugStringA(msg.c_str());
+            // 다음 애니메이션으로 넘어감
+            continue;
+        }
+
+        // origin 결정: JSON에 origin이 (0,0)인 경우 프레임 첫 이미지 중앙을 기본 origin으로 사용
+        stb::math::Vector2 originToUse = animSet->renderInfo.origin;
+        if (originToUse.x == 0.0f && originToUse.y == 0.0f)
+        {
+            stb::Texture* first = frames.front();
+            originToUse.x = static_cast<float>(first->GetWidth()) * 0.5f;
+            originToUse.y = static_cast<float>(first->GetHeight()) * 0.5f;
+        }
+
+        animator->CreateFrameAnimation(
+            utils::StringToWString(info.animName),
+            frames,
+            originToUse,
+            info.frameOffsets,
+            info.delayMs
+        );
+
+        stb::Animator::EventNames eventNames;
+
+        eventNames.startEventName = utils::StringToWString(info.animationEvent.start);
+        eventNames.completeEventName = utils::StringToWString(info.animationEvent.complete);
+        eventNames.endEventName = utils::StringToWString(info.animationEvent.end);
+
+        animator->SetAnimationEventNames(utils::StringToWString(info.animName), eventNames);
+        ++createdCount;
+
+    }
+    if (createdCount == 0)
+        return false;
+
+    BindOtherPlayerAnimationEvents(otherPlayer, animator);
+    return true;
+}
+
+
+
 void PlayerAnimationManager::BindPlayerAnimationEvents(stb::Player* player, stb::Animator* animator)
 {
    // 나중에 이벤트들 여기로 옮겨야함
@@ -208,6 +281,25 @@ void PlayerAnimationManager::BindPlayerAnimationEvents(stb::Player* player, stb:
                 return;
 
             player->SetState(PlayerState::Idle);
+        });
+}
+
+void PlayerAnimationManager::BindOtherPlayerAnimationEvents(stb::OtherPlayer* otherPlayer, stb::Animator* animator)
+{
+    if (otherPlayer == nullptr || animator == nullptr)
+        return;
+
+    animator->RegisterEvent(L"PlayerAttackEnd", [otherPlayer]()
+        {
+            OutputDebugStringA("PlayerAttackEnd event called\n");
+
+            if (otherPlayer == nullptr)
+                return;
+
+            if (otherPlayer->GetState() != PlayerState::Attack)
+                return;
+
+            otherPlayer->SetState(PlayerState::Idle);
         });
 }
 
