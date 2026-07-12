@@ -158,46 +158,46 @@ void stb::ResourceManager::LoadInventoryTextures()
 	Load<Texture>(L"Inventory_normal", L"Resources\\UI\\Inventory\\Inventory_backgrnd.png");
 	Load<Texture>(L"Inventory_full", L"Resources\\UI\\Inventory\\Inventory.FullBackgrnd.png");
 
-	Load<Texture>(L"Inventory_equip_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.0.png");
-	Load<Texture>(L"Inventory_consume_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.1.png");
-	Load<Texture>(L"Inventory_etc_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.2.png");
-	Load<Texture>(L"Inventory_setup_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.3.png");
-	Load<Texture>(L"Inventory_cash_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.4.png");
-	Load<Texture>(L"Inventory_cosmetic_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.normal.5.png");
+	Load<Texture>(L"Inventory_equip_normal", L"Resources\\UI\\Inventory\\category_normal_0.png");
+	Load<Texture>(L"Inventory_consume_normal", L"Resources\\UI\\Inventory\\category_normal_1.png");
+	Load<Texture>(L"Inventory_etc_normal", L"Resources\\UI\\Inventory\\category_normal_2.png");
+	Load<Texture>(L"Inventory_setup_normal", L"Resources\\UI\\Inventory\\category_normal_3.png");
+	Load<Texture>(L"Inventory_cash_normal", L"Resources\\UI\\Inventory\\category_normal_4.png");
+	Load<Texture>(L"Inventory_cosmetic_normal", L"Resources\\UI\\Inventory\\category_normal_5.png");
 
-	Load<Texture>(L"Inventory_equip_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.0.png");
-	Load<Texture>(L"Inventory_consume_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.1.png");
-	Load<Texture>(L"Inventory_etc_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.2.png");
-	Load<Texture>(L"Inventory_setup_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.3.png");
-	Load<Texture>(L"Inventory_cash_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.4.png");
-	Load<Texture>(L"Inventory_cosmetic_selected", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.tab-category.selected.5.png");
+	Load<Texture>(L"Inventory_equip_selected", L"Resources\\UI\\Inventory\\category_selected_0.png");
+	Load<Texture>(L"Inventory_consume_selected", L"Resources\\UI\\Inventory\\category_selected_1.png");
+	Load<Texture>(L"Inventory_etc_selected", L"Resources\\UI\\Inventory\\category_selected_2.png");
+	Load<Texture>(L"Inventory_setup_selected", L"Resources\\UI\\Inventory\\category_selected_3.png");
+	Load<Texture>(L"Inventory_cash_selected", L"Resources\\UI\\Inventory\\category_selected_4.png");
+	Load<Texture>(L"Inventory_cosmetic_selected", L"Resources\\UI\\Inventory\\category_selected_5.png");
 
-	Load<Texture>(L"Inventory_full_equip_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.0.png");
-	Load<Texture>(L"Inventory_full_consume_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.1.png");
-	Load<Texture>(L"Inventory_full_etc_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.2.png");
-	Load<Texture>(L"Inventory_full_setup_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.3.png");
-	Load<Texture>(L"Inventory_full_cash_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.4.png");
-	Load<Texture>(L"Inventory_full_cosmetic_normal", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.normal.5.png");
+	Load<Texture>(L"Inventory_full_equip_normal", L"Resources\\UI\\Inventory\\full_category_normal_0.png");
+	Load<Texture>(L"Inventory_full_consume_normal", L"Resources\\UI\\Inventory\\full_category_normal_1.png");
+	Load<Texture>(L"Inventory_full_etc_normal", L"Resources\\UI\\Inventory\\full_category_normal_2.png");
+	Load<Texture>(L"Inventory_full_setup_normal", L"Resources\\UI\\Inventory\\full_category_normal_3.png");
+	Load<Texture>(L"Inventory_full_cash_normal", L"Resources\\UI\\Inventory\\full_category_normal_4.png");
+	Load<Texture>(L"Inventory_full_cosmetic_normal", L"Resources\\UI\\Inventory\\full_category_normal_5.png");
 
-	Load<Texture>(L"Inventory_full_equip_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.0.png");
-	Load<Texture>(L"Inventory_full_consume_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.1.png");
-	Load<Texture>(L"Inventory_full_etc_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.2.png");
-	Load<Texture>(L"Inventory_full_setup_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.3.png");
-	Load<Texture>(L"Inventory_full_cash_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.4.png");
-	Load<Texture>(L"Inventory_full_cosmetic_selected", L"Resources\\UI\\Inventory\\Inventory.FullAutoBuild.tab-category.selected.5.png");
+	Load<Texture>(L"Inventory_full_equip_selected", L"Resources\\UI\\Inventory\\full_category_selected_0.png");
+	Load<Texture>(L"Inventory_full_consume_selected", L"Resources\\UI\\Inventory\\full_category_selected_1.png");
+	Load<Texture>(L"Inventory_full_etc_selected", L"Resources\\UI\\Inventory\\full_category_selected_2.png");
+	Load<Texture>(L"Inventory_full_setup_selected", L"Resources\\UI\\Inventory\\full_category_selected_3.png");
+	Load<Texture>(L"Inventory_full_cash_selected", L"Resources\\UI\\Inventory\\full_category_selected_4.png");
+	Load<Texture>(L"Inventory_full_cosmetic_selected", L"Resources\\UI\\Inventory\\full_category_selected_5.png");
 
-	Load<Texture>(L"Inventory_full_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.normal.0.png");
-	Load<Texture>(L"Inventory_full_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.mouseOver.0.png");
-	Load<Texture>(L"Inventory_full_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_full.pressed.0.png");
+	Load<Texture>(L"Inventory_full_normal", L"Resources\\UI\\Inventory\\full_normal_0.png");
+	Load<Texture>(L"Inventory_full_mouseOver", L"Resources\\UI\\Inventory\\full_mouseOver_0.png");
+	Load<Texture>(L"Inventory_full_pressed", L"Resources\\UI\\Inventory\\full_pressed0.png");
 
-	Load<Texture>(L"Inventory_min_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.normal.0.png");
-	Load<Texture>(L"Inventory_min_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.mouseOver.0.png");
-	Load<Texture>(L"Inventory_min_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_min.pressed.0.png");
+	Load<Texture>(L"Inventory_min_normal", L"Resources\\UI\\Inventory\\min_normal_0.png");
+	Load<Texture>(L"Inventory_min_mouseOver", L"Resources\\UI\\Inventory\\min_mouseOver_0.png");
+	Load<Texture>(L"Inventory_min_pressed", L"Resources\\UI\\Inventory\\min_pressed_0.png");
 
 
-	Load<Texture>(L"Inventory_close_normal", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.normal.0.png");
-	Load<Texture>(L"Inventory_close_mouseOver", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.mouseOver.0.png");
-	Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\Inventory\\Inventory.AutoBuild.button_close.pressed.0.png");
+	Load<Texture>(L"Inventory_close_normal", L"Resources\\UI\\Inventory\\close_normal_0.png");
+	Load<Texture>(L"Inventory_close_mouseOver", L"Resources\\UI\\Inventory\\close_mouseOver_0.png");
+	Load<Texture>(L"Inventory_close_pressed", L"Resources\\UI\\Inventory\\close_pressed_0.png");
 
 }
 
