@@ -192,6 +192,8 @@ bool PlayerAnimationManager::SetupPlayerAnimations(stb::Player* player, JobType 
 
 bool PlayerAnimationManager::SetupOtherPlayerAnimations(stb::OtherPlayer* otherPlayer, JobType jobtype, WeaponType weaponType)
 {
+    std::string msg = "SetupOtherPlayerAnimation jobtype : " + std::to_string(static_cast<int>(jobtype)) + "weaponType :" + std::to_string(static_cast<int>(weaponType)) + "\n";
+    OutputDebugStringA(msg.c_str());
     if (otherPlayer == nullptr)
         return false;
 

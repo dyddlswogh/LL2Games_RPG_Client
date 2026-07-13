@@ -1,4 +1,4 @@
-ï»¿// CLogin.cpp: êµ¬í˜„ íŒŒì¼
+// CLogin.cpp: ±¸Çö ÆÄÀÏ
 //
 
 //#include "pch.h"
@@ -12,10 +12,10 @@
 #include "MySocket.h"
 
 
-//ë¡œê·¸ì¸ ì•„ì´ë””
+//·Î±×ÀÎ ¾ÆÀÌµð
 extern std::string g_account_id;
 
-// CLogin ëŒ€í™” ìƒìž
+// CLogin ´ëÈ­ »óÀÚ
 
 IMPLEMENT_DYNAMIC(CLogin, CDialogEx)
 
@@ -67,21 +67,21 @@ BEGIN_MESSAGE_MAP(CLogin, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CLogin ë©”ì‹œì§€ ì²˜ë¦¬ê¸°
+// CLogin ¸Þ½ÃÁö Ã³¸®±â
 
 BOOL CLogin::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  ì—¬ê¸°ì— ì¶”ê°€ ì´ˆê¸°í™” ìž‘ì—…ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
-	m_editHost.SetWindowTextW(_T("100.114.42.54"));
+	// TODO:  ¿©±â¿¡ Ãß°¡ ÃÊ±âÈ­ ÀÛ¾÷À» Ãß°¡ÇÕ´Ï´Ù.
+	m_editHost.SetWindowTextW(_T("100.108.54.60"));
 	m_editPort.SetWindowTextW(_T("5000"));
 
 	m_editID.SetWindowTextW(_T("test_account_001"));
 	m_editPasswd.SetWindowTextW(_T("1111"));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// ì˜ˆì™¸: OCX ì†ì„± íŽ˜ì´ì§€ëŠ” FALSEë¥¼ ë°˜í™˜í•´ì•¼ í•©ë‹ˆë‹¤.
+	// ¿¹¿Ü: OCX ¼Ó¼º ÆäÀÌÁö´Â FALSE¸¦ ¹ÝÈ¯ÇØ¾ß ÇÕ´Ï´Ù.
 }
 
 int CLogin::Login()
@@ -101,7 +101,7 @@ int CLogin::Login()
 	buff = (char*)calloc(nBuffLen, sizeof(char));
 	if (buff == NULL)
 	{
-		AfxMessageBox(_T("ë©”ëª¨ë¦¬ í• ë‹¹ ì‹¤íŒ¨"));
+		AfxMessageBox(_T("¸Þ¸ð¸® ÇÒ´ç ½ÇÆÐ"));
 		goto err;
 	}
 	//nSendLen = sprintf_s(buff, nBuffLen, "%s$%s$", CStringA(strID), CStringA(strPasswd));
@@ -149,7 +149,7 @@ int CLogin::OnLogin(const char * recvBuff, const int recvLen)
 			{
 				CString strTmp;
 				pLine = strtok_s(NULL, "$", &context);
-				strTmp.Format(_T("ë¡œê·¸ì¸ ì‹¤íŒ¨: %s"), CString(pLine));
+				strTmp.Format(_T("·Î±×ÀÎ ½ÇÆÐ: %s"), CString(pLine));
 				AfxMessageBox(strTmp);
 				goto err;
 			}
@@ -162,13 +162,13 @@ err:
 
 	if (rc != EXIT_SUCCESS)
 	{
-		AfxMessageBox(_T("ë¡œê·¸ì¸ ì‹¤íŒ¨: íšŒì›ê°€ìž…ì„ í•˜ì„¸ìš”"));
+		AfxMessageBox(_T("·Î±×ÀÎ ½ÇÆÐ: È¸¿ø°¡ÀÔÀ» ÇÏ¼¼¿ä"));
 	}
 	else
 	{
-		AfxMessageBox(_T("ë¡œê·¸ì¸ ì„±ê³µ"));
-		m_pSock->m_bLoginPhase = FALSE; //ë¡œê·¸ì¸ ë
-		m_pSock->Disconnect(); //ì—°ê²° ëŠê¸°
+		AfxMessageBox(_T("·Î±×ÀÎ ¼º°ø"));
+		m_pSock->m_bLoginPhase = FALSE; //·Î±×ÀÎ ³¡
+		m_pSock->Disconnect(); //¿¬°á ²÷±â
 		EndDialog(IDOK);
 	}
 
@@ -187,18 +187,18 @@ void CLogin::OnSocketConnect(BOOL bConnect)
 	}
 }
 
-//ë¡œê·¸ì¸ ë²„íŠ¼ í´ë¦­
+//·Î±×ÀÎ ¹öÆ° Å¬¸¯
 void CLogin::OnBnClickedButtonLogin()
 {
 	m_editHost.GetWindowTextW(m_strHost);
 	m_editPort.GetWindowTextW(m_strPort);
-	// TODO: ì—¬ê¸°ì— ì»¨íŠ¸ë¡¤ ì•Œë¦¼ ì²˜ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
+	// TODO: ¿©±â¿¡ ÄÁÆ®·Ñ ¾Ë¸² Ã³¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
 
 	//connect();
 	//Login();
 
-	//AfxMessageBox(_T("ë¡œê·¸ì¸ ì„±ê³µ"));
-	////		m_pSock->m_bLoginPhase = FALSE; //ë¡œê·¸ì¸ ë
+	//AfxMessageBox(_T("·Î±×ÀÎ ¼º°ø"));
+	////		m_pSock->m_bLoginPhase = FALSE; //·Î±×ÀÎ ³¡
 	//EndDialog(IDOK);
 
 	if (m_bConnect == FALSE)
@@ -207,7 +207,7 @@ void CLogin::OnBnClickedButtonLogin()
 		OnSocketConnect(m_bConnect);
 }
 
-//íšŒì›ê°€ìž… ë²„íŠ¼ í´ë¦­
+//È¸¿ø°¡ÀÔ ¹öÆ° Å¬¸¯
 void CLogin::OnBnClickedButtonRegister()
 {
 	m_pSock->m_bRegister = TRUE;

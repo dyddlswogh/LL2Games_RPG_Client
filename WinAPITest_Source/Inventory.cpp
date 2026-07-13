@@ -167,3 +167,13 @@ std::vector<InventoryItemInfo> Inventory::GetItemInfos()
 	}
 	return items;
 }
+
+
+void Inventory::Clear()
+{
+	for (auto& [slotPos, item] : m_slots)
+	{
+		item.itemId = 0;
+		item.itemCount = 0;
+	}
+}

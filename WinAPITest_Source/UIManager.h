@@ -52,6 +52,15 @@ public:
 	void AppendChatMessage(const std::wstring& nick, const std::wstring& msg);
 	void SubmitChatInput();
 
+	bool IsTradeRequestActive() const;
+
+	bool ConsumeTradeQuantityEnter();
+	bool IsTradeQuantityInputActive() const;
+	void AppendTradeQuantityChar(wchar_t ch);
+	void KeyDownTradeQuantity(WPARAM key);
+
+	void RefreshInventoryUI();
+
 public:
 	InventoryUI* GetInventoryUI() { return m_inventoryUI; }
 	QuickSlotUI* GetQuickSlotUI() { return m_quickslotUI; }
@@ -67,4 +76,5 @@ private:
 	TradeUI* m_tradeUI = nullptr; //교환
 	TradeRequestUI* m_tradeReqUI = nullptr; //교환
 	ChatUI* m_chatUI = nullptr; //채팅
+	bool m_tradeQuantityEnterConsumed = false;
 };

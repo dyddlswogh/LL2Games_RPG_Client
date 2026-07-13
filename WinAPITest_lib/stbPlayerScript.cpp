@@ -51,19 +51,18 @@ namespace stb
 	{
 		if (m_player == nullptr) return;
 
-		// 입력을 먼저 처리해서 같은 프레임에 Idle()이 공격 입력을 덮어쓰지 않도록 함
+		if (M_UIMANAGER->IsInputFocused())
+			return;
+
 		HandleCombatInput();
 		HandleInput();
 
-		if (m_player->GetState() == PlayerState::Attack) 
+		if (m_player->GetState() == PlayerState::Attack)
 		{
 			Idle(false);
-
-			// 임시 안전장치
 			return;
 		}
 
-		// 공격 중이 아니면 평상시 상태 처리
 		Idle(true);
 		
 	}	

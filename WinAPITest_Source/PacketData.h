@@ -16,6 +16,7 @@ struct OtherPlayerMove
 struct OtherPlayerInfo
 {
     int char_id;
+    std::string name;
     int job;
     float xPos;
     float yPos;

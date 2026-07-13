@@ -11,6 +11,8 @@ public:
 	bool CreateInventory(InventoryMetaInfo inventoryMetaInfo);
 	void EnsureInventory(InventoryMetaInfo inventoryMetaInfo);
 	void UpdateSlot(InventorySlotUpdate& inventorySlotUpdate);
+
+	void ClearItems();
 public:
 	
 	Inventory* GetInventory(int inventoryType);

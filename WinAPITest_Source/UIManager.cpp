@@ -79,11 +79,15 @@ void UIManager::Render(stbD2DRenderer& renderer)
 
 void UIManager::ToggleInventory()
 {
-	if (m_inventoryUI != nullptr)
-		m_inventoryUI->Toggle();
+	if (m_inventoryUI == nullptr)
+		return;
+
+	m_inventoryUI->Toggle();
+
+	m_inventoryUI->UpdateInventoryByType();
 }
 
-#if 1 //±³È¯
+#if 1
 void UIManager::OpenTradeUI(const std::string& targetId, const std::string& targetName)
 {
 	m_tradeUI->SetActivce(true);
@@ -153,9 +157,9 @@ void UIManager::ShowTradeRequestPopUp(const TradeRequestInfo& info)
 	if (m_tradeReqUI) m_tradeReqUI->OnPopUp(info);
 }
 
-#endif //±³È¯
+#endif
 
-#if 1 //Ã¤ÆÃ
+#if 1 
 void UIManager::ToggleChatInput()
 {
 	if (m_chatUI) m_chatUI->ToggleInputFocus();
@@ -181,4 +185,49 @@ void UIManager::SubmitChatInput()
 {
 	if (m_chatUI) m_chatUI->SubmitInput();
 }
-#endif //Ã¤ÆÃ
+#endif 
+
+
+bool UIManager::IsTradeRequestActive() const
+{
+	return m_tradeReqUI &&
+		m_tradeReqUI->IsActive();
+}
+
+bool UIManager::IsTradeQuantityInputActive() const
+{
+	return m_tradeUI &&
+		m_tradeUI->IsQuantityInputActive();
+}
+
+void UIManager::AppendTradeQuantityChar(wchar_t ch)
+{
+	if (m_tradeUI)
+		m_tradeUI->OnQuantityChar(ch);
+}
+
+void UIManager::KeyDownTradeQuantity(WPARAM key)
+{
+	if (!m_tradeUI)
+		return;
+
+	if (key == VK_RETURN)
+		m_tradeQuantityEnterConsumed = true;
+
+	m_tradeUI->OnQuantityKeyDown(key);
+}
+
+bool UIManager::ConsumeTradeQuantityEnter()
+{
+	if (!m_tradeQuantityEnterConsumed)
+		return false;
+
+	m_tradeQuantityEnterConsumed = false;
+	return true;
+}
+
+void UIManager::RefreshInventoryUI()
+{
+	if (m_inventoryUI)
+		m_inventoryUI->UpdateInventoryByType();
+}

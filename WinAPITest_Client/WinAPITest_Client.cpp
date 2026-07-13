@@ -366,6 +366,61 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     break;
     case WM_CHAR:
     {
+
+#if 1
+        wchar_t ch = static_cast<wchar_t>(wParam);
+
+        if (M_UIMANAGER->IsTradeQuantityInputActive())
+        {
+            M_UIMANAGER->AppendTradeQuantityChar(ch);
+            break;
+        }
+
+        // Enter는 ChatScene::Update 또는 Trade OnKeyDown에서 처리
+        if (ch == VK_RETURN)
+            break;
+
+        if (ch == VK_BACK)
+        {
+            if (M_UIMANAGER->IsInputFocused())
+            {
+                M_UIMANAGER->HandleBackspace();
+            }
+            else
+            {
+                M_UIMANAGER->AppendInputChar_Trade(ch);
+            }
+
+            break;
+        }
+
+        if (ch == 0x1B)
+        {
+            if (M_UIMANAGER->IsInputFocused())
+            {
+                M_UIMANAGER->ToggleChatInput();
+            }
+            else
+            {
+                M_UIMANAGER->CloseReqTradeUI();
+            }
+
+            break;
+        }
+
+        if (ch >= 0x20)
+        {
+            if (M_UIMANAGER->IsInputFocused())
+            {
+                M_UIMANAGER->AppendInputChar(ch);
+            }
+            else
+            {
+                M_UIMANAGER->AppendInputChar_Trade(ch);
+            }
+        }
+
+#else
         wchar_t ch = (wchar_t)wParam;
         if (ch == VK_RETURN)            // Enter는 ChatScene::Update에서 처리
             break;
@@ -387,10 +442,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             //M_UIMANAGER->AppendInputChar(ch); //채팅
             M_UIMANAGER->AppendInputChar_Trade(ch); //교환신청
         }
+#endif
     }
     break;
     case WM_KEYDOWN:
     {
+        if (M_UIMANAGER->IsTradeQuantityInputActive())
+        {
+            M_UIMANAGER->KeyDownTradeQuantity(wParam);
+            break;
+        }
+
         M_UIMANAGER->KeyDownTrade(wParam); //교환신청
     }
     break;

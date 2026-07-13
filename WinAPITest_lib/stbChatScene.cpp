@@ -72,6 +72,22 @@ namespace stb
 		// Enter 키 → 입력 모드 토글 OR 전송
 		if (M_INPUT->GetKeyDown(eKeyCode::Enter))
 		{
+#if 1
+			if (M_UIMANAGER->ConsumeTradeQuantityEnter())
+				return;
+
+			if (M_UIMANAGER->IsTradeRequestActive())
+				return;
+
+			if (M_UIMANAGER->IsInputFocused())
+			{
+				M_UIMANAGER->SubmitChatInput();
+			}
+			else
+			{
+				M_UIMANAGER->ToggleChatInput();
+			}
+#else
 			if (M_UIMANAGER->IsInputFocused())
 			{
 				// 입력 모드 → Enter = 전송 후 닫기
@@ -83,6 +99,7 @@ namespace stb
 				// 비활성 → Enter = 채팅창 열기
 				M_UIMANAGER->ToggleChatInput();
 			}
+#endif
 		}
 
 	}

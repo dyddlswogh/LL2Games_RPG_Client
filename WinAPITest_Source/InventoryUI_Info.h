@@ -34,16 +34,17 @@ struct ExpBarTextureKey
 
 struct InventorySlotUI
 {
-    int slotIndex;
+    int slotIndex = -1;
 
-    float x;
-    float y;
-    float width;
-    float height;
-    bool isEnabled;
+    float x = 0.0f;
+    float y = 0.0f;
+    float width = 0.0f;
+    float height = 0.0f;
 
-    int itemId;
-    int itemCount;
+    bool isEnabled = false;
+
+    int itemId = 0;
+    int itemCount = 0;
 };
 
 

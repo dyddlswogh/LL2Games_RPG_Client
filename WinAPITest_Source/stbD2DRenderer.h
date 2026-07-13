@@ -22,6 +22,9 @@ enum class TextStyle
 	Small,
 	QuickSlot,
 	NickName,
+	Trade,
+	TradeButton,
+	Chat,
 	EXP,
 };
 
@@ -86,6 +89,9 @@ private:
 	ComPtr<IDWriteTextFormat> m_QuickSlotTextFormat;
 	ComPtr<IDWriteTextFormat> m_NicknameTextFormat;
 	ComPtr<IDWriteTextFormat> m_ExpTextFormat;
+	ComPtr<IDWriteTextFormat> m_TradeTextFormat;
+	ComPtr<IDWriteTextFormat> m_TradeButtonTextFormat;
+	ComPtr<IDWriteTextFormat> m_ChatTextFormat;
 	// WIC에서 디코더, 포멧 컨버터 같은 걸 만드는 팩토리
 	ComPtr<IWICImagingFactory> m_WicFactory;
 	ComPtr<ID2D1Bitmap> m_Bitmap;

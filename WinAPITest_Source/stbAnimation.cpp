@@ -248,7 +248,7 @@ namespace stb
 			sprite.leftTop.x, sprite.leftTop.y,
 			sprite.size.x, sprite.size.y, flipX);
 
-#if 1 /*플레이어 위치 테스트*/
+#if 0 /*플레이어 위치 테스트*/
 		// 디버그 1: 실제 Transform 위치
 		renderer.DrawRect(
 			pos.x - 2.0f,

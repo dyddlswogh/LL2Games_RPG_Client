@@ -4,7 +4,10 @@
 #include "..\\WinAPITest_Source\\\PlayerAnimationManager.h"
 #include "stbResourceManager.h"
 #include "stbTexture.h"
-
+#include "stbRender.h"
+#include "stbCamera.h"
+#include "StringConvert.h"
+#include "stbD2DRenderer.h"
 
 
 #define M_PLAYERANIMMANAGER stb::SingletonBase<PlayerAnimationManager>::getInstance()
@@ -53,6 +56,52 @@ namespace stb
 	void Player::Render(stbD2DRenderer& renderer)
 	{
 		GameObject::Render(renderer);
+
+		if (m_transform == nullptr ||
+			m_playerProfile.name.empty())
+		{
+			return;
+		}
+
+		Vector2 screenPos = m_transform->GetPosition();
+
+		if (render::mainCamera != nullptr)
+		{
+			screenPos =
+				render::mainCamera->CalculatePosition(screenPos);
+		}
+
+		D2D1_RECT_F nameRect = D2D1::RectF(
+			screenPos.x - 60.0f,
+			screenPos.y - 85.0f,
+			screenPos.x + 60.0f,
+			screenPos.y - 60.0f
+		);
+
+		std::wstring name =
+			Convert::StringToWString(m_playerProfile.name);
+
+		// 그림자
+		D2D1_RECT_F shadowRect = nameRect;
+		shadowRect.left += 1.0f;
+		shadowRect.right += 1.0f;
+		shadowRect.top += 1.0f;
+		shadowRect.bottom += 1.0f;
+
+		renderer.DrawTextString(
+			name,
+			shadowRect,
+			D2D1::ColorF(D2D1::ColorF::Black),
+			TextStyle::NickName
+		);
+
+		// 본문
+		renderer.DrawTextString(
+			name,
+			nameRect,
+			D2D1::ColorF(D2D1::ColorF::White),
+			TextStyle::NickName
+		);
 	}
 
 	void Player::SetStat(BaseStat baseStat, DerivedStat derived, ExpStat expStat, int cur_hp, int cur_mp, int remainAp)
@@ -87,7 +136,7 @@ namespace stb
 				m_animator->CreateAnimation(L"swingO3", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 3, 0.2f);
 			}
 		}
-
+		m_playerState = PlayerState::None;
 		SetState(PlayerState::Idle);
 	}
 
