@@ -7,21 +7,21 @@
 
 void ChatUI::Init()
 {
-    mActive = true; // Ã³À½¿£ ·Î±×¸¸ º¸ÀÌ°í ÀÔ·Â¹Ú½º´Â ¼û±è
-    // (·Î±×´Â Ç×»ó º¸ÀÌµµ·Ï mActive = true·Î µÖµµ µÊ)
+    mActive = true; // ì²˜ìŒì—” ë¡œê·¸ë§Œ ë³´ì´ê³  ì…ë ¥ë°•ìŠ¤ëŠ” ìˆ¨ê¹€
+    // (ë¡œê·¸ëŠ” í•­ìƒ ë³´ì´ë„ë¡ mActive = trueë¡œ ë‘¬ë„ ë¨)
 }
 
 void ChatUI::ToggleInputFocus()
 {
     m_inputActive = !m_inputActive;
     if (!m_inputActive)
-        m_inputBuffer.clear();  // ´İÀ» ¶§ ÀÔ·Â ¹öÆÛ ÃÊ±âÈ­
+        m_inputBuffer.clear();  // ë‹«ì„ ë•Œ ì…ë ¥ ë²„í¼ ì´ˆê¸°í™”
 }
 
 void ChatUI::AppendChar(wchar_t ch)
 {
     if (!m_inputActive) return;
-    if (m_inputBuffer.size() >= 100) return;  // ÃÖ´ë ±æÀÌ Á¦ÇÑ
+    if (m_inputBuffer.size() >= 100) return;  // ìµœëŒ€ ê¸¸ì´ ì œí•œ
     m_inputBuffer += ch;
 }
 
@@ -35,12 +35,12 @@ void ChatUI::SubmitInput()
 {
     if (m_inputBuffer.empty()) return;
 
-    // UTF-16 ¡æ UTF-8 º¯È¯ ÈÄ ¼Û½Å
+    // UTF-16 â†’ UTF-8 ë³€í™˜ í›„ ì†¡ì‹ 
     std::string utf8 = Convert::WstrToUtf8(m_inputBuffer);
     ChatPacketHandler::SendChat(utf8);
     m_inputBuffer.clear();
 
-    ToggleInputFocus();   // Àü¼Û ÈÄ ÀÔ·Â ¸ğµå Á¾·á
+    ToggleInputFocus();   // ì „ì†¡ í›„ ì…ë ¥ ëª¨ë“œ ì¢…ë£Œ
 }
 
 void ChatUI::AddMessage(const std::wstring& nick, const std::wstring& msg)
@@ -48,7 +48,7 @@ void ChatUI::AddMessage(const std::wstring& nick, const std::wstring& msg)
     std::wstring line = L"[" + nick + L"] " + msg;
     m_logLines.push_back(line);
     if ((int)m_logLines.size() > MAX_LOG_LINES)
-        m_logLines.erase(m_logLines.begin());  // ¿À·¡µÈ ÁÙ Á¦°Å
+        m_logLines.erase(m_logLines.begin());  // ì˜¤ë˜ëœ ì¤„ ì œê±°
 }
 
 void ChatUI::Render(stbD2DRenderer& renderer)
@@ -67,11 +67,11 @@ void ChatUI::Render(stbD2DRenderer& renderer)
     float inputX = marginL;
     float inputY = screenH - marginB - inputH;
 
-    // ¦¡¦¡ ·Î±× ¹è°æ (¹İÅõ¸í °ËÁ¤) ¦¡¦¡
+    // â”€â”€ ë¡œê·¸ ë°°ê²½ (ë°˜íˆ¬ëª… ê²€ì •) â”€â”€
     renderer.FillRect(logX, logY, boxW, logH,
         D2D1::ColorF(0.f, 0.f, 0.f, 0.45f));
 
-    // ¦¡¦¡ ·Î±× ÅØ½ºÆ® ¦¡¦¡
+    // â”€â”€ ë¡œê·¸ í…ìŠ¤íŠ¸ â”€â”€
     float lineH = logH / MAX_LOG_LINES;
     for (int i = 0; i < (int)m_logLines.size(); ++i)
     {
@@ -81,17 +81,17 @@ void ChatUI::Render(stbD2DRenderer& renderer)
             D2D1::ColorF(D2D1::ColorF::White), TextStyle::Chat);
     }
 
-    // ¦¡¦¡ ÀÔ·Â¹Ú½º (ÀÔ·Â ¸ğµåÀÏ ¶§¸¸) ¦¡¦¡
+    // â”€â”€ ì…ë ¥ë°•ìŠ¤ (ì…ë ¥ ëª¨ë“œì¼ ë•Œë§Œ) â”€â”€
     if (m_inputActive)
     {
-        // ¹è°æ
+        // ë°°ê²½
         renderer.FillRect(inputX, inputY, boxW, inputH,
             D2D1::ColorF(0.f, 0.f, 0.f, 0.7f));
-        // Å×µÎ¸®
+        // í…Œë‘ë¦¬
         renderer.DrawRect(inputX, inputY, boxW, inputH,
             D2D1::ColorF(D2D1::ColorF::Yellow), 1.5f);
 
-        // ÀÔ·Â ÅØ½ºÆ® + Ä¿¼­
+        // ì…ë ¥ í…ìŠ¤íŠ¸ + ì»¤ì„œ
         std::wstring display = m_inputBuffer + L"_";
         D2D1_RECT_F rect = D2D1::RectF(inputX + 4, inputY + 2,
             inputX + boxW, inputY + inputH);
@@ -100,13 +100,13 @@ void ChatUI::Render(stbD2DRenderer& renderer)
     }
     else
     {
-        // ºñÈ°¼º »óÅÂ: ¾ãÀº È¸»ö Å×µÎ¸®¸¸
+        // ë¹„í™œì„± ìƒíƒœ: ì–‡ì€ íšŒìƒ‰ í…Œë‘ë¦¬ë§Œ
         renderer.DrawRect(inputX, inputY, boxW, inputH,
             D2D1::ColorF(0.5f, 0.5f, 0.5f, 0.4f), 1.f);
 
         D2D1_RECT_F rect = D2D1::RectF(inputX + 4, inputY + 2,
             inputX + boxW, inputY + inputH);
-        renderer.DrawTextString(L"Enter Å°¸¦ ´­·¯ Ã¤ÆÃ", rect,
+        renderer.DrawTextString(L"Enter í‚¤ë¥¼ ëˆŒëŸ¬ ì±„íŒ…", rect,
             D2D1::ColorF(1.0f, 1.0f, 1.0f, 0.6f), TextStyle::Chat);
     }
 }
