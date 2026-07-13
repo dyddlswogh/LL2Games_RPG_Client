@@ -44,20 +44,6 @@ namespace stb
             it->second->SetDirection(otherPlayerMove.dir);
             it->second->SetState(effectiveState);
         }
-        else
-        {
-            // 처음 보는 플레이어면 생성
-            OutputDebugStringA("[OtherPlayer] UpdatePlayer create path\n");
-            UpdatePlayer(otherPlayerMove.playerId, otherPlayerMove.xPos, otherPlayerMove.yPos);
-            auto newIt = mPlayers.find(otherPlayerMove.playerId);
-            if (newIt != mPlayers.end() && newIt->second != nullptr)
-            {
-                newIt->second->SetDirection(otherPlayerMove.dir);
-                newIt->second->SetState(otherPlayerMove.state);
-
-            }
-        }
-
         return true;
         
     }
@@ -110,6 +96,7 @@ namespace stb
         }
 
         player->SetCharacterId(charId);
+        player->SetNickName(playerInfo.name);
 
         player->Initialize();
 
@@ -121,6 +108,9 @@ namespace stb
 
         // 애니메이션 설정: 서버에서 job 정보가 전달되므로 그 값을 사용
         JobType jobType = JobType::None;
+        OutputDebugStringA("플레이어 직업 타입 : ");
+        OutputDebugStringA(std::to_string(static_cast<int>(jobType)).c_str());
+        OutputDebugStringA("\n");
         switch (playerInfo.job)
         {
             case 1: jobType = JobType::Warrior; break;
@@ -191,49 +181,6 @@ namespace stb
             {
                 it->second->UpdatePosition(x, y);
             }
-        }
-        else
-        {
-            // 새로운 플레이어 생성
-            OtherPlayer* player = object::Instantiate<OtherPlayer>(enums::eLayerType::Player, Vector2(x, y));
-            if (player == nullptr)
-            {
-                OutputDebugStringA("플레이어 생성 실패!\n");
-                return false;
-            }
-
-            player->SetCharacterId(charId);
-            
-            player->Initialize();
-
-            Transform* tr = player->GetComponent<Transform>();
-            if (tr != nullptr)
-            {
-                tr->SetPosition(Vector2(x, y));
-            }
-            
-            Texture* knightTex = M_REMANAGER->Find<Texture>(L"DamonKnight");
-            if (knightTex != nullptr)
-            {
-                Animator* animator = player->GetComponent<Animator>();
-                if (animator == nullptr)
-                {
-                    animator = player->AddComponent<Animator>();
-                }
-
-                if (animator != nullptr)
-                {
-                    animator->CreateAnimation(L"stand", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 1, 1.0f);
-                    animator->CreateAnimation(L"walk", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 3, 0.3f);
-                    animator->CreateAnimation(L"swingO3", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 3, 0.2f);
-                    animator->PlayAnimation(L"stand", true);
-                }
-            }
-            
-            mPlayers[charId] = player;
-            
-            std::string msg = "다른 플레이어 생성: ID=" + charId + " at (" + std::to_string((int)x) + ", " + std::to_string((int)y) + ")\n";
-            OutputDebugStringA(msg.c_str());
         }
         return true;
     }

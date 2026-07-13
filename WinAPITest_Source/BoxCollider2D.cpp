@@ -32,6 +32,7 @@ namespace stb
 
 	void BoxCollider2D::Render(HDC hdc)
 	{
+		
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 
@@ -61,7 +62,7 @@ namespace stb
 		SelectObject(hdc, oldBrush);
 		SelectObject(hdc, oldPen);
 		DeleteObject(transparentPen);
-
+		
 	}
 
 	void BoxCollider2D::Render(stbD2DRenderer& renderer)
@@ -89,7 +90,7 @@ namespace stb
 		float width = halfSize.x * 2.0f;
 		float height = halfSize.y * 2.0f;
 
-		renderer.DrawRect(left, top, width, height, D2D1::ColorF::Black);
+		//renderer.DrawRect(left, top, width, height, D2D1::ColorF::Black);
 	}
 }
 

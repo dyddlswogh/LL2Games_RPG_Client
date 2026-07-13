@@ -102,7 +102,7 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
     );
 
     renderer.DrawTextString(message, msgRect,
-        D2D1::ColorF(D2D1::ColorF::White));
+        D2D1::ColorF(D2D1::ColorF::White), TextStyle::Trade);
 
     // 버튼 위치 저장
     const float btnW = 100.f;
@@ -149,7 +149,7 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
     );
 
     renderer.DrawTextString(L"수락", acceptTextRect,
-        D2D1::ColorF(D2D1::ColorF::White));
+        D2D1::ColorF(D2D1::ColorF::White), TextStyle::TradeButton);
 
     // 거절 버튼
     renderer.FillRect(
@@ -175,9 +175,9 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
         m_rejectButtonRect.right,
         m_rejectButtonRect.bottom
     );
-
+    
     renderer.DrawTextString(L"거절", rejectTextRect,
-        D2D1::ColorF(D2D1::ColorF::White));
+        D2D1::ColorF(D2D1::ColorF::White), TextStyle::TradeButton);
 }
 void TradeRequestUI::RenderRequest(stbD2DRenderer& renderer)
 {
@@ -186,9 +186,9 @@ void TradeRequestUI::RenderRequest(stbD2DRenderer& renderer)
     float cy = rtSize.height / 2.f;
 
     // 라벨
-    D2D1_RECT_F labelRect = D2D1::RectF(cx, cy - 28.f, cx + BOX_W, cy);
+    D2D1_RECT_F labelRect = D2D1::RectF(cx, cy -BOX_H, cx + BOX_W, cy );
     renderer.DrawTextString(L"Trade Input Nick(Enter)",
-        labelRect, D2D1::ColorF(D2D1::ColorF::LightGray));
+        labelRect, D2D1::ColorF(D2D1::ColorF::White), TextStyle::Trade);
 
     // 입력 박스 배경
     renderer.FillRect(cx, cy, BOX_W, BOX_H,
@@ -202,7 +202,7 @@ void TradeRequestUI::RenderRequest(stbD2DRenderer& renderer)
     std::wstring display = m_inputBuffer + L"_";
     D2D1_RECT_F textRect = D2D1::RectF(cx + 6.f, cy + 4.f, cx + BOX_W, cy + BOX_H);
     renderer.DrawTextString(display, textRect,
-        D2D1::ColorF(D2D1::ColorF::Yellow));
+        D2D1::ColorF(D2D1::ColorF::Yellow), TextStyle::Trade);
 }
 void TradeRequestUI::Render(stbD2DRenderer& renderer)
 {

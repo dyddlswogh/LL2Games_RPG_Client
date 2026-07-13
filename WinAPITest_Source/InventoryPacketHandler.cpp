@@ -79,6 +79,8 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
         {
             throw std::runtime_error(errMsg);
         }
+
+        M_INVENTORYMANAGER->ClearItems();
   
         for (int i = 0; i < itemSize; i++)
         {

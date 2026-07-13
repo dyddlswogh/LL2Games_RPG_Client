@@ -5,6 +5,9 @@
 #include "stbTexture.h"
 #include "stbTime.h"
 #include "stbD2DRenderer.h"
+#include "stbRender.h"
+#include "stbCamera.h"
+#include "StringConvert.h"
 
 #define M_REMANAGER stb::SingletonBase<stb::ResourceManager>::getInstance()
 #define M_Time stb::SingletonBase<stb::Time>::getInstance()
@@ -90,6 +93,52 @@ namespace stb
     void OtherPlayer::Render(stbD2DRenderer& renderer)
     {
         GameObject::Render(renderer);
+
+        if (m_transform == nullptr ||
+            m_nickName.empty())
+        {
+            return;
+        }
+
+        Vector2 screenPos = m_transform->GetPosition();
+
+        if (render::mainCamera != nullptr)
+        {
+            screenPos =
+                render::mainCamera->CalculatePosition(screenPos);
+        }
+
+        D2D1_RECT_F nameRect = D2D1::RectF(
+            screenPos.x - 60.0f,
+            screenPos.y - 85.0f,
+            screenPos.x + 60.0f,
+            screenPos.y - 60.0f
+        );
+
+        std::wstring name =
+            Convert::StringToWString(m_nickName);
+
+        // 그림자
+        D2D1_RECT_F shadowRect = nameRect;
+        shadowRect.left += 1.0f;
+        shadowRect.right += 1.0f;
+        shadowRect.top += 1.0f;
+        shadowRect.bottom += 1.0f;
+
+        renderer.DrawTextString(
+            name,
+            shadowRect,
+            D2D1::ColorF(D2D1::ColorF::Black),
+            TextStyle::NickName
+        );
+
+        // 본문
+        renderer.DrawTextString(
+            name,
+            nameRect,
+            D2D1::ColorF(D2D1::ColorF::White),
+            TextStyle::NickName
+        );
     }
 
 

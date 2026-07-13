@@ -61,3 +61,10 @@ void InventoryManager::Clear()
 	m_inventories.clear();
 }
 
+void InventoryManager::ClearItems()
+{
+	for (auto& [inventoryType, inventory] : m_inventories)
+	{
+		inventory.Clear();
+	}
+}

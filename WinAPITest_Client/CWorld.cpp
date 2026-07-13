@@ -150,7 +150,8 @@ void CWorld::DoDataExchange(CDataExchange* pDX)
 BOOL CWorld::connect()
 {
 	BOOL bRet;
-	CString strHost = _T("100.99.220.45");
+	//CString strHost = _T("100.99.220.45");
+	CString strHost = _T("100.108.54.60");
 	CString strPort = _T("5500");
 	
 	return m_pSock->connect(strHost, atoi(CT2A(strPort)));
@@ -176,7 +177,7 @@ BOOL CWorld::OnInitDialog()
 	m_editPasswd.SetWindowTextW(_T("1111"));*/
 
 	m_editCharId.SetWindowText(_T("1")); //캐릭터id
-	m_editChannelId.SetWindowText(_T("ch01")); //채널id
+	m_editChannelId.SetWindowText(_T("1")); //채널id
 
 	if (m_bConnect == FALSE)
 		connect();

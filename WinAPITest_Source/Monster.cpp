@@ -63,7 +63,7 @@ void Monster::Render(stbD2DRenderer& renderer)
 
 
 	GameObject::Render(renderer);
-	m_collider->Render(renderer);
+	//m_collider->Render(renderer);
 }
 
 void Monster::SetState(MonsterState state)

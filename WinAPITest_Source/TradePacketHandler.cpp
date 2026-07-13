@@ -3,6 +3,7 @@
 #include "stbNetworkManager.h"
 #include "TradeManager.h"
 #include "UIManager.h"
+#include "InventoryUI.h"
 
 #define M_NETWORK stb::SingletonBase<stb::NetworkManager>::getInstance()
 #define M_TRADEMGR stb::SingletonBase<TradeManager>::getInstance()
