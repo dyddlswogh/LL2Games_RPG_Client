@@ -202,8 +202,9 @@ private:
 
 	static constexpr int BUTTON_CONFIRM_X = 10;
 	static constexpr int BUTTON_CONFIRM_Y = 580;
-	static constexpr int BUTTON_TRADE_X = 225;
-	static constexpr int BUTTON_TRADE_Y = 580;
+	//static constexpr int BUTTON_TRADE_X = 225;
+	static constexpr int BUTTON_TRADE_X = 115;
+	static constexpr int BUTTON_TRADE_Y = 550;
 
 	static constexpr int LAYER_CONFIRM_ME_X = 227;
 	static constexpr int LAYER_CONFIRM_ME_Y = 43;

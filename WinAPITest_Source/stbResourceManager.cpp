@@ -203,12 +203,13 @@ void stb::ResourceManager::LoadInventoryTextures()
 
 void stb::ResourceManager::LoadTradeTextures()
 {
-	Load<Texture>(L"Trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.backgrnd.png");
-	Load<Texture>(L"Trade_full", L"Resources\\UI\\ItemTrade\\itemTrade.FullBackgrnd.png");
+	Load<Texture>(L"Trade_normal", L"Resources\\UI\\ItemTrade\\backgrnd.png");
+	Load<Texture>(L"Trade_full", L"Resources\\UI\\ItemTrade\\FullBackgrnd.png");
 
 	Load<Texture>(L"Trade_button_confirm_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_confirm.normal.0.png");
-	Load<Texture>(L"Trade_button_trade_normal", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.normal.0.png");
-	Load<Texture>(L"Trade_button_trade_checked", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.button_trade.checked.0.png");
+	Load<Texture>(L"Trade_button_trade_normal", L"Resources\\UI\\ItemTrade\\button_trade_normal.png");
+	Load<Texture>(L"Trade_button_trade_mouseOver", L"Resources\\UI\\ItemTrade\\button_trade_mouseOver.png");
+	Load<Texture>(L"Trade_button_trade_checked", L"Resources\\UI\\ItemTrade\\button_trade.checked.png");
 
 	Load<Texture>(L"Trade_layer_confirm_me", L"Resources\\UI\\ItemTrade\\itemTrade.AutoBuild.layer_confirmMe.png");
 }

@@ -368,11 +368,11 @@ void TradeUI::Render(stbD2DRenderer& renderer)
     RenderBackground(renderer);
 
     //교환 대기 레이어
-    if (m_ConfirmLayerMe)
+    /*if (m_ConfirmLayerMe)
         RenderConfirmLayerMe(renderer);
 
     if (m_ConfirmLayerTarget)
-        RenderConfirmLayerTarget(renderer);
+        RenderConfirmLayerTarget(renderer);*/
 
     // 2. 버튼 출력
     RenderButton(renderer);
@@ -489,7 +489,7 @@ void TradeUI::RenderConfirmLayerTarget(stbD2DRenderer& renderer)
 
 void TradeUI::RenderButton(stbD2DRenderer& renderer)
 {
-#if 1 //등록버튼
+#if 0 //등록버튼
     {
         stb::Texture* confirm = m_txtConfirmNormal;
         if (confirm == nullptr)
@@ -592,18 +592,18 @@ void TradeUI::RenderNickname(stbD2DRenderer& renderer)
 
     // 왼쪽 타겟 닉네임 영역
     D2D1_RECT_F targetNickRect = D2D1::RectF(
-        m_posX + 70.0f,
-        m_posY + 151.0f,
-        m_posX + 182.0f,
-        m_posY + 173.0f
+        m_posX + 62.0f,
+        m_posY + 100.0f,
+        m_posX + 157.0f,
+        m_posY + 117.0f
     );
 
     // 오른쪽 내 닉네임 영역
     D2D1_RECT_F myNickRect = D2D1::RectF(
-        m_posX + 275.0f,
-        m_posY + 151.0f,
-        m_posX + 387.0f,
-        m_posY + 173.0f
+        m_posX + 266.0f,
+        m_posY + 102.0f,
+        m_posX + 362.0f,
+        m_posY + 112.0f
     );
 
     rt->DrawTextW(
@@ -1184,7 +1184,7 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
 {
 #if 1 //test 마우스 위치 출력
 
-    if (1)
+    if (0)
     {
         int posX = mouseX;
         int posY = mouseY;
