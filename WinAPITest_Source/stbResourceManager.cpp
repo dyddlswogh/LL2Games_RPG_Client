@@ -139,18 +139,18 @@ void stb::ResourceManager::LoadExpTextures()
 
 void stb::ResourceManager::LoadLevelTextures()
 {
-	Load<Texture>(L"Level_Background",			L"Resources\\UI\\Level\\main.namePlate.backgrnd.png");
-	Load<Texture>(L"Level_lvLayer",				L"Resources\\UI\\Level\\main.namePlate.layer_lv.png");
-	Load<Texture>(L"Level_0",					L"Resources\\UI\\Level\\main.namePlate.levelNum.0.png");
-	Load<Texture>(L"Level_1",					L"Resources\\UI\\Level\\main.namePlate.levelNum.1.png");
-	Load<Texture>(L"Level_2",					L"Resources\\UI\\Level\\main.namePlate.levelNum.2.png");
-	Load<Texture>(L"Level_3",					L"Resources\\UI\\Level\\main.namePlate.levelNum.3.png");
-	Load<Texture>(L"Level_4",					L"Resources\\UI\\Level\\main.namePlate.levelNum.4.png");
-	Load<Texture>(L"Level_5",					L"Resources\\UI\\Level\\main.namePlate.levelNum.5.png");
-	Load<Texture>(L"Level_6",					L"Resources\\UI\\Level\\main.namePlate.levelNum.6.png");
-	Load<Texture>(L"Level_7",					L"Resources\\UI\\Level\\main.namePlate.levelNum.7.png");
-	Load<Texture>(L"Level_8",					L"Resources\\UI\\Level\\main.namePlate.levelNum.8.png");
-	Load<Texture>(L"Level_9",					L"Resources\\UI\\Level\\main.namePlate.levelNum.9.png");
+	Load<Texture>(L"Level_Background",			L"Resources\\UI\\Level\\namePlate_backgrnd.png");
+	Load<Texture>(L"Level_lvLayer",				L"Resources\\UI\\Level\\namePlate_layer_lv.png");
+	Load<Texture>(L"Level_0",					L"Resources\\UI\\Level\\0.png");
+	Load<Texture>(L"Level_1",					L"Resources\\UI\\Level\\1.png");
+	Load<Texture>(L"Level_2",					L"Resources\\UI\\Level\\2.png");
+	Load<Texture>(L"Level_3",					L"Resources\\UI\\Level\\3.png");
+	Load<Texture>(L"Level_4",					L"Resources\\UI\\Level\\4.png");
+	Load<Texture>(L"Level_5",					L"Resources\\UI\\Level\\5.png");
+	Load<Texture>(L"Level_6",					L"Resources\\UI\\Level\\6.png");
+	Load<Texture>(L"Level_7",					L"Resources\\UI\\Level\\7.png");
+	Load<Texture>(L"Level_8",					L"Resources\\UI\\Level\\8.png");
+	Load<Texture>(L"Level_9",					L"Resources\\UI\\Level\\9.png");
 }
 
 void stb::ResourceManager::LoadInventoryTextures()
