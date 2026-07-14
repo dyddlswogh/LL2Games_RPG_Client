@@ -227,5 +227,5 @@ void stb::ResourceManager::LoadMapTextures()
 
 void stb::ResourceManager::LoadQuickSlotTextures()
 {
-	Load<Texture>(L"quickslot_background", L"Resources\\UI\\quickslot\\quickSlot.backgrnd.png");
+	Load<Texture>(L"quickslot_background", L"Resources\\UI\\quickslot\\backgrnd.png");
 }
