@@ -226,6 +226,35 @@ bool stbD2DRenderer::CreateTextFormats()
         L"ko-kr",
         m_ExpTextFormat.GetAddressOf());
 
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"메이플스토리",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        17.0f,
+        L"ko-kr",
+        m_TradeTextFormat.GetAddressOf());
+
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"메이플스토리",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        20.0f,
+        L"ko-kr",
+        m_TradeButtonTextFormat.GetAddressOf());
+
+    hr = m_DWriteFactory->CreateTextFormat(
+        L"메이플스토리",
+        nullptr,
+        DWRITE_FONT_WEIGHT_BOLD,
+        DWRITE_FONT_STYLE_NORMAL,
+        DWRITE_FONT_STRETCH_NORMAL,
+        15.0f,
+        L"ko-kr",
+        m_ChatTextFormat.GetAddressOf());
 
     /*
         SetTextAlignment：가로 정렬
@@ -245,11 +274,22 @@ bool stbD2DRenderer::CreateTextFormats()
     m_QuickSlotTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
     m_QuickSlotTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 
-    m_NicknameTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-    m_NicknameTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+    m_NicknameTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+    m_NicknameTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 
     m_ExpTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
     m_ExpTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+
+    m_TradeTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+    m_TradeTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+
+    m_TradeButtonTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+    m_TradeButtonTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+
+    m_ChatTextFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+    m_ChatTextFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+
+
     return true;
 }
 
@@ -530,6 +570,16 @@ void stbD2DRenderer::DrawTextString(const std::wstring& text, const D2D1_RECT_F&
         textFormat = m_ExpTextFormat.Get();
         break;
 
+    case TextStyle::Trade:
+        textFormat = m_TradeTextFormat.Get();
+        break;
+
+    case TextStyle::TradeButton:
+        textFormat = m_TradeButtonTextFormat.Get();
+        break;
+    case TextStyle::Chat:
+        textFormat = m_ChatTextFormat.Get();
+        break;
     case TextStyle::Body:
     default:
         textFormat = m_BodyTextFormat.Get();

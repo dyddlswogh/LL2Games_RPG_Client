@@ -28,10 +28,6 @@ private:
 	void UpdateSlots();
 	void UpdateSlotEnableState();
 	void UpdateInventoryByType();
-
-
-
-
 	std::unordered_map<int, InventoryTabButton> m_tabs;
 
 	static constexpr RECT m_equipTabRect = { 10,30,45,52 };
@@ -56,6 +52,10 @@ private:
 	static constexpr RECT m_minimize_fullButton = { 190, 8, 207,27 };
 	static constexpr RECT m_minimize_closeButton = { 208, 4, 234,31 };
 
+	static constexpr RECT m_full_minButton = { 720, 8, 738, 27 };
+	static constexpr RECT m_full_fullButton = { 740, 8, 758, 27 };
+	static constexpr RECT m_full_closeButton = { 760, 4, 778, 27 };
+
 	InventoryType m_currentType;
 
 
@@ -71,11 +71,11 @@ private:
 	std::vector<InventorySlotUI> m_tradeMySlots;
 	std::vector<InventorySlotUI> m_tradeTargetSlots;
 
-	static constexpr float m_slotStartX = 26;
+	static constexpr float m_slotStartX = 474;
 	static constexpr float m_slotStartY = 80;
 	static constexpr float m_slotWidth = 42;
 	static constexpr float m_slotHeight = 40;
-	static constexpr float m_slotgapX = 4.2;
+	static constexpr float m_slotgapX = 4.4;
 	static constexpr float m_slotgapY = 6;
 
 	static constexpr int m_slotCols = 4;
@@ -84,20 +84,30 @@ private:
 	static constexpr int m_slotMaxCount = 128;
 	int m_inventoryImgPosX = 680;
 	int m_inventoryImgPosY = 100;
+
+	static constexpr int m_AddInventoryMenuPosX = 450;
+	static constexpr int m_AddInventoryMenuPosY = 100;
 	bool m_isExpand = false;
 
+	int m_posX = 230;
+	int m_posY = 100;
+
 	//교환 슬롯
-	int m_tradeMySlotPosX = 465;
-	int m_tradeMySlotPosY = 290;
-	int m_tradeTargetSlotPosX = 260;
-	int m_tradeTargetSlotPosY = 290;
+	int m_tradeMySlotPosX = 235;
+	int m_tradeMySlotPosY = 190;
+
+	int m_tradeTargetSlotPosX = 30;
+	int m_tradeTargetSlotPosY = 190;
 	static constexpr int m_tradeSlotCols = 4;
 	static constexpr int m_tradeSlotMaxCount = 12;
 
-	RECT m_tradeClickRect = { 230, 100, 670, 120 };
+	RECT m_tradeClickRect = { 230, 100, 670, 133 };
 	bool m_isDragging = false;
-	static constexpr int m_tradeClickWidth = 170;
-	static constexpr int m_tradeClickHeight = 30;
+	static constexpr int m_tradeCanClickWidth = 440;
+	static constexpr int m_tradeCanClickHeight = 32;
+
+	static constexpr int m_fullTradeCanClickWidth = 1150;
+	static constexpr int m_fullTradeCanClickHeight = 30;
 
 	int m_dragOffsetX;
 	int m_dragOffsetY;
@@ -143,17 +153,18 @@ private:
 
 	stb::Texture* GetCurrentImg(InventoryButton& buttons);
 
-
-
-
 	bool IsPointInTradeReady(int mouseX, int mouseY);
 
 	void HandleLMouseClick(int mouseX, int mouseY);
-	bool HandleInventoryClick(int mouseX, int mouseY);
+	bool HandleTradeUIDragging(int mouseX, int mouseY);
 	bool HandleTabClick(int mouseX, int mouseY);
+	bool HandleButtonClick(int mouseX, int mouseY);
 	void HandleDragging(int mouseX, int mouseY);
 
 	void HandleMouseUp();
+
+	void ExpandInventory();
+	void ReduceInventory();
 
 
 
@@ -173,6 +184,36 @@ public:
 	void OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo); //상대 아이템 추가
 
 
+	bool IsQuantityInputActive() const
+	{
+		return m_quantityPopupActive;
+	}
+
+	void OnQuantityChar(wchar_t ch);
+	void OnQuantityKeyDown(WPARAM key);
+
+
+private:
+	bool m_quantityPopupActive = false;
+	bool m_quantityInputError = false;
+
+	std::wstring m_quantityInput;
+
+	int m_quantityMax = 1;
+	int m_pendingItemId = 0;
+	int m_pendingInvenSlot = -1;
+	int m_pendingTradeSlot = -1;
+
+	void OpenQuantityPopup(
+		int itemId,
+		int itemCount,
+		int invenSlotIndex,
+		int tradeSlotIndex);
+
+	void CloseQuantityPopup();
+	void CommitPendingTradeItem();
+	void RenderQuantityPopup(stbD2DRenderer& renderer);
+
 
 private:
 	bool         m_cancelPopupActive = false; //상대 교환 취소 팝업용
@@ -184,13 +225,12 @@ private:
 	bool         m_ConfirmLayerTarget= false; //교환 대기 레이어
 	
 	stb::Texture* m_txtBackground = nullptr;
+	stb::Texture* m_txtFullBackground = nullptr;
 	stb::Texture* m_txtConfirmNormal = nullptr;
 	stb::Texture* m_txtTradeNormal = nullptr;
 	stb::Texture* m_txtTradeChecked = nullptr;
 	stb::Texture* m_txtLayerConfirmMe = nullptr;
 
-	int m_posX = 230;
-	int m_posY = 100;
 
 	//슬롯 레이아웃 (InventoryUI와 동일한 방식)
 	static constexpr int SLOT_COLS = 4;

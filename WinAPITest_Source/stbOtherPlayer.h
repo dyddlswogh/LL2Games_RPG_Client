@@ -27,6 +27,9 @@ namespace stb
         void SetCharacterId(const std::string& id) { mCharacterId = id; }
         std::string GetCharacterId() const { return mCharacterId; }
 
+        void SetNickName(const std::string& nickname) { m_nickName = nickname; }
+        std::string GetNickName() const { return m_nickName; }
+
         void UpdatePosition(float x, float y);
         void SetTargetPosition(float x, float y, float speed);
         void SetDirection(int dir);
@@ -45,6 +48,7 @@ namespace stb
         void SyncFollowers(Vector2 pos);
 
         std::string mCharacterId;
+        std::string m_nickName;
         Vector2 mTargetPosition;
         float mTargetSpeed;
         bool mHasTarget;

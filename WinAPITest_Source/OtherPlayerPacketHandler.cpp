@@ -32,6 +32,11 @@ void OtherPlayerPacketHandler::HandleOtherPlayerEnter(const ParsedPacket& pkt)
             throw std::runtime_error(errMsg);
         }
 
+        if (!PacketParser::ParseLengthPrefixedString(pkt.payload.c_str(), payloadSize, offset, otherPlayerInfo.name, errMsg))
+        {
+            throw std::runtime_error(errMsg);
+        }
+
         if (!PacketParser::ParseNextIntField(pkt.payload.c_str(), payloadSize, offset, otherPlayerInfo.job, errMsg))
         {
             throw std::runtime_error(errMsg);
@@ -61,6 +66,7 @@ void OtherPlayerPacketHandler::HandleOtherPlayerEnter(const ParsedPacket& pkt)
 
         std::string msg =
             "[OtherEnter] charId=" + std::to_string(otherPlayerInfo.char_id) +
+            " name=" + otherPlayerInfo.name + 
             " job=" + std::to_string(otherPlayerInfo.job) +
             " dir=" + std::to_string(otherPlayerInfo.dir) +
             " state=" + std::to_string(state) +
@@ -114,6 +120,12 @@ void OtherPlayerPacketHandler::HandleOtherPlayerSnapShot(const ParsedPacket& pkt
                 throw std::runtime_error(errMsg);
             }
 
+
+            if (!PacketParser::ParseLengthPrefixedString(pkt.payload.c_str(), payloadSize, offset, otherPlayerInfo.name, errMsg))
+            {
+                throw std::runtime_error(errMsg);
+            }
+
             if (!PacketParser::ParseNextIntField(pkt.payload.c_str(), payloadSize, offset, otherPlayerInfo.job, errMsg))
             {
                 throw std::runtime_error(errMsg);
@@ -143,6 +155,7 @@ void OtherPlayerPacketHandler::HandleOtherPlayerSnapShot(const ParsedPacket& pkt
 
             std::string msg =
                 "[SnapShot] charId=" + std::to_string(otherPlayerInfo.char_id) +
+                " name=" + otherPlayerInfo.name +
                 " job=" + std::to_string(otherPlayerInfo.job) +
                 " dir=" + std::to_string(otherPlayerInfo.dir) +
                 " state=" + std::to_string(state) +
