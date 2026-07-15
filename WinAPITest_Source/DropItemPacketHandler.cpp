@@ -1,4 +1,4 @@
-#include "DropItemPacketHandler.h"
+ï»¿#include "DropItemPacketHandler.h"
 #include "PacketParser.h"
 #include "InventoryManager.h"
 #include "Inventory_info.h"
@@ -75,7 +75,7 @@ void DropItemPacketHandler::HandleSpawnDropItem(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ı\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
     }
 }
 
@@ -121,6 +121,6 @@ void DropItemPacketHandler::HandleRemoveDropItem(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ı\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
     }
 }

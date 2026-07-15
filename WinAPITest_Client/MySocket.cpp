@@ -1,4 +1,4 @@
-//#include "pch.h"
+ï»¿//#include "pch.h"
 
 #include "MySocket.h"
 
@@ -20,7 +20,7 @@ void CMySocket::OnReceive(int nErrorCode)
         switch (m_status)
         {
 
-        //È¸¿ø°¡ÀÔ
+        //íšŒì›ê°€ì…
         case E_REGISTER:
         {
             CLogin* pLoginDlg = (CLogin*)m_dlg;
@@ -28,7 +28,7 @@ void CMySocket::OnReceive(int nErrorCode)
             break;
         }
 
-        //·Î±×ÀÎ
+        //ë¡œê·¸ì¸
         case E_LOGIN:
         {
             CLogin* pLoginDlg = (CLogin*)m_dlg;
@@ -37,7 +37,7 @@ void CMySocket::OnReceive(int nErrorCode)
             break;
         }
 
-        //WorldÃÊ±âÈ­
+        //Worldì´ˆê¸°í™”
         case E_WORLD_INIT:
         {
             CWorld* pWorldDlg = (CWorld*)m_dlg;
@@ -45,7 +45,7 @@ void CMySocket::OnReceive(int nErrorCode)
             break;
         }
 
-        //Ä³¸¯ÅÍ ¸®½ºÆ®
+        //ìºë¦­í„° ë¦¬ìŠ¤íŠ¸
         case E_WORLD_CHAR_LIST:
         {
             CWorld* pWorldDlg = (CWorld*)m_dlg;
@@ -53,7 +53,7 @@ void CMySocket::OnReceive(int nErrorCode)
             break;
         }
 
-        //Ã¤³Î¼±ÅÃ
+        //ì±„ë„ì„ íƒ
         case E_WORLD_CHANNEL_SELECT:
         {
             CWorld* pWorldDlg = (CWorld*)m_dlg;
@@ -72,12 +72,12 @@ void CMySocket::OnReceive(int nErrorCode)
 void CMySocket::OnConnect(int nErrorCode)
 {
         if (nErrorCode == 0) {
-            AfxMessageBox(_T("¼­¹ö ¿¬°á ¼º°ø!"));
+            AfxMessageBox(_T("ì„œë²„ ì—°ê²° ì„±ê³µ!"));
             m_bConnect = TRUE;
         }
         else {
             CString msg;
-            msg.Format(_T("¼­¹ö ¿¬°á ½ÇÆĞ: %d"), nErrorCode);
+            msg.Format(_T("ì„œë²„ ì—°ê²° ì‹¤íŒ¨: %d"), nErrorCode);
             AfxMessageBox(msg);
         }
 
@@ -106,20 +106,20 @@ BOOL CMySocket::connect(const CString &strHost, const int nPort)
 {
     BOOL bRet;
     
-    // 1. Socket »ı¼º
+    // 1. Socket ìƒì„±
     bRet = this->Create();
     if (bRet != TRUE)
     {
         int nErr = this->GetLastError();
 
         CString msg;
-        msg.Format(_T("[CMySocket::connect] Create() ½ÇÆĞ. err=%d"), nErr);
+        msg.Format(_T("[CMySocket::connect] Create() ì‹¤íŒ¨. err=%d"), nErr);
         AfxMessageBox(msg);
 
         return FALSE;
     }
 
-    // 2. ¼­¹ö ¿¬°á
+    // 2. ì„œë²„ ì—°ê²°
     bRet = this->Connect(strHost, nPort);
     if (bRet != TRUE)
     {
@@ -127,15 +127,15 @@ BOOL CMySocket::connect(const CString &strHost, const int nPort)
 
         if (nErr == WSAEWOULDBLOCK)
         {
-            TRACE(_T("[CMySocket::connect] Connect ÁøÇà Áß. host=%s, port=%d, err=%d\n"),
+            TRACE(_T("[CMySocket::connect] Connect ì§„í–‰ ì¤‘. host=%s, port=%d, err=%d\n"),
                 strHost.GetString(), nPort, nErr);
 
-            // ºñµ¿±â ¿¬°á ½Ãµµ´Â Á¤»óÀûÀ¸·Î ½ÃÀÛµÈ »óÅÂ
+            // ë¹„ë™ê¸° ì—°ê²° ì‹œë„ëŠ” ì •ìƒì ìœ¼ë¡œ ì‹œì‘ëœ ìƒíƒœ
             return TRUE;
         }
 
         CString msg;
-        msg.Format(_T("[CMySocket::connect] Connect() ½ÇÆĞ. host=%s, port=%d, err=%d"),
+        msg.Format(_T("[CMySocket::connect] Connect() ì‹¤íŒ¨. host=%s, port=%d, err=%d"),
             strHost.GetString(), nPort, nErr);
         AfxMessageBox(msg);
 
@@ -215,7 +215,7 @@ BOOL CMySocket::SendSync(const char* buf, int len)
             int err = GetLastError();
             if (err == WSAEWOULDBLOCK)
             {
-                Sleep(1);   // OS ½ºÄÉÁÙ·¯¿¡ ¾çº¸
+                Sleep(1);   // OS ìŠ¤ì¼€ì¤„ëŸ¬ì— ì–‘ë³´
                 continue;
             }
             else
@@ -250,7 +250,7 @@ void CMySocket::Disconnect()
 {
     if (m_hSocket != INVALID_SOCKET)
     {
-        ShutDown(SD_BOTH); // SD_BOTH: ¼Û½Å/¼ö½Å ¸ğµÎ Á¾·á
-        Close();     // ¼ÒÄÏ ÇÚµé ´İ±â
+        ShutDown(SD_BOTH); // SD_BOTH: ì†¡ì‹ /ìˆ˜ì‹  ëª¨ë‘ ì¢…ë£Œ
+        Close();     // ì†Œì¼“ í•¸ë“¤ ë‹«ê¸°
     }
 }

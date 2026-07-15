@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonInclude.h"
 #include "stbSingletonBase.h"
 #include "stbMath.h"
@@ -28,7 +28,7 @@ public:
 	void ToggleInventory();
 
 public:
-	//±³È¯
+	//êµí™˜
 	void ToggleTradeUI(); //test
 	void OpenTradeUI(const std::string& targetId, const std::string& targetName);
 	void OpenReqTradeUI();
@@ -37,14 +37,14 @@ public:
 	void HandleBackspace_Trade();
 	void KeyDownTrade(WPARAM key);
 	void CloseTradeUI();
-	void OnTradeAddItem(const TradeSlotInfo& tradeSlotInfo); //»ó´ë°¡ ¾ÆÀÌÅÛ Ãß°¡
+	void OnTradeAddItem(const TradeSlotInfo& tradeSlotInfo); //ìƒëŒ€ê°€ ì•„ì´í…œ ì¶”ê°€
 
-	void ShowTradeRequestPopUp(const TradeRequestInfo& info); //½ÅÃ» ÆË¾÷
-	void ShowCancelPopUp(); //»ó´ë°¡ ±³È¯ Ãë¼ÒÇß´Ù´Â ÆË¾÷
-	void TradeReadyTarget(); //»ó´ë°¡ ±³È¯ ÁØºñ
-	void ShowSuccessPopUp(const std::vector<TradeSlotInfo>&, const std::vector<TradeSlotInfo>&); //±³È¯ ¿Ï·á ÆË¾÷
+	void ShowTradeRequestPopUp(const TradeRequestInfo& info); //ì‹ ì²­ íŒì—…
+	void ShowCancelPopUp(); //ìƒëŒ€ê°€ êµí™˜ ì·¨ì†Œí–ˆë‹¤ëŠ” íŒì—…
+	void TradeReadyTarget(); //ìƒëŒ€ê°€ êµí™˜ ì¤€ë¹„
+	void ShowSuccessPopUp(const std::vector<TradeSlotInfo>&, const std::vector<TradeSlotInfo>&); //êµí™˜ ì™„ë£Œ íŒì—…
 
-	//Ã¤ÆÃ
+	//ì±„íŒ…
 	void ToggleChatInput();
 	bool IsInputFocused() const;
 	void AppendInputChar(wchar_t ch);
@@ -73,8 +73,8 @@ private:
 	ExpBarUI* m_expBarUI = nullptr;
 	LevelUI* m_levelUI = nullptr;
 
-	TradeUI* m_tradeUI = nullptr; //±³È¯
-	TradeRequestUI* m_tradeReqUI = nullptr; //±³È¯
-	ChatUI* m_chatUI = nullptr; //Ã¤ÆÃ
+	TradeUI* m_tradeUI = nullptr; //êµí™˜
+	TradeRequestUI* m_tradeReqUI = nullptr; //êµí™˜
+	ChatUI* m_chatUI = nullptr; //ì±„íŒ…
 	bool m_tradeQuantityEnterConsumed = false;
 };

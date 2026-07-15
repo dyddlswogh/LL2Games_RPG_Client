@@ -1,4 +1,4 @@
-#include "stbPlayScene.h"
+ï»¿#include "stbPlayScene.h"
 #include "stbGameObject.h"
 #include "stbPlayer.h"
 #include "stbObject.h"
@@ -50,7 +50,7 @@ namespace stb
 		mBGM = M_REMANAGER->Find<AudioClip>(L"BGM_Forest_ground_1");
 
 
-#if 0 //´©¶ôµÈ ÄÚµå
+#if 0 //ëˆ„ë½ëœ ì½”ë“œ
 		Transform* tr = mPlayer->AddComponent<Transform>();
 		int charId = atoi(stb::NetworkConfig::GetCharacterId());
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
@@ -63,7 +63,7 @@ namespace stb
 		
 		M_UIMANAGER->Init();
 
-#if 1 /*gunoo22 260518 ?©ø¢¬??? ¡¾¡¿¢¬¢ç¡¾?*/
+#if 1 /*gunoo22 260518 ?Â³Â¸??? Â±Ã—Â¸Â®Â±?*/
 		Texture* spartaTex = M_REMANAGER->Find<Texture>(L"Sparta");
 		Animator* spartaAnim = mPlayer->AddComponent<Animator>();
 		if (spartaTex != nullptr)

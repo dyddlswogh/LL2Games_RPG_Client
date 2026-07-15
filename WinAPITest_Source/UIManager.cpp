@@ -1,4 +1,4 @@
-#include "UIManager.h"
+﻿#include "UIManager.h"
 #include "stbD2DRenderer.h"
 #include "InventoryUI.h"
 #include "QuickSlotUI.h"

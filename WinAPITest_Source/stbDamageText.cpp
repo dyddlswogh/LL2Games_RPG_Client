@@ -1,4 +1,4 @@
-#include "stbDamageText.h"
+ï»¿#include "stbDamageText.h"
 #include "stbGameObject.h"
 #include "stbTransform.h"
 #include "stbTime.h"
@@ -19,7 +19,7 @@ namespace stb
     {
         DamageTextInfo info;
         info.damage = damage;
-        info.offset = math::Vector2(30.0f, -30.0f); //µ¥¹ÌÁö ÅØ½ºÆ® ÃÊ±â À§Ä¡
+        info.offset = math::Vector2(30.0f, -30.0f); //ë°ë¯¸ì§€ í…ìŠ¤íŠ¸ ì´ˆê¸° ìœ„ì¹˜
         info.lifeTime = 0.0f;
         info.maxLifeTime = 0.8f;
 
@@ -78,8 +78,8 @@ namespace stb
             renderer.DrawTextString(
                 damageText,
                 rect,
-                D2D1::ColorF(0.0f, 0.35f, 1.0f, alpha), //ÁøÇÑÆÄ¶û
-                //D2D1::ColorF(1.0f, 0.1f, 0.1f, alpha), //»¡°­
+                D2D1::ColorF(0.0f, 0.35f, 1.0f, alpha), //ì§„í•œíŒŒë‘
+                //D2D1::ColorF(1.0f, 0.1f, 0.1f, alpha), //ë¹¨ê°•
                 TextStyle::Title
             );
         }

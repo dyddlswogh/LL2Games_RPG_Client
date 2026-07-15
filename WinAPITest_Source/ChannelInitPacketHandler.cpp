@@ -1,4 +1,4 @@
-#include "ChannelInitPacketHandler.h"
+Ôªø#include "ChannelInitPacketHandler.h"
 #include "stbNetworkManager.h"
 #include "stbNetworkConfig.h"
 #include "Packet.h"
@@ -11,12 +11,12 @@ void ChannelInitPacketHandler::Execute(const ParsedPacket& pkt)
 #if 0
         size_t offset = 0;
         size_t payloadSize = pkt.payload.size();
-        std::string debugMsg = "∆–≈∂ªÁ¿Ã¡Ó" + payloadSize;
+        std::string debugMsg = "Ìå®ÌÇ∑ÏÇ¨Ïù¥Ï¶à" + payloadSize;
         OutputDebugStringA(debugMsg.c_str());
 
         if (payloadSize < sizeof(uint16_t))
         {
-            //LOG("[¿Ãµø ∆–≈∂] ∆‰¿Ã∑ŒµÂ ≈©±‚ ∫Œ¡∑\n");
+            //LOG("[Ïù¥Îèô Ìå®ÌÇ∑] ÌéòÏù¥Î°úÎìú ÌÅ¨Í∏∞ Î∂ÄÏ°±\n");
             return;
         }
 #else
@@ -37,14 +37,14 @@ void ChannelInitPacketHandler::Execute(const ParsedPacket& pkt)
         stb::NetworkConfig::SetCharacterName(name);
 #endif
     
-        // √§≥Œ ¿Œ¡ı º∫∞¯ »ƒ ∏  ¿‘¿Â ∆–≈∂ ¿¸º€
-        OutputDebugStringA("√§≥Œ ¿Œ¡ı øœ∑·! ∏  ¿‘¿Â ∆–≈∂ ¿¸º€...\n");
+        // Ï±ÑÎÑê Ïù∏Ï¶ù ÏÑ±Í≥µ ÌõÑ Îßµ ÏûÖÏû• Ìå®ÌÇ∑ Ï†ÑÏÜ°
+        OutputDebugStringA("Ï±ÑÎÑê Ïù∏Ï¶ù ÏôÑÎ£å! Îßµ ÏûÖÏû• Ìå®ÌÇ∑ Ï†ÑÏÜ°...\n");
          
         SendEnterMap(stb::NetworkConfig::GetCharacterId(), stb::NetworkConfig::MAP_ID);
     }
     catch (...)
     {
-        OutputDebugStringA("√§≥Œ ¿Œ¡ı ¿¿¥‰ ∆ƒΩÃ ¡ﬂ ø¿∑˘\n");
+        OutputDebugStringA("Ï±ÑÎÑê Ïù∏Ï¶ù ÏùëÎãµ ÌååÏã± Ï§ë Ïò§Î•ò\n");
     }
 }
 
@@ -54,17 +54,17 @@ void ChannelInitPacketHandler::SendChannelAuth()
     std::vector<std::string> data = { charId };
 
     std::stringstream ss;
-    ss << "\n[PKT_CHANNEL_AUTH ¿¸º€]\n";
-    ss << "  ∆–≈∂ ≈∏¿‘: 0x" << std::hex << PKT_CHANNEL_AUTH << " (" << std::dec << PKT_CHANNEL_AUTH << ")\n";
-    ss << "  ƒ≥∏Ø≈Õ ID: " << charId << "\n";
+    ss << "\n[PKT_CHANNEL_AUTH Ï†ÑÏÜ°]\n";
+    ss << "  Ìå®ÌÇ∑ ÌÉÄÏûÖ: 0x" << std::hex << PKT_CHANNEL_AUTH << " (" << std::dec << PKT_CHANNEL_AUTH << ")\n";
+    ss << "  Ï∫êÎ¶≠ÌÑ∞ ID: " << charId << "\n";
     OutputDebugStringA(ss.str().c_str());
 
-    // ∆–≈∂ ª˝º∫ π◊ ¿¸º€
+    // Ìå®ÌÇ∑ ÏÉùÏÑ± Î∞è Ï†ÑÏÜ°
     std::string body = PacketParser::MakeBody(data);
     std::string packet = PacketParser::MakePacket(PKT_CHANNEL_AUTH, body);
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_CHANNEL_AUTH, data);
-    OutputDebugStringA("[PKT_CHANNEL_AUTH ¿¸º€ øœ∑·]\n\n");
+    OutputDebugStringA("[PKT_CHANNEL_AUTH Ï†ÑÏÜ° ÏôÑÎ£å]\n\n");
 }
 
 void ChannelInitPacketHandler::SendEnterMap(const std::string& charId, const std::string& mapId)
@@ -72,19 +72,19 @@ void ChannelInitPacketHandler::SendEnterMap(const std::string& charId, const std
     std::vector<std::string> data = { charId, mapId };
 
     std::stringstream ss;
-    ss << "\n[PKT_ENTER_MAP ¿¸º€]\n";
-    ss << "  ∆–≈∂ ≈∏¿‘: 0x" << std::hex << PKT_ENTER_MAP << " (" << std::dec << PKT_ENTER_MAP << ")\n";
-    ss << "  ƒ≥∏Ø≈Õ ID: " << charId << "\n";
-    ss << "  ∏  ID: " << mapId << "\n";
+    ss << "\n[PKT_ENTER_MAP Ï†ÑÏÜ°]\n";
+    ss << "  Ìå®ÌÇ∑ ÌÉÄÏûÖ: 0x" << std::hex << PKT_ENTER_MAP << " (" << std::dec << PKT_ENTER_MAP << ")\n";
+    ss << "  Ï∫êÎ¶≠ÌÑ∞ ID: " << charId << "\n";
+    ss << "  Îßµ ID: " << mapId << "\n";
     OutputDebugStringA(ss.str().c_str());
 
-    // ∆–≈∂ ª˝º∫ π◊ ¿¸º€
+    // Ìå®ÌÇ∑ ÏÉùÏÑ± Î∞è Ï†ÑÏÜ°
     std::string body = PacketParser::MakeBody(data);
     std::string packet = PacketParser::MakePacket(PKT_ENTER_MAP, body);
 
-    // ∆–≈∂ ≥ªøÎ √‚∑¬
+    // Ìå®ÌÇ∑ ÎÇ¥Ïö© Ï∂úÎ†•
     
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_ENTER_MAP, data);
-    OutputDebugStringA("[PKT_ENTER_MAP ¿¸º€ øœ∑·]\n\n");
+    OutputDebugStringA("[PKT_ENTER_MAP Ï†ÑÏÜ° ÏôÑÎ£å]\n\n");
 }

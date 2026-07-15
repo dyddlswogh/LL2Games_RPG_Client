@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "..\\WinAPITest_Source\\stbGameObject.h"
 #include "..\\WinAPITest_Source\\stbTransform.h"
 #include "..\\WinAPITest_Source\\stbAnimator.h"
@@ -55,10 +55,10 @@ namespace stb
 
 		CombatSystem* GetCombatSystem() { return &m_combatSystem; }
 
-		// ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ DeadÀÎÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+		// í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ Deadì¸ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
 		bool IsDead() { return m_playerState == PlayerState::Dead; };
 
-		// ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ AttackÀÎÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+		// í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ Attackì¸ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
 		bool IsAttacking() { return m_playerState == PlayerState::Attack; }
 		PlayerState GetState() { return m_playerState; }
 		void SetState(PlayerState state);
@@ -90,17 +90,17 @@ namespace stb
 		Stat m_stat;
 		InventoryManager* m_inven;
 
-		// ÇÃ·¹ÀÌ¾î °èÁ¤ Á¤º¸
+		// í”Œë ˆì´ì–´ ê³„ì • ì •ë³´
 		PlayerIdentity m_playerIdentity;
-		// ÇÃ·¹ÀÌ¾î ÇÁ·ÎÇÊ Á¤º¸
+		// í”Œë ˆì´ì–´ í”„ë¡œí•„ ì •ë³´
 		PlayerProfile m_playerProfile;
-		// ÇÃ·¹ÀÌ¾î À§Ä¡ Á¤º¸
+		// í”Œë ˆì´ì–´ ìœ„ì¹˜ ì •ë³´
 		PlayerLocation m_playerLocation;
 
-		// ÇÃ·¹ÀÌ¾î »óÅÂ
+		// í”Œë ˆì´ì–´ ìƒíƒœ
 		PlayerState m_playerState;
 
-		// ÇÃ·¹ÀÌ¾î ÀüÅõ ½Ã½ºÅÛ
+		// í”Œë ˆì´ì–´ ì „íˆ¬ ì‹œìŠ¤í…œ
 		CombatSystem  m_combatSystem;
 
 		QuickSlotManager m_quickSlotManager;

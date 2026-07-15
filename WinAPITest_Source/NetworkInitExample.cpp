@@ -1,4 +1,4 @@
-// PlayScene에서 네트워크 초기화 예시
+﻿// PlayScene에서 네트워크 초기화 예시
 // 이 코드를 stbPlayScene.cpp의 Initialize()에 추가하세요
 
 /*

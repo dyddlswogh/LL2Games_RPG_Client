@@ -1,4 +1,4 @@
-#include "MonsterPacketHandler.h"
+ï»¿#include "MonsterPacketHandler.h"
 #include "PacketParser.h"
 #include "MonsterInfo.h"
 #include "MonsterManager.h"
@@ -17,7 +17,7 @@ void MonsterPacketHandler::HandleS2C_SpawnMonster(const ParsedPacket& pkt)
 
 		int monsterSize = 0;
 
-		// Packet »çÀÌÁî¸¦ ¹Ş¾Æ¿Â´Ù
+		// Packet ì‚¬ì´ì¦ˆë¥¼ ë°›ì•„ì˜¨ë‹¤
 		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSize, errMsg))
 		{
 			throw std::runtime_error(errMsg);
@@ -88,7 +88,7 @@ void MonsterPacketHandler::HandleS2C_SpawnMonster(const ParsedPacket& pkt)
 	}
 	catch (...)
 	{
-		OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù.");
+		OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
 		OutputDebugStringA("\n");
 	}
 }
@@ -104,7 +104,7 @@ void MonsterPacketHandler::HandleS2C_MonsterMove(const ParsedPacket& pkt)
 
 		int monsterSize = 0;
 
-		// Packet »çÀÌÁî¸¦ ¹Ş¾Æ¿Â´Ù
+		// Packet ì‚¬ì´ì¦ˆë¥¼ ë°›ì•„ì˜¨ë‹¤
 		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSize, errMsg))
 		{
 			throw std::runtime_error(errMsg);
@@ -164,7 +164,7 @@ void MonsterPacketHandler::HandleS2C_MonsterMove(const ParsedPacket& pkt)
 	}
 	catch (...)
 	{
-		OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù.");
+		OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
 		OutputDebugStringA("\n");
 	}
 
@@ -197,7 +197,7 @@ void MonsterPacketHandler::HandleS2C_RespawnMonster(const ParsedPacket& pkt)
 
 		int monsterSize = 0;
 
-		// Packet »çÀÌÁî¸¦ ¹Ş¾Æ¿Â´Ù
+		// Packet ì‚¬ì´ì¦ˆë¥¼ ë°›ì•„ì˜¨ë‹¤
 		if (!PacketParser::ParseNextIntField(data, payloadSize, offset, monsterSize, errMsg))
 		{
 			throw std::runtime_error(errMsg);
@@ -264,7 +264,7 @@ void MonsterPacketHandler::HandleS2C_RespawnMonster(const ParsedPacket& pkt)
 	}
 	catch (...)
 	{
-		OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù.");
+		OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
 		OutputDebugStringA("\n");
 	}
 }

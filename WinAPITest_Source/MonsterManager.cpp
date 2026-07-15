@@ -1,4 +1,4 @@
-#include "MonsterManager.h"
+ï»¿#include "MonsterManager.h"
 
 void MonsterManager::Init()
 {
@@ -64,7 +64,7 @@ void MonsterManager::ApplyServerUpdate(const MonsterUpdateInfo& info)
     if (monster == nullptr)
         return;
 
-    // ÀÌ¹Ì »ç¸Á ¾Ö´Ï¸ÞÀÌ¼Ç±îÁö ³¡³­ ¸ó½ºÅÍ¸é ÀÌÈÄ ÀÌµ¿ °»½ÅÀº ¹«½Ã
+    // ì´ë¯¸ ì‚¬ë§ ì• ë‹ˆë©”ì´ì…˜ê¹Œì§€ ëë‚œ ëª¬ìŠ¤í„°ë©´ ì´í›„ ì´ë™ ê°±ì‹ ì€ ë¬´ì‹œ
     if (monster->IsDead() && info.state != MonsterState::E_Die)
         return;
 
@@ -90,7 +90,7 @@ void MonsterManager::RespawnMonster(const MonsterUpdateInfo& info)
 
     if (it != m_monsters.end())
     {
-        // ÀÌ¹Ì ÀÖÀ¸¸é ÀçÈ°¼ºÈ­(ºÎÈ°) Ã³¸®
+        // ì´ë¯¸ ìžˆìœ¼ë©´ ìž¬í™œì„±í™”(ë¶€í™œ) ì²˜ë¦¬
         it->second->RespawnFromServer(info);
         OutputDebugStringA("Monster Respawn (existing)\n");
         return;

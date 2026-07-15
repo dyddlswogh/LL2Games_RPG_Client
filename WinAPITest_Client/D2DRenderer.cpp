@@ -1,4 +1,4 @@
-#include "D2DRenderer.h"
+﻿#include "D2DRenderer.h"
 
 bool D2DRenderer::Initialize(HWND hwnd)
 {

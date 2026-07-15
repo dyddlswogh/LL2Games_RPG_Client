@@ -1,4 +1,4 @@
-#include "QuickSlotPacketHandler.h"
+ï»¿#include "QuickSlotPacketHandler.h"
 #include "PlayerManager.h"
 #include "PacketParser.h"
 #include "QuickSlotManager.h"
@@ -75,7 +75,7 @@ void QuickSlotPacketHandler::HandleSlotList(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ý\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
     }
 }
 
@@ -156,7 +156,7 @@ void QuickSlotPacketHandler::HandleSlotSet(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ý\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
     }
 }
 
@@ -172,5 +172,5 @@ void QuickSlotPacketHandler::SendSetQuickSlot(const QuickSlotData& quickSlotData
     data.push_back(std::to_string(quickSlotData.count));
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_QUICKSLOT_SET, data);
-    OutputDebugStringA("[PKT_QUICKSLOT_SET Àü¼Û ¿Ï·á]\n\n");
+    OutputDebugStringA("[PKT_QUICKSLOT_SET ì „ì†¡ ì™„ë£Œ]\n\n");
 }

@@ -1,4 +1,4 @@
-#include "stbAudioClip.h"
+﻿#include "stbAudioClip.h"
 #include <mmsystem.h>
 
 #pragma comment(lib, "winmm.lib")

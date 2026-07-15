@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbCamera.h"
 namespace stb::render
 {

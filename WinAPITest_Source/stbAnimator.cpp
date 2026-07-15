@@ -1,4 +1,4 @@
-#include "stbAnimator.h"
+﻿#include "stbAnimator.h"
 #include "stbTransform.h"
 #include "stbResourceManager.h"
 #include "stbD2DRenderer.h"

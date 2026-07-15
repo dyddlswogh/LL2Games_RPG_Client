@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <windows.h>
 #include <d2d1.h>
 #include <wincodec.h>
@@ -92,7 +92,7 @@ private:
 	ComPtr<IDWriteTextFormat> m_TradeTextFormat;
 	ComPtr<IDWriteTextFormat> m_TradeButtonTextFormat;
 	ComPtr<IDWriteTextFormat> m_ChatTextFormat;
-	// WIC¿¡¼­ µğÄÚ´õ, Æ÷¸ä ÄÁ¹öÅÍ °°Àº °É ¸¸µå´Â ÆÑÅä¸®
+	// WICì—ì„œ ë””ì½”ë”, í¬ë©§ ì»¨ë²„í„° ê°™ì€ ê±¸ ë§Œë“œëŠ” íŒ©í† ë¦¬
 	ComPtr<IWICImagingFactory> m_WicFactory;
 	ComPtr<ID2D1Bitmap> m_Bitmap;
 

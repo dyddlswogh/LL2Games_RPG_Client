@@ -1,4 +1,4 @@
-#include "stbGameObject.h"
+﻿#include "stbGameObject.h"
 #include "stbApplication.h"
 #include "stbD2DRenderer.h"
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "UI.h"
 #include "UILayout.h"
 #include <vector>
@@ -13,13 +13,13 @@ public:
     void Update() override;
     void Render(stbD2DRenderer& renderer) override;
 
-    // ¿ÜºÎ¿¡¼­ È£Ãâ
+    // ì™¸ë¶€ì—ì„œ í˜¸ì¶œ
     void ToggleInputFocus();
     bool IsInputActive() const { return m_inputActive; }
 
-    void AppendChar(wchar_t ch);    // WM_CHAR¿¡¼­ È£Ãâ
-    void Backspace();               // WM_KEYDOWN(VK_BACK)¿¡¼­ È£Ãâ
-    void SubmitInput();             // Enter Àü¼Û ½Ã
+    void AppendChar(wchar_t ch);    // WM_CHARì—ì„œ í˜¸ì¶œ
+    void Backspace();               // WM_KEYDOWN(VK_BACK)ì—ì„œ í˜¸ì¶œ
+    void SubmitInput();             // Enter ì „ì†¡ ì‹œ
 
     void AddMessage(const std::wstring& nick, const std::wstring& msg);
 
@@ -29,13 +29,13 @@ private:
     void RenderInputBox(stbD2DRenderer& renderer);
 
 private:
-    static constexpr int MAX_LOG_LINES = 8;     // Ã¤ÆÃ ·Î±× ÃÖ´ë ÁÙ ¼ö
-    static constexpr float LOG_BOX_HEIGHT = 160.f; // ·Î±× ¿µ¿ª ³ôÀÌ
+    static constexpr int MAX_LOG_LINES = 8;     // ì±„íŒ… ë¡œê·¸ ìµœëŒ€ ì¤„ ìˆ˜
+    static constexpr float LOG_BOX_HEIGHT = 160.f; // ë¡œê·¸ ì˜ì—­ ë†’ì´
     static constexpr float INPUT_BOX_HEIGHT = 28.f;
 
     bool m_inputActive = false;
-    std::wstring m_inputBuffer;                   // ÇöÀç Å¸ÀÌÇÎ ÁßÀÎ ¹®ÀÚ¿­
-    std::vector<std::wstring> m_logLines;         // ÃÖ±Ù MAX_LOG_LINES °³
+    std::wstring m_inputBuffer;                   // í˜„ì¬ íƒ€ì´í•‘ ì¤‘ì¸ ë¬¸ìì—´
+    std::vector<std::wstring> m_logLines;         // ìµœê·¼ MAX_LOG_LINES ê°œ
     UIRect m_logRect{};
     UIRect m_inputRect{};
 };

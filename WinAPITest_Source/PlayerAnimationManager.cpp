@@ -1,4 +1,4 @@
-#include "PlayerAnimationManager.h"
+ï»¿#include "PlayerAnimationManager.h"
 #include "EquipeTypes.h"
 #include "playerInfo.h"
 #include "stbResourceManager.h"
@@ -78,8 +78,8 @@ bool PlayerAnimationManager::LoadJsonFile(const std::string& path, PlayerAnimati
     OutputDebugStringA(DebugMsg.c_str());
     const auto& anims = j.at("animations");
 
-    // getÀº ÇÊ¼ö °ª ¾ø¾î¼­´Â ¾ÈµÇ´Â °ª
-    // value´Â ¾ø¾îµµ ±âº»°ªÀ¸·Î µ¿ÀÛ °¡´ÉÇÒ ¶§ »ç¿ë
+    // getì€ í•„ìˆ˜ ê°’ ì—†ì–´ì„œëŠ” ì•ˆë˜ëŠ” ê°’
+    // valueëŠ” ì—†ì–´ë„ ê¸°ë³¸ê°’ìœ¼ë¡œ ë™ì‘ ê°€ëŠ¥í•  ë•Œ ì‚¬ìš©
     for (auto& [animName, animJson] : anims.items())
     {
         PlayerAnimationInfo info;
@@ -156,11 +156,11 @@ bool PlayerAnimationManager::SetupPlayerAnimations(stb::Player* player, JobType 
         {
             std::string msg = "[PlayerAnimationManager] No frame files found for animation: " + info.animName + " (path=" + info.path + ")\n";
             OutputDebugStringA(msg.c_str());
-            // ´ÙÀ½ ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î ³Ñ¾î°¨
+            // ë‹¤ìŒ ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ ë„˜ì–´ê°
             continue;
         }
 
-        // origin °áÁ¤: JSON¿¡ originÀÌ (0,0)ÀÎ °æ¿ì ÇÁ·¹ÀÓ Ã¹ ÀÌ¹ÌÁö Áß¾ÓÀ» ±âº» originÀ¸·Î »ç¿ë
+        // origin ê²°ì •: JSONì— originì´ (0,0)ì¸ ê²½ìš° í”„ë ˆì„ ì²« ì´ë¯¸ì§€ ì¤‘ì•™ì„ ê¸°ë³¸ originìœ¼ë¡œ ì‚¬ìš©
         stb::math::Vector2 originToUse = animSet->renderInfo.origin;
         if (originToUse.x == 0.0f && originToUse.y == 0.0f)
         {
@@ -225,11 +225,11 @@ bool PlayerAnimationManager::SetupOtherPlayerAnimations(stb::OtherPlayer* otherP
         {
             std::string msg = "[PlayerAnimationManager] No frame files found for animation: " + info.animName + " (path=" + info.path + ")\n";
             OutputDebugStringA(msg.c_str());
-            // ´ÙÀ½ ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î ³Ñ¾î°¨
+            // ë‹¤ìŒ ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ ë„˜ì–´ê°
             continue;
         }
 
-        // origin °áÁ¤: JSON¿¡ originÀÌ (0,0)ÀÎ °æ¿ì ÇÁ·¹ÀÓ Ã¹ ÀÌ¹ÌÁö Áß¾ÓÀ» ±âº» originÀ¸·Î »ç¿ë
+        // origin ê²°ì •: JSONì— originì´ (0,0)ì¸ ê²½ìš° í”„ë ˆì„ ì²« ì´ë¯¸ì§€ ì¤‘ì•™ì„ ê¸°ë³¸ originìœ¼ë¡œ ì‚¬ìš©
         stb::math::Vector2 originToUse = animSet->renderInfo.origin;
         if (originToUse.x == 0.0f && originToUse.y == 0.0f)
         {
@@ -267,7 +267,7 @@ bool PlayerAnimationManager::SetupOtherPlayerAnimations(stb::OtherPlayer* otherP
 
 void PlayerAnimationManager::BindPlayerAnimationEvents(stb::Player* player, stb::Animator* animator)
 {
-   // ³ªÁß¿¡ ÀÌº¥Æ®µé ¿©±â·Î ¿Å°Ü¾ßÇÔ
+   // ë‚˜ì¤‘ì— ì´ë²¤íŠ¸ë“¤ ì—¬ê¸°ë¡œ ì˜®ê²¨ì•¼í•¨
 
     if (player == nullptr || animator == nullptr)
         return;

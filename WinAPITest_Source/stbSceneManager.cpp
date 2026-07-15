@@ -1,4 +1,4 @@
-#include "stbSceneManager.h"
+﻿#include "stbSceneManager.h"
 #include "stbDontDestroyOnLoad.h"
 #include "stbD2DRenderer.h"
 

@@ -1,4 +1,4 @@
-#include "stbScene.h"
+﻿#include "stbScene.h"
 #include "stbD2DRenderer.h"
 
 namespace stb

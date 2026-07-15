@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbSingletonBase.h"
 #include "CommonInclude.h"
 
@@ -53,7 +53,7 @@ namespace stb
 	enum class eBindType
 	{
 		None,
-		Action,   // Interact 같�?? �?
+		Action,   // Interact 媛숈?? 寃?
 		Skill,
 		Item,
 		UI,

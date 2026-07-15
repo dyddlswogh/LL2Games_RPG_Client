@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "..\\WinAPITest_Source\\stbScene.h"
 
 namespace stb

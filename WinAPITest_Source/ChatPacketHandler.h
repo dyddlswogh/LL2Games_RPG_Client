@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "IPacketHandler.h"
 #include "Packet.h"
@@ -7,27 +7,27 @@
 class ChatPacketHandler : public IPacketHandler
 {
 public:
-	// --- S->C ¼ö½Å ÇÚµé·¯ ------------------------------------------------------
-	static void HandleChatInit(const ParsedPacket& pkt);		//Ã¤ÆÃ ÃÊ±âÈ­ ¼ö½Å
-	static void HandleChat(const ParsedPacket& pkt);			//Ã¤ÆÃ ¼ö½ÅÃ³¸®
+	// --- S->C ìˆ˜ì‹  í•¸ë“¤ëŸ¬ ------------------------------------------------------
+	static void HandleChatInit(const ParsedPacket& pkt);		//ì±„íŒ… ì´ˆê¸°í™” ìˆ˜ì‹ 
+	static void HandleChat(const ParsedPacket& pkt);			//ì±„íŒ… ìˆ˜ì‹ ì²˜ë¦¬
 	 
-	//static void HandleTradeRequest(const ParsedPacket& pkt);	//±³È¯½ÅÃ» ¹ŞÀ½
-	//static void HandleTradeAccepted(const ParsedPacket& pkt);	//»ó´ë°¡ ¼ö¶ô
-	//static void HandleTradeDeclined(const ParsedPacket& pkt);	//»ó´ë°¡ °ÅÀı
-	//static void HandleTradeItemUpdate(const ParsedPacket& pkt); //»ó´ë ¾ÆÀÌÅÛ ¸ñ·Ï °»½Å
-	//static void HandleTradeComplete(const ParsedPacket& pkt);	//±³È¯¿Ï·á
-	//static void HandleTradeCancel(const ParsedPacket& pkt);		//±³È¯ Ãë¼Ò
+	//static void HandleTradeRequest(const ParsedPacket& pkt);	//êµí™˜ì‹ ì²­ ë°›ìŒ
+	//static void HandleTradeAccepted(const ParsedPacket& pkt);	//ìƒëŒ€ê°€ ìˆ˜ë½
+	//static void HandleTradeDeclined(const ParsedPacket& pkt);	//ìƒëŒ€ê°€ ê±°ì ˆ
+	//static void HandleTradeItemUpdate(const ParsedPacket& pkt); //ìƒëŒ€ ì•„ì´í…œ ëª©ë¡ ê°±ì‹ 
+	//static void HandleTradeComplete(const ParsedPacket& pkt);	//êµí™˜ì™„ë£Œ
+	//static void HandleTradeCancel(const ParsedPacket& pkt);		//êµí™˜ ì·¨ì†Œ
 
-	// --- C->S ¼Û½Å ÇÔ¼ö ------------------------------------------------------
-	static void SendChatInit(const std::string& charId);	//Ã¤ÆÃ ÃÊ±âÈ­
-	static void SendChat(const std::string& msg);			//Ã¤ÆÃ 
+	// --- C->S ì†¡ì‹  í•¨ìˆ˜ ------------------------------------------------------
+	static void SendChatInit(const std::string& charId);	//ì±„íŒ… ì´ˆê¸°í™”
+	static void SendChat(const std::string& msg);			//ì±„íŒ… 
 
-	//static void SendTradeRequest(std::string targetPlayerId);	//±³È¯½ÅÃ»
-	//static void SendTradeAccept();								//±³È¯¼ö¶ô
-	//static void SendTradeDecline();								//±³È¯°ÅÀı
-	//static void SendTradeAddItem(const TradeSlotInfo& item);	//¾ÆÀÌÅÛ Ãß°¡
-	//static void SendTradeRemoveItem(int slotPos);				//¾ÆÀÌÅÛ Á¦°Å
-	//static void SendTradeConfirm();								//±³È¯È®ÀÎ
-	//static void SendTradeCancel();								//±³È¯Ãë¼Ò
+	//static void SendTradeRequest(std::string targetPlayerId);	//êµí™˜ì‹ ì²­
+	//static void SendTradeAccept();								//êµí™˜ìˆ˜ë½
+	//static void SendTradeDecline();								//êµí™˜ê±°ì ˆ
+	//static void SendTradeAddItem(const TradeSlotInfo& item);	//ì•„ì´í…œ ì¶”ê°€
+	//static void SendTradeRemoveItem(int slotPos);				//ì•„ì´í…œ ì œê±°
+	//static void SendTradeConfirm();								//êµí™˜í™•ì¸
+	//static void SendTradeCancel();								//êµí™˜ì·¨ì†Œ
 
 };

@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "stbSingletonBase.h"
 #include "CommonInclude.h"
 #include "ItemDataManager.h"
 #include "ItemPacketHandler.h"
 #include "..//WinAPITest_lib/stbPlayer.h"
 
-// ÇÃ·¹ÀÌ¾î°¡ ¾ÆÀÌÅÛ
+// í”Œë ˆì´ì–´ê°€ ì•„ì´í…œ
 
 class ItemUseService : public stb::SingletonBase<ItemUseService>
 {

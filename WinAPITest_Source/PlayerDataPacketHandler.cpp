@@ -1,4 +1,4 @@
-#include "PlayerDataPacketHandler.h"
+ï»¿#include "PlayerDataPacketHandler.h"
 #include "PacketData.h"
 #include "PacketParser.h"
 #include "PlayerManager.h"
@@ -84,7 +84,7 @@ void PlayerDataPacketHandler::HandleLocalPlayerInfo(const ParsedPacket& pkt)
 	}
 	catch(...)
 	{
-		OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù.");
+		OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
 	}
 }
 
@@ -186,7 +186,7 @@ void PlayerDataPacketHandler::HandleLocalPlayerStat(const ParsedPacket& pkt)
 	}
 	catch (...)
 	{
-		OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ı\n");
+		OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
 	}
 }
 
@@ -264,7 +264,7 @@ void PlayerDataPacketHandler::HandleLocalPlayerGetExp(const ParsedPacket& pkt)
 	}
 	catch (...)
 	{
-		OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ı\n");
+		OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
 	}
 }
 
@@ -300,7 +300,7 @@ void PlayerDataPacketHandler::HandlePlayerOnDamaged(const ParsedPacket& pkt)
 			inputs.push_back(input);
 		}
 
-		if (inputs.size() == 6) //ÀÚ±â ÀÚ½ÅÀÇ ¿Âµ¥¹ÌÁö
+		if (inputs.size() == 6) //ìê¸° ìì‹ ì˜ ì˜¨ë°ë¯¸ì§€
 		{
 			int player_id = std::stoi(inputs[0]);
 			int attacker_instance_id = std::stoi(inputs[1]);
@@ -311,10 +311,10 @@ void PlayerDataPacketHandler::HandlePlayerOnDamaged(const ParsedPacket& pkt)
 
 			//localPlayer->GetStat()->SetCurHp(cur_hp);
 			//TODO
-			//Player OnDamage µ¥¹ÌÁö ¹Ş´Â ÇüÅÂ
+			//Player OnDamage ë°ë¯¸ì§€ ë°›ëŠ” í˜•íƒœ
 			localPlayer->OnDamaged(damage, cur_hp);
 		}
-		else if (inputs.size() == 4) //Å¸ÀÎÀÇ ¿Âµ¥¹ÌÁö
+		else if (inputs.size() == 4) //íƒ€ì¸ì˜ ì˜¨ë°ë¯¸ì§€
 		{
 			int target_player_id = std::stoi(inputs[0]);
 			int attacker_instance_id = std::stoi(inputs[1]);
@@ -328,7 +328,7 @@ void PlayerDataPacketHandler::HandlePlayerOnDamaged(const ParsedPacket& pkt)
 			}
 
 			//TODO
-			//TargetPlayer OnDamage µ¥¹ÌÁö ¹Ş´Â ÇüÅÂ
+			//TargetPlayer OnDamage ë°ë¯¸ì§€ ë°›ëŠ” í˜•íƒœ
 			targetPlayer->ShowDamageText(damage);
 		}
 		else
@@ -344,6 +344,6 @@ void PlayerDataPacketHandler::HandlePlayerOnDamaged(const ParsedPacket& pkt)
 	}
 	catch (...)
 	{
-		OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ı\n");
+		OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
 	}
 }

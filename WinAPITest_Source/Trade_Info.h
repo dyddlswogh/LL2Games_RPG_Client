@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonInclude.h"
 #include "Inventory_Info.h"
 
-//±³È¯ ½½·Ô ÇÏ³ª (¾ÆÀÌÅÛ Á¤º¸ + ½½·Ô À§Ä¡)
+//êµí™˜ ìŠ¬ë¡¯ í•˜ë‚˜ (ì•„ì´í…œ ì •ë³´ + ìŠ¬ë¡¯ ìœ„ì¹˜)
 struct TradeSlotInfo
 {
 	std::string itemId;
@@ -11,30 +11,30 @@ struct TradeSlotInfo
 	int invenSlotPos = 0;
 };
 
-//±³È¯ ¼¼¼Ç ÀüÃ¼ »óÅÂ
+//êµí™˜ ì„¸ì…˜ ì „ì²´ ìƒíƒœ
 struct TradeSessionInfo
 {
 	std::string myPlayerId		= 0;
 	std::string targetPlayerId	= 0;
 
-	std::vector<TradeSlotInfo> myItems; //³»°¡ ¿Ã¸° ¾ÆÀÌÅÛ
-	std::vector<TradeSlotInfo> targetItems; //»ó´ë°¡ ¿Ã¸° ¾ÆÀÌÅÛ
+	std::vector<TradeSlotInfo> myItems; //ë‚´ê°€ ì˜¬ë¦° ì•„ì´í…œ
+	std::vector<TradeSlotInfo> targetItems; //ìƒëŒ€ê°€ ì˜¬ë¦° ì•„ì´í…œ
 
 	bool myConfirmed = false;
 	bool targetConfirmed = false;
 };
 
-//±³È¯ ½ÅÃ» ¼ö½Å ½Ã ÆË¾÷¿¡ ¾µ Á¤º¸
+//êµí™˜ ì‹ ì²­ ìˆ˜ì‹  ì‹œ íŒì—…ì— ì“¸ ì •ë³´
 struct TradeRequestInfo
 {
 	std::string requesterId;
 	std::string requesterName;
 };
 
-//±³È¯ ¿Ï·á °á°ú
+//êµí™˜ ì™„ë£Œ ê²°ê³¼
 struct TradeCompleteResult
 {
-	int result = 0; // 0 = ½ÇÆĞ, 1 = ¼º°ø
+	int result = 0; // 0 = ì‹¤íŒ¨, 1 = ì„±ê³µ
 	int errcode = 0;
-	//¿Ï·á ÈÄ ÀÎº¥Åä¸®´Â PKT_INVENTORY_ITEM_INFO·Î º°µµ °»½ÅµÊ
+	//ì™„ë£Œ í›„ ì¸ë²¤í† ë¦¬ëŠ” PKT_INVENTORY_ITEM_INFOë¡œ ë³„ë„ ê°±ì‹ ë¨
 };

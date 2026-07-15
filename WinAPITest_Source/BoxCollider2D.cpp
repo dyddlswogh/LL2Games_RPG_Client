@@ -1,4 +1,4 @@
-#include "BoxCollider2D.h"
+ï»¿#include "BoxCollider2D.h"
 #include "stbTransform.h"
 #include "stbGameObject.h"
 #include "stbRender.h"
@@ -73,10 +73,10 @@ namespace stb
 
 		Vector2 worldPos = tr->GetPosition();
 
-		// Äİ¶óÀÌ´õ Áß½É ¿ùµå ÁÂÇ¥
+		// ì½œë¼ì´ë” ì¤‘ì‹¬ ì›”ë“œ ì¢Œí‘œ
 		Vector2 colliderCenter = worldPos + GetOffset();
 
-		// Ä«¸Ş¶ó º¸Á¤
+		// ì¹´ë©”ë¼ ë³´ì •
 		Vector2 screenCenter = colliderCenter;
 		if (render::mainCamera)
 		{

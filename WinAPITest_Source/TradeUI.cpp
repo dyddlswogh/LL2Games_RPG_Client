@@ -1,4 +1,4 @@
-#include "TradeUI.h"
+ï»¿#include "TradeUI.h"
 #include "stbResourceManager.h"
 #include "stbApplication.h"
 #include "stbInput.h"
@@ -25,26 +25,26 @@ void TradeUI::Init()
 	//m_myId = "1"; //test
     m_myId = stb::NetworkConfig::GetCharacterId();
     m_myName = Convert::Utf8ToWstr(stb::NetworkConfig::GetCharacterName());
-	m_txtBackground = M_REMANAGER->Find<stb::Texture>(L"Trade_normal"); //¹è°æ
+	m_txtBackground = M_REMANAGER->Find<stb::Texture>(L"Trade_normal"); //ë°°ê²½
     m_txtFullBackground = M_REMANAGER->Find<stb::Texture>(L"Trade_full");
 
-    //¹öÆ°
-	m_txtConfirmNormal = M_REMANAGER->Find<stb::Texture>(L"Trade_button_confirm_normal"); //µî·ÏÇÏ±â
-	m_txtTradeNormal = M_REMANAGER->Find<stb::Texture>(L"Trade_button_trade_normal"); //±³È¯ÇÏ±â
-	m_txtTradeChecked = M_REMANAGER->Find<stb::Texture>(L"Trade_button_trade_checked"); //±³È¯´ë±â
+    //ë²„íŠ¼
+	m_txtConfirmNormal = M_REMANAGER->Find<stb::Texture>(L"Trade_button_confirm_normal"); //ë“±ë¡í•˜ê¸°
+	m_txtTradeNormal = M_REMANAGER->Find<stb::Texture>(L"Trade_button_trade_normal"); //êµí™˜í•˜ê¸°
+	m_txtTradeChecked = M_REMANAGER->Find<stb::Texture>(L"Trade_button_trade_checked"); //êµí™˜ëŒ€ê¸°
 
-    //·¹ÀÌ¾î
-	m_txtLayerConfirmMe = M_REMANAGER->Find<stb::Texture>(L"Trade_layer_confirm_me"); //±³È¯´ë±â ·¹ÀÌ¾î
+    //ë ˆì´ì–´
+	m_txtLayerConfirmMe = M_REMANAGER->Find<stb::Texture>(L"Trade_layer_confirm_me"); //êµí™˜ëŒ€ê¸° ë ˆì´ì–´
 
     
 	mActive = false;
 
-    //ÀÎº¥Åä¸®
+    //ì¸ë²¤í† ë¦¬
     Init_InventoryButton();
     Init_InventoryTab();
     CreateSlots();
 
-    //±³È¯ ½½·Ô
+    //êµí™˜ ìŠ¬ë¡¯
     CreateTradeSlots();
 }
 
@@ -378,44 +378,44 @@ void TradeUI::Render(stbD2DRenderer& renderer)
         m_myName = Convert::Utf8ToWstr(stb::NetworkConfig::GetCharacterName());
     }
 
-    if (m_cancelPopupActive) //±³È¯ Ãë¼Ò ÆË¾÷
+    if (m_cancelPopupActive) //êµí™˜ ì·¨ì†Œ íŒì—…
     {
         RenderCancelPopUp(renderer);
         return;
     }
 
-    if (m_successPopupActive) //±³È¯ ¿Ï·á ÆË¾÷
+    if (m_successPopupActive) //êµí™˜ ì™„ë£Œ íŒì—…
     {
         RenderSuccessPopUp(renderer);
         return;
     }
 
-	// 1. ¹è°æ Ãâ·Â
+	// 1. ë°°ê²½ ì¶œë ¥
     RenderBackground(renderer);
 
-    //±³È¯ ´ë±â ·¹ÀÌ¾î
+    //êµí™˜ ëŒ€ê¸° ë ˆì´ì–´
     /*if (m_ConfirmLayerMe)
         RenderConfirmLayerMe(renderer);
 
     if (m_ConfirmLayerTarget)
         RenderConfirmLayerTarget(renderer);*/
 
-    // 2. ¹öÆ° Ãâ·Â
+    // 2. ë²„íŠ¼ ì¶œë ¥
     RenderButton(renderer);
 
-	// 3. ¹è°æ À§¿¡ ´Ğ³×ÀÓ Ãâ·Â
+	// 3. ë°°ê²½ ìœ„ì— ë‹‰ë„¤ì„ ì¶œë ¥
 	RenderNickname(renderer);
 
-    // 4. ÀÎº¥Åä¸® ¹öÆ° Ãâ·Â
+    // 4. ì¸ë²¤í† ë¦¬ ë²„íŠ¼ ì¶œë ¥
     RenderInventoryMenuButtons(renderer);
-    // 5. ÀÎº¥Åä¸® ¾ÆÀÌÅÛ ÀÌ¹ÌÁö ±×¸®±â
+    // 5. ì¸ë²¤í† ë¦¬ ì•„ì´í…œ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
     RenderInventorySlotItem(renderer);
-    // 6. ÀÎº¥Åä¸® ¹öÆ° ÀÌ¹ÌÁö ±×¸®±â
+    // 6. ì¸ë²¤í† ë¦¬ ë²„íŠ¼ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
     RenderInventoryButtons(renderer);
-    // 7. Å×½ºÆ®¿ë ½½·Ôµé Å×µÎ¸® ±×¸®±â
+    // 7. í…ŒìŠ¤íŠ¸ìš© ìŠ¬ë¡¯ë“¤ í…Œë‘ë¦¬ ê·¸ë¦¬ê¸°
     RenderInventoryTestSlots(renderer);
 
-    // ±³È¯ ½½·Ô ¾ÆÀÌÅÛ Ãâ·Â
+    // êµí™˜ ìŠ¬ë¡¯ ì•„ì´í…œ ì¶œë ¥
     RenderTradeSlotItem(renderer);
 
     RenderQuantityPopup(renderer);
@@ -520,7 +520,7 @@ void TradeUI::RenderConfirmLayerTarget(stbD2DRenderer& renderer)
 
 void TradeUI::RenderButton(stbD2DRenderer& renderer)
 {
-#if 0 //µî·Ï¹öÆ°
+#if 0 //ë“±ë¡ë²„íŠ¼
     {
         stb::Texture* confirm = m_txtConfirmNormal;
         if (confirm == nullptr)
@@ -551,7 +551,7 @@ void TradeUI::RenderButton(stbD2DRenderer& renderer)
     }
 #endif
 
-#if 1 //±³È¯¹öÆ°
+#if 1 //êµí™˜ë²„íŠ¼
     {
         stb::Texture* trade = m_ConfirmLayerMe ? m_txtTradeChecked : m_txtTradeNormal;
         if (trade == nullptr)
@@ -593,7 +593,7 @@ void TradeUI::RenderNickname(stbD2DRenderer& renderer)
 
     IDWriteTextFormat* textFormat = nullptr;
     HRESULT hr = writeFactory->CreateTextFormat(
-        L"¸¼Àº °íµñ",
+        L"ë§‘ì€ ê³ ë”•",
         nullptr,
         DWRITE_FONT_WEIGHT_BOLD,
         DWRITE_FONT_STYLE_NORMAL,
@@ -621,7 +621,7 @@ void TradeUI::RenderNickname(stbD2DRenderer& renderer)
         return;
     }
 
-    // ¿ŞÂÊ Å¸°Ù ´Ğ³×ÀÓ ¿µ¿ª
+    // ì™¼ìª½ íƒ€ê²Ÿ ë‹‰ë„¤ì„ ì˜ì—­
     D2D1_RECT_F targetNickRect = D2D1::RectF(
         m_posX + 62.0f,
         m_posY + 100.0f,
@@ -629,7 +629,7 @@ void TradeUI::RenderNickname(stbD2DRenderer& renderer)
         m_posY + 117.0f
     );
 
-    // ¿À¸¥ÂÊ ³» ´Ğ³×ÀÓ ¿µ¿ª
+    // ì˜¤ë¥¸ìª½ ë‚´ ë‹‰ë„¤ì„ ì˜ì—­
     D2D1_RECT_F myNickRect = D2D1::RectF(
         m_posX + 266.0f,
         m_posY + 102.0f,
@@ -667,16 +667,16 @@ void TradeUI::RenderCancelPopUp(stbD2DRenderer& renderer)
     float px = rtSize.width / 2.f - popupW / 2.f;
     float py = rtSize.height / 2.f - popupH / 2.f;
 
-    // ÆË¾÷ ¹è°æ
+    // íŒì—… ë°°ê²½
     renderer.FillRect(px, py, popupW, popupH,
         D2D1::ColorF(0.f, 0.f, 0.f, 0.85f));
 
-    // Å×µÎ¸®
+    // í…Œë‘ë¦¬
     renderer.DrawRect(px, py, popupW, popupH,
         D2D1::ColorF(D2D1::ColorF::Yellow), 2.f);
 
-    // ¸Ş½ÃÁö
-    std::wstring message = L"'" + m_targetName + L"'´ÔÀÌ ±³È¯½ÅÃ»À» Ãë¼Ò ÇÏ¼Ì½À´Ï´Ù.";
+    // ë©”ì‹œì§€
+    std::wstring message = L"'" + m_targetName + L"'ë‹˜ì´ êµí™˜ì‹ ì²­ì„ ì·¨ì†Œ í•˜ì…¨ìŠµë‹ˆë‹¤.";
 
     D2D1_RECT_F msgRect = D2D1::RectF(
         px + 20.f,
@@ -688,7 +688,7 @@ void TradeUI::RenderCancelPopUp(stbD2DRenderer& renderer)
     renderer.DrawTextString(message, msgRect,
         D2D1::ColorF(D2D1::ColorF::White));
 
-    // ¹öÆ° À§Ä¡ ÀúÀå
+    // ë²„íŠ¼ ìœ„ì¹˜ ì €ì¥
     const float btnW = 100.f;
     const float btnH = 36.f;
     const float btnY = py + 100.f;
@@ -700,7 +700,7 @@ void TradeUI::RenderCancelPopUp(stbD2DRenderer& renderer)
         btnY + btnH
     );
 
-    // È®ÀÎ ¹öÆ°
+    // í™•ì¸ ë²„íŠ¼
     renderer.FillRect(
         m_cancelCheckButtonRect.left,
         m_cancelCheckButtonRect.top,
@@ -725,7 +725,7 @@ void TradeUI::RenderCancelPopUp(stbD2DRenderer& renderer)
         m_cancelCheckButtonRect.bottom
     );
 
-    renderer.DrawTextString(L"È®ÀÎ", acceptTextRect,
+    renderer.DrawTextString(L"í™•ì¸", acceptTextRect,
         D2D1::ColorF(D2D1::ColorF::White));
 }
 
@@ -739,16 +739,16 @@ void TradeUI::RenderSuccessPopUp(stbD2DRenderer& renderer)
     float px = rtSize.width / 2.f - popupW / 2.f;
     float py = rtSize.height / 2.f - popupH / 2.f;
 
-    // ÆË¾÷ ¹è°æ
+    // íŒì—… ë°°ê²½
     renderer.FillRect(px, py, popupW, popupH,
         D2D1::ColorF(0.f, 0.f, 0.f, 0.85f));
 
-    // Å×µÎ¸®
+    // í…Œë‘ë¦¬
     renderer.DrawRect(px, py, popupW, popupH,
         D2D1::ColorF(D2D1::ColorF::SeaShell), 2.f);
 
-    // ¸Ş½ÃÁö
-    std::wstring message = L"'" + m_targetName + L"'´Ô°ú ±³È¯ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.";
+    // ë©”ì‹œì§€
+    std::wstring message = L"'" + m_targetName + L"'ë‹˜ê³¼ êµí™˜ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.";
 
     D2D1_RECT_F msgRect = D2D1::RectF(
         px + 20.f,
@@ -760,7 +760,7 @@ void TradeUI::RenderSuccessPopUp(stbD2DRenderer& renderer)
     renderer.DrawTextString(message, msgRect,
         D2D1::ColorF(D2D1::ColorF::White), TextStyle::Trade);
 
-    // ¹öÆ° À§Ä¡ ÀúÀå
+    // ë²„íŠ¼ ìœ„ì¹˜ ì €ì¥
     const float btnW = 100.f;
     const float btnH = 36.f;
     const float btnY = py + 100.f;
@@ -772,7 +772,7 @@ void TradeUI::RenderSuccessPopUp(stbD2DRenderer& renderer)
         btnY + btnH
     );
 
-    // È®ÀÎ ¹öÆ°
+    // í™•ì¸ ë²„íŠ¼
     renderer.FillRect(
         m_successCheckButtonRect.left,
         m_successCheckButtonRect.top,
@@ -797,7 +797,7 @@ void TradeUI::RenderSuccessPopUp(stbD2DRenderer& renderer)
         m_successCheckButtonRect.bottom
     );
 
-    renderer.DrawTextString(L"È®ÀÎ", acceptTextRect,
+    renderer.DrawTextString(L"í™•ì¸", acceptTextRect,
         D2D1::ColorF(D2D1::ColorF::White), TextStyle::TradeButton);
 }
 
@@ -1055,7 +1055,7 @@ void TradeUI::RenderDraggingItem(stbD2DRenderer& renderer)
 
 void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
 {
-    // È®Àå ÀÌ¹ÌÁö
+    // í™•ì¥ ì´ë¯¸ì§€
     stb::Texture* full_button = GetCurrentImg(m_fullButton);
     if (full_button == nullptr)
     {
@@ -1084,7 +1084,7 @@ void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
 #endif
 
 
-    // È®Àå ÀÌ¹ÌÁö
+    // í™•ì¥ ì´ë¯¸ì§€
     stb::Texture* min_button = GetCurrentImg(m_minButton);
     if (min_button == nullptr)
     {
@@ -1113,7 +1113,7 @@ void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
 #endif
 
 
-    // ´İ±â ÀÌ¹ÌÁö
+    // ë‹«ê¸° ì´ë¯¸ì§€
     stb::Texture* close_button = GetCurrentImg(m_closeButton);
     if (close_button == nullptr)
     {
@@ -1144,7 +1144,7 @@ void TradeUI::RenderInventoryButtons(stbD2DRenderer& renderer)
 
 void TradeUI::RenderInventoryTestSlots(stbD2DRenderer& renderer)
 {
-    // Å×½ºÆ®¿ë ÀÎº¥Åä¸® µå·¡±× ¿µ¿ª ±×¸®±â
+    // í…ŒìŠ¤íŠ¸ìš© ì¸ë²¤í† ë¦¬ ë“œë˜ê·¸ ì˜ì—­ ê·¸ë¦¬ê¸°
     renderer.DrawRect(
         (float)m_tradeClickRect.left,
         (float)m_tradeClickRect.top,
@@ -1190,7 +1190,7 @@ void TradeUI::RenderInventoryTestSlots(stbD2DRenderer& renderer)
         );
     }
 
-    // Å×½ºÆ®¿ë ÀÎº¥Åä¸® µå·¡±× ¿µ¿ª ±×¸®±â
+    // í…ŒìŠ¤íŠ¸ìš© ì¸ë²¤í† ë¦¬ ë“œë˜ê·¸ ì˜ì—­ ê·¸ë¦¬ê¸°
     renderer.DrawRect(
         (float)m_tradeClickRect.left,
         (float)m_tradeClickRect.top,
@@ -1202,7 +1202,7 @@ void TradeUI::RenderInventoryTestSlots(stbD2DRenderer& renderer)
 
 void TradeUI::RenderTradeTestSlots(stbD2DRenderer& renderer)
 {
-    //±³È¯½½·Ô(My)
+    //êµí™˜ìŠ¬ë¡¯(My)
     for (const auto& slot : m_tradeMySlots)
     {
         if (slot.isEnabled)
@@ -1218,7 +1218,7 @@ void TradeUI::RenderTradeTestSlots(stbD2DRenderer& renderer)
 
     }
 
-    // Å×½ºÆ®¿ë ÀÎº¥Åä¸® µå·¡±× ¿µ¿ª ±×¸®±â
+    // í…ŒìŠ¤íŠ¸ìš© ì¸ë²¤í† ë¦¬ ë“œë˜ê·¸ ì˜ì—­ ê·¸ë¦¬ê¸°
     renderer.DrawRect(
         (float)m_tradeClickRect.left,
         (float)m_tradeClickRect.top,
@@ -1227,7 +1227,7 @@ void TradeUI::RenderTradeTestSlots(stbD2DRenderer& renderer)
         D2D1::ColorF::Black
     );
 
-    //±³È¯½½·Ô(Target)
+    //êµí™˜ìŠ¬ë¡¯(Target)
     for (const auto& slot : m_tradeTargetSlots)
     {
         if (slot.isEnabled)
@@ -1300,10 +1300,10 @@ bool TradeUI::IsPointInTradeReady(int x, int y)
         y <= m_posY + BUTTON_TRADE_Y + size.height;
 }
 
-//³» ½½·Ô Å¬¸¯ -> ¾ÆÀÌÅÛ ±³È¯Ã¢ µî·Ï
+//ë‚´ ìŠ¬ë¡¯ í´ë¦­ -> ì•„ì´í…œ êµí™˜ì°½ ë“±ë¡
 void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
 {
-#if 1 //test ¸¶¿ì½º À§Ä¡ Ãâ·Â
+#if 1 //test ë§ˆìš°ìŠ¤ ìœ„ì¹˜ ì¶œë ¥
 
     if (0)
     {
@@ -1323,10 +1323,10 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
         OutputDebugStringA(sTmpX.c_str());
         OutputDebugStringA(sTmpY.c_str());
     }
-#endif //test ¸¶¿ì½º À§Ä¡ Ãâ·Â
+#endif //test ë§ˆìš°ìŠ¤ ìœ„ì¹˜ ì¶œë ¥
 
 
-    //ÀÎº¥Åä¸®
+    //ì¸ë²¤í† ë¦¬
     if (HandleTradeUIDragging(mouseX, mouseY))
         return;
 
@@ -1336,7 +1336,7 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
     if (HandleButtonClick(mouseX, mouseY))
         return;
 
-    //±³È¯ Ãë¼Ò ÆË¾÷
+    //êµí™˜ ì·¨ì†Œ íŒì—…
     if (m_cancelPopupActive)
     {
         if (IsPointInRect(mouseX, mouseY, m_cancelCheckButtonRect))
@@ -1347,7 +1347,7 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
         return;
     }
 
-    //±³È¯ ¿Ï·á ÆË¾÷
+    //êµí™˜ ì™„ë£Œ íŒì—…
     if (m_successPopupActive)
     {
         if (IsPointInRect(mouseX, mouseY, m_successCheckButtonRect))
@@ -1358,7 +1358,7 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
         return;
     }
 
-    //±³È¯ ÁØºñ
+    //êµí™˜ ì¤€ë¹„
     if (IsPointInTradeReady(mouseX, mouseY))
     {
         OutputDebugStringA("[TradeUI] TRADE Ready Clicked\n");
@@ -1390,11 +1390,11 @@ void TradeUI::HandleLMouseClick(int mouseX, int mouseY)
 
         return;
     }
-	//ÀÎº¥Åä¸®¿¡¼­ ÇØ´ç ½½·Ô ¾ÆÀÌÅÛ °¡Á®¿À±â
+	//ì¸ë²¤í† ë¦¬ì—ì„œ í•´ë‹¹ ìŠ¬ë¡¯ ì•„ì´í…œ ê°€ì ¸ì˜¤ê¸°
 	//InventoryItemInfo* item = M_INVENTORYMANAGER->FindSlot(inventoryType, slotIdx);
 	//if (item == nullptr) return;
 
-	//TradeSlotInfo ¸¸µé¾î¼­ ¼­¹ö¿¡ Àü¼Û
+	//TradeSlotInfo ë§Œë“¤ì–´ì„œ ì„œë²„ì— ì „ì†¡
 	//TradeSlotInfo tradeSlot = { slotIdx, std::to_string(item->itemId), item->itemCount };
 	//TradePacketHandler::SendTradeAddItem(tradeSlot);
 }
@@ -1443,7 +1443,7 @@ bool TradeUI::HandleButtonClick(int mouseX, int mouseY)
     {
         OutputDebugStringA("fullButton Clicked \n");
         ExpandInventory();
-        // ÀÎº¥Åä¸® È®Àå ÇÔ¼ö Ãß°¡ ÇÊ¿ä
+        // ì¸ë²¤í† ë¦¬ í™•ì¥ í•¨ìˆ˜ ì¶”ê°€ í•„ìš”
         return true;
     }
 
@@ -1451,7 +1451,7 @@ bool TradeUI::HandleButtonClick(int mouseX, int mouseY)
     {
         OutputDebugStringA("minButton Clicked \n");
         ReduceInventory();
-        // ÀÎº¥Åä¸® È®Àå ÇÔ¼ö Ãß°¡ ÇÊ¿ä
+        // ì¸ë²¤í† ë¦¬ í™•ì¥ í•¨ìˆ˜ ì¶”ê°€ í•„ìš”
         return true;
     }
 
@@ -1640,11 +1640,11 @@ void TradeUI::OnSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, cons
     {
         m_successPopupActive = true;
 
-        //±³È¯ ¿Ï·á½Ã Å¬¶óÀÌ¾ğÆ®ÀÇ inventory ¾÷µ¥ÀÌÆ®
-        //³» ±³È¯Ã¢¿¡ ÀÖ´ø ¾ÆÀÌÅÛ »èÁ¦
+        //êµí™˜ ì™„ë£Œì‹œ í´ë¼ì´ì–¸íŠ¸ì˜ inventory ì—…ë°ì´íŠ¸
+        //ë‚´ êµí™˜ì°½ì— ìˆë˜ ì•„ì´í…œ ì‚­ì œ
         for (auto &item : mySlotInfos)
         {
-            std::string sItemType = item.itemId.substr(0, 1); //idÀÇ Ã¹±ÛÀÚ·Î Å¸ÀÔ ±¸ºĞ ex) 2000000 -> type 2 
+            std::string sItemType = item.itemId.substr(0, 1); //idì˜ ì²«ê¸€ìë¡œ íƒ€ì… êµ¬ë¶„ ex) 2000000 -> type 2 
             Inventory* inventory = M_INVENTORYMANAGER->GetInventory(std::stoi(sItemType) - 1 );
             if (inventory == nullptr)
                 return;
@@ -1652,20 +1652,20 @@ void TradeUI::OnSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, cons
             inventory->RemoveItemFromId(std::stoi(item.itemId), item.itemCount);
         }
 
-        //»ó´ë ±³È¯Ã¢¿¡ ÀÖ´ø ¾ÆÀÌÅÛ Ãß°¡
+        //ìƒëŒ€ êµí™˜ì°½ì— ìˆë˜ ì•„ì´í…œ ì¶”ê°€
         for (auto& item : targetSlotInfos)
         {
-            std::string sItemType = item.itemId.substr(0, 1); //idÀÇ Ã¹±ÛÀÚ·Î Å¸ÀÔ ±¸ºĞ ex) 2000000 -> type 2 
+            std::string sItemType = item.itemId.substr(0, 1); //idì˜ ì²«ê¸€ìë¡œ íƒ€ì… êµ¬ë¶„ ex) 2000000 -> type 2 
             Inventory* inventory = M_INVENTORYMANAGER->GetInventory(std::stoi(sItemType) - 1);
             if (inventory == nullptr)
                 return;
             inventory->SetSlot(item.invenSlotPos, std::stoi(item.itemId), item.itemCount);
         }
     }
-    // TradeUI ³»ºÎ ÀÎº¥Åä¸® ½½·Ô °»½Å
+    // TradeUI ë‚´ë¶€ ì¸ë²¤í† ë¦¬ ìŠ¬ë¡¯ ê°±ì‹ 
     UpdateInventoryByType();
 
-    // ÀÏ¹İ InventoryUI ½½·Ô °»½Å
+    // ì¼ë°˜ InventoryUI ìŠ¬ë¡¯ ê°±ì‹ 
     M_UIMANAGER->RefreshInventoryUI();
 }
 
@@ -1707,7 +1707,7 @@ void TradeUI::OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo)
         m_tradeTargetSlots[slotIdx].itemId = std::stoi(tradeSlotInfo.itemId);
         m_tradeTargetSlots[slotIdx].itemCount = tradeSlotInfo.itemCount;
 
-        m_targetSlotInfo.push_back(tradeSlotInfo); //»ó´ë ¾ÆÀÌÅÛ ¸â¹öº¯¼ö¿¡ Ãß°¡
+        m_targetSlotInfo.push_back(tradeSlotInfo); //ìƒëŒ€ ì•„ì´í…œ ë©¤ë²„ë³€ìˆ˜ì— ì¶”ê°€
     }
 }
 
@@ -1743,14 +1743,14 @@ void TradeUI::OnQuantityChar(wchar_t ch)
     if (!m_quantityPopupActive)
         return;
 
-    // ¼ıÀÚ¸¸ ÀÔ·Â
+    // ìˆ«ìë§Œ ì…ë ¥
     if (ch >= L'0' && ch <= L'9')
     {
-        // ³Ê¹« ±ä ¼ıÀÚ ¹æÁö
+        // ë„ˆë¬´ ê¸´ ìˆ«ì ë°©ì§€
         if (m_quantityInput.size() >= 9)
             return;
 
-        // Ã¹ ±ÛÀÚ·Î 0 ÀÔ·Â ¹æÁö
+        // ì²« ê¸€ìë¡œ 0 ì…ë ¥ ë°©ì§€
         if (m_quantityInput.empty() && ch == L'0')
             return;
 
@@ -1884,14 +1884,14 @@ void TradeUI::RenderQuantityPopup(stbD2DRenderer& renderer)
         D2D1::ColorF(D2D1::ColorF::White));
 
     renderer.DrawTextString(
-        L"µî·ÏÇÒ ¼ö·®À» ÀÔ·ÂÇÏ¼¼¿ä",
+        L"ë“±ë¡í•  ìˆ˜ëŸ‰ì„ ì…ë ¥í•˜ì„¸ìš”",
         D2D1::RectF(
             x + 20.0f, y + 15.0f,
             x + 280.0f, y + 45.0f),
         D2D1::ColorF(D2D1::ColorF::White),
         TextStyle::Trade);
 
-    // ÀÔ·ÂÃ¢
+    // ì…ë ¥ì°½
     renderer.FillRect(
         x + 35.0f, y + 55.0f,
         230.0f, 35.0f,
@@ -1910,7 +1910,7 @@ void TradeUI::RenderQuantityPopup(stbD2DRenderer& renderer)
     std::wstring displayText = m_quantityInput;
 
     if (displayText.empty())
-        displayText = L"¼ö·® ÀÔ·Â";
+        displayText = L"ìˆ˜ëŸ‰ ì…ë ¥";
     else
         displayText += L"_";
 
@@ -1925,7 +1925,7 @@ void TradeUI::RenderQuantityPopup(stbD2DRenderer& renderer)
         TextStyle::Trade);
 
     std::wstring maxText =
-        L"º¸À¯ ¼ö·®: " + std::to_wstring(m_quantityMax);
+        L"ë³´ìœ  ìˆ˜ëŸ‰: " + std::to_wstring(m_quantityMax);
 
     renderer.DrawTextString(
         maxText,
@@ -1937,8 +1937,8 @@ void TradeUI::RenderQuantityPopup(stbD2DRenderer& renderer)
 
     renderer.DrawTextString(
         m_quantityInputError
-        ? L"¼ö·®À» È®ÀÎÇØÁÖ¼¼¿ä"
-        : L"Enter: È®ÀÎ / Esc: Ãë¼Ò",
+        ? L"ìˆ˜ëŸ‰ì„ í™•ì¸í•´ì£¼ì„¸ìš”"
+        : L"Enter: í™•ì¸ / Esc: ì·¨ì†Œ",
         D2D1::RectF(
             x + 35.0f, y + 125.0f,
             x + 280.0f, y + 148.0f),

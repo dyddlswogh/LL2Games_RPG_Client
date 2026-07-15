@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbComponent.h"
 #include "stbTexture.h"
 #include "stbAnimation.h"

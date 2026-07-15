@@ -1,4 +1,4 @@
-// 네트워크 테스트 예시 코드
+﻿// 네트워크 테스트 예시 코드
 // PlayScene이나 PlayerScript에서 사용하세요
 
 #include "stbNetworkInit.h"

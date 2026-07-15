@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonInclude.h"
 #include "stbTexture.h"
 #include "UI.h"
@@ -72,8 +72,8 @@ private:
 
 	InventoryType m_currentType;
 
-	bool m_isInventoryDragging = false;	// ÀÎº¥Åä¸® Ã¢ µå·¡±×¿ë
-	bool m_isItemDragging = false; // ÀÎº¥Åä¸® ³» ¾ÆÀÌÅÛ µå·¡±× ¿ë
+	bool m_isInventoryDragging = false;	// ì¸ë²¤í† ë¦¬ ì°½ ë“œë˜ê·¸ìš©
+	bool m_isItemDragging = false; // ì¸ë²¤í† ë¦¬ ë‚´ ì•„ì´í…œ ë“œë˜ê·¸ ìš©
 	bool m_isExpand = false;
 	int m_dragOffsetX;
 	int m_dragOffsetY;

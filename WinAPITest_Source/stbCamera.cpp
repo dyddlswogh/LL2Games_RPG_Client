@@ -1,4 +1,4 @@
-#include "stbCamera.h"
+ï»¿#include "stbCamera.h"
 #include "stbGameObject.h"
 #include "stbTransform.h"
 #include "stbApplication.h"
@@ -39,7 +39,7 @@ namespace stb
 			mLookPosition = cameraTr->GetPosition();
 		}
 
-		// È­¸é Å©±âÀÇ Áß°£ À§Ä¡¿¡¼­ À§Ä¡¸¦ »©±â
+		// í™”ë©´ í¬ê¸°ì˜ ì¤‘ê°„ ìœ„ì¹˜ì—ì„œ ìœ„ì¹˜ë¥¼ ë¹¼ê¸°
 
 		mDistance = mLookPosition - (mResolution / 2.0f);
 	}

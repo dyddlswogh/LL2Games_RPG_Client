@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "stbResource.h"
 #include "stbSingletonBase.h"
 #include "stbTexture.h"
@@ -58,15 +58,15 @@ namespace stb
 			mResources.insert(make_pair(name, resource));
 		}
 
-		// 1. ¿ùµå / ¹è°æ ¸®¼Ò½º
+		// 1. ì›”ë“œ / ë°°ê²½ ë¦¬ì†ŒìŠ¤
 		void LoadMapTextures();
 
-		// 2. °ÔÀÓ ¿ÀºêÁ§Æ® ¸®¼Ò½º
+		// 2. ê²Œì„ ì˜¤ë¸Œì íŠ¸ ë¦¬ì†ŒìŠ¤
 		void LoadPlayerTextures();
 		void LoadMonsterTextures();
 		void LoadItemTextures();
 
-		// 3. UI ¸®¼Ò½º
+		// 3. UI ë¦¬ì†ŒìŠ¤
 		void LoadInventoryTextures();
 		void LoadQuickSlotTextures();
 		void LoadHealthBarTextures();
@@ -74,10 +74,10 @@ namespace stb
 		void LoadLevelTextures();
 		void LoadTradeTextures();
 
-		// 4. »ç¿îµå ¸®¼Ò½º
+		// 4. ì‚¬ìš´ë“œ ë¦¬ì†ŒìŠ¤
 		void LoadBGMAudioClips();
 
-		// 5. D2D ·»´õ¸µ ¸®¼Ò½º ÃÊ±âÈ­
+		// 5. D2D ë Œë”ë§ ë¦¬ì†ŒìŠ¤ ì´ˆê¸°í™”
 		void LoadAllD2D(stbD2DRenderer& renderer);
 
 	private:

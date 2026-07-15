@@ -1,4 +1,4 @@
-#include "LevelUI.h"
+ï»¿#include "LevelUI.h"
 #include "stbD2DRenderer.h"
 #include "PlayerManager.h"
 #include "Stat.h"
@@ -59,7 +59,7 @@ void LevelUI::RenderBackground(stbD2DRenderer& renderer)
 
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
-    // ±âÁØ ÇØ»óµµ ´ëºñ UI ÀüÃ¼ ½ºÄÉÀÏ
+    // ê¸°ì¤€ í•´ìƒë„ ëŒ€ë¹„ UI ì „ì²´ ìŠ¤ì¼€ì¼
     float scaleX = rtSize.width / 1366.0f;
     float scaleY = rtSize.height / 768.0f;
     float scale = min(scaleX, scaleY);
@@ -108,7 +108,7 @@ void LevelUI::RenderLevelImg(stbD2DRenderer& renderer)
 
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
-    // ±âÁØ ÇØ»óµµ ´ëºñ UI ÀüÃ¼ ½ºÄÉÀÏ
+    // ê¸°ì¤€ í•´ìƒë„ ëŒ€ë¹„ UI ì „ì²´ ìŠ¤ì¼€ì¼
     float scaleX = rtSize.width / 1366.0f;
     float scaleY = rtSize.height / 768.0f;
     float scale = min(scaleX, scaleY);
@@ -159,7 +159,7 @@ void LevelUI::RenderLevel(stbD2DRenderer& renderer)
 
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
-    // ½ÃÀÛ À§Ä¡ °è»ê¿ë
+    // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚°ìš©
     stb::Texture* baseTex = m_numbers[0];
 
     if (baseTex == nullptr)

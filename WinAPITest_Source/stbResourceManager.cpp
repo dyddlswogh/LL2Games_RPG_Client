@@ -1,4 +1,4 @@
-#include "stbD2DRenderer.h"
+﻿#include "stbD2DRenderer.h"
 #include "stbTexture.h"
 #include "stbResourceManager.h"
 #include <nlohmann/json.hpp>

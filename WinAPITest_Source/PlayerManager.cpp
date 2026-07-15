@@ -1,4 +1,4 @@
-#include "PlayerManager.h"
+ï»¿#include "PlayerManager.h"
 #include "stbObject.h"
 
 
@@ -18,9 +18,9 @@ stb::Player* PlayerManager::CreateLocalPlayer(stb::enums::eLayerType layer, cons
 
 void PlayerManager::PlayAttackAnimation(int playerId, int skillId)
 {
-	// ·ÎÄÃ ÇÃ·¹ÀÌ¾î¸é ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ¸¦ °ø°İÁßÀ¸·Î º¯°æÇÏ°í ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ½ÇÇà
+	// ë¡œì»¬ í”Œë ˆì´ì–´ë©´ í”Œë ˆì´ì–´ì˜ ìƒíƒœë¥¼ ê³µê²©ì¤‘ìœ¼ë¡œ ë³€ê²½í•˜ê³  ì• ë‹ˆë©”ì´ì…˜ì„ ì‹¤í–‰
 
-	// ·ÎÄÃÇÃ·¹ÀÌ¾îÀÇ °æ¿ì ³Ñ±ä´Ù.
+	// ë¡œì»¬í”Œë ˆì´ì–´ì˜ ê²½ìš° ë„˜ê¸´ë‹¤.
     if (m_localPlayer == nullptr)
         return;
 

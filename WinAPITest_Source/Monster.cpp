@@ -1,4 +1,4 @@
-#include "Monster.h"
+ï»¿#include "Monster.h"
 #include "stbResourceManager.h"
 #include "MonsterDataManager.h"
 #include "stbTexture.h"
@@ -201,7 +201,7 @@ void Monster::OnMove(float x, float y, int dir)
 	
 }
 
-// ¸ó½ºÅÍÆĞÅ¶ ÇÚµé·¯¿¡¼­ ¹Ù·Î È£ÃâÇÏ´Â ÇÔ¼ö
+// ëª¬ìŠ¤í„°íŒ¨í‚· í•¸ë“¤ëŸ¬ì—ì„œ ë°”ë¡œ í˜¸ì¶œí•˜ëŠ” í•¨ìˆ˜
 void Monster::ApplyServerUpdate(const MonsterUpdateInfo& info)
 {
 	bool wasDead = (m_state == MonsterState::E_Die && m_isDeathAnimationFinished);
@@ -216,11 +216,11 @@ void Monster::ApplyServerUpdate(const MonsterUpdateInfo& info)
 	{
 		m_isDeathAnimationFinished = false;
 		m_isDead = false;
-		// À§Ä¡µµ ¹Ù·Î ½ºÆù À§Ä¡·Î ¸ÂÃß´Â °Ô ÁÁÀ½
+		// ìœ„ì¹˜ë„ ë°”ë¡œ ìŠ¤í° ìœ„ì¹˜ë¡œ ë§ì¶”ëŠ” ê²Œ ì¢‹ìŒ
 		m_transform->SetPosition(info.pos);
 		m_targetPos = info.pos;
 
-		// ÀÌÀü »óÅÂ°¡ Die¶ó¼­ SetState°¡ ²¿ÀÌÁö ¾Ê°Ô °­Á¦ ÃÊ±âÈ­
+		// ì´ì „ ìƒíƒœê°€ Dieë¼ì„œ SetStateê°€ ê¼¬ì´ì§€ ì•Šê²Œ ê°•ì œ ì´ˆê¸°í™”
 		m_state = MonsterState::E_NONE;
 		SetState(MonsterState::E_Idle);
 
@@ -237,7 +237,7 @@ void Monster::ApplyAttackResult(const AttackResult& result)
 	if (result.isDead)
 	{
 		SetState(MonsterState::E_Die);
-		// Á×¾úÀ» ¶§ Ã³¸® ÇØ¾ßÇÔ
+		// ì£½ì—ˆì„ ë•Œ ì²˜ë¦¬ í•´ì•¼í•¨
 		return;
 	}
 
@@ -272,7 +272,7 @@ void Monster::ResetFromSpawnInfo(const MonsterSpawnInfo& info)
 	m_maxHp = info.maxHp;
 	m_state = info.state;
 
-	m_state = MonsterState::E_Idle; // ÀÖÀ¸¸é ÃßÃµ
+	m_state = MonsterState::E_Idle; // ìˆìœ¼ë©´ ì¶”ì²œ
 	m_isDead = false;
 
 	if (m_transform != nullptr)

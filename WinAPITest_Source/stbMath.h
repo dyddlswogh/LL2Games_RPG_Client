@@ -1,19 +1,19 @@
-#pragma once
+ï»¿#pragma once
 #include <cmath>
 
 namespace stb::math
 {
 	#define PI 3.141592
 
-	// ¶óµğ¾È -> °¢µµ
+	// ë¼ë””ì•ˆ -> ê°ë„
 	static float ConvertDegree(float radian) { return (radian * (180.0f / PI)); }
 
 	struct Vector2
 	{
-		//ÀÓÀÇÀÇ Á¡À» Áß½ÉÀ¸·Î °¢µµ¸¸Å­ È¸Àü½ÃÅ°´Â ÇÔ¼ö
+		//ì„ì˜ì˜ ì ì„ ì¤‘ì‹¬ìœ¼ë¡œ ê°ë„ë§Œí¼ íšŒì „ì‹œí‚¤ëŠ” í•¨ìˆ˜
 		static Vector2 Rotate(Vector2 vector, float degree)
 		{
-			// °¢µµ -> ¶óµğ¾È
+			// ê°ë„ -> ë¼ë””ì•ˆ
 			float radian = (degree / 180.0f) * PI;
 
 			vector.normalize();
@@ -101,13 +101,13 @@ namespace stb::math
 			return Vector2(x -= other.x, y -= other.y);
 		}
 
-		// º¤ÅÍÀÇ Å©±â¸¦ ±¸ÇÏ´Â ÇÔ¼ö
+		// ë²¡í„°ì˜ í¬ê¸°ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜
 		float length()
 		{
 			return sqrtf(x * x + y * y);
 		}
 
-		// º¤ÅÍÀÇ Á¤±ÔÈ­ 
+		// ë²¡í„°ì˜ ì •ê·œí™” 
 		Vector2 normalize()
 		{
 			float len = length();
@@ -117,7 +117,7 @@ namespace stb::math
 		}
 	
 		
-		// ÀÌÈÄ¿¡ ÇÊ¿äÇÑ ¿¬»ê ¹Ø¿¡ ±¸Çö ¿¹Á¤
+		// ì´í›„ì— í•„ìš”í•œ ì—°ì‚° ë°‘ì— êµ¬í˜„ ì˜ˆì •
 
 
 

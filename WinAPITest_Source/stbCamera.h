@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "stbComponent.h"
 
 namespace stb
@@ -23,9 +23,9 @@ namespace stb
 		class GameObject* mTarget;
 
 		Vector2 mDistance;
-		// À©µµ¿ì Å©±â
+		// ìœˆë„ìš° í¬ê¸°
 		Vector2 mResolution;
-		// Å¸ÄÏÀÇ À§Ä¡
+		// íƒ€ì¼“ì˜ ìœ„ì¹˜
 		Vector2 mLookPosition;
 
 

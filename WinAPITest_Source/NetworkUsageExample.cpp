@@ -1,4 +1,4 @@
-// 네트워크 사용 예시 코드
+﻿// 네트워크 사용 예시 코드
 // 이 파일은 참고용이며, 실제 Scene이나 Script에서 사용하시면 됩니다.
 
 #include "stbNetworkManager.h"

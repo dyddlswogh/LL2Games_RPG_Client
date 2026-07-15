@@ -1,4 +1,4 @@
-#include "stbSpriteRenderer.h"
+ï»¿#include "stbSpriteRenderer.h"
 #include "stbTransform.h"
 #include "stbGameObject.h"
 #include "stbTexture.h"
@@ -43,10 +43,10 @@ namespace stb
 			if (mTexture->IsAlpha())
 			{
 				/*
-				   BLENDFUNCTION ±¸Á¶Ã¼´Â ¿øº» ¹× ´ë»ó ºñÆ®¸Ê¿¡ ´ëÇÑ È¥ÇÕ ÇÔ¼ö¸¦ ÁöÁ¤ÇÏ¿© È¥ÇÕÀ» Á¦¾îÇÕ´Ï´Ù.
+				   BLENDFUNCTION êµ¬ì¡°ì²´ëŠ” ì›ë³¸ ë° ëŒ€ìƒ ë¹„íŠ¸ë§µì— ëŒ€í•œ í˜¼í•© í•¨ìˆ˜ë¥¼ ì§€ì •í•˜ì—¬ í˜¼í•©ì„ ì œì–´í•©ë‹ˆë‹¤.
 				   BYTE   BlendOp;	// AC_SRC_OVER
 				   BYTE   BlendFlags; // 0
-				   BYTE   SourceConstantAlpha; // Åõ¸íµµ °ª
+				   BYTE   SourceConstantAlpha; // íˆ¬ëª…ë„ ê°’
 				   BYTE   AlphaFormat; //AC_SRC_ALPHA
 								
 				*/
@@ -93,17 +93,17 @@ namespace stb
 			}
 
 			/*
-			  _In_ HDC hdcDest, // ´ë»ó µğ¹ÙÀÌ½º
-			  _In_ int xoriginDest, ´ë»ó µğ¹ÙÀÌ½º x
-			  _In_ int yoriginDest, ´ë»ó µğ¹ÙÀÌ½º y
-			  _In_ int wDest,		´ë»ó Width
-			  _In_ int hDest,		´ë»ó Height
-			  _In_ HDC hdcSrc,		¿øº» µğ¹ÙÀÌ½º
-			  _In_ int xoriginSrc,	¿øº» x
-			  _In_ int yoriginSrc,	¿øº» y
-			  _In_ int wSrc,		¿øº» Width
-			  _In_ int hSrc,		¿øº» Heigth
-			  _In_ UINT crTransparent); Åõ¸íÃ³¸®ÇÒ RGB
+			  _In_ HDC hdcDest, // ëŒ€ìƒ ë””ë°”ì´ìŠ¤
+			  _In_ int xoriginDest, ëŒ€ìƒ ë””ë°”ì´ìŠ¤ x
+			  _In_ int yoriginDest, ëŒ€ìƒ ë””ë°”ì´ìŠ¤ y
+			  _In_ int wDest,		ëŒ€ìƒ Width
+			  _In_ int hDest,		ëŒ€ìƒ Height
+			  _In_ HDC hdcSrc,		ì›ë³¸ ë””ë°”ì´ìŠ¤
+			  _In_ int xoriginSrc,	ì›ë³¸ x
+			  _In_ int yoriginSrc,	ì›ë³¸ y
+			  _In_ int wSrc,		ì›ë³¸ Width
+			  _In_ int hSrc,		ì›ë³¸ Heigth
+			  _In_ UINT crTransparent); íˆ¬ëª…ì²˜ë¦¬í•  RGB
 			
 			*/
 		
@@ -112,10 +112,10 @@ namespace stb
 		{
 
 
-			// ³»°¡ ¿øÇÏ´Â ÇÈ¼¿À» Åõ¸íÈ­ ½ÃÅ³¶§
+			// ë‚´ê°€ ì›í•˜ëŠ” í”½ì…€ì„ íˆ¬ëª…í™” ì‹œí‚¬ë•Œ
 			//Gdiplus::ImageAttributes imgAtt = {};
 			//
-			//// Åõ¸íÈ­ ½ÃÅ³ ÇÈ¼¿ÀÇ »ö ¹üÀ§
+			//// íˆ¬ëª…í™” ì‹œí‚¬ í”½ì…€ì˜ ìƒ‰ ë²”ìœ„
 			//imgAtt.SetColorKey(Gdiplus::Color(230, 230, 230), Gdiplus::Color(255, 255, 255));
 
 

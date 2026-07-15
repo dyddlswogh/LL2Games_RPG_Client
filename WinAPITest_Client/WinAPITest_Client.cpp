@@ -1,4 +1,4 @@
-// WinAPIReview_Engine.cpp : ì• í”Œë¦¬ì¼€ì´ì…˜ì— ëŒ€í•œ ì§„ìž…ì ì„ ì •ì˜í•©ë‹ˆë‹¤.
+ï»¿// WinAPIReview_Engine.cpp : ì• í”Œë¦¬ì¼€ì´ì…˜ì— ëŒ€í•œ ì§„ìž…ì ì„ ì •ì˜í•©ë‹ˆë‹¤.
 //
 
 #include "framework.h"
@@ -227,7 +227,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     //#define CreateWindowW(lpClassName, lpWindowName, dwStyle, x, y,\
     //nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam)\
 
-//gunoo22 260710 °³¹ß½Ã ÀüÃ¼ Ã¢ Åõ¸íµµ ¼³Á¤
+//gunoo22 260710 ê°œë°œì‹œ ì „ì²´ ì°½ íˆ¬ëª…ë„ ì„¤ì •
 #ifdef __DEV_OPACITY
     HWND hWnd = CreateWindowExW
     (
@@ -250,7 +250,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
         return FALSE;
     }
 
-    //Åõ¸íµµ ÁöÁ¤ 0(¿ÏÀüÅõ¸í) ~ 255(¿ÏÀü ºÒÅõ¸í)
+    //íˆ¬ëª…ë„ ì§€ì • 0(ì™„ì „íˆ¬ëª…) ~ 255(ì™„ì „ ë¶ˆíˆ¬ëª…)
     BYTE opacity = 22;
     SetLayeredWindowAttributes(hWnd, 0, opacity, LWA_ALPHA);
 
@@ -273,7 +273,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED);
 #endif
 
-    //APPÃÊ±âÈ­ ½ÇÆÐ½Ã ±¸µ¿ Ãë¼Ò
+    //APPì´ˆê¸°í™” ì‹¤íŒ¨ì‹œ êµ¬ë™ ì·¨ì†Œ
     if (!APP->Initialize(hWnd, width, height))
     {
         return FALSE;

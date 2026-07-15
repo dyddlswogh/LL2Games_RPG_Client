@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "stbSingletonBase.h"
 #include "MySocket.h"
 #include "PacketParser.h"
@@ -6,7 +6,7 @@
 #include <map>
 #include <string>
 
-// Windows Å¸ÀÔ Àü¹æ ¼±¾ğ
+// Windows íƒ€ì… ì „ë°© ì„ ì–¸
 typedef struct HWND__* HWND;
 
 namespace stb
@@ -17,22 +17,22 @@ namespace stb
         ChatNetworkManager();
         ~ChatNetworkManager();
 
-        // ¿¬°á °ü¸®
+        // ì—°ê²° ê´€ë¦¬
         bool Connect(const std::string& ip, int port, HWND hWnd);
         void Disconnect();
         bool IsConnected() const { return m_bConnected; }
 
-        // ÆĞÅ¶ ¼Û½Å
+        // íŒ¨í‚· ì†¡ì‹ 
         void SendChatInit(const std::string& char_id);
         void SendChat(const std::string& msg);
 
-        // Ä¿½ºÅÒ ÆĞÅ¶ Àü¼Û
+        // ì»¤ìŠ¤í…€ íŒ¨í‚· ì „ì†¡
         void SendPacket(uint16_t type, const std::vector<std::string>& datas);
 
-        // ÆĞÅ¶ ¼ö½Å Ã³¸®
+        // íŒ¨í‚· ìˆ˜ì‹  ì²˜ë¦¬
         void ProcessReceivedData();
 
-        // ÆĞÅ¶ ÇÚµé·¯ µî·Ï
+        // íŒ¨í‚· í•¸ë“¤ëŸ¬ ë“±ë¡
         using PacketHandler = std::function<void(const ParsedPacket&)>;
         void RegisterHandler(uint16_t type, PacketHandler handler);
         void UnregisterHandler(uint16_t type);

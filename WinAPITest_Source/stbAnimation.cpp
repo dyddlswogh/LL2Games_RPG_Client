@@ -1,4 +1,4 @@
-#include "stbAnimation.h"
+ï»¿#include "stbAnimation.h"
 #include "stbTime.h"
 #include "stbGameObject.h"
 #include "stbAnimator.h"
@@ -47,16 +47,16 @@ namespace stb
 
     void Animation::Render(HDC hdc)
     {
-		OutputDebugStringA("[Animation::Render] È£ÃâµÊ\n");
+		OutputDebugStringA("[Animation::Render] í˜¸ì¶œë¨\n");
 
 		if (mTexture == nullptr)
 		{
-			OutputDebugStringA("[Animation::Render] mTexture == nullptr, ¸®ÅÏ\n");
+			OutputDebugStringA("[Animation::Render] mTexture == nullptr, ë¦¬í„´\n");
 			return;
 		}
-		OutputDebugStringA("[Animation::Render] ÅØ½ºÃ³ ÀÖÀ½, ±×¸®±â ½Ãµµ\n");
+		OutputDebugStringA("[Animation::Render] í…ìŠ¤ì²˜ ìˆìŒ, ê·¸ë¦¬ê¸° ì‹œë„\n");
 
-		// °ª È®ÀÎ¿ë - ÇÑ ¹ø¸¸ Ãâ·Â
+		// ê°’ í™•ì¸ìš© - í•œ ë²ˆë§Œ ì¶œë ¥
 		static bool once = false;
 		if (!once)
 		{
@@ -248,8 +248,8 @@ namespace stb
 			sprite.leftTop.x, sprite.leftTop.y,
 			sprite.size.x, sprite.size.y, flipX);
 
-#if 0 /*ÇÃ·¹ÀÌ¾î À§Ä¡ Å×½ºÆ®*/
-		// µğ¹ö±× 1: ½ÇÁ¦ Transform À§Ä¡
+#if 0 /*í”Œë ˆì´ì–´ ìœ„ì¹˜ í…ŒìŠ¤íŠ¸*/
+		// ë””ë²„ê·¸ 1: ì‹¤ì œ Transform ìœ„ì¹˜
 		renderer.DrawRect(
 			pos.x - 2.0f,
 			pos.y - 2.0f,
@@ -258,7 +258,7 @@ namespace stb
 			D2D1::ColorF::Black
 		);
 
-		// µğ¹ö±× 2: ½ÇÁ¦ ÀÌ¹ÌÁö°¡ ±×·ÁÁö´Â ¹Ú½º
+		// ë””ë²„ê·¸ 2: ì‹¤ì œ ì´ë¯¸ì§€ê°€ ê·¸ë ¤ì§€ëŠ” ë°•ìŠ¤
 		renderer.DrawRect(
 			destX,
 			destY,
@@ -365,7 +365,7 @@ namespace stb
 			sprite.leftTop = Vector2(0.0f, 0.0f);
 			sprite.size = Vector2(texWidth, texHeight);
 
-			// ÇÙ½É
+			// í•µì‹¬
 			sprite.origin = origin;
 			sprite.offset = offset;
 

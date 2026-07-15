@@ -1,4 +1,4 @@
-#include "TradePacketHandler.h"
+ï»¿#include "TradePacketHandler.h"
 #include "PacketParser.h"
 #include "stbNetworkManager.h"
 #include "TradeManager.h"
@@ -9,33 +9,33 @@
 #define M_TRADEMGR stb::SingletonBase<TradeManager>::getInstance()
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 
-// ¦¡¦¡ ¼Û½Å ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+// â”€â”€ ì†¡ì‹  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-//±³È¯ ½ÅÃ»
+//êµí™˜ ì‹ ì²­
 void TradePacketHandler::SendTradeRequest(std::string targetPlayerId)
 {
-	//PacketParser::MakeBody´Â ¹®ÀÚ¿­ º¤ÅÍ¸¦ ¹Ş¾Æ length-prefixÀÎÄÚµù
+	//PacketParser::MakeBodyëŠ” ë¬¸ìì—´ ë²¡í„°ë¥¼ ë°›ì•„ length-prefixì¸ì½”ë”©
 	std::vector<std::string> datas = { targetPlayerId };
 	M_NETWORK->SendPacket(PKT_TRADE_REQUEST, datas);
 
-	// TODO: UIManager¿¡ TradeUI ¿­±â
+	// TODO: UIManagerì— TradeUI ì—´ê¸°
 	// UIManager::getInstance()->OpenTradeUI();
 }
 
-//±³È¯ ¼ö¶ô
+//êµí™˜ ìˆ˜ë½
 void TradePacketHandler::SendTradeAccept(const std::string& requesterId)
 {
 	M_NETWORK->SendPacket(PKT_TRADE_ACCEPT, {requesterId});
 }
 
-//±³È¯ °ÅÀı
+//êµí™˜ ê±°ì ˆ
 void TradePacketHandler::SendTradeDecline()
 {
-	//°ÅÀıÀº º¸³¾ ÇÊ¿ä ¾øÀ»µí -> ¸ŞÀÌÇÃ¿¡ °ÅÀıÇß´Ù°í »ó´ë¿¡°Ô ¾Ë¸² ¾È°¨.
+	//ê±°ì ˆì€ ë³´ë‚¼ í•„ìš” ì—†ì„ë“¯ -> ë©”ì´í”Œì— ê±°ì ˆí–ˆë‹¤ê³  ìƒëŒ€ì—ê²Œ ì•Œë¦¼ ì•ˆê°.
 	//M_NETWORK->SendPacket(PKT_TRADE_DECLINE, {});
 }
 
-//¾ÆÀÌÅÛ Ãß°¡
+//ì•„ì´í…œ ì¶”ê°€
 void TradePacketHandler::SendTradeAddItem(const TradeSlotInfo& item)
 {
 	std::vector<std::string> datas = {
@@ -48,13 +48,13 @@ void TradePacketHandler::SendTradeAddItem(const TradeSlotInfo& item)
 	M_NETWORK->SendPacket(PKT_TRADE_ADD_ITEM, datas);
 }
 
-//±³È¯ Ãë¼Ò
+//êµí™˜ ì·¨ì†Œ
 void TradePacketHandler::SendTradeCancel(const std::string& targetName)
 {
 	M_NETWORK->SendPacket(PKT_TRADE_CANCEL, { targetName });
 }
 
-//±³È¯ ÁØºñ
+//êµí™˜ ì¤€ë¹„
 void TradePacketHandler::SendTradeReady(const std::string& targetId, const std::vector<std::string> &items)
 {
 	std::vector<std::string> datas;
@@ -65,9 +65,9 @@ void TradePacketHandler::SendTradeReady(const std::string& targetId, const std::
 	M_NETWORK->SendPacket(PKT_TRADE_READY, datas);
 }
 
-// ¦¡¦¡ ¼ö½Å ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+// â”€â”€ ìˆ˜ì‹  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-// S¡æC: ±³È¯ ½ÅÃ»ÀÌ µé¾î¿ÔÀ» ¶§
+// Sâ†’C: êµí™˜ ì‹ ì²­ì´ ë“¤ì–´ì™”ì„ ë•Œ
 //payload: [requesterId(string)][requesterName(string)]
 void TradePacketHandler::HandleTradeRequest(const ParsedPacket& pkt)
 {
@@ -83,12 +83,12 @@ void TradePacketHandler::HandleTradeRequest(const ParsedPacket& pkt)
 	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, info.requesterName, errMsg))
 		return;
 
-	//TODO: UIManager¿¡ ±³È¯ ½ÅÃ» ÆË¾÷ Ç¥½Ã
+	//TODO: UIManagerì— êµí™˜ ì‹ ì²­ íŒì—… í‘œì‹œ
 	UIManager::getInstance()->ShowTradeRequestPopUp(info);
 
 }
 
-//±³È¯ ½ÃÀÛ
+//êµí™˜ ì‹œì‘
 void TradePacketHandler::HandleTradeStart(const ParsedPacket& pkt)
 {
 	size_t offset = 0;
@@ -102,11 +102,11 @@ void TradePacketHandler::HandleTradeStart(const ParsedPacket& pkt)
 	if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, targetName, errMsg))
 		return;
 
-	//TODO: UIManager¿¡ ±³È¯ ½ÅÃ» ÆË¾÷ Ç¥½Ã
+	//TODO: UIManagerì— êµí™˜ ì‹ ì²­ íŒì—… í‘œì‹œ
 	UIManager::getInstance()->OpenTradeUI(targetId, targetName);
 }
 
-//»ó´ë ±³È¯ ÁØºñ
+//ìƒëŒ€ êµí™˜ ì¤€ë¹„
 void TradePacketHandler::HandleTradeReady(const ParsedPacket& pkt)
 {
 	size_t offset = 0;
@@ -120,11 +120,11 @@ void TradePacketHandler::HandleTradeReady(const ParsedPacket& pkt)
 	if (targetId == "wait" || targetId == "nok")
 		return;
 
-	//TODO: UIManager¿¡ ±³È¯ ½ÅÃ» ÆË¾÷ Ç¥½Ã
+	//TODO: UIManagerì— êµí™˜ ì‹ ì²­ íŒì—… í‘œì‹œ
 	UIManager::getInstance()->TradeReadyTarget();
 }
 
-//±³È¯ ¿Ï·á
+//êµí™˜ ì™„ë£Œ
 void TradePacketHandler::HandleTradeComplete(const ParsedPacket& pkt)
 {
 	size_t offset = 0;
@@ -138,7 +138,7 @@ void TradePacketHandler::HandleTradeComplete(const ParsedPacket& pkt)
 	if (status == "ok")
 	{
 		std::vector<TradeSlotInfo> mySlotInfos, targetSlotInfos;
-		//³» ½½·Ô ¾ÆÀÌÅÛ
+		//ë‚´ ìŠ¬ë¡¯ ì•„ì´í…œ
 		while (1)
 		{
 			TradeSlotInfo slotInfo;
@@ -158,7 +158,7 @@ void TradePacketHandler::HandleTradeComplete(const ParsedPacket& pkt)
 			mySlotInfos.push_back(slotInfo);
 		}
 
-		//»ó´ë ½½·Ô ¾ÆÀÌÅÛ
+		//ìƒëŒ€ ìŠ¬ë¡¯ ì•„ì´í…œ
 		while (1)
 		{
 			TradeSlotInfo slotInfo;
@@ -180,7 +180,7 @@ void TradePacketHandler::HandleTradeComplete(const ParsedPacket& pkt)
 	}
 }
 
-//±³È¯ Ãë¼Ò
+//êµí™˜ ì·¨ì†Œ
 void TradePacketHandler::HandleTradeCancel(const ParsedPacket& pkt)
 {
 	size_t offset = 0;
@@ -199,10 +199,10 @@ void TradePacketHandler::HandleTradeCancel(const ParsedPacket& pkt)
 		return;
 	}
 
-	UIManager::getInstance()->ShowCancelPopUp(); //»ó´ë°¡ ±³È¯ Ãë¼ÒÇß´Ù´Â ÆË¾÷ 
+	UIManager::getInstance()->ShowCancelPopUp(); //ìƒëŒ€ê°€ êµí™˜ ì·¨ì†Œí–ˆë‹¤ëŠ” íŒì—… 
 }
 
-//¾ÆÀÌÅÛ ¾÷·Îµå
+//ì•„ì´í…œ ì—…ë¡œë“œ
 void TradePacketHandler::HandleTradeAddItem(const ParsedPacket& pkt)
 {
 	size_t offset = 0;
@@ -225,7 +225,7 @@ void TradePacketHandler::HandleTradeAddItem(const ParsedPacket& pkt)
 		OutputDebugStringA("success Trade Add Item");
 		return;
 	}
-	else //»ó´ë¹æÀÇ Add Item ¼ö½Å
+	else //ìƒëŒ€ë°©ì˜ Add Item ìˆ˜ì‹ 
 	{
 		item_id = status;
 		if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, item_amount, errMsg))
@@ -236,7 +236,7 @@ void TradePacketHandler::HandleTradeAddItem(const ParsedPacket& pkt)
 	}
 
 	//TODO
-	//»ó´ë¹æ ¾ÆÀÌÅÛ ¾÷·Îµå UI ¾÷µ¥ÀÌÆ®
+	//ìƒëŒ€ë°© ì•„ì´í…œ ì—…ë¡œë“œ UI ì—…ë°ì´íŠ¸
 	TradeSlotInfo tradeSlotInfo;
 	tradeSlotInfo.itemId = item_id;
 	tradeSlotInfo.itemCount = std::stoi(item_amount);

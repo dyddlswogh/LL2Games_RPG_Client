@@ -1,4 +1,4 @@
-#include "InventoryPacketHandler.h"
+ï»¿#include "InventoryPacketHandler.h"
 #include "PacketParser.h"
 #include "StringConvert.h"
 #include "InventoryManager.h"
@@ -62,7 +62,7 @@ void InventoryPacketHandler::HandleInventoryMetaInfo(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ý\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
     }
 }
 
@@ -125,7 +125,7 @@ void InventoryPacketHandler::HandleInventoryItemInfo(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ý\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
     }
 }
 
@@ -151,7 +151,7 @@ void InventoryPacketHandler::HandleInventoryMoveItem(const ParsedPacket& pkt)
 
         if (result != 1)
         {
-            throw std::runtime_error("ÀÎº¥Åä¸® ¾ÆÀÌÅÛ ½½·Ô º¯°æ ½ÇÆÐ");
+            throw std::runtime_error("ì¸ë²¤í† ë¦¬ ì•„ì´í…œ ìŠ¬ë¡¯ ë³€ê²½ ì‹¤íŒ¨");
         }
 
         if (!PacketParser::ParseNextIntField(data, payloadSize, offset, inventoryType, errMsg))
@@ -211,7 +211,7 @@ void InventoryPacketHandler::HandleInventoryMoveItem(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ ¹ß»ý\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ ë°œìƒ\n");
     }
 }
 
@@ -224,6 +224,6 @@ void InventoryPacketHandler::SendMoveItem(int inventoryType, int fromSlotPos, in
     data.push_back(std::to_string(toSlotPos));
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_INVENTORY_ITEM_MOVE, data);
-    OutputDebugStringA("[PKT_INVENTORY_ITEM_MOVE Àü¼Û ¿Ï·á]\n\n");
+    OutputDebugStringA("[PKT_INVENTORY_ITEM_MOVE ì „ì†¡ ì™„ë£Œ]\n\n");
 }
 

@@ -1,4 +1,4 @@
-#include "stbOtherPlayer.h"
+ï»¿#include "stbOtherPlayer.h"
 #include "stbTransform.h"
 #include "stbAnimator.h"
 #include "stbResourceManager.h"
@@ -19,7 +19,7 @@ namespace stb
         , mTargetPosition(Vector2::Zero)
         , mTargetSpeed(0.0f)
         , mHasTarget(false)
-        , mInterpolationSpeed(800.0f) // 500 -> 800À¸·Î Áõ°¡ (´õ ºü¸£°Ô µû¶ó°¨)
+        , mInterpolationSpeed(800.0f) // 500 -> 800ìœ¼ë¡œ ì¦ê°€ (ë” ë¹ ë¥´ê²Œ ë”°ë¼ê°)
         , m_playerState(PlayerState::None)
         , m_transform(nullptr)
         , m_animator(nullptr)
@@ -45,7 +45,7 @@ namespace stb
     {
         GameObject::Update();
         
-        // ¸ñÇ¥ À§Ä¡°¡ ÀÖÀ¸¸é ºÎµå·´°Ô ÀÌµ¿
+        // ëª©í‘œ ìœ„ì¹˜ê°€ ìˆìœ¼ë©´ ë¶€ë“œëŸ½ê²Œ ì´ë™
         if (mHasTarget)
         {
             Transform* tr = GetComponent<Transform>();
@@ -55,10 +55,10 @@ namespace stb
                 Vector2 direction = mTargetPosition - currentPos;
                 float distance = direction.length();
                 
-                if (distance > 0.5f) // ¸ñÇ¥¿¡ °ÅÀÇ µµ´ŞÇÏÁö ¾Ê¾ÒÀ¸¸é
+                if (distance > 0.5f) // ëª©í‘œì— ê±°ì˜ ë„ë‹¬í•˜ì§€ ì•Šì•˜ìœ¼ë©´
                 {
-                    // Lerp ¹æ½Ä: °Å¸®¿¡ ºñ·ÊÇØ¼­ ºÎµå·´°Ô ÀÌµ¿
-                    float lerpFactor = 10.0f * M_Time->GetDeltaTime(); // ÃÊ´ç 10¹è ¼Óµµ·Î µû¶ó°¨
+                    // Lerp ë°©ì‹: ê±°ë¦¬ì— ë¹„ë¡€í•´ì„œ ë¶€ë“œëŸ½ê²Œ ì´ë™
+                    float lerpFactor = 10.0f * M_Time->GetDeltaTime(); // ì´ˆë‹¹ 10ë°° ì†ë„ë¡œ ë”°ë¼ê°
                     if (lerpFactor > 1.0f) lerpFactor = 1.0f;
                     
                     Vector2 newPos = currentPos + direction * lerpFactor;
@@ -67,7 +67,7 @@ namespace stb
                 }
                 else
                 {
-                    // ¸ñÇ¥¿¡ µµ´Ş
+                    // ëª©í‘œì— ë„ë‹¬
                     tr->SetPosition(mTargetPosition);
                     SyncFollowers(mTargetPosition);
                     mHasTarget = false;
@@ -118,7 +118,7 @@ namespace stb
         std::wstring name =
             Convert::StringToWString(m_nickName);
 
-        // ±×¸²ÀÚ
+        // ê·¸ë¦¼ì
         D2D1_RECT_F shadowRect = nameRect;
         shadowRect.left += 1.0f;
         shadowRect.right += 1.0f;
@@ -132,7 +132,7 @@ namespace stb
             TextStyle::NickName
         );
 
-        // º»¹®
+        // ë³¸ë¬¸
         renderer.DrawTextString(
             name,
             nameRect,

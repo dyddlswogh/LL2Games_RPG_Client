@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbSingletonBase.h"
 #include "CommonInclude.h"
 #include "stbCollider.h"

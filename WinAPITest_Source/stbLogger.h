@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <fstream>
 #include <string>
 #include <sstream>
@@ -56,9 +56,9 @@ namespace stb
             OutputDebugStringA(msg.c_str());
         }
         
-        //__FILE__ÀÌ ³Ê¹« ±æ°Ô ³ª¿À´Â°æ¿ì¶§¹®¿¡ ÆÄÀÏ¸í ÇÏ³ª¸¸ º¸±âÀ§ÇØ ¸¸µê
-        //±âÁ¸: C:\Users\user\source\repos\LL2Games\test\WinAPITest_Source\stbAnimation.cpp
-        //Àû¿ë: stbAnimation.cpp
+        //__FILE__ì´ ë„ˆë¬´ ê¸¸ê²Œ ë‚˜ì˜¤ëŠ”ê²½ìš°ë•Œë¬¸ì— íŒŒì¼ëª… í•˜ë‚˜ë§Œ ë³´ê¸°ìœ„í•´ ë§Œë“¦
+        //ê¸°ì¡´: C:\Users\user\source\repos\LL2Games\test\WinAPITest_Source\stbAnimation.cpp
+        //ì ìš©: stbAnimation.cpp
         static const char* BaseFileName(const char* path)
         {
             if (path == nullptr)
@@ -106,7 +106,7 @@ namespace stb
 
             msg.resize(len);
 
-            // ÀÚµ¿ ÁÙ¹Ù²Ş Ãß°¡
+            // ìë™ ì¤„ë°”ê¿ˆ ì¶”ê°€
             msg += '\n';
 
             Log(msg);

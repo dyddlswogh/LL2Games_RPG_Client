@@ -1,4 +1,4 @@
-#include "stbChatScene.h"
+ï»¿#include "stbChatScene.h"
 
 #include "stbNetworkDebug.h"
 
@@ -49,16 +49,16 @@ namespace stb
 	{
 		Scene::Initialize();
 
-		// Ã¤ÆÃ¿ë ³×Æ®¿öÅ© ¸Å´ÏÀú ÃÊ±âÈ­
+		// ì±„íŒ…ìš© ë„¤íŠ¸ì›Œí¬ ë§¤ë‹ˆì € ì´ˆê¸°í™”
 		HWND hWnd = stb::Application::getInstance()->GetHWND();
 
-		// ÇÚµé·¯ µî·Ï
+		// í•¸ë“¤ëŸ¬ ë“±ë¡
 		ChatNetworkManager::getInstance()->RegisterHandler(PKT_CHAT_INIT,
 			[](const ParsedPacket& pkt) { ChatPacketHandler::HandleChatInit(pkt); });
 		ChatNetworkManager::getInstance()->RegisterHandler(PKT_CHAT,
 			[](const ParsedPacket& pkt) { ChatPacketHandler::HandleChat(pkt); });
 
-		// Ã¤ÆÃ ¼­¹ö Á¢¼Ó (PlaySceneÀÇ Ã¤³Î ¼­¹ö¿Í´Â º°°³)
+		// ì±„íŒ… ì„œë²„ ì ‘ì† (PlaySceneì˜ ì±„ë„ ì„œë²„ì™€ëŠ” ë³„ê°œ)
 		ChatNetworkManager::getInstance()->Connect(
 			NetworkConfig::SERVER_IP,
 			g_ChatPort,
@@ -69,7 +69,7 @@ namespace stb
 	void ChatScene::Update()
 	{
 		Scene::Update();
-		// Enter Å° ¡æ ÀÔ·Â ¸ğµå Åä±Û OR Àü¼Û
+		// Enter í‚¤ â†’ ì…ë ¥ ëª¨ë“œ í† ê¸€ OR ì „ì†¡
 		if (M_INPUT->GetKeyDown(eKeyCode::Enter))
 		{
 #if 1
@@ -90,13 +90,13 @@ namespace stb
 #else
 			if (M_UIMANAGER->IsInputFocused())
 			{
-				// ÀÔ·Â ¸ğµå ¡æ Enter = Àü¼Û ÈÄ ´İ±â
-				// SubmitInputÀº ChatUI ³»ºÎ¿¡¼­ Ã³¸®ÇÏ¹Ç·Î UIManager °æÀ¯
+				// ì…ë ¥ ëª¨ë“œ â†’ Enter = ì „ì†¡ í›„ ë‹«ê¸°
+				// SubmitInputì€ ChatUI ë‚´ë¶€ì—ì„œ ì²˜ë¦¬í•˜ë¯€ë¡œ UIManager ê²½ìœ 
 				M_UIMANAGER->SubmitChatInput();
 			}
 			else
 			{
-				// ºñÈ°¼º ¡æ Enter = Ã¤ÆÃÃ¢ ¿­±â
+				// ë¹„í™œì„± â†’ Enter = ì±„íŒ…ì°½ ì—´ê¸°
 				M_UIMANAGER->ToggleChatInput();
 			}
 #endif
@@ -119,7 +119,7 @@ namespace stb
 		Scene::Render(renderer);
 		M_UIMANAGER->Render(renderer);
 
-		// È­¸é ÇÏ´Ü¿¡ ¹İÅõ¸í ¹Ú½º + ÅØ½ºÆ® ¶óÀÎµé + ÀÔ·Â¹Ú½º ±×¸®±â
+		// í™”ë©´ í•˜ë‹¨ì— ë°˜íˆ¬ëª… ë°•ìŠ¤ + í…ìŠ¤íŠ¸ ë¼ì¸ë“¤ + ì…ë ¥ë°•ìŠ¤ ê·¸ë¦¬ê¸°
 		
 		
 		//DrawChatBackdrop(renderer);

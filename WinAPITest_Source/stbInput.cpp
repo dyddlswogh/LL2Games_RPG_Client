@@ -1,4 +1,4 @@
-#include "stbInput.h"
+Ôªø#include "stbInput.h"
 #include "UIManager.h"
 #include "PlayerManager.h"
 
@@ -82,14 +82,14 @@ namespace stb
 	{
 		m_keyBindings.clear();
 
-		// ¿Ãµø æ◊º« πŸ¿Œµ˘
+		// Ïù¥Îèô Ïï°ÏÖò Î∞îÏù∏Îî©
 		m_keyBindings[eKeyCode::Left] = { eBindType::Action, (int)eActionCode::MoveLeft };
 		m_keyBindings[eKeyCode::Right] = { eBindType::Action, (int)eActionCode::MoveRight };
 		m_keyBindings[eKeyCode::Up] = { eBindType::Action, (int)eActionCode::MoveUp };
 		m_keyBindings[eKeyCode::Down] = { eBindType::Action, (int)eActionCode::MoveDown };
 
 
-		// ±‚∫ª ?????? πŸ¿Œ???
+		// Í∏∞Î≥∏ ?????? Î∞îÏù∏???
 		m_keyBindings[eKeyCode::LALT] = { eBindType::Action, (int)eActionCode::Jump };
 		m_keyBindings[eKeyCode::A] = { eBindType::Action, (int)eActionCode::Attack };
 		m_keyBindings[eKeyCode::SPACE] = { eBindType::Action, (int)eActionCode::Interact };
@@ -98,7 +98,7 @@ namespace stb
 		m_keyBindings[eKeyCode::T] = { eBindType::Action, (int)eActionCode::Trade };
 		m_keyBindings[eKeyCode::Z] = { eBindType::Action, (int)eActionCode::PickUp };
 
-		//±≥»Ø √Îº“ ¿”Ω√(X)
+		//ÍµêÌôò Ï∑®ÏÜå ÏûÑÏãú(X)
 		m_keyBindings[eKeyCode::X] = { eBindType::Action, (int)eActionCode::TradeCancel };
 
 

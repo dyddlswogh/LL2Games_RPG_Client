@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonInclude.h"
 #include "MonsterInfo.h"
 #include "stbMath.h"
@@ -38,11 +38,11 @@ public:
     bool IsDead() { return m_isDead; }
 
 private:
-    int m_instanceId = 0;   // ¼­¹ö °³Ã¼ ID
-    int m_monsterId = 0;   // ¸ó½ºÅÍ Á¾·ù ID
+    int m_instanceId = 0;   // ì„œë²„ ê°œì²´ ID
+    int m_monsterId = 0;   // ëª¬ìŠ¤í„° ì¢…ë¥˜ ID
 
     stb::math::Vector2 m_pos{};
-    stb::math::Vector2 m_targetPos{};     // ¼­¹ö ÀÌµ¿ ÆĞÅ¶ ¹ŞÀº À§Ä¡
+    stb::math::Vector2 m_targetPos{};     // ì„œë²„ ì´ë™ íŒ¨í‚· ë°›ì€ ìœ„ì¹˜
     int m_dir = 1;
 
     int m_curHp = 0;

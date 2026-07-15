@@ -1,4 +1,4 @@
-#include "ChatPacketHandler.h"
+ï»¿#include "ChatPacketHandler.h"
 
 #include "PacketParser.h"
 #include "stbChatNetworkManager.h"
@@ -9,16 +9,16 @@
 #define M_UIMANAGER stb::SingletonBase<UIManager>::getInstance()
 //#define M_TRADEMGR stb::SingletonBase<TradeManager>::getInstance()
 
-// ¦¡¦¡ ¼Û½Å ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+// â”€â”€ ì†¡ì‹  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 
-//Ã¤ÆÃ ÃÊ±âÈ­
+//ì±„íŒ… ì´ˆê¸°í™”
 void ChatPacketHandler::SendChatInit(const std::string& charId)
 {
 	std::vector<std::string> datas = { charId };
 	M_CHAT_NETWORK->SendPacket(PKT_CHAT_INIT, datas);
 
-	// TODO: UIManager¿¡ TradeUI ¿­±â
+	// TODO: UIManagerì— TradeUI ì—´ê¸°
 }
 
 void ChatPacketHandler::SendChat(const std::string& msg)
@@ -26,13 +26,13 @@ void ChatPacketHandler::SendChat(const std::string& msg)
 	std::vector<std::string> datas = { msg };
 	M_CHAT_NETWORK->SendPacket(PKT_CHAT, datas);
 
-	// TODO: UIManager¿¡ TradeUI ¿­±â
+	// TODO: UIManagerì— TradeUI ì—´ê¸°
 }
 
-// ¦¡¦¡ ¼ö½Å ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+// â”€â”€ ìˆ˜ì‹  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 // 
-// S¡æC: Ã¤ÆÃ ÃÊ±âÈ­ ÀÀ´ä
+// Sâ†’C: ì±„íŒ… ì´ˆê¸°í™” ì‘ë‹µ
 //payload: [requesterId(string)][requesterName(string)]
 void ChatPacketHandler::HandleChatInit(const ParsedPacket& pkt)
 {
@@ -49,10 +49,10 @@ void ChatPacketHandler::HandleChatInit(const ParsedPacket& pkt)
 		return;
 
 	//TODO
-	//status¿¡ µû¶ó ¼º°ø/½ÇÆĞÃ³¸®
+	//statusì— ë”°ë¼ ì„±ê³µ/ì‹¤íŒ¨ì²˜ë¦¬
 }
 
-// S¡æC: Ã¤ÆÃ ÀÀ´ä
+// Sâ†’C: ì±„íŒ… ì‘ë‹µ
 void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 {
 	size_t offset = 0;
@@ -64,7 +64,7 @@ void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 	//if (!PacketParser::ParseLengthPrefixedString(data, payloadSize, offset, status, errMsg))
 	//	return;
 
-	////status¿¡ µû¶ó ¼º°ø/½ÇÆĞÃ³¸®
+	////statusì— ë”°ë¼ ì„±ê³µ/ì‹¤íŒ¨ì²˜ë¦¬
 	//if (status == "nok")
 	//	return;
 
@@ -75,12 +75,12 @@ void ChatPacketHandler::HandleChat(const ParsedPacket& pkt)
 		return;
 
 	//TODO
-	//Ã¤ÆÃ ¾ÆÀÌµğ, ¸Ş½ÃÁö
+	//ì±„íŒ… ì•„ì´ë””, ë©”ì‹œì§€
 	
 	if (nick == "ok")
 		nick = "me";
 	
-	// UTF-8 ¡æ wstring º¯È¯ ÈÄ UI¿¡ Àü´Ş
+	// UTF-8 â†’ wstring ë³€í™˜ í›„ UIì— ì „ë‹¬
 	std::wstring wNick = Convert::Utf8ToWstr(nick);
 	std::wstring wMsg = Convert::Utf8ToWstr(msg);
 

@@ -1,4 +1,4 @@
-#include "stbRender.h"
+﻿#include "stbRender.h"
 #include "stbCamera.h"
 
 namespace stb::render

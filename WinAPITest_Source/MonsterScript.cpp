@@ -1,4 +1,4 @@
-#include "MonsterScript.h"
+﻿#include "MonsterScript.h"
 
 void MonsterScript::Initialize()
 {

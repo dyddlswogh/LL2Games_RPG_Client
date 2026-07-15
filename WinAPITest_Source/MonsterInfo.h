@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbMath.h"
 #include "AnimationInfo.h"
 #include "Collider_Info.h"

@@ -1,4 +1,4 @@
-#include "CombatSystem.h"
+ï»¿#include "CombatSystem.h"
 #include "..\\WinAPITest_lib\\stbPlayer.h"
 #include "CombatPacketHandler.h"
 #include "stbMath.h"
@@ -15,7 +15,7 @@ bool CombatSystem::TryAttack(int skillId)
     if (!CanAttack(skillId))
         return false;
 
-    // ÇÃ·¹ÀÌ¾î °ø°İ ¹æÇâ ³ªÁß¿¡ Ãß°¡
+    // í”Œë ˆì´ì–´ ê³µê²© ë°©í–¥ ë‚˜ì¤‘ì— ì¶”ê°€
     int dir = 1;
  
     stb::FacingDirection direction = m_player->GetFacing();
@@ -25,7 +25,7 @@ bool CombatSystem::TryAttack(int skillId)
     else
         dir = 1;
 
-    // ¼­¹ö¿¡ °ø°İ ÆĞÅ¶ º¸³»±â
+    // ì„œë²„ì— ê³µê²© íŒ¨í‚· ë³´ë‚´ê¸°
     CombatPacketHandler::SendUseSkill(skillId, dir);
     return true;
 }
@@ -50,7 +50,7 @@ bool CombatSystem::TryBasicAttack()
     AttackDirection dir =
         (m_player->GetFacing() == stb::FacingDirection::Left) ? AttackDirection::Left : AttackDirection::Right;
 
-    // ¼­¹ö¿¡ °ø°İ ÆĞÅ¶ º¸³»±â
+    // ì„œë²„ì— ê³µê²© íŒ¨í‚· ë³´ë‚´ê¸°
     CombatPacketHandler::SendBasicAttack(static_cast<int>(dir));
     m_player->SetState(PlayerState::Attack);
    
@@ -83,7 +83,7 @@ bool CombatSystem::CanAttack(int skillId)
     }
        
 
-    // ½ºÅ³ ÄğÅ¸ÀÓ ¿©ºÎ È®ÀÎ Ãß°¡ ÇÊ¿ä
+    // ìŠ¤í‚¬ ì¿¨íƒ€ì„ ì—¬ë¶€ í™•ì¸ ì¶”ê°€ í•„ìš”
     return true;
 }
 
@@ -100,7 +100,7 @@ bool CombatSystem::CanBasicAttack()
     if (state == PlayerState::Attack)
         return false;
 
-    // IDLE, MOVE´Â °ø°İ °¡´É
+    // IDLE, MOVEëŠ” ê³µê²© ê°€ëŠ¥
     return true;
 }
 

@@ -1,4 +1,4 @@
-#include "ChatUI.h"
+﻿#include "ChatUI.h"
 
 #include "StringConvert.h"
 #include "ChatPacketHandler.h"

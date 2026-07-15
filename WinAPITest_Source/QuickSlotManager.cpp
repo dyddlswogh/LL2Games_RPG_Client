@@ -1,4 +1,4 @@
-#include "QuickSlotManager.h"
+ï»¿#include "QuickSlotManager.h"
 #include "ItemPacketHandler.h"
 #include "InventoryManager.h"
 #include "CombatPacketHandler.h"
@@ -53,7 +53,7 @@ void QuickSlotManager::SetSlotItem(int slotIndex, int inventoryType, int slotPos
 
 }
 
-// Äü½½·Ô º¯°æ ÇÏ´Â ¿äÃ» ¼­¹ö·Î º¸³¿
+// í€µìŠ¬ë¡¯ ë³€ê²½ í•˜ëŠ” ìš”ì²­ ì„œë²„ë¡œ ë³´ëƒ„
 void QuickSlotManager::RequestSetSlot(const QuickSlotData& quickSlotData)
 {
     if (quickSlotData.slot_index < 0 || quickSlotData.slot_index >= m_maxSlotCount)

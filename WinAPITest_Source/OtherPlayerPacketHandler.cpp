@@ -1,4 +1,4 @@
-#include "OtherPlayerPacketHandler.h"
+ï»¿#include "OtherPlayerPacketHandler.h"
 #include "PacketParser.h"
 #include "stbOtherPlayerManager.h"
 
@@ -91,7 +91,7 @@ void OtherPlayerPacketHandler::HandleOtherPlayerEnter(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ÀÔ´Ï´Ù.\n\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ì…ë‹ˆë‹¤.\n\n");
     }
 
 }
@@ -183,6 +183,6 @@ void OtherPlayerPacketHandler::HandleOtherPlayerSnapShot(const ParsedPacket& pkt
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ÀÔ´Ï´Ù.\n\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ì…ë‹ˆë‹¤.\n\n");
     }
 }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CommonInclude.h"
 #include "..\\WinAPITest_lib\\\stbPlayer.h"
 #include "stbSingletonBase.h"

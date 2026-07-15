@@ -1,4 +1,4 @@
-#include "Inventory.h"
+ï»¿#include "Inventory.h"
 
 Inventory::Inventory(InventoryMetaInfo inventoryMetaInfo)
 {
@@ -55,7 +55,7 @@ bool Inventory::SetSlot(InventoryItemInfo& itemInfo)
 
 	if (itemInfo.itemId == 0)
 	{
-		return true; // ºó ½½·ÔÀº ¹«½Ã
+		return true; // ë¹ˆ ìŠ¬ë¡¯ì€ ë¬´ì‹œ
 	}
 
 	auto it = m_slots.find(itemInfo.slotPos);

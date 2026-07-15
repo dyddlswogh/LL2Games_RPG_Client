@@ -1,4 +1,4 @@
-#include "stbCollider.h"
+﻿#include "stbCollider.h"
 
 unsigned int stb::Collider::CollisionID = 0;
 

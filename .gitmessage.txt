@@ -1,4 +1,4 @@
-### <type>[optional scope]: <description>
+﻿### <type>[optional scope]: <description>
 
 # 50자 이내로 한 줄로 작성, 마침표 사용하지 않음 ------------------|
 

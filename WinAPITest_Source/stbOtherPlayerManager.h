@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonInclude.h"
 #include "stbSingletonBase.h"
 #include "stbOtherPlayer.h"
@@ -7,7 +7,7 @@
 
 namespace stb
 {
-    // ´Ù¸¥ ÇÃ·¹ÀÌ¾îµéÀ» °ü¸®ÇÏ´Â ¸Å´ÏÀú
+    // ë‹¤ë¥¸ í”Œë ˆì´ì–´ë“¤ì„ ê´€ë¦¬í•˜ëŠ” ë§¤ë‹ˆì €
     class OtherPlayerManager : public SingletonBase<OtherPlayerManager>
     {
     public:
@@ -17,18 +17,18 @@ namespace stb
         bool HandleMovePacket(OtherPlayerMove& otherPlayerMove);
         bool HandleAttackPacket(OtherPlayerAttack& otherPlayerAttack);
 
-        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î Ãß°¡ ¶Ç´Â ¾÷µ¥ÀÌÆ®
+        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ ì¶”ê°€ ë˜ëŠ” ì—…ë°ì´íŠ¸
         bool UpdatePlayer(const std::string& charId, float x, float y);
 
         bool AddPlayer(OtherPlayerInfo& playerInfo);
 
-        // ´Ù¸¥ ÇÃ·¹ÀÌ¾î Á¦°Å
+        // ë‹¤ë¥¸ í”Œë ˆì´ì–´ ì œê±°
         void RemovePlayer(const std::string& charId);
 
-        // ¸ğµç ÇÃ·¹ÀÌ¾î Á¦°Å
+        // ëª¨ë“  í”Œë ˆì´ì–´ ì œê±°
         void Clear();
 
-        // ÇÃ·¹ÀÌ¾î ¸Ê Á¢±Ù
+        // í”Œë ˆì´ì–´ ë§µ ì ‘ê·¼
         std::map<std::string, OtherPlayer*>& GetPlayers() { return mPlayers; }
 
     private:

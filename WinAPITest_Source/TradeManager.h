@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonInclude.h"
 #include "stbSingletonBase.h"
 #include "Trade_Info.h"
@@ -6,19 +6,19 @@
 class TradeManager : public stb::SingletonBase<TradeManager>
 {
 public:
-	//±³È¯ ¼¼¼Ç ½ÃÀÛ/Á¾·á
+	//êµí™˜ ì„¸ì…˜ ì‹œì‘/ì¢…ë£Œ
 	void StartSession(std::string myId, std::string targetId);
 	void EndSession();
 	bool IsInTrade() const { return m_inTrade; }
 
-	//¾ÆÀÌÅÛ µî·Ï/Ãë¼Ò
+	//ì•„ì´í…œ ë“±ë¡/ì·¨ì†Œ
 	bool AddMyItem(const TradeSlotInfo& item);
 	bool RemoveMyItem(int slotPos);
 
-	//¼­¹ö¿¡¼­ ¹ŞÀº »ó´ë¹æ ¾ÆÀÌÅÛ °»½Å
+	//ì„œë²„ì—ì„œ ë°›ì€ ìƒëŒ€ë°© ì•„ì´í…œ ê°±ì‹ 
 	void UpdateTargetItems(const std::vector<TradeSlotInfo>& items);
 
-	//È®Á¤ »óÅÂ
+	//í™•ì • ìƒíƒœ
 	void SetMyConfirmed(bool confirmed);
 	void SetTargetConfirmed(bool confirmed);
 

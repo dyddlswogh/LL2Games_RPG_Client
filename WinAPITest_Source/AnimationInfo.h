@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <string>
 #include "stbMath.h"
 #include "playerInfo.h"

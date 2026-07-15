@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbEntity.h"
 
 class stbD2DRenderer;

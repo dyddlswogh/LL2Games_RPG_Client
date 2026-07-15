@@ -1,4 +1,4 @@
-#include "CombatPacketHandler.h"
+ï»¿#include "CombatPacketHandler.h"
 #include "PacketParser.h"
 #include "stbNetworkManager.h"
 #include "CombatSystem_Info.h"
@@ -89,7 +89,7 @@ void CombatPacketHandler::HandleAttackResult(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ÀÔ´Ï´Ù.\n\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ìž…ë‹ˆë‹¤.\n\n");
     }
 
 }
@@ -144,7 +144,7 @@ void CombatPacketHandler::HandleOtherPlayerAttack(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ÀÔ´Ï´Ù.\n\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ìž…ë‹ˆë‹¤.\n\n");
     }
 }
 
@@ -155,7 +155,7 @@ void CombatPacketHandler::SendBasicAttack(int dir)
     data.push_back(std::to_string(dir));
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_BASIC_ATTACK, data);
-    OutputDebugStringA("[PKT_PLAYER_BASIC_ATTACK Àü¼Û ¿Ï·á]\n\n");
+    OutputDebugStringA("[PKT_PLAYER_BASIC_ATTACK ì „ì†¡ ì™„ë£Œ]\n\n");
 }
 
 void CombatPacketHandler::SendUseSkill(int skillId, int dir)
@@ -170,7 +170,7 @@ void CombatPacketHandler::SendUseSkill(int skillId, int dir)
     //OutputDebugStringA(DebugMsg.c_str());
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_ATTACK, data);
-    OutputDebugStringA("[PKT_PLAYER_ATTACK Àü¼Û ¿Ï·á]\n\n");
+    OutputDebugStringA("[PKT_PLAYER_ATTACK ì „ì†¡ ì™„ë£Œ]\n\n");
 
 }
 

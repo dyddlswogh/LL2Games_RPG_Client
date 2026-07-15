@@ -1,4 +1,4 @@
-#include "stbD2DRenderer.h"
+ï»¿#include "stbD2DRenderer.h"
 #include "stbTexture.h"
 #include "stbResourceManager.h"
 #include "stbApplication.h"
@@ -121,19 +121,19 @@ namespace stb
 			mType = eTextureType::Png;
 			mImage = Gdiplus::Image::FromFile(path.c_str());
 
-			// nullptr Ã¼Å© + GDI+ »óÅÂ Ã¼Å© (FromFileÀº ½ÇÆĞÇØµµ nullptr ¹İÈ¯ ¾È ÇÔ)
+			// nullptr ì²´í¬ + GDI+ ìƒíƒœ ì²´í¬ (FromFileì€ ì‹¤íŒ¨í•´ë„ nullptr ë°˜í™˜ ì•ˆ í•¨)
 			if (mImage == nullptr || mImage->GetLastStatus() != Gdiplus::Ok)
 			{
-				// ¾î¶² °æ·Î¸¦ Ã£°í ÀÖ´ÂÁö Ãâ·Â
+				// ì–´ë–¤ ê²½ë¡œë¥¼ ì°¾ê³  ìˆëŠ”ì§€ ì¶œë ¥
 				wchar_t debugMsg[512];
-				swprintf_s(debugMsg, L"[Texture] PNG ·Îµå ½ÇÆĞ: %s\n", path.c_str());
+				swprintf_s(debugMsg, L"[Texture] PNG ë¡œë“œ ì‹¤íŒ¨: %s\n", path.c_str());
 				OutputDebugStringW(debugMsg);
 
-				// ÇöÀç ÀÛ¾÷ µğ·ºÅä¸® Ãâ·Â
+				// í˜„ì¬ ì‘ì—… ë””ë ‰í† ë¦¬ ì¶œë ¥
 				wchar_t cwd[512];
 				GetCurrentDirectoryW(512, cwd);
 				wchar_t cwdMsg[512];
-				swprintf_s(cwdMsg, L"[Texture] ÇöÀç ÀÛ¾÷ µğ·ºÅä¸®: %s\n", cwd);
+				swprintf_s(cwdMsg, L"[Texture] í˜„ì¬ ì‘ì—… ë””ë ‰í† ë¦¬: %s\n", cwd);
 				OutputDebugStringW(cwdMsg);
 
 				delete mImage;
@@ -149,7 +149,7 @@ namespace stb
 	}
 
 	/*
-		ÀÌ¹Ì ÀĞ¾î¿Â ÀÌ¹ÌÁöµéÀ» È­¸é¿¡ ±×¸± ¼ö ÀÖ°Ô ¹Ì¸® ID2D1BitmapÀ» ¸¸µé¾îµÎ´Â °Í
+		ì´ë¯¸ ì½ì–´ì˜¨ ì´ë¯¸ì§€ë“¤ì„ í™”ë©´ì— ê·¸ë¦´ ìˆ˜ ìˆê²Œ ë¯¸ë¦¬ ID2D1Bitmapì„ ë§Œë“¤ì–´ë‘ëŠ” ê²ƒ
 	*/
 	void Texture::LoadD2D(stbD2DRenderer& renderer)
 	{
@@ -160,7 +160,7 @@ namespace stb
 		if (FAILED(hr))
 		{
 			wchar_t msg[512];
-			swprintf_s(msg, L"[Texture] D2D ºñÆ®¸Ê ·Îµå ½ÇÆĞ: %s\n", GetPath().c_str());
+			swprintf_s(msg, L"[Texture] D2D ë¹„íŠ¸ë§µ ë¡œë“œ ì‹¤íŒ¨: %s\n", GetPath().c_str());
 			OutputDebugStringW(msg);
 		}
 	}

@@ -1,4 +1,4 @@
-#include "TradeRequestUI.h"
+ï»¿#include "TradeRequestUI.h"
 #include "TradePacketHandler.h"
 #include "stbApplication.h"
 #include "TradeManager.h"
@@ -27,17 +27,17 @@ void TradeRequestUI::Update()
     //TODO
     if (m_done)
     {
-        //¿Ï·á TODO;
+        //ì™„ë£Œ TODO;
         m_targetPlayerId = Convert::WstrToUtf8(m_inputBuffer);
         TradePacketHandler::SendTradeRequest(m_targetPlayerId);
 
-        m_done = false; //ÃÊ±âÈ­
+        m_done = false; //ì´ˆê¸°í™”
         this->CloseWindow();
     }
 
     if (m_requestPopupActive)
     {
-        //¸¶¿ì½º ÀÌº¥Æ®
+        //ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸
         POINT pt;
         GetCursorPos(&pt);
         ScreenToClient(M_APP->GetHWND(), &pt);
@@ -73,7 +73,7 @@ void TradeRequestUI::Render(HDC hdc)
 void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
 {
     // =========================
-    // 2. ±³È¯ ½ÅÃ» ¼ö½Å ÆË¾÷
+    // 2. êµí™˜ ì‹ ì²­ ìˆ˜ì‹  íŒì—…
     // =========================
     const float popupW = 360.f;
     const float popupH = 160.f;
@@ -83,16 +83,16 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
     float px = rtSize.width / 2.f - popupW / 2.f;
     float py = rtSize.height / 2.f - popupH / 2.f;
 
-    // ÆË¾÷ ¹è°æ
+    // íŒì—… ë°°ê²½
     renderer.FillRect(px, py, popupW, popupH,
         D2D1::ColorF(0.f, 0.f, 0.f, 0.85f));
 
-    // Å×µÎ¸®
+    // í…Œë‘ë¦¬
     renderer.DrawRect(px, py, popupW, popupH,
         D2D1::ColorF(D2D1::ColorF::Yellow), 2.f);
 
-    // ¸Ş½ÃÁö
-    std::wstring message = L"'" + m_requesterNameW + L"'´ÔÀÌ ±³È¯½ÅÃ»À» ÇÏ¼Ì½À´Ï´Ù.";
+    // ë©”ì‹œì§€
+    std::wstring message = L"'" + m_requesterNameW + L"'ë‹˜ì´ êµí™˜ì‹ ì²­ì„ í•˜ì…¨ìŠµë‹ˆë‹¤.";
 
     D2D1_RECT_F msgRect = D2D1::RectF(
         px + 20.f,
@@ -104,7 +104,7 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
     renderer.DrawTextString(message, msgRect,
         D2D1::ColorF(D2D1::ColorF::White), TextStyle::Trade);
 
-    // ¹öÆ° À§Ä¡ ÀúÀå
+    // ë²„íŠ¼ ìœ„ì¹˜ ì €ì¥
     const float btnW = 100.f;
     const float btnH = 36.f;
     const float btnY = py + 100.f;
@@ -123,7 +123,7 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
         btnY + btnH
     );
 
-    // ¼ö¶ô ¹öÆ°
+    // ìˆ˜ë½ ë²„íŠ¼
     renderer.FillRect(
         m_acceptButtonRect.left,
         m_acceptButtonRect.top,
@@ -148,10 +148,10 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
         m_acceptButtonRect.bottom
     );
 
-    renderer.DrawTextString(L"¼ö¶ô", acceptTextRect,
+    renderer.DrawTextString(L"ìˆ˜ë½", acceptTextRect,
         D2D1::ColorF(D2D1::ColorF::White), TextStyle::TradeButton);
 
-    // °ÅÀı ¹öÆ°
+    // ê±°ì ˆ ë²„íŠ¼
     renderer.FillRect(
         m_rejectButtonRect.left,
         m_rejectButtonRect.top,
@@ -176,7 +176,7 @@ void TradeRequestUI::RenderReqPopUp(stbD2DRenderer& renderer)
         m_rejectButtonRect.bottom
     );
     
-    renderer.DrawTextString(L"°ÅÀı", rejectTextRect,
+    renderer.DrawTextString(L"ê±°ì ˆ", rejectTextRect,
         D2D1::ColorF(D2D1::ColorF::White), TextStyle::TradeButton);
 }
 void TradeRequestUI::RenderRequest(stbD2DRenderer& renderer)
@@ -185,20 +185,20 @@ void TradeRequestUI::RenderRequest(stbD2DRenderer& renderer)
     float cx = rtSize.width / 2.f - BOX_W / 2.f;
     float cy = rtSize.height / 2.f;
 
-    // ¶óº§
+    // ë¼ë²¨
     D2D1_RECT_F labelRect = D2D1::RectF(cx, cy -BOX_H, cx + BOX_W, cy );
     renderer.DrawTextString(L"Trade Input Nick(Enter)",
         labelRect, D2D1::ColorF(D2D1::ColorF::White), TextStyle::Trade);
 
-    // ÀÔ·Â ¹Ú½º ¹è°æ
+    // ì…ë ¥ ë°•ìŠ¤ ë°°ê²½
     renderer.FillRect(cx, cy, BOX_W, BOX_H,
         D2D1::ColorF(0.f, 0.f, 0.f, 0.7f));
 
-    // Å×µÎ¸®
+    // í…Œë‘ë¦¬
     renderer.DrawRect(cx, cy, BOX_W, BOX_H,
         D2D1::ColorF(D2D1::ColorF::Yellow), 1.5f);
 
-    // ÀÔ·Â ÅØ½ºÆ® + Ä¿¼­
+    // ì…ë ¥ í…ìŠ¤íŠ¸ + ì»¤ì„œ
     std::wstring display = m_inputBuffer + L"_";
     D2D1_RECT_F textRect = D2D1::RectF(cx + 6.f, cy + 4.f, cx + BOX_W, cy + BOX_H);
     renderer.DrawTextString(display, textRect,
@@ -206,11 +206,11 @@ void TradeRequestUI::RenderRequest(stbD2DRenderer& renderer)
 }
 void TradeRequestUI::Render(stbD2DRenderer& renderer)
 {
-    //±³È¯½ÅÃ» ÆË¾÷ ·»´õ¸µ
+    //êµí™˜ì‹ ì²­ íŒì—… ë Œë”ë§
     if (mActive)
         RenderRequest(renderer);
 
-    //±³È¯½ÅÃ» ÆË¾÷ ·»´õ¸µ
+    //êµí™˜ì‹ ì²­ íŒì—… ë Œë”ë§
     if (m_requestPopupActive)
         RenderReqPopUp(renderer);
 
@@ -221,7 +221,7 @@ void TradeRequestUI::Render(stbD2DRenderer& renderer)
 void TradeRequestUI::CloseWindow()
 {
     mActive = false;
-    m_inputBuffer.clear();  // ´İÀ» ¶§ ÀÔ·Â ¹öÆÛ ÃÊ±âÈ­
+    m_inputBuffer.clear();  // ë‹«ì„ ë•Œ ì…ë ¥ ë²„í¼ ì´ˆê¸°í™”
 }
 
 void TradeRequestUI::OnPopUp(const TradeRequestInfo& info)
@@ -230,7 +230,7 @@ void TradeRequestUI::OnPopUp(const TradeRequestInfo& info)
     std::string ansi_requesterName = Convert::Utf8ToAnsi(info.requesterName);
     { char szTemp[2560] = { 0, }; sprintf_s(szTemp, "[%s][%d] gunoo22_TEST reqName[%s]", __FUNCTION__, __LINE__, ansi_requesterName.c_str()); OutputDebugStringA(szTemp); }
     //TODO
-    //±³È¯Ã¢ ÆË¾÷
+    //êµí™˜ì°½ íŒì—…
     m_requesterId = info.requesterId;
     m_requesterNameW = Convert::Utf8ToWstr(info.requesterName);
     m_requestPopupActive = true;
@@ -241,7 +241,7 @@ void TradeRequestUI::OnChar(wchar_t ch)
 {
     if (!mActive) return;
 
-    if (ch == L'\b')  // ¹é½ºÆäÀÌ½º
+    if (ch == L'\b')  // ë°±ìŠ¤í˜ì´ìŠ¤
     {
         if (!m_inputBuffer.empty())
             m_inputBuffer.pop_back();
@@ -283,7 +283,7 @@ void TradeRequestUI::HandleLMouseClick(int x, int y)
     {
         OutputDebugStringA("[TradeRequestUI] Accept clicked\n");
 
-        // ±³È¯ ¼ö¶ô ÆĞÅ¶ Àü¼Û
+        // êµí™˜ ìˆ˜ë½ íŒ¨í‚· ì „ì†¡
         TradePacketHandler::SendTradeAccept(m_requesterId);
 
         CloseRequestPopup();
@@ -294,10 +294,10 @@ void TradeRequestUI::HandleLMouseClick(int x, int y)
     {
         OutputDebugStringA("[TradeRequestUI] Reject clicked\n");
 
-        // °ÅÀı ÆĞÅ¶ÀÌ µû·Î ÀÖ´Ù¸é SendTradeReject »ç¿ë
-        // ¾øÀ¸¸é Cancel ÆĞÅ¶À¸·Î Ã³¸®
+        // ê±°ì ˆ íŒ¨í‚·ì´ ë”°ë¡œ ìˆë‹¤ë©´ SendTradeReject ì‚¬ìš©
+        // ì—†ìœ¼ë©´ Cancel íŒ¨í‚·ìœ¼ë¡œ ì²˜ë¦¬
         //TradePacketHandler::SendTradeReject(m_requesterId);
-        // ¶Ç´Â
+        // ë˜ëŠ”
         // TradePacketHandler::SendTradeCancel(m_requesterId);
 
         CloseRequestPopup();

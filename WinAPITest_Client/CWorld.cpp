@@ -1,4 +1,4 @@
-// CWorld.cpp: ±¸Çö ÆÄÀÏ
+ï»¿// CWorld.cpp: êµ¬í˜„ íŒŒì¼
 //
 
 //#include "pch.h"
@@ -12,15 +12,15 @@
 #include "MySocket.h"
 //#include "UTIL.h"
 
-//·Î±×ÀÎ ¾ÆÀÌµğ
+//ë¡œê·¸ì¸ ì•„ì´ë””
 extern std::string g_account_id;
-//Ã¤³Î Æ÷Æ®
+//ì±„ë„ í¬íŠ¸
 extern std::string g_channel_port;
-//·Î±×ÀÎ Ä³¸¯ÅÍ ¾ÆÀÌµğ
+//ë¡œê·¸ì¸ ìºë¦­í„° ì•„ì´ë””
 extern std::string g_char_id;
 
 
-// CWorld ´ëÈ­ »óÀÚ
+// CWorld ëŒ€í™” ìƒì
 
 IMPLEMENT_DYNAMIC(CWorld, CDialogEx)
 
@@ -48,7 +48,7 @@ namespace UTIL
 
 	static std::string AnsiToUTF8(const std::string& ansiStr)
 	{
-		// 1. ANSI(CP_ACP ¡æ º¸Åë CP949) ¡æ UTF-16
+		// 1. ANSI(CP_ACP â†’ ë³´í†µ CP949) â†’ UTF-16
 		int wideLen = MultiByteToWideChar(
 			CP_ACP,
 			0,
@@ -70,7 +70,7 @@ namespace UTIL
 			wideLen
 		);
 
-		// 2. UTF-16 ¡æ UTF-8
+		// 2. UTF-16 â†’ UTF-8
 		int utf8Len = WideCharToMultiByte(
 			CP_UTF8,
 			0,
@@ -163,21 +163,21 @@ BEGIN_MESSAGE_MAP(CWorld, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CWorld ¸Ş½ÃÁö Ã³¸®±â
+// CWorld ë©”ì‹œì§€ ì²˜ë¦¬ê¸°
 
 BOOL CWorld::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// TODO:  ¿©±â¿¡ Ãß°¡ ÃÊ±âÈ­ ÀÛ¾÷À» Ãß°¡ÇÕ´Ï´Ù.
+	// TODO:  ì—¬ê¸°ì— ì¶”ê°€ ì´ˆê¸°í™” ì‘ì—…ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
 	/*m_editHost.SetWindowTextW(_T("100.114.42.54"));
 	m_editPort.SetWindowTextW(_T("5000"));
 
 	m_editID.SetWindowTextW(_T("admin1"));
 	m_editPasswd.SetWindowTextW(_T("1111"));*/
 
-	m_editCharId.SetWindowText(_T("1")); //Ä³¸¯ÅÍid
-	m_editChannelId.SetWindowText(_T("1")); //Ã¤³Îid
+	m_editCharId.SetWindowText(_T("1")); //ìºë¦­í„°id
+	m_editChannelId.SetWindowText(_T("1")); //ì±„ë„id
 
 	if (m_bConnect == FALSE)
 		connect();
@@ -185,7 +185,7 @@ BOOL CWorld::OnInitDialog()
 		OnSocketConnect(m_bConnect);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
-	// ¿¹¿Ü: OCX ¼Ó¼º ÆäÀÌÁö´Â FALSE¸¦ ¹İÈ¯ÇØ¾ß ÇÕ´Ï´Ù.
+	// ì˜ˆì™¸: OCX ì†ì„± í˜ì´ì§€ëŠ” FALSEë¥¼ ë°˜í™˜í•´ì•¼ í•©ë‹ˆë‹¤.
 }
 
 void CWorld::OnSocketConnect(BOOL bConnect)
@@ -242,7 +242,7 @@ int CWorld::OnInitWorld(const char* recvBuff, const int recvLen)
 	{
 		CString strTmp;
 		PacketParser::ParseLengthPrefixedString(recvBuff, recvLen, offset, status, errMsg);
-		strTmp.Format(_T("World ÃÊ±âÈ­ ½ÇÆĞ: %s"), CString(status.c_str()));
+		strTmp.Format(_T("World ì´ˆê¸°í™” ì‹¤íŒ¨: %s"), CString(status.c_str()));
 		AfxMessageBox(strTmp);
 		goto err;
 	}
@@ -252,13 +252,13 @@ err:
 
 	if (rc != EXIT_SUCCESS)
 	{
-		//AfxMessageBox(_T("·Î±×ÀÎ ½ÇÆĞ: È¸¿ø°¡ÀÔÀ» ÇÏ¼¼¿ä"));
+		//AfxMessageBox(_T("ë¡œê·¸ì¸ ì‹¤íŒ¨: íšŒì›ê°€ì…ì„ í•˜ì„¸ìš”"));
 	}
 	else
 	{
-		AfxMessageBox(_T("World ¼º°ø"));
-		this->CharacterList(); //Ä³¸¯ÅÍ ¼±ÅÃ
-		//m_pSock->m_bWorldPhase = FALSE; //·Î±×ÀÎ ³¡
+		AfxMessageBox(_T("World ì„±ê³µ"));
+		this->CharacterList(); //ìºë¦­í„° ì„ íƒ
+		//m_pSock->m_bWorldPhase = FALSE; //ë¡œê·¸ì¸ ë
 		//EndDialog(IDOK);
 	}
 
@@ -307,7 +307,7 @@ int CWorld::OnCharacterList(const char* recvBuff, const int recvLen)
 	}
 
 	
-	//¹İº¹ÇÏ¿© Ä³¸¯ÅÍ ´Ğ³×ÀÓ ÃßÃâ
+	//ë°˜ë³µí•˜ì—¬ ìºë¦­í„° ë‹‰ë„¤ì„ ì¶”ì¶œ
 	while (1)
 	{
 		std::string char_name;
@@ -319,7 +319,7 @@ int CWorld::OnCharacterList(const char* recvBuff, const int recvLen)
 			char_name,
 			errMsg))
 		{
-			//´õÀÌ»ó ¾øÀ¸¸é Áß´Ü
+			//ë”ì´ìƒ ì—†ìœ¼ë©´ ì¤‘ë‹¨
 			//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
 			break;
 		}
@@ -352,20 +352,20 @@ err:
 
 	if (rc != EXIT_SUCCESS)
 	{
-		//AfxMessageBox(_T("·Î±×ÀÎ ½ÇÆĞ: È¸¿ø°¡ÀÔÀ» ÇÏ¼¼¿ä"));
+		//AfxMessageBox(_T("ë¡œê·¸ì¸ ì‹¤íŒ¨: íšŒì›ê°€ì…ì„ í•˜ì„¸ìš”"));
 	}
 	else
 	{
-		AfxMessageBox(_T("CharList ¼º°ø"));
-		//this->CharacterList(); //Ä³¸¯ÅÍ ¼±ÅÃ
-		//m_pSock->m_bWorldPhase = FALSE; //·Î±×ÀÎ ³¡
+		AfxMessageBox(_T("CharList ì„±ê³µ"));
+		//this->CharacterList(); //ìºë¦­í„° ì„ íƒ
+		//m_pSock->m_bWorldPhase = FALSE; //ë¡œê·¸ì¸ ë
 		//EndDialog(IDOK);
 	}
 
 	return rc;
 }
 
-//Ã¤³Î Á¢¼Ó¹öÆ° Å¬¸¯
+//ì±„ë„ ì ‘ì†ë²„íŠ¼ í´ë¦­
 void CWorld::OnBnClickedButtonEnter()
 {
 	CString strCharId;
@@ -376,7 +376,7 @@ void CWorld::OnBnClickedButtonEnter()
 	/*std::vector<std::string> payload;
 	payload = UTIL::ParsePayload(strChannelId);*/
 
-	//Ä³¸¯ÅÍ ¾ÆÀÌµğ Àü¿ªº¯¼ö µî·Ï
+	//ìºë¦­í„° ì•„ì´ë”” ì „ì—­ë³€ìˆ˜ ë“±ë¡
 	g_char_id = CStringA(strCharId);
 	
 	m_pSock->m_status = E_WORLD_CHANNEL_SELECT;
@@ -428,7 +428,7 @@ int CWorld::OnChannelSelect(const char* recvBuff, const int recvLen)
 		status,
 		errMsg))
 	{
-		//´õÀÌ»ó ¾øÀ¸¸é Áß´Ü
+		//ë”ì´ìƒ ì—†ìœ¼ë©´ ì¤‘ë‹¨
 		//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
 		rc = -1;
 		goto err;
@@ -448,7 +448,7 @@ int CWorld::OnChannelSelect(const char* recvBuff, const int recvLen)
 		channel_ip,
 		errMsg))
 	{
-		//´õÀÌ»ó ¾øÀ¸¸é Áß´Ü
+		//ë”ì´ìƒ ì—†ìœ¼ë©´ ì¤‘ë‹¨
 		//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
 		rc = -1;
 		goto err;
@@ -462,7 +462,7 @@ int CWorld::OnChannelSelect(const char* recvBuff, const int recvLen)
 		channel_port,
 		errMsg))
 	{
-		//´õÀÌ»ó ¾øÀ¸¸é Áß´Ü
+		//ë”ì´ìƒ ì—†ìœ¼ë©´ ì¤‘ë‹¨
 		//K_slog_trace(K_SLOG_DEBUG, "[%s][%d]gunoo22_TEST", __FUNCTION__, __LINE__);
 		rc = -1;
 		goto err;
@@ -475,43 +475,43 @@ err:
 
 	if (rc != EXIT_SUCCESS)
 	{
-		AfxMessageBox(_T("½ÇÆĞ"));
+		AfxMessageBox(_T("ì‹¤íŒ¨"));
 	}
 	else
 	{
 		CString strTmp;
 		CString wideValueIp = UTIL::Utf8ToCString(channel_ip);
 		CString wideValuePort = UTIL::Utf8ToCString(channel_port);
-		strTmp.Format(_T("Channel Select ¼º°ø IP[%s], PORT[%s]"), wideValueIp, wideValuePort);
+		strTmp.Format(_T("Channel Select ì„±ê³µ IP[%s], PORT[%s]"), wideValueIp, wideValuePort);
 		AfxMessageBox(strTmp);
-		//this->CharacterList(); //Ä³¸¯ÅÍ ¼±ÅÃ
-		//m_pSock->m_bWorldPhase = FALSE; //·Î±×ÀÎ ³¡
+		//this->CharacterList(); //ìºë¦­í„° ì„ íƒ
+		//m_pSock->m_bWorldPhase = FALSE; //ë¡œê·¸ì¸ ë
 		//EndDialog(IDOK);
 
-		//Ã¤³Î Æ÷Æ® Àü¿ªº¯¼ö µî·Ï
+		//ì±„ë„ í¬íŠ¸ ì „ì—­ë³€ìˆ˜ ë“±ë¡
 		g_channel_port = CStringA(wideValuePort);
 
-		m_pSock->Disconnect(); //¿¬°á ²÷±â
+		m_pSock->Disconnect(); //ì—°ê²° ëŠê¸°
 
-		//´ÙÀÌ¾ó·Î±× Á¾·á
+		//ë‹¤ì´ì–¼ë¡œê·¸ ì¢…ë£Œ
 		EndDialog(IDOK);
 	}
 
 	return rc;
 }
 //
-////·Î±×ÀÎ ¹öÆ° Å¬¸¯
+////ë¡œê·¸ì¸ ë²„íŠ¼ í´ë¦­
 //void CWorld::OnBnClickedButtonLogin()
 //{
 //	m_editHost.GetWindowTextW(m_strHost);
 //	m_editPort.GetWindowTextW(m_strPort);
-//	// TODO: ¿©±â¿¡ ÄÁÆ®·Ñ ¾Ë¸² Ã³¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù.
+//	// TODO: ì—¬ê¸°ì— ì»¨íŠ¸ë¡¤ ì•Œë¦¼ ì²˜ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
 //
 //	//connect();
 //	//Login();
 //
-//	//AfxMessageBox(_T("·Î±×ÀÎ ¼º°ø"));
-//	////		m_pSock->m_bLoginPhase = FALSE; //·Î±×ÀÎ ³¡
+//	//AfxMessageBox(_T("ë¡œê·¸ì¸ ì„±ê³µ"));
+//	////		m_pSock->m_bLoginPhase = FALSE; //ë¡œê·¸ì¸ ë
 //	//EndDialog(IDOK);
 //
 //	if (m_bConnect == FALSE)

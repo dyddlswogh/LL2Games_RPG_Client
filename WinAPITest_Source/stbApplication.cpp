@@ -1,4 +1,4 @@
-#include "stbApplication.h"
+ï»¿#include "stbApplication.h"
 #include "stbInput.h"
 #include "stbTime.h"
 #include "stbSceneManager.h"
@@ -54,7 +54,7 @@ namespace stb
 		M_COLMANAGER->Initailzie();
 		M_SCENEMANAGER->Initialize();
 		
-		// Json ÆÄÀÏ ½ÇÇà ½Ã ¹Ì¸® ÀÐ¾î¿À±â
+		// Json íŒŒì¼ ì‹¤í–‰ ì‹œ ë¯¸ë¦¬ ì½ì–´ì˜¤ê¸°
 
 		if (!M_ITEMDATAMANAGER->Init())
 		{

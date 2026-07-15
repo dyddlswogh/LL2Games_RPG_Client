@@ -1,4 +1,4 @@
-#include "Packet.h"
+﻿#include "Packet.h"
 #include "PacketParser.h"
 #include <cstring>
 #include <type_traits>

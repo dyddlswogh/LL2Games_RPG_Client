@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "UI.h"
 #include "stbTexture.h"
 #include "Trade_Info.h"
@@ -13,11 +13,11 @@ public:
     void Render(stbD2DRenderer& renderer) override;
 
     void RenderRequest(stbD2DRenderer& renderer);
-    void RenderReqPopUp(stbD2DRenderer& renderer); // ±³È¯ ½ÅÃ»Ã¢ ÆË¾÷ ·»´õ¸µ
+    void RenderReqPopUp(stbD2DRenderer& renderer); // êµí™˜ ì‹ ì²­ì°½ íŒì—… ë Œë”ë§
 public:
 
-    void OnChar(wchar_t ch);      // WM_CHAR ¿¬°á
-    void OnKeyDown(WPARAM key);   // WM_KEYDOWN ¿¬°á
+    void OnChar(wchar_t ch);      // WM_CHAR ì—°ê²°
+    void OnKeyDown(WPARAM key);   // WM_KEYDOWN ì—°ê²°
     void Backspace();
     void CloseWindow();
     void OnPopUp(const TradeRequestInfo& info);
@@ -26,20 +26,20 @@ public:
     std::wstring GetNickname() const { return m_inputBuffer; }
 
 
-    void HandleLMouseClick(int x, int y);   // ±³È¯½ÅÃ» ¼ö¶ô,°ÅÀı
+    void HandleLMouseClick(int x, int y);   // êµí™˜ì‹ ì²­ ìˆ˜ë½,ê±°ì ˆ
 
 private:
-    void CloseRequestPopup();         // ±³È¯½ÅÃ» ÆË¾÷ Á¾·á
+    void CloseRequestPopup();         // êµí™˜ì‹ ì²­ íŒì—… ì¢…ë£Œ
 private:
     std::string m_targetPlayerId;
     std::wstring m_inputBuffer;
     bool         m_done = false;
 
-    bool         m_requestPopupActive = false; //±³È¯½ÅÃ» ÆË¾÷¿ë
+    bool         m_requestPopupActive = false; //êµí™˜ì‹ ì²­ íŒì—…ìš©
     std::string m_requesterId;
     std::wstring m_requesterNameW;
-    D2D1_RECT_F m_acceptButtonRect{};   //±³È¯½ÅÃ» ¼ö¶ô¹öÆ°
-    D2D1_RECT_F m_rejectButtonRect{};   //±³È¯½ÅÃ» °ÅÀı¹öÆ°
+    D2D1_RECT_F m_acceptButtonRect{};   //êµí™˜ì‹ ì²­ ìˆ˜ë½ë²„íŠ¼
+    D2D1_RECT_F m_rejectButtonRect{};   //êµí™˜ì‹ ì²­ ê±°ì ˆë²„íŠ¼
 
     static constexpr float BOX_W = 300.f;
     static constexpr float BOX_H = 36.f;

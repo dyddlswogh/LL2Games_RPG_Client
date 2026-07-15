@@ -1,4 +1,4 @@
-#define NOMINMAX
+ï»¿#define NOMINMAX
 #include "HealthBarUI.h"
 #include "stbD2DRenderer.h"
 #include "stbTexture.h"
@@ -60,7 +60,7 @@ void HealthBarUI::RenderBackGround(stbD2DRenderer& renderer)
 
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
-    // ±âÁØ ÇØ»óµµ ´ëºñ UI ÀüÃ¼ ½ºÄÉÀÏ
+    // ê¸°ì¤€ í•´ìƒë„ ëŒ€ë¹„ UI ì „ì²´ ìŠ¤ì¼€ì¼
     float scaleX = rtSize.width / 1366.0f;
     float scaleY = rtSize.height / 768.0f;
     float scale = std::min(scaleX, scaleY);
@@ -114,7 +114,7 @@ void HealthBarUI::RenderHpLayer(stbD2DRenderer& renderer)
     int drawWidth = (int)(bmpSize.width * scale);
     int drawHeight = (int)(bmpSize.height * scale);
 
-    // UI À§Ä¡ °è»ê
+    // UI ìœ„ì¹˜ ê³„ì‚°
     m_hpBarRect = UILayout::CalcRect(
         (int)rtSize.width,
         (int)rtSize.height,
@@ -138,7 +138,7 @@ void HealthBarUI::RenderHpLayer(stbD2DRenderer& renderer)
  
     float hpDrawWidth = m_hpBarRect.width * hpRatio;
 
-    // Ãâ·Â ¿µ¿ª
+    // ì¶œë ¥ ì˜ì—­
     D2D1_RECT_F destRect = D2D1::RectF(
         (FLOAT)m_hpBarRect.x,
         (FLOAT)m_hpBarRect.y,
@@ -146,7 +146,7 @@ void HealthBarUI::RenderHpLayer(stbD2DRenderer& renderer)
         (FLOAT)m_hpBarRect.y + (FLOAT)m_hpBarRect.height
     );
 
-    // ¿øº» ÀÌ¹ÌÁö¿¡¼­ Àß¶ó¿Ã ¿µ¿ª
+    // ì›ë³¸ ì´ë¯¸ì§€ì—ì„œ ì˜ë¼ì˜¬ ì˜ì—­
     D2D1_RECT_F srcRect = D2D1::RectF(
         0.0f,
         0.0f,
@@ -186,7 +186,7 @@ void HealthBarUI::RenderMpLayer(stbD2DRenderer& renderer)
     int drawWidth = (int)(bmpSize.width * scale);
     int drawHeight = (int)(bmpSize.height * scale);
 
-    // UI À§Ä¡ °è»ê
+    // UI ìœ„ì¹˜ ê³„ì‚°
     m_mpBarRect = UILayout::CalcRect(
         (int)rtSize.width,
         (int)rtSize.height,
@@ -210,7 +210,7 @@ void HealthBarUI::RenderMpLayer(stbD2DRenderer& renderer)
 
     float hpDrawWidth = m_mpBarRect.width * hpRatio;
 
-    // Ãâ·Â ¿µ¿ª
+    // ì¶œë ¥ ì˜ì—­
     D2D1_RECT_F destRect = D2D1::RectF(
         (FLOAT)m_mpBarRect.x,
         (FLOAT)m_mpBarRect.y,
@@ -218,7 +218,7 @@ void HealthBarUI::RenderMpLayer(stbD2DRenderer& renderer)
         (FLOAT)m_mpBarRect.y + (FLOAT)m_mpBarRect.height
     );
 
-    // ¿øº» ÀÌ¹ÌÁö¿¡¼­ Àß¶ó¿Ã ¿µ¿ª
+    // ì›ë³¸ ì´ë¯¸ì§€ì—ì„œ ì˜ë¼ì˜¬ ì˜ì—­
     D2D1_RECT_F srcRect = D2D1::RectF(
         0.0f,
         0.0f,
@@ -255,7 +255,7 @@ void HealthBarUI::RenderHpText(stbD2DRenderer& renderer)
     std::wstring maxHpStr = std::to_wstring(player->GetStat()->GetMaxHp());
     std::wstring hpBarStr = curHpStr + L" / " + maxHpStr;
 
-    // ¹®ÀÚ¿­ ÀüÃ¼ ³Êºñ °è»ê
+    // ë¬¸ìì—´ ì „ì²´ ë„ˆë¹„ ê³„ì‚°
     float totalWidth = 0.0f;
     float maxHeight = 0.0f;
 
@@ -285,7 +285,7 @@ void HealthBarUI::RenderHpText(stbD2DRenderer& renderer)
         maxHeight = std::max(maxHeight, static_cast<float>(tex->GetHeight()));
     }
 
-    // MP ¹Ù Áß¾Ó ±âÁØ ½ÃÀÛ À§Ä¡
+    // MP ë°” ì¤‘ì•™ ê¸°ì¤€ ì‹œì‘ ìœ„ì¹˜
     float startX = m_hpBarRect.x + (m_hpBarRect.width - totalWidth) / 2.0f;
     float startY = m_hpBarRect.y + (m_hpBarRect.height - maxHeight) / 2.0f;
     startX = std::round(startX);
@@ -358,7 +358,7 @@ void HealthBarUI::RenderMpText(stbD2DRenderer& renderer)
     std::wstring maxMpStr = std::to_wstring(player->GetStat()->GetMaxMp());
     std::wstring mpBarStr = curMpStr + L" / " + maxMpStr;
 
-    // ¹®ÀÚ¿­ ÀüÃ¼ ³Êºñ °è»ê
+    // ë¬¸ìì—´ ì „ì²´ ë„ˆë¹„ ê³„ì‚°
     float totalWidth = 0.0f;
     float maxHeight = 0.0f;
 
@@ -388,7 +388,7 @@ void HealthBarUI::RenderMpText(stbD2DRenderer& renderer)
         maxHeight = std::max(maxHeight, static_cast<float>(tex->GetHeight()));
     }
 
-    // MP ¹Ù Áß¾Ó ±âÁØ ½ÃÀÛ À§Ä¡
+    // MP ë°” ì¤‘ì•™ ê¸°ì¤€ ì‹œì‘ ìœ„ì¹˜
     float startX = m_mpBarRect.x + (m_mpBarRect.width - totalWidth) / 2.0f;
     float startY = m_mpBarRect.y + (m_mpBarRect.height - maxHeight) / 2.0f;
     startX = std::round(startX);

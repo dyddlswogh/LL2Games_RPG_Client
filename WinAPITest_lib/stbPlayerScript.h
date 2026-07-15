@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "..\\WinAPITest_Source\\stbScript.h"
 #include "..\\WinAPITest_Source\\\CombatSystem.h"
 #include "..\\WinAPITest_Source\\stbInput.h"

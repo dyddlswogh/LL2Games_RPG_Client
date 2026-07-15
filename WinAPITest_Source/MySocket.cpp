@@ -1,4 +1,4 @@
-#include "MySocket.h"
+﻿#include "MySocket.h"
 #include "Packet.h"
 #include <WinSock2.h>
 #include <WS2tcpip.h>

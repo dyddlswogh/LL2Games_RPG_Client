@@ -1,4 +1,4 @@
-#include "stbCollisionManager.h"
+﻿#include "stbCollisionManager.h"
 #include "stbLayer.h"
 #include "stbGameObject.h"
 #include "stbScene.h"

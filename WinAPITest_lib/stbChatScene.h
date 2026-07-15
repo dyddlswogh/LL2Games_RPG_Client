@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "..\\WinAPITest_Source\\stbScene.h"
 
 
@@ -20,8 +20,8 @@ namespace stb
 		void OnExit() override;
 		void OnEnter() override;
 
-		// Ã¤ÆÃ UI »óÅÂ
-		void ToggleInputFocus();           // Enter Å° µîÀ¸·Î Åä±Û
+		// ì±„íŒ… UI ìƒíƒœ
+		void ToggleInputFocus();           // Enter í‚¤ ë“±ìœ¼ë¡œ í† ê¸€
 		//bool IsInputActive() const { return mInputActive; }
 		//void AppendMessage(const std::wstring& line);
 
@@ -29,7 +29,7 @@ namespace stb
 	private:
 		bool mInputActive = false;
 		std::wstring mInputBuffer;
-		//std::vector<std::wstring> mLogLines;   // ÃÖ±Ù NÁÙ
+		//std::vector<std::wstring> mLogLines;   // ìµœê·¼ Nì¤„
 
 	};
 

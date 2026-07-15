@@ -1,4 +1,4 @@
-#include "stbLayer.h"
+﻿#include "stbLayer.h"
 #include "stbLayer.h"
 #include "stbD2DRenderer.h"
 

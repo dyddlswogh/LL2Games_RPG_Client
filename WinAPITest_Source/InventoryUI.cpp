@@ -1,4 +1,4 @@
-#include "InventoryUI.h"
+ï»¿#include "InventoryUI.h"
 #include "stbResourceManager.h"
 #include "stbTexture.h"
 #include "stbD2DRenderer.h"
@@ -30,7 +30,7 @@ void InventoryUI::Init()
     Init_InventoryButton();
     Init_InventoryTab();
    
-    // ½½·Ô »ı¼º
+    // ìŠ¬ë¡¯ ìƒì„±
     CreateSlots();
 
     UpdateInventoryByType();
@@ -205,19 +205,19 @@ void InventoryUI::Render(stbD2DRenderer& renderer)
 {
     if (!mActive)
         return;
-    // ÀÎº¥Åä¸® ±âº» ÀÌ¹ÌÁö ±×¸®±â
+    // ì¸ë²¤í† ë¦¬ ê¸°ë³¸ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
     RenderBackGround(renderer);
 
-    // ÀÎº¥Åä¸® ¸Ş´º ¹öÆ° ÀÌ¹ÌÁö ±×¸®±â
+    // ì¸ë²¤í† ë¦¬ ë©”ë‰´ ë²„íŠ¼ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
     RenderMenuButtons(renderer);
 
-    // ÀÎº¥Åä¸® ¾ÆÀÌÅÛ ÀÌ¹ÌÁö ±×¸®±â
+    // ì¸ë²¤í† ë¦¬ ì•„ì´í…œ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
     RenderSlotItem(renderer);
 
-    // ÀÎº¥Åä¸® ¹öÆ° ÀÌ¹ÌÁö ±×¸®±â
+    // ì¸ë²¤í† ë¦¬ ë²„íŠ¼ ì´ë¯¸ì§€ ê·¸ë¦¬ê¸°
     RenderButtons(renderer);
 
-    //Å×½ºÆ®¿ë ½½·Ôµé Å×µÎ¸® ±×¸®±â
+    //í…ŒìŠ¤íŠ¸ìš© ìŠ¬ë¡¯ë“¤ í…Œë‘ë¦¬ ê·¸ë¦¬ê¸°
     for (const auto& slot : m_slots)
     {
         if (slot.isEnabled)
@@ -233,7 +233,7 @@ void InventoryUI::Render(stbD2DRenderer& renderer)
         
     }
 
-   // Å×½ºÆ®¿ë ÀÎº¥Åä¸® µå·¡±× ¿µ¿ª ±×¸®±â
+   // í…ŒìŠ¤íŠ¸ìš© ì¸ë²¤í† ë¦¬ ë“œë˜ê·¸ ì˜ì—­ ê·¸ë¦¬ê¸°
    renderer.DrawRect(
      (float)m_inventoryClickRect.left,
      (float)m_inventoryClickRect.top,
@@ -427,7 +427,7 @@ void InventoryUI::RenderMenuButtons(stbD2DRenderer& renderer)
 
 void InventoryUI::RenderButtons(stbD2DRenderer& renderer)
 {
-    // È®Àå ÀÌ¹ÌÁö
+    // í™•ì¥ ì´ë¯¸ì§€
     stb::Texture* full_button = GetCurrentImg(m_fullButton);
     if (full_button == nullptr)
     {
@@ -452,7 +452,7 @@ void InventoryUI::RenderButtons(stbD2DRenderer& renderer)
         1.0f);
 
 
-    // È®Àå ÀÌ¹ÌÁö
+    // í™•ì¥ ì´ë¯¸ì§€
     stb::Texture* min_button = GetCurrentImg(m_minButton);
     if (min_button == nullptr)
     {
@@ -477,7 +477,7 @@ void InventoryUI::RenderButtons(stbD2DRenderer& renderer)
         1.0f);
 
 
-    // ´İ±â ÀÌ¹ÌÁö
+    // ë‹«ê¸° ì´ë¯¸ì§€
     stb::Texture* close_button = GetCurrentImg(m_closeButton);
     if (close_button == nullptr)
     {
@@ -630,7 +630,7 @@ bool InventoryUI::HandleButtonClick(int mouseX, int mouseY)
     {
         OutputDebugStringA("fullButton Clicked \n");
         ExpandInventory();
-        // ÀÎº¥Åä¸® È®Àå ÇÔ¼ö Ãß°¡ ÇÊ¿ä
+        // ì¸ë²¤í† ë¦¬ í™•ì¥ í•¨ìˆ˜ ì¶”ê°€ í•„ìš”
         return true;
     }
 
@@ -638,7 +638,7 @@ bool InventoryUI::HandleButtonClick(int mouseX, int mouseY)
     {
         OutputDebugStringA("minButton Clicked \n");
         ReduceInventory();
-        // ÀÎº¥Åä¸® È®Àå ÇÔ¼ö Ãß°¡ ÇÊ¿ä
+        // ì¸ë²¤í† ë¦¬ í™•ì¥ í•¨ìˆ˜ ì¶”ê°€ í•„ìš”
         return true;
     }
 
@@ -740,7 +740,7 @@ void InventoryUI::HandleMouseUp()
 
         if (dropSlotIndex != -1 && dropSlotIndex != m_dragStartSlotIndex)
         {
-            // ¿©±â¼­ ¼­¹ö¿¡ ÆĞÅ¶À» º¸³»°í °á°ú°ªÀ» ¹ÙÅÁÀ¸·Î ¾ÆÀÌÅÛ À§Ä¡¸¦ º¯°æÇÏ´Â °ÍÀÌ ¸Â´Ù
+            // ì—¬ê¸°ì„œ ì„œë²„ì— íŒ¨í‚·ì„ ë³´ë‚´ê³  ê²°ê³¼ê°’ì„ ë°”íƒ•ìœ¼ë¡œ ì•„ì´í…œ ìœ„ì¹˜ë¥¼ ë³€ê²½í•˜ëŠ” ê²ƒì´ ë§ë‹¤
             InventoryPacketHandler::SendMoveItem(static_cast<int>(m_currentType), m_dragStartSlotIndex, dropSlotIndex);
         }
 

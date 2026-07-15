@@ -1,4 +1,4 @@
-# LL2Games_RPG Client
+﻿# LL2Games_RPG Client
 
 C++/WinAPI 기반 2D MMORPG 클라이언트입니다.  
 기존 WinAPI 클라이언트 구조와 게임 리소스를 프로젝트에 통합하고, Direct2D 렌더링 흐름과 서버 패킷 연동을 확장하여 실제 MMORPG 플레이 화면을 구현했습니다.

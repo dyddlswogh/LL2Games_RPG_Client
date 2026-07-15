@@ -1,4 +1,4 @@
-#include "MonsterDataManager.h"
+ï»¿#include "MonsterDataManager.h"
 #include <fstream>
 #include "stbEnums.h"
 #include "Collider_Info.h"
@@ -25,7 +25,7 @@ bool MonsterDataManager::PreLoadAll()
         if (!entry.is_regular_file()) continue;
         if (entry.path().extension() != ".json") continue;
 
-        // ÆÄÀÏ¸í¿¡¼­ id ÃßÃâ (¿¹: 2000000.json)
+        // íŒŒì¼ëª…ì—ì„œ id ì¶”ì¶œ (ì˜ˆ: 2000000.json)
         int monster_id = 0;
         try {
             monster_id = std::stoi(entry.path().stem().string());
@@ -71,8 +71,8 @@ bool MonsterDataManager::LoadJsonFile(const std::string& path, MonsterData& mons
 
     const auto& anims = j.at("animations");
 
-    // getÀº ÇÊ¼ö °ª ¾ø¾î¼­´Â ¾ÈµÇ´Â °ª
-    // value´Â ¾ø¾îµµ ±âº»°ªÀ¸·Î µ¿ÀÛ °¡´ÉÇÒ ¶§ »ç¿ë
+    // getì€ í•„ìˆ˜ ê°’ ì—†ì–´ì„œëŠ” ì•ˆë˜ëŠ” ê°’
+    // valueëŠ” ì—†ì–´ë„ ê¸°ë³¸ê°’ìœ¼ë¡œ ë™ì‘ ê°€ëŠ¥í•  ë•Œ ì‚¬ìš©
     for (auto& [animName, animJson] : anims.items())
     {
         AnimationInfo info;

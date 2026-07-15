@@ -1,4 +1,4 @@
-#include "stbMath.h"
+﻿#include "stbMath.h"
 
 namespace stb::math
 {

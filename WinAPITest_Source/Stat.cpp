@@ -1,4 +1,4 @@
-#include "Stat.h"
+﻿#include "Stat.h"
 
 Stat::Stat() : m_base({ 0, }), m_derived({ 0, }), m_expStat({0,}), m_cur_hp(0), m_cur_mp(0), m_remain_ap(0)
 {

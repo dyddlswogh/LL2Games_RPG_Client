@@ -1,4 +1,4 @@
-#include "QuickSlotUI.h"
+ï»¿#include "QuickSlotUI.h"
 #include "stbTexture.h"
 #include "stbD2DRenderer.h"
 #include "stbResourceManager.h"
@@ -56,7 +56,7 @@ void QuickSlotUI::Render(stbD2DRenderer& renderer)
 
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
-    // ±âÁØ ÇØ»óµµ ´ëºñ UI ÀüÃ¼ ½ºÄÉÀÏ
+    // ê¸°ì¤€ í•´ìƒë„ ëŒ€ë¹„ UI ì „ì²´ ìŠ¤ì¼€ì¼
     float scaleX = rtSize.width / 1366.0f;
     float scaleY = rtSize.height / 768.0f;
     float scale = min(scaleX, scaleY);

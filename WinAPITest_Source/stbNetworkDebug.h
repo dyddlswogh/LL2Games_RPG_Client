@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "stbNetworkManager.h"
 #include "stbNetworkConfig.h"
 #include "stbOtherPlayerManager.h"
@@ -10,10 +10,10 @@
 
 namespace stb
 {
-    // ÇÔ¼ö Àü¹æ ¼±¾ğ
+    // í•¨ìˆ˜ ì „ë°© ì„ ì–¸
     inline void SendEnterMap(const std::string& charId, const std::string& mapId);
 
-    // ÆĞÅ¶ µ¥ÀÌÅÍ¸¦ 16Áø¼ö·Î Ãâ·ÂÇÏ´Â ÇïÆÛ ÇÔ¼ö
+    // íŒ¨í‚· ë°ì´í„°ë¥¼ 16ì§„ìˆ˜ë¡œ ì¶œë ¥í•˜ëŠ” í—¬í¼ í•¨ìˆ˜
     inline void PrintPacketHex(const std::string& packet, const char* label)
     {
         std::stringstream ss;
@@ -29,14 +29,14 @@ namespace stb
         OutputDebugStringA(ss.str().c_str());
     }
 
-    // µğ¹ö±× ¸ğµå·Î ³×Æ®¿öÅ© ÃÊ±âÈ­
+    // ë””ë²„ê·¸ ëª¨ë“œë¡œ ë„¤íŠ¸ì›Œí¬ ì´ˆê¸°í™”
     inline void InitializeNetworkDebug(HWND hWnd)
     {
         std::stringstream ss;
-        ss << "=== ³×Æ®¿öÅ© µğ¹ö±× ¸ğµå ===\n";
-        ss << "¼­¹ö IP: " << NetworkConfig::SERVER_IP << "\n";
-        //ss << "¼­¹ö Æ÷Æ®: " << NetworkConfig::SERVER_PORT << "\n";
-        ss << "¼­¹ö Æ÷Æ®: " << g_ChannelPort << "\n";
+        ss << "=== ë„¤íŠ¸ì›Œí¬ ë””ë²„ê·¸ ëª¨ë“œ ===\n";
+        ss << "ì„œë²„ IP: " << NetworkConfig::SERVER_IP << "\n";
+        //ss << "ì„œë²„ í¬íŠ¸: " << NetworkConfig::SERVER_PORT << "\n";
+        ss << "ì„œë²„ í¬íŠ¸: " << g_ChannelPort << "\n";
         OutputDebugStringA(ss.str().c_str());
 
         bool connected = NetworkManager::getInstance()->Connect(
@@ -49,36 +49,36 @@ namespace stb
 
         if (connected)
         {
-            OutputDebugStringA("¼­¹ö ¿¬°á ½Ãµµ Áß...\n");
+            OutputDebugStringA("ì„œë²„ ì—°ê²° ì‹œë„ ì¤‘...\n");
         }
         else
         {
-            OutputDebugStringA("¼­¹ö ¿¬°á ½ÇÆĞ! (¼ÒÄÏ »ı¼º ¶Ç´Â connect ½ÇÆĞ)\n");
+            OutputDebugStringA("ì„œë²„ ì—°ê²° ì‹¤íŒ¨! (ì†Œì¼“ ìƒì„± ë˜ëŠ” connect ì‹¤íŒ¨)\n");
         }
     }
 
-    // ¿¬°á »óÅÂ È®ÀÎ
+    // ì—°ê²° ìƒíƒœ í™•ì¸
     inline void CheckConnectionStatus()
     {
         if (NetworkManager::getInstance()->IsConnected())
         {
-            OutputDebugStringA("ÇöÀç »óÅÂ: ¼­¹ö ¿¬°áµÊ\n");
+            OutputDebugStringA("í˜„ì¬ ìƒíƒœ: ì„œë²„ ì—°ê²°ë¨\n");
         }
         else
         {
-            OutputDebugStringA("ÇöÀç »óÅÂ: ¼­¹ö ¿¬°á ¾È µÊ\n");
+            OutputDebugStringA("í˜„ì¬ ìƒíƒœ: ì„œë²„ ì—°ê²° ì•ˆ ë¨\n");
         }
     }
 
-    // Ã¤³Î ÀÎÁõ ÀÀ´ä ÇÚµé·¯ µî·Ï
+    // ì±„ë„ ì¸ì¦ ì‘ë‹µ í•¸ë“¤ëŸ¬ ë“±ë¡
     inline void RegisterChannelAuthHandler()
     {
         NetworkManager::getInstance()->RegisterHandler(PKT_CHANNEL_AUTH,
             [](const ParsedPacket& pkt)
             {
-                OutputDebugStringA("Ã¤³Î ÀÎÁõ ÀÀ´ä ¹ŞÀ½!\n");
+                OutputDebugStringA("ì±„ë„ ì¸ì¦ ì‘ë‹µ ë°›ìŒ!\n");
                 
-                // ÀÀ´ä µ¥ÀÌÅÍ ÆÄ½Ì (ÇÊ¿ä½Ã)
+                // ì‘ë‹µ ë°ì´í„° íŒŒì‹± (í•„ìš”ì‹œ)
                 try
                 {
                     if (pkt.payload.size() > sizeof(uint16_t))
@@ -92,75 +92,75 @@ namespace stb
                         if (offset + len <= pkt.payload.size())
                         {
                             std::string response(data + offset, len);
-                            std::string msg = "¼­¹ö ÀÀ´ä: " + response + "\n";
+                            std::string msg = "ì„œë²„ ì‘ë‹µ: " + response + "\n";
                             OutputDebugStringA(msg.c_str());
                         }
                     }
                     
-                    // Ã¤³Î ÀÎÁõ ¼º°ø ÈÄ ¸Ê ÀÔÀå ÆĞÅ¶ Àü¼Û
-                    OutputDebugStringA("Ã¤³Î ÀÎÁõ ¿Ï·á! ¸Ê ÀÔÀå ÆĞÅ¶ Àü¼Û...\n");
+                    // ì±„ë„ ì¸ì¦ ì„±ê³µ í›„ ë§µ ì…ì¥ íŒ¨í‚· ì „ì†¡
+                    OutputDebugStringA("ì±„ë„ ì¸ì¦ ì™„ë£Œ! ë§µ ì…ì¥ íŒ¨í‚· ì „ì†¡...\n");
                     SendEnterMap(NetworkConfig::GetCharacterId(), NetworkConfig::MAP_ID);
                 }
                 catch (...)
                 {
-                    OutputDebugStringA("Ã¤³Î ÀÎÁõ ÀÀ´ä ÆÄ½Ì Áß ¿À·ù\n");
+                    OutputDebugStringA("ì±„ë„ ì¸ì¦ ì‘ë‹µ íŒŒì‹± ì¤‘ ì˜¤ë¥˜\n");
                 }
             }
         );
     }
 
-    // Ã¤³Î ÀÎÁõ ÆĞÅ¶ Àü¼Û (ÆĞÅ¶ Å¸ÀÔ 0x09, µ¥ÀÌÅÍ: Ä³¸¯ÅÍ ID)
+    // ì±„ë„ ì¸ì¦ íŒ¨í‚· ì „ì†¡ (íŒ¨í‚· íƒ€ì… 0x09, ë°ì´í„°: ìºë¦­í„° ID)
     inline void SendChannelAuth()
     {
         std::string charId = NetworkConfig::GetCharacterId();
         std::vector<std::string> data = { charId };
         
         std::stringstream ss;
-        ss << "\n[PKT_CHANNEL_AUTH Àü¼Û]\n";
-        ss << "  ÆĞÅ¶ Å¸ÀÔ: 0x" << std::hex << PKT_CHANNEL_AUTH << " (" << std::dec << PKT_CHANNEL_AUTH << ")\n";
-        ss << "  Ä³¸¯ÅÍ ID: " << charId << "\n";
+        ss << "\n[PKT_CHANNEL_AUTH ì „ì†¡]\n";
+        ss << "  íŒ¨í‚· íƒ€ì…: 0x" << std::hex << PKT_CHANNEL_AUTH << " (" << std::dec << PKT_CHANNEL_AUTH << ")\n";
+        ss << "  ìºë¦­í„° ID: " << charId << "\n";
         OutputDebugStringA(ss.str().c_str());
         
-        // ÆĞÅ¶ »ı¼º ¹× Àü¼Û
+        // íŒ¨í‚· ìƒì„± ë° ì „ì†¡
         std::string body = PacketParser::MakeBody(data);
         std::string packet = PacketParser::MakePacket(PKT_CHANNEL_AUTH, body);
         
-        // ÆĞÅ¶ ³»¿ë Ãâ·Â
-        PrintPacketHex(packet, "  Àü¼Û ÆĞÅ¶");
+        // íŒ¨í‚· ë‚´ìš© ì¶œë ¥
+        PrintPacketHex(packet, "  ì „ì†¡ íŒ¨í‚·");
         
         NetworkManager::getInstance()->SendPacket(PKT_CHANNEL_AUTH, data);
-        OutputDebugStringA("[PKT_CHANNEL_AUTH Àü¼Û ¿Ï·á]\n\n");
+        OutputDebugStringA("[PKT_CHANNEL_AUTH ì „ì†¡ ì™„ë£Œ]\n\n");
     }
 
-    // ¸Ê ÀÔÀå ÆĞÅ¶ Àü¼Û (Ä³¸¯ÅÍ ID, ¸Ê ID)
+    // ë§µ ì…ì¥ íŒ¨í‚· ì „ì†¡ (ìºë¦­í„° ID, ë§µ ID)
     inline void SendEnterMap(const std::string& charId, const std::string& mapId)
     {
         std::vector<std::string> data = { charId, mapId };
         
         std::stringstream ss;
-        ss << "\n[PKT_ENTER_MAP Àü¼Û]\n";
-        ss << "  ÆĞÅ¶ Å¸ÀÔ: 0x" << std::hex << PKT_ENTER_MAP << " (" << std::dec << PKT_ENTER_MAP << ")\n";
-        ss << "  Ä³¸¯ÅÍ ID: " << charId << "\n";
-        ss << "  ¸Ê ID: " << mapId << "\n";
+        ss << "\n[PKT_ENTER_MAP ì „ì†¡]\n";
+        ss << "  íŒ¨í‚· íƒ€ì…: 0x" << std::hex << PKT_ENTER_MAP << " (" << std::dec << PKT_ENTER_MAP << ")\n";
+        ss << "  ìºë¦­í„° ID: " << charId << "\n";
+        ss << "  ë§µ ID: " << mapId << "\n";
         OutputDebugStringA(ss.str().c_str());
         
-        // ÆĞÅ¶ »ı¼º ¹× Àü¼Û
+        // íŒ¨í‚· ìƒì„± ë° ì „ì†¡
         std::string body = PacketParser::MakeBody(data);
         std::string packet = PacketParser::MakePacket(PKT_ENTER_MAP, body);
         
-        // ÆĞÅ¶ ³»¿ë Ãâ·Â
-        PrintPacketHex(packet, "  Àü¼Û ÆĞÅ¶");
+        // íŒ¨í‚· ë‚´ìš© ì¶œë ¥
+        PrintPacketHex(packet, "  ì „ì†¡ íŒ¨í‚·");
         
         NetworkManager::getInstance()->SendPacket(PKT_ENTER_MAP, data);
-        OutputDebugStringA("[PKT_ENTER_MAP Àü¼Û ¿Ï·á]\n\n");
+        OutputDebugStringA("[PKT_ENTER_MAP ì „ì†¡ ì™„ë£Œ]\n\n");
     }
 
-    // ÇÃ·¹ÀÌ¾î ÀÌµ¿ ÆĞÅ¶ Àü¼Û (x, y, speed)
+    // í”Œë ˆì´ì–´ ì´ë™ íŒ¨í‚· ì „ì†¡ (x, y, speed)
     inline void SendPlayerMove(float x, float y, float speed)
     {
         if (!NetworkManager::getInstance()->IsConnected())
         {
-            return;  // ¿¬°á ¾È µÇ¾î ÀÖÀ¸¸é Àü¼Û ¾È ÇÔ
+            return;  // ì—°ê²° ì•ˆ ë˜ì–´ ìˆìœ¼ë©´ ì „ì†¡ ì•ˆ í•¨
         }
 
         char xStr[32], yStr[32], speedStr[32];
@@ -172,13 +172,13 @@ namespace stb
         std::vector<std::string> data = { xStr, yStr, speedStr };
         NetworkManager::getInstance()->SendPacket(PKT_PLAYER_MOVE, data);
         
-        // µğ¹ö±× ·Î±× (³Ê¹« ¸¹ÀÌ ³ª¿Ã ¼ö ÀÖÀ¸´Ï ÁÖ¼® Ã³¸® °¡´É)
+        // ë””ë²„ê·¸ ë¡œê·¸ (ë„ˆë¬´ ë§ì´ ë‚˜ì˜¬ ìˆ˜ ìˆìœ¼ë‹ˆ ì£¼ì„ ì²˜ë¦¬ ê°€ëŠ¥)
         // std::stringstream ss;
-        // ss << "[Àü¼Û] ÀÌµ¿ ÆĞÅ¶: (" << x << ", " << y << ")\n";
+        // ss << "[ì „ì†¡] ì´ë™ íŒ¨í‚·: (" << x << ", " << y << ")\n";
         // OutputDebugStringA(ss.str().c_str());
     }
 
-    // ¸Ê ÀÔÀå ÀÀ´ä ÇÚµé·¯
+    // ë§µ ì…ì¥ ì‘ë‹µ í•¸ë“¤ëŸ¬
     inline void RegisterEnterMapHandler()
     {
         NetworkManager::getInstance()->RegisterHandler(PKT_ENTER_MAP,
@@ -188,7 +188,7 @@ namespace stb
                 {
                     if (pkt.payload.size() < sizeof(uint16_t))
                     {
-                        OutputDebugStringA("[¸Ê ÀÔÀå] ÆäÀÌ·Îµå Å©±â ºÎÁ·\n");
+                        OutputDebugStringA("[ë§µ ì…ì¥] í˜ì´ë¡œë“œ í¬ê¸° ë¶€ì¡±\n");
                         return;
                     }
 
@@ -201,19 +201,19 @@ namespace stb
                     
                     if (offset + len1 > pkt.payload.size())
                     {
-                        OutputDebugStringA("[¸Ê ÀÔÀå] status ±æÀÌ ÃÊ°ú\n");
+                        OutputDebugStringA("[ë§µ ì…ì¥] status ê¸¸ì´ ì´ˆê³¼\n");
                         return;
                     }
                     
                     std::string status(data + offset, len1);
 
                     std::stringstream ss;
-                    ss << "[¸Ê ÀÔÀå ÀÀ´ä] status: " << status << "\n";
+                    ss << "[ë§µ ì…ì¥ ì‘ë‹µ] status: " << status << "\n";
                     OutputDebugStringA(ss.str().c_str());
                 }
                 catch (...)
                 {
-                    OutputDebugStringA("[¸Ê ÀÔÀå] ¿¹¿Ü ¹ß»ı\n");
+                    OutputDebugStringA("[ë§µ ì…ì¥] ì˜ˆì™¸ ë°œìƒ\n");
                 }
             }
         );

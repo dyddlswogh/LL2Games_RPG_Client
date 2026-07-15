@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include <string>
 #include <cstdint>
 #include <vector>
@@ -6,7 +6,7 @@
 #define BUFFER_SIZE 1024
 #define WM_SOCKET_RECEIVE (WM_USER + 100)
 #define WM_SOCKET_DISCONNECT (WM_USER + 101)
-#define WM_CHAT_SOCKET_RECEIVE (WM_USER + 102)   // °Á √ﬂ∞°
+#define WM_CHAT_SOCKET_RECEIVE (WM_USER + 102)   // ‚Üê Ï∂îÍ∞Ä
 
 #pragma pack(push,1)
 struct PacketHeader
@@ -18,7 +18,7 @@ struct PacketHeader
 #pragma pack(pop)
 
 enum PACKET_TYPE : uint16_t {
-    // 0x0001 ~ 0x001F : ∑Œ±◊¿Œ / ø˘µÂ
+    // 0x0001 ~ 0x001F : Î°úÍ∑∏Ïù∏ / ÏõîÎìú
     PKT_LOGIN               = 0x0001,
     PKT_REGISTER            = 0x0002,
     PKT_CHAT_INIT           = 0x0003,
@@ -30,7 +30,7 @@ enum PACKET_TYPE : uint16_t {
     PKT_CHANNEL_AUTH        = 0x0009,
     PKT_ENTER_MAP           = 0x000A,
 
-    // 0x0020 ~ 0x003F : «√∑π¿ÃæÓ
+    // 0x0020 ~ 0x003F : ÌîåÎ†àÏù¥Ïñ¥
     PKT_PLAYER_MOVE         = 0x0020,
     PKT_PLAYER_ATTACK       = 0x0021,
     PKT_PLAYER_ONDAMAGED    = 0x0022,
@@ -45,31 +45,31 @@ enum PACKET_TYPE : uint16_t {
     PKT_OTHERPLAYER_SNAPSHOT = 0x0031,
     PKT_OTHER_PLAYER_ATTACK = 0x0032,
 
-    // 0x0040 ~ 0x005F : ∏ÛΩ∫≈Õ
+    // 0x0040 ~ 0x005F : Î™¨Ïä§ÌÑ∞
     PKT_MONSTER_MOVE        = 0x0040,
     PKT_MONSTER_ONDAMAGED   = 0x0041,
     PKT_MONSTER_SNAPSHOT    = 0x0042,
     PKT_MONSTER_RESPAWN     = 0x0043,
 
-    // 0x0060 ~ 0x007F : µÂ∑”
+    // 0x0060 ~ 0x007F : ÎìúÎ°≠
     PKT_DROPITEMS           = 0x0060,
     PKT_REMOVEITEMS         = 0x0061,
 
-    // 0x0080 ~ 0x009F : ¿Œ∫•≈‰∏Æ
+    // 0x0080 ~ 0x009F : Ïù∏Î≤§ÌÜ†Î¶¨
     PKT_INVENTORY_META_INFO = 0x0080,
     PKT_INVENTORY_ITEM_INFO = 0x0081,
     PKT_INVENTORY_ITEM_MOVE = 0x0082,
 
-    // 0x0100 ~ 0x010F : ±≥»Ø
-    PKT_TRADE_REQUEST = 0x0100,  // ±≥»Ø Ω≈√ª
-    PKT_TRADE_ACCEPT = 0x0101,  // ±≥»Ø ºˆ∂Ù
-    PKT_TRADE_START = 0x0102,  // ±≥»Ø Ω««‡
-    PKT_TRADE_READY = 0x0103,  // ±≥»Ø ¡ÿ∫Ò(±≥»Ø«œ±‚ πˆ∆∞ ¥©∏ß)
-    PKT_TRADE_CONFIRM = 0x0104,  // ±≥»Ø º∫ªÁ 
-    PKT_TRADE_CANCEL = 0x0105,  // ±≥»Ø √Îº“
-    PKT_TRADE_ADD_ITEM = 0x0106, //æ∆¿Ã≈€ ø√∏Æ±‚
+    // 0x0100 ~ 0x010F : ÍµêÌôò
+    PKT_TRADE_REQUEST = 0x0100,  // ÍµêÌôò Ïã†Ï≤≠
+    PKT_TRADE_ACCEPT = 0x0101,  // ÍµêÌôò ÏàòÎùΩ
+    PKT_TRADE_START = 0x0102,  // ÍµêÌôò Ïã§Ìñâ
+    PKT_TRADE_READY = 0x0103,  // ÍµêÌôò Ï§ÄÎπÑ(ÍµêÌôòÌïòÍ∏∞ Î≤ÑÌäº ÎàÑÎ¶Ñ)
+    PKT_TRADE_CONFIRM = 0x0104,  // ÍµêÌôò ÏÑ±ÏÇ¨ 
+    PKT_TRADE_CANCEL = 0x0105,  // ÍµêÌôò Ï∑®ÏÜå
+    PKT_TRADE_ADD_ITEM = 0x0106, //ÏïÑÏù¥ÌÖú Ïò¨Î¶¨Í∏∞
 
-    // 0x1000 ~ : ≈◊Ω∫∆Æ / UI / ∆Øºˆ
+    // 0x1000 ~ : ÌÖåÏä§Ìä∏ / UI / ÌäπÏàò
     PKT_STAT_VIEW           = 0x1000,
     PKT_STAT_UP             = 0x1001,
     PKT_QUICKSLOT_LIST      = 0x1002,

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CommonInclude.h"
 #include "stbGameObject.h"
 #include "playerInfo.h"
@@ -54,7 +54,7 @@ namespace stb
         bool mHasTarget;
         float mInterpolationSpeed;
 
-        // ÇÃ·¹ÀÌ¾î »óÅÂ
+        // í”Œë ˆì´ì–´ ìƒíƒœ
         PlayerState m_playerState;
 
         struct Follower { GameObject* obj; Vector2 offset; };

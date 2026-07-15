@@ -1,4 +1,4 @@
-#include "MovePacketHandler.h"
+ï»¿#include "MovePacketHandler.h"
 #include "stbNetworkConfig.h"
 #include "stbOtherPlayerManager.h"
 #include "PacketParser.h"
@@ -32,7 +32,7 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
 
         if (payloadSize < sizeof(uint16_t))
         {
-            //LOG("[ÀÌµ¿ ÆÐÅ¶] ÆäÀÌ·Îµå Å©±â ºÎÁ·\n");
+            //LOG("[ì´ë™ íŒ¨í‚·] íŽ˜ì´ë¡œë“œ í¬ê¸° ë¶€ì¡±\n");
             return;
         }
 
@@ -45,7 +45,7 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
             errMsg
         ))
         {
-            // ·Î±× Ãâ·Â ÇÊ¿ä
+            // ë¡œê·¸ ì¶œë ¥ í•„ìš”
             return;
         }
 
@@ -90,20 +90,20 @@ void MovePacketHandler::Execute(const ParsedPacket& pkt)
         }
         else
         {
-            // ·Î±× Ãâ·Â ÇÊ¿ä
+            // ë¡œê·¸ ì¶œë ¥ í•„ìš”
             return;
         }
     }
     catch (const std::exception& e)
     {
-        std::string msg = "[ÀÌµ¿ ÆÐÅ¶] ¿¹¿Ü ¹ß»ý: ";
+        std::string msg = "[ì´ë™ íŒ¨í‚·] ì˜ˆì™¸ ë°œìƒ: ";
         msg += e.what();
         msg += "\n";
         //LOG(msg);
     }
     catch (...)
     {
-        //LOG("[ÀÌµ¿ ÆÐÅ¶] ¾Ë ¼ö ¾ø´Â ¿¹¿Ü ¹ß»ý\n");
+        //LOG("[ì´ë™ íŒ¨í‚·] ì•Œ ìˆ˜ ì—†ëŠ” ì˜ˆì™¸ ë°œìƒ\n");
     }
     
 }
@@ -132,5 +132,5 @@ void MovePacketHandler::SendPlayerMove(stb::Player* player)
     payload.push_back(std::to_string(static_cast<int>(player->GetState())));
     
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_MOVE, payload);
-    OutputDebugStringA("[PKT_PLAYER_MOVE Àü¼Û ¿Ï·á]\n\n");
+    OutputDebugStringA("[PKT_PLAYER_MOVE ì „ì†¡ ì™„ë£Œ]\n\n");
 }

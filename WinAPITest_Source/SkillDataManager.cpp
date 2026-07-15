@@ -1,4 +1,4 @@
-#include "SkillDataManager.h"
+ï»¿#include "SkillDataManager.h"
 #include <fstream>
 
 #define SKILL_PATH "WinAPITest_Source/Data/Skills/"
@@ -23,7 +23,7 @@ bool SkillDataManager::PreLoadAll()
         if (!entry.is_regular_file()) continue;
         if (entry.path().extension() != ".json") continue;
 
-        // ÆÄÀÏ¸í¿¡¼­ id ÃßÃâ (¿¹: 2000000.json)
+        // íŒŒì¼ëª…ì—ì„œ id ì¶”ì¶œ (ì˜ˆ: 2000000.json)
         int skill_id = 0;
         try {
             skill_id = std::stoi(entry.path().stem().string());

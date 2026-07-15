@@ -1,4 +1,4 @@
-#include "ItemPacketHandler.h"
+ï»¿#include "ItemPacketHandler.h"
 #include "PacketParser.h"
 #include "stbNetworkManager.h"
 #include "PlayerManager.h"
@@ -41,7 +41,7 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
 
         if (useItemResult.result == 0)
         {
-            // ¾ÆÀÌÅÛ »ç¿ë¿¡ ½ÇÆäÇß±â ‹š¹®¿¡ ¿¡·¯ÄÚµå¸¦ ÇÃ·¹ÀÌ¾î UI¿¡ º¸³»Áà¾ß ÇÑ´Ù.
+            // ì•„ì´í…œ ì‚¬ìš©ì— ì‹¤íŽ˜í–ˆê¸° ë–„ë¬¸ì— ì—ëŸ¬ì½”ë“œë¥¼ í”Œë ˆì´ì–´ UIì— ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
             return;
         }
 
@@ -132,7 +132,7 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
        {
            item->itemCount = useItemResult.remain_count;
        }
-       OutputDebugStringA("¾ÆÀÌÅÛ »ç¿ë ¿Ï·á\n");
+       OutputDebugStringA("ì•„ì´í…œ ì‚¬ìš© ì™„ë£Œ\n");
 
        localPlayerStat->SetCurHp(useItemResult.hp);
        localPlayerStat->SetCurMp(useItemResult.mp);
@@ -155,7 +155,7 @@ void ItemPacketHandler::HandleUseItemResult(const ParsedPacket& pkt)
     }
     catch(...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ÀÔ´Ï´Ù.\n\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ìž…ë‹ˆë‹¤.\n\n");
     }
 }
 
@@ -241,7 +241,7 @@ void ItemPacketHandler::HandlePickUpItem(const ParsedPacket& pkt)
     }
     catch (...)
     {
-        OutputDebugStringA("¿¹»óÄ¡ ¸øÇÑ ¿¡·¯ÀÔ´Ï´Ù.\n\n");
+        OutputDebugStringA("ì˜ˆìƒì¹˜ ëª»í•œ ì—ëŸ¬ìž…ë‹ˆë‹¤.\n\n");
     }
 }
 
@@ -257,7 +257,7 @@ void ItemPacketHandler::SendUseItem(InventoryItemInfo* inventoryitemInfo)
 
  
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_USE_ITEM, data);
-    OutputDebugStringA("[PKT_PLAYER_USE_ITEM Àü¼Û ¿Ï·á]\n\n");
+    OutputDebugStringA("[PKT_PLAYER_USE_ITEM ì „ì†¡ ì™„ë£Œ]\n\n");
 }
 
 void ItemPacketHandler::SendPickupDropItem(int dropId)
@@ -267,7 +267,7 @@ void ItemPacketHandler::SendPickupDropItem(int dropId)
     payload.push_back(std::to_string(dropId));
 
     stb::NetworkManager::getInstance()->SendPacket(PKT_PLAYER_PICKUP_ITEM, payload);
-    OutputDebugStringA("[PKT_PLAYER_PICKUP_ITEM Àü¼Û ¿Ï·á]\n\n");
+    OutputDebugStringA("[PKT_PLAYER_PICKUP_ITEM ì „ì†¡ ì™„ë£Œ]\n\n");
     std::string DebugMsg = "Drop ID = " + std::to_string(dropId) + "\n";
     OutputDebugStringA(DebugMsg.c_str());
 }

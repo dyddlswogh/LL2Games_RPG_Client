@@ -1,4 +1,4 @@
-#include "stbOtherPlayerManager.h"
+ï»¿#include "stbOtherPlayerManager.h"
 #include "stbObject.h"
 #include "stbTransform.h"
 #include "stbAnimator.h"
@@ -69,13 +69,13 @@ namespace stb
     bool OtherPlayerManager::AddPlayer(OtherPlayerInfo& playerInfo)
     {
         OutputDebugStringA("[OtherPlayer] AddPlayer path\n");
-        // Å°´Â stringÀ¸·Î °ü¸®µÇ°í ÀÖÀ¸¹Ç·Î º¯È¯
+        // í‚¤ëŠ” stringìœ¼ë¡œ ê´€ë¦¬ë˜ê³  ìˆìœ¼ë¯€ë¡œ ë³€í™˜
         std::string charId = std::to_string(playerInfo.char_id);
 
         auto it = mPlayers.find(charId);
         if (it != mPlayers.end())
         {
-            // ÀÌ¹Ì Á¸ÀçÇÏ¸é À§Ä¡/»óÅÂ¸¸ ¾÷µ¥ÀÌÆ®
+            // ì´ë¯¸ ì¡´ì¬í•˜ë©´ ìœ„ì¹˜/ìƒíƒœë§Œ ì—…ë°ì´íŠ¸
             OtherPlayer* existing = it->second;
             if (existing)
             {
@@ -87,11 +87,11 @@ namespace stb
             return true;
         }
 
-        // »õ·Î¿î ÇÃ·¹ÀÌ¾î »ı¼º
+        // ìƒˆë¡œìš´ í”Œë ˆì´ì–´ ìƒì„±
         OtherPlayer* player = object::Instantiate<OtherPlayer>(enums::eLayerType::Player, Vector2(playerInfo.xPos, playerInfo.yPos));
         if (player == nullptr)
         {
-            OutputDebugStringA("ÇÃ·¹ÀÌ¾î »ı¼º ½ÇÆĞ!\n");
+            OutputDebugStringA("í”Œë ˆì´ì–´ ìƒì„± ì‹¤íŒ¨!\n");
             return false;
         }
 
@@ -106,9 +106,9 @@ namespace stb
             tr->SetPosition(Vector2(playerInfo.xPos, playerInfo.yPos));
         }
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ¼³Á¤: ¼­¹ö¿¡¼­ job Á¤º¸°¡ Àü´ŞµÇ¹Ç·Î ±× °ªÀ» »ç¿ë
+        // ì• ë‹ˆë©”ì´ì…˜ ì„¤ì •: ì„œë²„ì—ì„œ job ì •ë³´ê°€ ì „ë‹¬ë˜ë¯€ë¡œ ê·¸ ê°’ì„ ì‚¬ìš©
         JobType jobType = JobType::None;
-        OutputDebugStringA("ÇÃ·¹ÀÌ¾î Á÷¾÷ Å¸ÀÔ : ");
+        OutputDebugStringA("í”Œë ˆì´ì–´ ì§ì—… íƒ€ì… : ");
         OutputDebugStringA(std::to_string(static_cast<int>(jobType)).c_str());
         OutputDebugStringA("\n");
         switch (playerInfo.job)
@@ -120,23 +120,23 @@ namespace stb
             default: jobType = JobType::None;   break;
         }
         jobType = JobType::Warrior;
-        // ÇöÀç OtherPlayerInfo¿¡ weapon ÇÊµå°¡ ¾øÀ¸¹Ç·Î ±âº»°ª »ç¿ë(ÇÊ¿äÇÏ¸é ÆĞÅ¶ ±¸Á¶ º¯°æ)
+        // í˜„ì¬ OtherPlayerInfoì— weapon í•„ë“œê°€ ì—†ìœ¼ë¯€ë¡œ ê¸°ë³¸ê°’ ì‚¬ìš©(í•„ìš”í•˜ë©´ íŒ¨í‚· êµ¬ì¡° ë³€ê²½)
         WeaponType weaponType = WeaponType::One_Hand;
 
-        // PlayerAnimationManager¸¦ ÅëÇØ ¾Ö´Ï¸ŞÀÌ¼Ç ¼Â¾÷ ½Ãµµ
+        // PlayerAnimationManagerë¥¼ í†µí•´ ì• ë‹ˆë©”ì´ì…˜ ì…‹ì—… ì‹œë„
          
         bool setupOk = false;
       
         setupOk = M_PLAYERANIMMNAGER->SetupOtherPlayerAnimations(player, jobType, weaponType);
         
 
-        // Æú¹é: ±âÁ¸ ÇÏµåÄÚµå ¾Ö´Ï¸ŞÀÌ¼Ç µî·Ï (¸®¼Ò½º°¡ Á¸ÀçÇÒ ¶§¸¸)
+        // í´ë°±: ê¸°ì¡´ í•˜ë“œì½”ë“œ ì• ë‹ˆë©”ì´ì…˜ ë“±ë¡ (ë¦¬ì†ŒìŠ¤ê°€ ì¡´ì¬í•  ë•Œë§Œ)
         if (!setupOk)
         {
             Texture* knightTex = M_REMANAGER->Find<Texture>(L"DamonKnight");
             if (knightTex != nullptr)
             {
-                // AddComponent ´ë½Å Initialize()¿¡¼­ ÄÄÆ÷³ÍÆ®¸¦ Ãß°¡ÇÏ¹Ç·Î GetComponent·Î È®ÀÎ
+                // AddComponent ëŒ€ì‹  Initialize()ì—ì„œ ì»´í¬ë„ŒíŠ¸ë¥¼ ì¶”ê°€í•˜ë¯€ë¡œ GetComponentë¡œ í™•ì¸
                 Animator* animator = player->GetComponent<Animator>();
                 if (animator == nullptr)
                 {
@@ -145,7 +145,7 @@ namespace stb
 
                 if (animator != nullptr)
                 {
-                    // ±âº» ¾Ö´Ï¸ŞÀÌ¼Ç¸íÀº OtherPlayer::SetState¿¡¼­ »ç¿ëÇÏ´Â ÀÌ¸§°ú ¸ÂÃã
+                    // ê¸°ë³¸ ì• ë‹ˆë©”ì´ì…˜ëª…ì€ OtherPlayer::SetStateì—ì„œ ì‚¬ìš©í•˜ëŠ” ì´ë¦„ê³¼ ë§ì¶¤
                     animator->CreateAnimation(L"stand", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 1, 1.0f);
                     animator->CreateAnimation(L"walk", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 3, 0.3f);
                     animator->CreateAnimation(L"swingO3", knightTex, Vector2(0.0f, 0.0f), Vector2(67.0f, 81.0f), Vector2::Zero, 3, 0.2f);
@@ -156,14 +156,14 @@ namespace stb
         }
 
      
-        // ÃÊ±â »óÅÂ/¹æÇâ/¸ñÇ¥ ¼³Á¤
+        // ì´ˆê¸° ìƒíƒœ/ë°©í–¥/ëª©í‘œ ì„¤ì •
         player->SetDirection(playerInfo.dir);
         player->SetState(playerInfo.state);
         player->SetTargetPosition(playerInfo.xPos, playerInfo.yPos, playerInfo.speed);
 
         mPlayers[charId] = player;
 
-        std::string msg = "´Ù¸¥ ÇÃ·¹ÀÌ¾î »ı¼º: ID=" + charId + " at (" + std::to_string((int)playerInfo.xPos) + ", " + std::to_string((int)playerInfo.yPos) + ")\n";
+        std::string msg = "ë‹¤ë¥¸ í”Œë ˆì´ì–´ ìƒì„±: ID=" + charId + " at (" + std::to_string((int)playerInfo.xPos) + ", " + std::to_string((int)playerInfo.yPos) + ")\n";
         OutputDebugStringA(msg.c_str());
 
         return true;
@@ -171,12 +171,12 @@ namespace stb
 
     bool OtherPlayerManager::UpdatePlayer(const std::string& charId, float x, float y)
     {
-        // ÀÌ¹Ì Á¸ÀçÇÏ´Â ÇÃ·¹ÀÌ¾îÀÎÁö È®ÀÎ
+        // ì´ë¯¸ ì¡´ì¬í•˜ëŠ” í”Œë ˆì´ì–´ì¸ì§€ í™•ì¸
         auto it = mPlayers.find(charId);
         
         if (it != mPlayers.end())
         {
-            // ±âÁ¸ ÇÃ·¹ÀÌ¾î À§Ä¡ ¾÷µ¥ÀÌÆ®
+            // ê¸°ì¡´ í”Œë ˆì´ì–´ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
             if (it->second != nullptr)
             {
                 it->second->UpdatePosition(x, y);
@@ -196,7 +196,7 @@ namespace stb
             }
             mPlayers.erase(it);
             
-            std::string msg = "´Ù¸¥ ÇÃ·¹ÀÌ¾î Á¦°Å: " + charId + "\n";
+            std::string msg = "ë‹¤ë¥¸ í”Œë ˆì´ì–´ ì œê±°: " + charId + "\n";
             OutputDebugStringA(msg.c_str());
         }
 

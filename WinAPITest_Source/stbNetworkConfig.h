@@ -1,44 +1,44 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 
 namespace stb
 {
-    // Àü¿ª º¯¼ö ¼±¾ğ
+    // ì „ì—­ ë³€ìˆ˜ ì„ ì–¸
     extern char g_CharacterId[32];
     extern std::string g_CharacterName;
     extern int g_ChannelPort;
     extern int g_ChatPort;
 
-    // ³×Æ®¿öÅ© ¼³Á¤
-    // ¼­¹ö IP¿Í Æ÷Æ®¸¦ ¿©±â¼­ º¯°æÇÏ¼¼¿ä!
+    // ë„¤íŠ¸ì›Œí¬ ì„¤ì •
+    // ì„œë²„ IPì™€ í¬íŠ¸ë¥¼ ì—¬ê¸°ì„œ ë³€ê²½í•˜ì„¸ìš”!
     struct NetworkConfig
     {
-        // ========== ¿©±â¸¦ ¼öÁ¤ÇÏ¼¼¿ä! ==========
+        // ========== ì—¬ê¸°ë¥¼ ìˆ˜ì •í•˜ì„¸ìš”! ==========
         
-        // ¿ÜºÎ ¼­¹ö IP ÁÖ¼Ò (¿¹½Ã)
-        static constexpr const char* SERVER_IP = "100.108.54.60";  // ½ÇÁ¦ ¼­¹ö IP·Î º¯°æ!
-        //static constexpr const char* SERVER_IP = "100.114.42.54";  // ½ÇÁ¦ ¼­¹ö IP·Î º¯°æ!
+        // ì™¸ë¶€ ì„œë²„ IP ì£¼ì†Œ (ì˜ˆì‹œ)
+        static constexpr const char* SERVER_IP = "100.108.54.60";  // ì‹¤ì œ ì„œë²„ IPë¡œ ë³€ê²½!
+        //static constexpr const char* SERVER_IP = "100.114.42.54";  // ì‹¤ì œ ì„œë²„ IPë¡œ ë³€ê²½!
        
-        // ¼­¹ö Æ÷Æ®
-        //static constexpr int SERVER_PORT = 1234;  // ¼­¹ö Æ÷Æ®¿¡ ¸Â°Ô º¯°æ
-        static constexpr int SERVER_PORT = 9001;  // ¼­¹ö Æ÷Æ®¿¡ ¸Â°Ô º¯°æ
+        // ì„œë²„ í¬íŠ¸
+        //static constexpr int SERVER_PORT = 1234;  // ì„œë²„ í¬íŠ¸ì— ë§ê²Œ ë³€ê²½
+        static constexpr int SERVER_PORT = 9001;  // ì„œë²„ í¬íŠ¸ì— ë§ê²Œ ë³€ê²½
         
-        // Ä³¸¯ÅÍ ID (¸í·ÉÁÙ ÀÎÀÚ·Î ¼³Á¤µÊ)
+        // ìºë¦­í„° ID (ëª…ë ¹ì¤„ ì¸ìë¡œ ì„¤ì •ë¨)
         static const char* GetCharacterId() { return g_CharacterId; }
 
         static void SetCharacterName(const std::string& name) { g_CharacterName = name; }
         static std::string GetCharacterName() { return g_CharacterName; }
 
         
-        // ¸Ê ID
+        // ë§µ ID
         static constexpr const char* MAP_ID = "100000000";
         
         // ==============================
         
-        // ÀÚµ¿ ¿¬°á ¿©ºÎ (false·Î ÇÏ¸é ¼öµ¿À¸·Î ¿¬°áÇØ¾ß ÇÔ)
+        // ìë™ ì—°ê²° ì—¬ë¶€ (falseë¡œ í•˜ë©´ ìˆ˜ë™ìœ¼ë¡œ ì—°ê²°í•´ì•¼ í•¨)
         static constexpr bool AUTO_CONNECT = true;
         
-        // Àç¿¬°á ½Ãµµ È½¼ö
+        // ì¬ì—°ê²° ì‹œë„ íšŸìˆ˜
         static constexpr int RECONNECT_ATTEMPTS = 3;
     };
 }

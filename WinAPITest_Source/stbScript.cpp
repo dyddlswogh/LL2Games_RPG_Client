@@ -1,4 +1,4 @@
-#include "stbScript.h"
+﻿#include "stbScript.h"
 
 
 namespace stb

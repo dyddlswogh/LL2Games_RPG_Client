@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbNetworkManager.h"
 #include "stbNetworkConfig.h"
 #include "Packet.h"

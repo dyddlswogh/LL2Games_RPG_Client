@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "InventoryUI_Info.h"
 
 enum class QuickSlotType

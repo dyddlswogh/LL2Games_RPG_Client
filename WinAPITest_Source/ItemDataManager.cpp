@@ -1,4 +1,4 @@
-#include "ItemDataManager.h"
+ï»¿#include "ItemDataManager.h"
 #include <fstream>
 
 #define ITEM_PATH "WinAPITest_Source/Data/Items/"
@@ -26,7 +26,7 @@ bool ItemDataManager::PreLoadAll()
         if (!entry.is_regular_file()) continue;
         if (entry.path().extension() != ".json") continue;
 
-        // ÆÄÀÏ¸í¿¡¼­ id ÃßÃâ (¿¹: 2000000.json)
+        // íŒŒì¼ëª…ì—ì„œ id ì¶”ì¶œ (ì˜ˆ: 2000000.json)
         int item_id = 0;
         try {
             item_id = std::stoi(entry.path().stem().string());

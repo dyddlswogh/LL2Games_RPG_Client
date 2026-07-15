@@ -1,4 +1,4 @@
-#include "stbPlayer.h"
+ï»¿#include "stbPlayer.h"
 #include "InventoryManager.h"
 #include "stbPlayerScript.h"
 #include "..\\WinAPITest_Source\\\PlayerAnimationManager.h"
@@ -81,7 +81,7 @@ namespace stb
 		std::wstring name =
 			Convert::StringToWString(m_playerProfile.name);
 
-		// ±×¸²ÀÚ
+		// ê·¸ë¦¼ì
 		D2D1_RECT_F shadowRect = nameRect;
 		shadowRect.left += 1.0f;
 		shadowRect.right += 1.0f;
@@ -95,7 +95,7 @@ namespace stb
 			TextStyle::NickName
 		);
 
-		// º»¹®
+		// ë³¸ë¬¸
 		renderer.DrawTextString(
 			name,
 			nameRect,
@@ -185,7 +185,7 @@ namespace stb
 		m_stat.SetCurHp(curHp);
 		ShowDamageText(damage);
 
-		// ÇÊ¿äÇÏ¸é ¿©±â¼­ ÇÇ°İ »óÅÂ/¹«Àû/³Ë¹éµµ ³ªÁß¿¡ Ãß°¡
+		// í•„ìš”í•˜ë©´ ì—¬ê¸°ì„œ í”¼ê²© ìƒíƒœ/ë¬´ì /ë„‰ë°±ë„ ë‚˜ì¤‘ì— ì¶”ê°€
 	}
 
 	void Player::ShowDamageText(int damage)

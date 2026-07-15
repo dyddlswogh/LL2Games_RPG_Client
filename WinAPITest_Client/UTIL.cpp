@@ -1,4 +1,4 @@
-#include "UTIL.h"
+﻿#include "UTIL.h"
 
 uint16_t UTIL::ParseHexType(const CString& str)
 {

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbTexture.h"
 enum class InventoryType
 {

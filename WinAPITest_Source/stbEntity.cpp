@@ -1,4 +1,4 @@
-#include "stbEntity.h"
+﻿#include "stbEntity.h"
 
 namespace stb
 {

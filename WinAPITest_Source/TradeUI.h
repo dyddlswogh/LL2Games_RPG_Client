@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "UI.h"
 #include "stbTexture.h"
 #include "Trade_Info.h"
@@ -17,7 +17,7 @@ public:
 	void Render(stbD2DRenderer& renderer) override;
 
 
-//ÀÎº¥Åä¸®
+//ì¸ë²¤í† ë¦¬
 private:
 	void Init_InventoryTab();
 	void Init_InventoryButton();
@@ -92,7 +92,7 @@ private:
 	int m_posX = 230;
 	int m_posY = 100;
 
-	//±³È¯ ½½·Ô
+	//êµí™˜ ìŠ¬ë¡¯
 	int m_tradeMySlotPosX = 235;
 	int m_tradeMySlotPosY = 190;
 
@@ -112,7 +112,7 @@ private:
 	int m_dragOffsetX;
 	int m_dragOffsetY;
 
-	bool m_isItemDragging = false; // ÀÎº¥Åä¸® ³» ¾ÆÀÌÅÛ µå·¡±× ¿ë
+	bool m_isItemDragging = false; // ì¸ë²¤í† ë¦¬ ë‚´ ì•„ì´í…œ ë“œë˜ê·¸ ìš©
 	int m_dragCurrentMouseX;
 	int m_dragCurrentMouseY;
 
@@ -127,11 +127,11 @@ private:
 	std::vector<TradeSlotInfo> m_targetSlotInfo;
 
 private:
-	//³» ¾ÆÀÌÅÛ ½½·Ô ¿µ¿ª(¿ŞÂÊ ÆĞ³Î)
+	//ë‚´ ì•„ì´í…œ ìŠ¬ë¡¯ ì˜ì—­(ì™¼ìª½ íŒ¨ë„)
 	void RenderMySlots(stbD2DRenderer& renderer);
-	//»ó´ë ¾ÆÀÌÅÛ ½½·Ô ¿µ¿ª
+	//ìƒëŒ€ ì•„ì´í…œ ìŠ¬ë¡¯ ì˜ì—­
 	void RenderTargetSlots(stbD2DRenderer& renderer);
-	//È®Á¤/Ãë¼Ò ¹öÆ°
+	//í™•ì •/ì·¨ì†Œ ë²„íŠ¼
 	void RenderButtons(stbD2DRenderer& renderer);
 	void RenderBackground(stbD2DRenderer& renderer);
 	void RenderConfirmLayerMe(stbD2DRenderer& renderer);
@@ -178,10 +178,10 @@ private:
 public:
 	void StartTrade(const std::string& targetId, const std::string& targetName);
 	void CloseTradeUI();
-	void OnCancelPopUp(); //»ó´ë°¡ ±³È¯ Ãë¼ÒÇß´Ù´Â ÆË¾÷
-	void OnSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, const std::vector<TradeSlotInfo>& targetSlotInfos); //±³È¯ ¿Ï·á ÆË¾÷
-	void OnReady(); //»ó´ë ±³È¯ ÁØºñ
-	void OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo); //»ó´ë ¾ÆÀÌÅÛ Ãß°¡
+	void OnCancelPopUp(); //ìƒëŒ€ê°€ êµí™˜ ì·¨ì†Œí–ˆë‹¤ëŠ” íŒì—…
+	void OnSuccessPopUp(const std::vector<TradeSlotInfo>& mySlotInfos, const std::vector<TradeSlotInfo>& targetSlotInfos); //êµí™˜ ì™„ë£Œ íŒì—…
+	void OnReady(); //ìƒëŒ€ êµí™˜ ì¤€ë¹„
+	void OnTargetAddItem(const TradeSlotInfo& tradeSlotInfo); //ìƒëŒ€ ì•„ì´í…œ ì¶”ê°€
 
 
 	bool IsQuantityInputActive() const
@@ -216,13 +216,13 @@ private:
 
 
 private:
-	bool         m_cancelPopupActive = false; //»ó´ë ±³È¯ Ãë¼Ò ÆË¾÷¿ë
-	bool         m_successPopupActive = false; //»ó´ë ±³È¯ ¿Ï·á ÆË¾÷¿ë
-	D2D1_RECT_F m_cancelCheckButtonRect{};   //±³È¯Ãë¼Ò È®ÀÎ¹öÆ°
-	D2D1_RECT_F m_successCheckButtonRect{};   //¿Ï·á È®ÀÎ¹öÆ°
+	bool         m_cancelPopupActive = false; //ìƒëŒ€ êµí™˜ ì·¨ì†Œ íŒì—…ìš©
+	bool         m_successPopupActive = false; //ìƒëŒ€ êµí™˜ ì™„ë£Œ íŒì—…ìš©
+	D2D1_RECT_F m_cancelCheckButtonRect{};   //êµí™˜ì·¨ì†Œ í™•ì¸ë²„íŠ¼
+	D2D1_RECT_F m_successCheckButtonRect{};   //ì™„ë£Œ í™•ì¸ë²„íŠ¼
 
-	bool         m_ConfirmLayerMe= false; //±³È¯ ´ë±â ·¹ÀÌ¾î
-	bool         m_ConfirmLayerTarget= false; //±³È¯ ´ë±â ·¹ÀÌ¾î
+	bool         m_ConfirmLayerMe= false; //êµí™˜ ëŒ€ê¸° ë ˆì´ì–´
+	bool         m_ConfirmLayerTarget= false; //êµí™˜ ëŒ€ê¸° ë ˆì´ì–´
 	
 	stb::Texture* m_txtBackground = nullptr;
 	stb::Texture* m_txtFullBackground = nullptr;
@@ -232,7 +232,7 @@ private:
 	stb::Texture* m_txtLayerConfirmMe = nullptr;
 
 
-	//½½·Ô ·¹ÀÌ¾Æ¿ô (InventoryUI¿Í µ¿ÀÏÇÑ ¹æ½Ä)
+	//ìŠ¬ë¡¯ ë ˆì´ì•„ì›ƒ (InventoryUIì™€ ë™ì¼í•œ ë°©ì‹)
 	static constexpr int SLOT_COLS = 4;
 	static constexpr int SLOT_ROWS = 4;
 	static constexpr int SLOT_W = 32;

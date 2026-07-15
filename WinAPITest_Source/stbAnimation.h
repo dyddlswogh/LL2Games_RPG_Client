@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "stbResource.h"
 #include "stbTexture.h"
 

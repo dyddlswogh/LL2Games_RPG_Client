@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "..\\WinAPITest_Source\\stbResourceManager.h"
 #include "..\\WinAPITest_Source\\stbTexture.h"
 #include "..\\WinAPITest_Source\\stbApplication.h"
@@ -15,65 +15,65 @@ namespace stb
 	void LoadResource()
 	{
 		// ============================
-		// 1. ¿ùµå / ¹è°æ ¸®¼Ò½º
+		// 1. ì›”ë“œ / ë°°ê²½ ë¦¬ì†ŒìŠ¤
 		// ============================
 
-		// ¸Ê ¹è°æ
+		// ë§µ ë°°ê²½
 		RESOURCEMANAGER->LoadMapTextures();
 
 
 		// ============================
-		// 2. °ÔÀÓ ¿ÀºêÁ§Æ® ¸®¼Ò½º
+		// 2. ê²Œìž„ ì˜¤ë¸Œì íŠ¸ ë¦¬ì†ŒìŠ¤
 		// ============================
 
-		// ÇÃ·¹ÀÌ¾î ÀÌ¹ÌÁö ·Îµå
+		// í”Œë ˆì´ì–´ ì´ë¯¸ì§€ ë¡œë“œ
 		RESOURCEMANAGER->LoadPlayerTextures();
 
-		// ¸ó½ºÅÍ ÀÌ¹ÌÁö ·Îµå
+		// ëª¬ìŠ¤í„° ì´ë¯¸ì§€ ë¡œë“œ
 		RESOURCEMANAGER->LoadMonsterTextures();
 
-		// ¾ÆÀÌÅÛ ¸®¼Ò½º
+		// ì•„ì´í…œ ë¦¬ì†ŒìŠ¤
 		RESOURCEMANAGER->LoadItemTextures();
 
 
 		// ============================
-		// 3. UI ¸®¼Ò½º
+		// 3. UI ë¦¬ì†ŒìŠ¤
 		// ============================
 
-		// ÀÎº¥Åä¸®
+		// ì¸ë²¤í† ë¦¬
 		RESOURCEMANAGER->LoadInventoryTextures();
 
-		// Äü½½·Ô UI ¸®¼Ò½º
+		// í€µìŠ¬ë¡¯ UI ë¦¬ì†ŒìŠ¤
 		RESOURCEMANAGER->LoadQuickSlotTextures();
 
-		// Ã¼·Â¹Ù UI ¸®¼Ò½º
+		// ì²´ë ¥ë°” UI ë¦¬ì†ŒìŠ¤
 		RESOURCEMANAGER->LoadHealthBarTextures();
 
-		// EXP UI ÀÌ¹ÌÁö ·Îµå
+		// EXP UI ì´ë¯¸ì§€ ë¡œë“œ
 		RESOURCEMANAGER->LoadExpTextures();
 
-		// Level UI ÀÌ¹ÌÁö ·Îµå
+		// Level UI ì´ë¯¸ì§€ ë¡œë“œ
 		RESOURCEMANAGER->LoadLevelTextures();
 
-		// ±³È¯Ã¢
+		// êµí™˜ì°½
 		RESOURCEMANAGER->LoadTradeTextures();
 
 
 		// ============================
-		// 4. »ç¿îµå ¸®¼Ò½º
+		// 4. ì‚¬ìš´ë“œ ë¦¬ì†ŒìŠ¤
 		// ============================
 
 		// BGM
 		RESOURCEMANAGER->LoadBGMAudioClips();
 
 		// ============================
-		// 5. D2D ·»´õ¸µ ¸®¼Ò½º ÃÊ±âÈ­
+		// 5. D2D ë Œë”ë§ ë¦¬ì†ŒìŠ¤ ì´ˆê¸°í™”
 		// ============================
 
-		// ApplicationÀÌ º¸À¯ÇÑ Direct2D ·»´õ·¯ ÂüÁ¶
+		// Applicationì´ ë³´ìœ í•œ Direct2D ë Œë”ëŸ¬ ì°¸ì¡°
 		stbD2DRenderer& renderer = stb::Application::getInstance()->GetRenderer();
 
-		// ¾Õ¿¡¼­ ·ÎµåÇÑ Texture ¸®¼Ò½ºµéÀ» Direct2D¿¡¼­ ±×¸± ¼ö ÀÖµµ·Ï D2D BitmapÀ¸·Î º¯È¯/ÃÊ±âÈ­
+		// ì•žì—ì„œ ë¡œë“œí•œ Texture ë¦¬ì†ŒìŠ¤ë“¤ì„ Direct2Dì—ì„œ ê·¸ë¦´ ìˆ˜ ìžˆë„ë¡ D2D Bitmapìœ¼ë¡œ ë³€í™˜/ì´ˆê¸°í™”
 		RESOURCEMANAGER->LoadAllD2D(renderer);
 	}
 

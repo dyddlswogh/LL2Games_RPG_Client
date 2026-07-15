@@ -1,4 +1,4 @@
-#include "PacketManager.h"
+ï»¿#include "PacketManager.h"
 #include "Packet.h"
 #include "stbNetworkManager.h"
 #include "MovePacketHandler.h"
@@ -17,195 +17,195 @@ bool PacketManager::RegisterAllHandlers()
 {
 	auto networkManager = stb::NetworkManager::getInstance();
 
-	// ÇÃ·¹ÀÌ¾î Á¢¼Ó ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì ‘ì† í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_CHANNEL_AUTH,
 		[](const ParsedPacket& pkt)
 		{
 			ChannelInitPacketHandler::Execute(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ±âº»Á¤º¸ ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ê¸°ë³¸ì •ë³´ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_PLAYER_INFO,
 		[](const ParsedPacket& pkt)
 		{
 			PlayerDataPacketHandler::HandleLocalPlayerInfo(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ½ºÅÈ Á¤º¸ ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ìŠ¤íƒ¯ ì •ë³´ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_PLAYER_STAT,
 		[](const ParsedPacket& pkt)
 		{
 			PlayerDataPacketHandler::HandleLocalPlayerStat(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ¿Âµ¥¹ÌÁö ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì˜¨ë°ë¯¸ì§€ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_PLAYER_ONDAMAGED,
 		[](const ParsedPacket& pkt)
 		{
 			PlayerDataPacketHandler::HandlePlayerOnDamaged(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ÀÎº¥Åä¸® ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì¸ë²¤í† ë¦¬ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_INVENTORY_META_INFO,
 		[](const ParsedPacket& pkt)
 		{
 			InventoryPacketHandler::HandleInventoryMetaInfo(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ÀÎº¥Åä¸® ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì¸ë²¤í† ë¦¬ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_INVENTORY_ITEM_INFO,
 		[](const ParsedPacket& pkt)
 		{
 			InventoryPacketHandler::HandleInventoryItemInfo(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ÀÎº¥Åä¸® ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì¸ë²¤í† ë¦¬ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_INVENTORY_ITEM_MOVE,
 		[](const ParsedPacket& pkt)
 		{
 			InventoryPacketHandler::HandleInventoryMoveItem(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì›€ì§ìž„ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_PLAYER_MOVE,
 		[](const ParsedPacket& pkt)
 		{
 			MovePacketHandler::Execute(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ »ç¿ë ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì•„ì´í…œ ì‚¬ìš© í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_PLAYER_USE_ITEM,
 		[](const ParsedPacket& pkt)
 		{
 			ItemPacketHandler::HandleUseItemResult(pkt);
 		});
 
-	// ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ ÇÈ¾÷ ÇÚµé·¯ µî·Ï
+	// í”Œë ˆì´ì–´ ì•„ì´í…œ í”½ì—… í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_PLAYER_PICKUP_ITEM,
 		[](const ParsedPacket& pkt)
 		{
 			ItemPacketHandler::HandlePickUpItem(pkt);
 		});
 
-	// ´Ù¸¥ ÇÃ·¹ÀÌ¾î ÀÔÀå ÇÚµé·¯ µî·Ï
+	// ë‹¤ë¥¸ í”Œë ˆì´ì–´ ìž…ìž¥ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_OTHERPLAYER_ENTER,
 		[](const ParsedPacket& pkt)
 		{
 			OtherPlayerPacketHandler::HandleOtherPlayerEnter(pkt);
 		});
 
-	// ´Ù¸¥ ÇÃ·¹ÀÌ¾î ½º³À¼¦ ÇÚµé·¯ µî·Ï
+	// ë‹¤ë¥¸ í”Œë ˆì´ì–´ ìŠ¤ëƒ…ìƒ· í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_OTHERPLAYER_SNAPSHOT,
 		[](const ParsedPacket& pkt)
 		{
 			OtherPlayerPacketHandler::HandleOtherPlayerSnapShot(pkt);
 		});
 
-	// ´Ù¸¥ ÇÃ·¹ÀÌ¾î °ø°Ý ÇÚµé·¯ µî·Ï
+	// ë‹¤ë¥¸ í”Œë ˆì´ì–´ ê³µê²© í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_OTHER_PLAYER_ATTACK,
 		[](const ParsedPacket& pkt)
 		{
 			CombatPacketHandler::HandleOtherPlayerAttack(pkt);
 		});
 
-	// ¸ó½ºÅÍ ½º³À¼¦ ÇÚµé·¯ µî·Ï
+	// ëª¬ìŠ¤í„° ìŠ¤ëƒ…ìƒ· í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_MONSTER_SNAPSHOT,
 		[](const ParsedPacket& pkt)
 		{
 			MonsterPacketHandler::HandleS2C_SpawnMonster(pkt);
 		});
 
-	// ¸ó½ºÅÍ ¾÷µ¥ÀÌÆ® ÇÚµé·¯ µî·Ï
+	// ëª¬ìŠ¤í„° ì—…ë°ì´íŠ¸ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_MONSTER_MOVE,
 		[](const ParsedPacket& pkt)
 		{
 			MonsterPacketHandler::HandleS2C_MonsterMove(pkt);
 		});
 
-	// ¸ó½ºÅÍ µ¥¹ÌÁö ÇÚµé·¯ µî·Ï
+	// ëª¬ìŠ¤í„° ë°ë¯¸ì§€ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_MONSTER_ONDAMAGED,
 		[](const ParsedPacket& pkt)
 		{
 			CombatPacketHandler::HandleAttackResult(pkt);
 		});
 
-	// ¸ó½ºÅÍ ¸®½ºÆù ÇÚµé·¯ µî·Ï
+	// ëª¬ìŠ¤í„° ë¦¬ìŠ¤í° í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_MONSTER_RESPAWN,
 		[](const ParsedPacket& pkt)
 		{
 			MonsterPacketHandler::HandleS2C_RespawnMonster(pkt);
 		});
 
-	// Äü½½·Ô ¸®½ºÆ® ÇÚµé·¯ µî·Ï
+	// í€µìŠ¬ë¡¯ ë¦¬ìŠ¤íŠ¸ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_QUICKSLOT_LIST,
 		[](const ParsedPacket& pkt)
 		{
 			QuickSlotPacketHandler::HandleSlotList(pkt);
 		});
 
-	// Äü½½·Ô µî·Ï ÇÚµé·¯ µî·Ï
+	// í€µìŠ¬ë¡¯ ë“±ë¡ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_QUICKSLOT_SET,
 		[](const ParsedPacket& pkt)
 		{
 			QuickSlotPacketHandler::HandleSlotSet(pkt);
 		});
 
-	// ±³È¯ ½ÅÃ» ÇÚµé·¯ µî·Ï
+	// êµí™˜ ì‹ ì²­ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_TRADE_REQUEST,
 		[](const ParsedPacket& pkt)
 		{
 			TradePacketHandler::HandleTradeRequest(pkt);
 		});
 
-	// °æÇèÄ¡ È¹µæ ÇÚµé·¯ µî·Ï
+	// ê²½í—˜ì¹˜ íšë“ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKI_PLAYER_EXP_GAIN,
 		[](const ParsedPacket& pkt)
 		{
 			PlayerDataPacketHandler::HandleLocalPlayerGetExp(pkt);
 		});
 
-	// µå·Ó ¾ÆÀÌÅÛ ÇÚµé·¯ µî·Ï
+	// ë“œë¡­ ì•„ì´í…œ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_DROPITEMS,
 		[](const ParsedPacket& pkt)
 		{
 			DropItemPacketHandler::HandleSpawnDropItem(pkt);
 		});
 
-	// µå·Ó ¾ÆÀÌÅÛ »èÁ¦ ÇÚµé·¯ µî·Ï
+	// ë“œë¡­ ì•„ì´í…œ ì‚­ì œ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_REMOVEITEMS,
 		[](const ParsedPacket& pkt)
 		{
 			DropItemPacketHandler::HandleRemoveDropItem(pkt);
 		});
-	// ±³È¯ ½ÃÀÛ ÇÚµé·¯ µî·Ï
+	// êµí™˜ ì‹œìž‘ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_TRADE_START,
 		[](const ParsedPacket& pkt)
 		{
 			TradePacketHandler::HandleTradeStart(pkt);
 		});
 
-	// ±³È¯ Ãë¼Ò ÇÚµé·¯ µî·Ï
+	// êµí™˜ ì·¨ì†Œ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_TRADE_CANCEL,
 		[](const ParsedPacket& pkt)
 		{
 			TradePacketHandler::HandleTradeCancel(pkt);
 		});
 
-	// ±³È¯ ÁØºñ ÇÚµé·¯ µî·Ï
+	// êµí™˜ ì¤€ë¹„ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_TRADE_READY,
 		[](const ParsedPacket& pkt)
 		{
 			TradePacketHandler::HandleTradeReady(pkt);
 		});
 
-	// ±³È¯ ¿Ï·á ÇÚµé·¯ µî·Ï
+	// êµí™˜ ì™„ë£Œ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_TRADE_CONFIRM,
 		[](const ParsedPacket& pkt)
 		{
 			TradePacketHandler::HandleTradeComplete(pkt);
 		});
 
-	// ±³È¯ ¾ÆÀÌÅÛ Ãß°¡ ÇÚµé·¯ µî·Ï
+	// êµí™˜ ì•„ì´í…œ ì¶”ê°€ í•¸ë“¤ëŸ¬ ë“±ë¡
 	networkManager->RegisterHandler(PKT_TRADE_ADD_ITEM,
 		[](const ParsedPacket& pkt)
 		{

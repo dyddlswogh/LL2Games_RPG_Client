@@ -1,4 +1,4 @@
-#define NOMINMAX
+ï»¿#define NOMINMAX
 #include "ExpBarUI.h"
 #include "stbD2DRenderer.h"
 #include "stbResourceManager.h"
@@ -84,7 +84,7 @@ void ExpBarUI::RenderBackground(stbD2DRenderer& renderer)
 
     D2D1_SIZE_F rtSize = renderer.GetRenderTargetSize();
 
-    // ±âÁØ ÇØ»óµµ ´ëºñ UI ÀüÃ¼ ½ºÄÉÀÏ
+    // ê¸°ì¤€ í•´ìƒë„ ëŒ€ë¹„ UI ì „ì²´ ìŠ¤ì¼€ì¼
     float scaleX = rtSize.width / 1366.0f;
     float scaleY = rtSize.height / 768.0f;
     float scale = std::min(scaleX, scaleY);
@@ -139,7 +139,7 @@ void ExpBarUI::RenderGuage(stbD2DRenderer& renderer)
     int drawWidth = (int)(bmpSize.width * scale);
     int drawHeight = (int)(bmpSize.height * scale);
 
-    // UI À§Ä¡ °è»ê
+    // UI ìœ„ì¹˜ ê³„ì‚°
     UIRect uiRect = UILayout::CalcRect(
         (int)rtSize.width,
         (int)rtSize.height,
@@ -163,7 +163,7 @@ void ExpBarUI::RenderGuage(stbD2DRenderer& renderer)
 
     float hpDrawWidth = uiRect.width * expRatio;
 
-    // Ãâ·Â ¿µ¿ª
+    // ì¶œë ¥ ì˜ì—­
     D2D1_RECT_F destRect = D2D1::RectF(
         (FLOAT)uiRect.x,
         (FLOAT)uiRect.y,
@@ -171,7 +171,7 @@ void ExpBarUI::RenderGuage(stbD2DRenderer& renderer)
         (FLOAT)uiRect.y + (FLOAT)uiRect.height
     );
 
-    // ¿øº» ÀÌ¹ÌÁö¿¡¼­ Àß¶ó¿Ã ¿µ¿ª
+    // ì›ë³¸ ì´ë¯¸ì§€ì—ì„œ ì˜ë¼ì˜¬ ì˜ì—­
     D2D1_RECT_F srcRect = D2D1::RectF(
         0.0f,
         0.0f,
@@ -226,8 +226,8 @@ void ExpBarUI::RenderExpText(stbD2DRenderer& renderer)
     UIRect expRect = UILayout::CalcRect(
         static_cast<int>(rtSize.width),
         static_cast<int>(rtSize.height),
-        100,    // ÅØ½ºÆ® ¿µ¿ª ³Êºñ
-        10,     // ÅØ½ºÆ® ¿µ¿ª ³ôÀÌ
+        100,    // í…ìŠ¤íŠ¸ ì˜ì—­ ë„ˆë¹„
+        10,     // í…ìŠ¤íŠ¸ ì˜ì—­ ë†’ì´
         UIAnchor::CenterBottom,
         0,
         1
