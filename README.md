@@ -7,25 +7,21 @@ C++/WinAPI 기반 2D MMORPG 클라이언트입니다.
 
 ## Demo
 
-### Play Video
+### 로그인부터 맵 입장까지
 
-[플레이 영상 보기](영상_링크_추가)
+https://github.com/user-attachments/assets/a474f095-5429-479f-a0e5-63f6d5a6ab54
 
-### Movement / Multiplayer Sync
+### 플레이어 이동 동기화
 
-![movement-sync](./docs/demo/movement_sync.gif)
+https://github.com/user-attachments/assets/59050567-958f-4b14-928a-2854615fcd8c
 
-### Combat / Monster
+### 몬스터 처치 및 아이템 획득
 
-![combat-monster](./docs/demo/combat_monster.gif)
+https://github.com/user-attachments/assets/83077a64-1c03-4cd3-b7a2-e402b52f0c4a
 
-### Item / Inventory / QuickSlot
+### 인벤토리 및 퀵슬롯
 
-![item-inventory](./docs/demo/item_inventory.gif)
-
-### Chat / Trade UI
-
-![chat-trade](./docs/demo/chat_trade.gif)
+https://github.com/user-attachments/assets/05eadcc9-305c-4cae-be42-e21bb6a59b33
 
 ## Highlights
 
